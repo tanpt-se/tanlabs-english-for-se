@@ -1,3 +1,5 @@
+import { Alert } from 'react-native';
+
 import { trackEvent } from '@/core/analytics/events';
 import { deactivateCurrentDevice } from '@/core/notification/deviceService';
 import { obtainAndPersistFcmToken } from '@/core/notification/fcm';
@@ -51,11 +53,18 @@ export function configureNotificationMutationDefaults(client: QueryClient) {
     onSuccess: async (data) => {
       await trackEvent(data.enabled ? 'notification_enabled' : 'notification_disabled');
     },
-    onError: (_error, _input, context) => {
+    onError: (error, _input, context) => {
       const rollback = context as NotificationSettingsMutationContext | undefined;
       if (rollback) {
         client.setQueryData(rollback.queryKey, rollback.previous);
       }
+      // Covers interactive toggles and auto-resumed paused mutations.
+      Alert.alert(
+        'Notifications',
+        error instanceof Error
+          ? error.message
+          : 'Could not sync notification preference. Try again when online.',
+      );
     },
     onSettled: async (_data, _error, input) => {
       await client.invalidateQueries({ queryKey: ['notification-settings', input.userId] });

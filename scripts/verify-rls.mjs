@@ -241,10 +241,53 @@ async function main() {
       assert(check.body?.[0]?.enabled === true, 'B changed A notification setting');
     }
 
-    // app_config readable for authenticated
+    // app_config readable for authenticated; not writable by clients
     {
       const { res } = await rest(userA.token, '/app_config?select=key&limit=1');
       assert(res.ok, `authenticated app_config select failed: ${res.status}`);
+    }
+    {
+      const { res } = await rest(userA.token, '/app_config', {
+        method: 'POST',
+        body: JSON.stringify({ key: `ph1_rls_probe_${stamp}`, value: true }),
+      });
+      assert(
+        res.status === 401 || res.status === 403 || res.status === 42501 || !res.ok,
+        `authenticated app_config insert unexpectedly allowed: ${res.status}`,
+      );
+    }
+    {
+      const anonymousProfiles = await fetch(`${url}/rest/v1/profiles?select=id&limit=1`, {
+        headers: { apikey: anon, Authorization: `Bearer ${anon}` },
+      });
+      const anonymousBody = await anonymousProfiles.json().catch(() => null);
+      assert(
+        Array.isArray(anonymousBody) && anonymousBody.length === 0,
+        `anonymous profiles select leaked rows: ${JSON.stringify(anonymousBody)}`,
+      );
+    }
+    {
+      const anonymousInsert = await fetch(`${url}/rest/v1/profiles`, {
+        method: 'POST',
+        headers: {
+          apikey: anon,
+          Authorization: `Bearer ${anon}`,
+          'Content-Type': 'application/json',
+          Prefer: 'return=minimal',
+        },
+        body: JSON.stringify({
+          id: '00000000-0000-4000-8000-000000000000',
+          display_name: 'anon',
+          english_level: 'A1',
+        }),
+      });
+      assert(
+        anonymousInsert.status === 401 ||
+          anonymousInsert.status === 403 ||
+          anonymousInsert.status === 42501 ||
+          !anonymousInsert.ok,
+        `anonymous profiles insert unexpectedly allowed: ${anonymousInsert.status}`,
+      );
     }
 
     console.log('RLS verification PASSED');

@@ -6,11 +6,19 @@ import type { AppStackParamList } from '@/app/navigation/types';
 import { AppButton } from '@/components/ui/AppControls';
 import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { useAuth } from '@/core/auth/AuthProvider';
+import type { FeatureFlags } from '@/core/remote-config/parser';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
 import { useProfile } from '@/features/profile/hooks/useProfile';
 import { useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+const FEATURE_CARDS: Array<{ key: keyof FeatureFlags; title: string }> = [
+  { key: 'grammar', title: 'Grammar' },
+  { key: 'vocabulary', title: 'Vocabulary' },
+  { key: 'interview', title: 'Interview' },
+  { key: 'ai', title: 'AI coach' },
+];
 
 export function HomeScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
@@ -27,18 +35,24 @@ export function HomeScreen() {
           Hi {current?.display_name ?? 'there'}
         </Text>
         <Text style={{ color: colors.text }}>English level: {current?.english_level ?? '—'}</Text>
-        <View
-          style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}
-        >
-          <Text accessibilityRole="header" style={[styles.cardTitle, { color: colors.text }]}>
-            Grammar
-          </Text>
-          <Text style={{ color: colors.textMuted }}>
-            {flags.data?.grammar
-              ? 'Grammar is enabled.'
-              : 'Coming soon — Grammar unlocks in a later phase.'}
-          </Text>
-        </View>
+        {FEATURE_CARDS.map(({ key, title }) => {
+          const enabled = Boolean(flags.data?.[key]);
+          return (
+            <View
+              key={key}
+              style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}
+            >
+              <Text accessibilityRole="header" style={[styles.cardTitle, { color: colors.text }]}>
+                {title}
+              </Text>
+              <Text style={{ color: colors.textMuted }}>
+                {enabled
+                  ? `${title} is enabled.`
+                  : `Coming soon — ${title} unlocks in a later phase.`}
+              </Text>
+            </View>
+          );
+        })}
         <AppButton
           testID="home-settings"
           accessibilityLabel="Open settings"

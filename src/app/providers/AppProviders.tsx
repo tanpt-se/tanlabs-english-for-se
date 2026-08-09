@@ -12,6 +12,7 @@ import {
 } from '@/app/providers/NetworkProvider';
 import { AuthProvider } from '@/core/auth/AuthProvider';
 import { configureNotificationMutationDefaults } from '@/core/notification/mutations';
+import { resumePausedMutationsWithRecovery } from '@/lib/offlineRecovery';
 import { queryClient, queryPersistenceOptions } from '@/lib/queryClient';
 import { navigationDarkTheme, navigationLightTheme } from '@/theme';
 
@@ -29,7 +30,10 @@ function PersistedAppProviders({ children }: PropsWithChildren) {
     if (!shouldResumePausedMutations(cacheRestored, isConnectionKnown, isOnline)) {
       return;
     }
-    queryClient.resumePausedMutations().catch(() => undefined);
+    resumePausedMutationsWithRecovery(queryClient).then(
+      () => undefined,
+      () => undefined,
+    );
   }, [cacheRestored, isConnectionKnown, isOnline]);
 
   return (

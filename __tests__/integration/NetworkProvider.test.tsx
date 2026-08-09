@@ -71,5 +71,16 @@ describe('NetworkProvider', () => {
     });
     expect(onlineManager.setOnline).toHaveBeenCalledWith(false);
     expect(root.root.findByType(Text).props.children).toBe('false:true:none');
+
+    await act(() => {
+      listener?.({
+        type: NetInfoStateType.wifi,
+        isConnected: true,
+        isInternetReachable: null,
+        details: null,
+      } as never);
+    });
+    expect(onlineManager.setOnline).toHaveBeenCalledWith(true);
+    expect(root.root.findByType(Text).props.children).toBe('true:true:wifi');
   });
 });

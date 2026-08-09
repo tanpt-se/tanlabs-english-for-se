@@ -8,6 +8,7 @@ import { AuthHeader } from '@/components/ui/AuthHeader';
 import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { trackEvent } from '@/core/analytics/events';
 import { signIn } from '@/core/auth/service';
+import { validateAuthCredentials } from '@/core/auth/validation';
 import { useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -21,6 +22,11 @@ export function LoginScreen() {
   const colors = useAppColors();
 
   const onSubmit = async () => {
+    const validationError = validateAuthCredentials(email, password);
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {

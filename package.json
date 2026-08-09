@@ -29,6 +29,7 @@
     "typecheck": "tsc --noEmit",
     "verify:rls": "bash scripts/verify-rls.sh",
     "secret:scan": "bash scripts/secret-scan.sh",
+    "verify:hooks": "bash scripts/verify-hooks.sh",
     "db:migrate": "bash scripts/apply-migrations.sh",
     "db:types": "bash scripts/gen-database-types.sh",
     "e2e:ios": "bash scripts/e2e-ios.sh",

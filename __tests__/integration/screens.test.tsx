@@ -172,6 +172,14 @@ describe('PH1 screens', () => {
   });
 
   it('logs in successfully and surfaces failures', async () => {
+    const invalid = await mount(<LoginScreen />);
+    await press(invalid, 'Sign in');
+    await waitFor(
+      () => invalid.root.findAllByProps({ accessibilityRole: 'alert' }).length > 0,
+      'login validation',
+    );
+    expect(signIn).not.toHaveBeenCalled();
+
     jest.mocked(signIn).mockResolvedValueOnce({} as never);
     const root = await mount(<LoginScreen />);
 
@@ -310,7 +318,9 @@ describe('PH1 screens', () => {
     const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFlags') as {
       useFeatureFlags: jest.Mock;
     };
-    useFeatureFlags.mockReturnValue({ data: { grammar: true } });
+    useFeatureFlags.mockReturnValue({
+      data: { grammar: true, vocabulary: false, interview: false, ai: false },
+    });
     const root = await mount(<HomeScreen />);
     expect(
       root.root.findAllByType(Text).some((node) => String(node.props.children).includes('Ada')),
@@ -320,8 +330,45 @@ describe('PH1 screens', () => {
         .findAllByType(Text)
         .some((node) => String(node.props.children).includes('Grammar is enabled.')),
     ).toBe(true);
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) =>
+          String(node.props.children).includes(
+            'Coming soon — Vocabulary unlocks in a later phase.',
+          ),
+        ),
+    ).toBe(true);
     await press(root, 'Open settings');
     expect(navigate).toHaveBeenCalledWith('Settings');
+  });
+
+  it('renders coming-soon for every disabled feature flag', async () => {
+    const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFlags') as {
+      useFeatureFlags: jest.Mock;
+    };
+    useFeatureFlags.mockReturnValue({
+      data: { grammar: false, vocabulary: false, interview: false, ai: false },
+    });
+    const root = await mount(<HomeScreen />);
+    const copy = root.root.findAllByType(Text).map((node) => String(node.props.children));
+    for (const title of ['Grammar', 'Vocabulary', 'Interview', 'AI coach']) {
+      expect(copy.some((line) => line.includes(`Coming soon — ${title}`))).toBe(true);
+    }
+  });
+
+  it('renders enabled copy when a feature flag is on', async () => {
+    const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFlags') as {
+      useFeatureFlags: jest.Mock;
+    };
+    useFeatureFlags.mockReturnValue({
+      data: { grammar: false, vocabulary: true, interview: true, ai: true },
+    });
+    const root = await mount(<HomeScreen />);
+    const copy = root.root.findAllByType(Text).map((node) => String(node.props.children));
+    expect(copy.some((line) => line.includes('Vocabulary is enabled.'))).toBe(true);
+    expect(copy.some((line) => line.includes('Interview is enabled.'))).toBe(true);
+    expect(copy.some((line) => line.includes('AI coach is enabled.'))).toBe(true);
   });
 
   it('surfaces complete-profile session and save failures', async () => {
@@ -538,6 +585,8 @@ describe('PH1 screens', () => {
   it('surfaces non-Error login failures', async () => {
     jest.mocked(signIn).mockRejectedValueOnce('nope');
     const root = await mount(<LoginScreen />);
+    await changeText(root, 'Email', 'ada@example.com');
+    await changeText(root, 'Password', 'secret1');
     await press(root, 'Sign in');
     await waitFor(
       () => root.root.findAllByProps({ accessibilityRole: 'alert' }).length > 0,

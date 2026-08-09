@@ -34,7 +34,7 @@ export function EnglishLevelPicker({ onChange, value }: EnglishLevelPickerProps)
               },
             ]}
           >
-            <Text style={labelStyle}>{level}</Text>
+            <Text style={labelStyle}>{selected ? `✓ ${level}` : level}</Text>
           </Pressable>
         );
       })}

@@ -17,6 +17,10 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
+- Architecture/dependency policy regression suite (`architecturePolicy.test.ts`) and RN UI shell guards (`uiRegression.test.ts`)
+- Client auth credential validation shared by Login/Register (`src/core/auth/validation.ts`)
+- Offline mutation resume recovery helper (`resumePausedMutationsWithRecovery`) with user-facing sync alerts
+- Home coming-soon cards for all PH1 remote-config feature flags (Grammar, Vocabulary, Interview, AI)
 - Supabase RPC `claim_device_token` (migration 005) so FCM tokens can change owner on account switch under RLS
 - Secure local persistence for the current FCM token (survives cold start / logout deactivate)
 - Keychain/Keystore-backed Supabase session storage with legacy AsyncStorage migration
@@ -36,6 +40,10 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Changed
 
+- English-level picker selected state uses a non-color `✓` affordance alongside accessibility selected
+- Notification mutation failures (including auto-resumed paused mutations) alert and roll back optimistic preference
+- RLS verification covers app_config insert denial and anonymous profile leakage/insert denial
+- Husky verification script (`pnpm run verify:hooks`) and `.husky/.gitignore` so fresh-clone hook install stays reproducible without tracking generated `_/`
 - Coverage target is global **90%** (lines/functions/branches/statements); CI runs `pnpm run test:coverage` / `test:coverage:enforce` with the hard gate (`COVERAGE_ENFORCE=0` soft escape hatch only for local ad-hoc reports)
 - Unit coverage raised across core services, FCM/Crashlytics/Analytics, hooks, RN UI wrappers, screens, navigator/providers, and API interceptors — `test:coverage:enforce` now passes
 - Notification consent now commits server preference before activating FCM; token refresh and logout revoke delivery safely

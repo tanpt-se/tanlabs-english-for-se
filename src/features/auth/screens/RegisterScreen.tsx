@@ -9,6 +9,7 @@ import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { trackEvent } from '@/core/analytics/events';
 import { isAuthRateLimitError } from '@/core/auth/errors';
 import { signUp } from '@/core/auth/service';
+import { validateAuthCredentials } from '@/core/auth/validation';
 import { useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -24,6 +25,12 @@ export function RegisterScreen() {
   const colors = useAppColors();
 
   const onSubmit = async () => {
+    const validationError = validateAuthCredentials(email, password);
+    if (validationError) {
+      setError(validationError);
+      setRateLimited(false);
+      return;
+    }
     setLoading(true);
     setError(null);
     setRateLimited(false);

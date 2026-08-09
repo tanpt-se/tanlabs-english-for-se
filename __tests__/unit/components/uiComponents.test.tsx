@@ -154,6 +154,9 @@ describe('shared UI components', () => {
     const selected = root.root.findByProps({ accessibilityLabel: 'English level B1' });
     expect(selected.props.accessibilityRole).toBe('button');
     expect(selected.props.accessibilityState?.selected ?? selected.props.selected).toBeTruthy();
+    expect(
+      root.root.findAllByType(Text).some((node) => String(node.props.children).includes('✓ B1')),
+    ).toBe(true);
 
     const next = root.root.findByProps({ accessibilityLabel: 'English level B2' });
     await act(() => {
