@@ -1,0 +1,185 @@
+# frozen_string_literal: true
+
+# Fastlane for TanLabs English for SE (React Native)
+# Docs: https://docs.fastlane.tools
+#
+# Local:
+#   bundle exec fastlane ios build
+#   bundle exec fastlane android build
+#
+# CI: set ENV from secrets (see fastlane/.env.example). Do not commit real .env.
+
+opt_out_usage
+default_platform(:ios)
+
+PROJECT_ROOT = File.expand_path("..", __dir__)
+IOS_DIR = File.join(PROJECT_ROOT, "ios")
+ANDROID_DIR = File.join(PROJECT_ROOT, "android")
+IOS_SCHEME = "TanLabsEnglishForSE"
+IOS_WORKSPACE = File.join(IOS_DIR, "TanLabsEnglishForSE.xcworkspace")
+PRODUCTION_ENV_FILE = File.join(PROJECT_ROOT, ".env.production")
+
+before_all do
+  ensure_bundle_exec
+end
+
+desc "Sanity check — verifies Fastlane + project layout"
+lane :doctor do
+  UI.success("PROJECT_ROOT=#{PROJECT_ROOT}")
+  UI.success("iOS workspace exists: #{File.exist?(IOS_WORKSPACE)}")
+  UI.success("Android dir exists: #{Dir.exist?(ANDROID_DIR)}")
+end
+
+platform :ios do
+  desc "Install CocoaPods"
+  lane :pods do
+    cocoapods(podfile: File.join(IOS_DIR, "Podfile"), clean_install: false)
+  end
+
+  desc "Build iOS (Release, no codesign — CI artifact / local smoke)"
+  lane :build do
+    ensure_production_env!
+    pods
+    build_app(
+      workspace: IOS_WORKSPACE,
+      scheme: IOS_SCHEME,
+      configuration: "Release",
+      export_method: "development",
+      skip_codesigning: true,
+      skip_package_ipa: true,
+      derived_data_path: File.join(IOS_DIR, "build", "DerivedData"),
+      build_path: File.join(IOS_DIR, "build"),
+      xcargs: "CODE_SIGNING_ALLOWED=NO"
+    )
+  end
+
+  desc "Build signed IPA for TestFlight / Ad Hoc (needs signing ENV)"
+  lane :beta do
+    ensure_env_keys!(
+      "APPLE_TEAM_ID",
+      "IOS_BUNDLE_ID",
+      "MATCH_GIT_URL",
+      "MATCH_PASSWORD",
+      "MATCH_USERNAME"
+    )
+    ensure_production_env!
+
+    pods
+    match(
+      type: "appstore",
+      readonly: is_ci,
+      app_identifier: ENV.fetch("IOS_BUNDLE_ID"),
+      git_url: ENV.fetch("MATCH_GIT_URL"),
+      username: ENV.fetch("MATCH_USERNAME")
+    )
+
+    build_app(
+      workspace: IOS_WORKSPACE,
+      scheme: IOS_SCHEME,
+      configuration: "Release",
+      export_method: "app-store",
+      export_options: {
+        teamID: ENV.fetch("APPLE_TEAM_ID")
+      },
+      output_directory: File.join(IOS_DIR, "build"),
+      output_name: "TanLabsEnglishForSE",
+      xcargs: "DEVELOPMENT_TEAM=#{ENV.fetch('APPLE_TEAM_ID')}"
+    )
+
+    # Uncomment when App Store Connect API key is configured:
+    # upload_to_testflight(skip_waiting_for_build_processing: true)
+    UI.important("IPA built. Wire upload_to_testflight when ASC credentials are ready.")
+  end
+
+  desc "Production App Store upload (stub — enable when release-ready)"
+  lane :release do
+    UI.user_error!("Configure deliver / upload_to_app_store before using ios release")
+  end
+end
+
+# Local gradle.properties pins arm64-v8a for speed; store builds need all ABIs.
+ANDROID_STORE_ARCHITECTURES = "armeabi-v7a,arm64-v8a,x86,x86_64"
+
+platform :android do
+  desc "Build signed Android release APK"
+  lane :build do
+    ensure_production_env!
+    gradle(
+      project_dir: ANDROID_DIR,
+      task: "assemble",
+      build_type: "Release",
+      properties: {
+        "reactNativeArchitectures" => ANDROID_STORE_ARCHITECTURES
+      }
+    )
+  end
+
+  desc "Build Android App Bundle (AAB) for Play Store"
+  lane :bundle do
+    ensure_production_env!
+    ensure_env_keys!(
+      "ANDROID_KEYSTORE_PATH",
+      "ANDROID_KEYSTORE_PASSWORD",
+      "ANDROID_KEY_ALIAS",
+      "ANDROID_KEY_PASSWORD"
+    )
+    gradle(
+      project_dir: ANDROID_DIR,
+      task: "bundle",
+      build_type: "Release",
+      properties: {
+        "reactNativeArchitectures" => ANDROID_STORE_ARCHITECTURES
+      }
+    )
+  end
+
+  desc "Upload AAB to Play internal track (needs GOOGLE_PLAY_JSON_KEY)"
+  lane :beta do
+    ensure_env_keys!("GOOGLE_PLAY_JSON_KEY")
+
+    bundle
+    upload_to_play_store(
+      track: "internal",
+      aab: File.join(
+        ANDROID_DIR,
+        "app",
+        "build",
+        "outputs",
+        "bundle",
+        "release",
+        "app-release.aab"
+      ),
+      skip_upload_apk: true,
+      skip_upload_metadata: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true
+    )
+  end
+
+  desc "Production Play Store release (stub)"
+  lane :release do
+    UI.user_error!("Configure upload_to_play_store(track: 'production') before using android release")
+  end
+end
+
+def ensure_env_keys!(*keys)
+  missing = keys.select { |k| ENV[k].to_s.strip.empty? }
+  UI.user_error!("Missing required ENV: #{missing.join(', ')} (see fastlane/.env.example)") unless missing.empty?
+end
+
+def ensure_production_env!
+  env_file = File.expand_path(ENV.fetch("ENVFILE", PRODUCTION_ENV_FILE), PROJECT_ROOT)
+  UI.user_error!("Missing production env file: #{env_file}") unless File.file?(env_file)
+
+  values = File.readlines(env_file, chomp: true).filter_map do |line|
+    match = line.match(/^\s*(?:export\s+)?([A-Za-z_][A-Za-z0-9_]*)\s*=\s*['\"]?(.*?)['\"]?\s*$/)
+    [match[1], match[2]] if match
+  end.to_h
+  required = %w[APP_ENV SUPABASE_URL SUPABASE_ANON_KEY]
+  missing = required.select { |key| values[key].to_s.strip.empty? }
+  UI.user_error!("Missing production env values: #{missing.join(', ')}") unless missing.empty?
+  placeholders = %w[SUPABASE_URL SUPABASE_ANON_KEY].select { |key| values[key].include?("YOUR_") }
+  UI.user_error!("Replace production env placeholders: #{placeholders.join(', ')}") unless placeholders.empty?
+  UI.user_error!("APP_ENV must be production") unless values["APP_ENV"] == "production"
+  ENV["ENVFILE"] = File.expand_path(env_file)
+end

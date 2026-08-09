@@ -1,0 +1,13 @@
+# App identifiers — override via ENV / fastlane/.env (never commit secrets)
+
+# iOS
+app_identifier(ENV.fetch("IOS_BUNDLE_ID", "com.tanlabs.en-for-se"))
+apple_id(ENV["APPLE_ID"]) if ENV["APPLE_ID"]
+team_id(ENV["APPLE_TEAM_ID"]) if ENV["APPLE_TEAM_ID"]
+itc_team_id(ENV["ITC_TEAM_ID"]) if ENV["ITC_TEAM_ID"]
+
+# Android (no hyphens — matches google-services.json)
+for_platform :android do
+  package_name(ENV.fetch("ANDROID_PACKAGE_NAME", "com.tanlabs.enforse"))
+  json_key_file(ENV["GOOGLE_PLAY_JSON_KEY"]) if ENV["GOOGLE_PLAY_JSON_KEY"]
+end

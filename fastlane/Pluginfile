@@ -1,0 +1,3 @@
+# fastlane plugins — uncomment to add, then run: bundle exec fastlane install_plugins
+#
+# gem 'fastlane-plugin-versioning'

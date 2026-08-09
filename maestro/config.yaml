@@ -1,0 +1,15 @@
+# Maestro E2E (PH1 smoke)
+#
+# Install CLI: curl -fsSL "https://get.maestro.mobile.dev" | bash
+# PATH: export PATH="$PATH:$HOME/.maestro/bin"
+#
+# Credentials (do not commit):
+#   cp .env.maestro.example .env.maestro
+#   # fill SMOKE_EMAIL / SMOKE_PASSWORD
+#
+# Or pass inline:
+#   maestro test -e SMOKE_EMAIL=... -e SMOKE_PASSWORD=... maestro/ios/smoke-auth.yaml
+
+flows:
+  - ios/*
+  - android/*

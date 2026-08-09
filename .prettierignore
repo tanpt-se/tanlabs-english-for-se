@@ -1,0 +1,12 @@
+node_modules
+android
+ios
+coverage
+.bundle
+vendor
+fastlane/README.md
+supabase/.temp
+package-lock.json
+pnpm-lock.yaml
+*.lock
+Pods

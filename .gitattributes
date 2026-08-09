@@ -1,0 +1,8 @@
+# Normalize line endings for Windows + macOS + Linux
+* text=auto eol=lf
+
+# Keep Windows batch scripts CRLF
+*.{cmd,bat} text eol=crlf
+
+# Binary
+*.{png,jpg,jpeg,gif,webp,ico,mp3,mp4,mov,zip,jar,apk,aab,ttf,otf,woff,woff2} binary

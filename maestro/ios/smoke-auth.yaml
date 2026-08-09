@@ -1,0 +1,44 @@
+appId: com.tanlabs.en-for-se
+name: iOS smoke — login → home → settings → logout
+tags:
+  - smoke
+  - ios
+  - ph1
+---
+- launchApp:
+    clearState: true
+- extendedWaitUntil:
+    visible:
+      id: 'login-submit'
+    timeout: 30000
+- tapOn:
+    id: 'login-email'
+- eraseText
+- inputText: ${SMOKE_EMAIL}
+- tapOn:
+    id: 'login-password'
+- eraseText
+- inputText: ${SMOKE_PASSWORD}
+- tapOn: 'Continue your SE English practice.'
+- tapOn:
+    id: 'login-submit'
+- extendedWaitUntil:
+    visible:
+      id: 'home-settings'
+    timeout: 60000
+- assertVisible:
+    id: 'home-settings'
+- tapOn:
+    id: 'home-settings'
+- extendedWaitUntil:
+    visible:
+      id: 'settings-sign-out'
+    timeout: 20000
+- tapOn:
+    id: 'settings-sign-out'
+- extendedWaitUntil:
+    visible:
+      id: 'login-submit'
+    timeout: 30000
+- assertVisible:
+    id: 'login-submit'

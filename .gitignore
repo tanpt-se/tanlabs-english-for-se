@@ -1,0 +1,100 @@
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+**/.xcode.env.local
+
+# Android/IntelliJ
+#
+build/
+.idea
+.vscode/
+.gradle
+local.properties
+*.iml
+*.hprof
+.cxx/
+*.keystore
+!debug.keystore
+.kotlin/
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# Env / secrets (keep .env.example tracked)
+.env
+.env.*
+!.env.example
+!.env.rls.example
+!.env.production.example
+!.env.maestro.example
+*.pem
+*.p8
+*.p12
+google-services.json
+GoogleService-Info.plist
+
+# Editor / agent local
+.cursor/
+.vscode/
+
+# Supabase CLI link cache (project-ref metadata)
+supabase/.temp/
+
+# fastlane
+#
+**/fastlane/report.xml
+**/fastlane/Preview.html
+**/fastlane/screenshots
+**/fastlane/test_output
+**/fastlane/.env
+**/fastlane/*.p8
+**/fastlane/*-key.json
+**/fastlane/play-store-key.json
+**/fastlane/AuthKey_*.p8
+
+# Bundle artifact
+*.jsbundle
+
+# Local plans
+/plans/
+
+# Ruby / CocoaPods
+**/Pods/
+/vendor/bundle/
+/.bundle/
+
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
+
+# testing
+/coverage
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
