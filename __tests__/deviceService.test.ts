@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import * as Keychain from 'react-native-keychain';
 
 import {
   deactivateCurrentDevice,
@@ -21,6 +22,7 @@ jest.mock('@/core/supabase/client', () => ({
 describe('deviceService', () => {
   beforeEach(async () => {
     jest.clearAllMocks();
+    (Keychain as typeof Keychain & { __reset: () => void }).__reset();
     setDevicePushTokenForTests(null);
     await AsyncStorage.clear();
   });
@@ -35,28 +37,26 @@ describe('deviceService', () => {
       p_platform: expect.stringMatching(/^(ios|android)$/),
     });
     expect(await getDevicePushToken()).toBe('fcm-token-1');
-    expect(await AsyncStorage.getItem('tanlabs.fcm.device_token')).toBe('fcm-token-1');
+    expect(await AsyncStorage.getItem('tanlabs.fcm.device_token')).toBeNull();
   });
 
-  it('falls back to upsert when claim RPC is unavailable', async () => {
+  it('migrates a legacy plaintext token into secure storage', async () => {
+    await AsyncStorage.setItem('tanlabs.fcm.device_token', 'legacy-fcm-token');
+
+    await expect(getDevicePushToken()).resolves.toBe('legacy-fcm-token');
+    await expect(AsyncStorage.getItem('tanlabs.fcm.device_token')).resolves.toBeNull();
+    expect(Keychain.setGenericPassword).toHaveBeenCalled();
+  });
+
+  it('fails closed when claim RPC is unavailable', async () => {
     (supabase.rpc as jest.Mock).mockResolvedValue({
       data: null,
       error: { message: 'function claim_device_token does not exist' },
     });
-    const upsert = jest.fn().mockResolvedValue({ error: null });
-    (supabase.from as jest.Mock).mockReturnValue({ upsert });
-
-    await persistDeviceToken('user-a', 'fcm-token-2');
-
-    expect(upsert).toHaveBeenCalledWith(
-      expect.objectContaining({
-        user_id: 'user-a',
-        fcm_token: 'fcm-token-2',
-        is_active: true,
-      }),
-      { onConflict: 'user_id,fcm_token' },
+    await expect(persistDeviceToken('user-a', 'fcm-token-2')).rejects.toThrow(
+      'function claim_device_token does not exist',
     );
-    expect(await getDevicePushToken()).toBe('fcm-token-2');
+    expect(await getDevicePushToken()).toBeNull();
   });
 
   it('deactivates stored token and all active rows for the user', async () => {

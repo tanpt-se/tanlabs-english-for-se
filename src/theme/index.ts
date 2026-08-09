@@ -1,24 +1,14 @@
-import { config as defaultConfig } from '@gluestack-ui/config';
+import { DarkTheme, DefaultTheme } from '@react-navigation/native';
+import { useColorScheme } from 'react-native';
 
-/** WCAG AA-friendly muted body on light backgrounds (≥4.5:1 on #F2F2F7 / white). */
-const contrastColors = {
-  backgroundLight100: '#F2F2F7',
-  textLight400: '#6B6B6B',
-  textLight500: '#3C3C43',
-  textLight600: '#2C2C2E',
-  primary500: '#0A66D1',
-  primary600: '#005DB4',
-} as const;
+import { brand, darkColors, lightColors } from '@/theme/palette';
+
+import type { Theme } from '@react-navigation/native';
 
 export const themeTokens = {
   colors: {
-    background: contrastColors.backgroundLight100,
-    surface: '#FFFFFF',
-    border: '#E5E5EA',
-    text: '#111111',
-    textMuted: contrastColors.textLight500,
-    primary: contrastColors.primary500,
-    danger: '#FF3B30',
+    ...lightColors,
+    brand,
   },
   radius: {
     md: 12,
@@ -51,30 +41,34 @@ export const themeTokens = {
   },
 } as const;
 
-/** Override gluestack size `h` so Dynamic Type can grow past the default 40pt md height. */
-export const accessibleButtonProps = {
-  h: 'auto' as const,
-  minHeight: 44,
-  py: '$3' as const,
-};
-
-function withContrastColors(config: typeof defaultConfig) {
-  const tokens = config?.tokens;
-  const colors = tokens?.colors;
-  if (!tokens || !colors) {
-    return config;
-  }
-
-  return {
-    ...config,
-    tokens: {
-      ...tokens,
-      colors: {
-        ...colors,
-        ...contrastColors,
-      },
-    },
-  };
+export function useAppColors() {
+  return useColorScheme() === 'dark' ? darkColors : lightColors;
 }
 
-export const gluestackConfig = withContrastColors(defaultConfig);
+export const navigationLightTheme: Theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: lightColors.primary,
+    background: lightColors.background,
+    card: lightColors.surface,
+    text: lightColors.text,
+    border: lightColors.border,
+    notification: lightColors.primary,
+  },
+};
+
+export const navigationDarkTheme: Theme = {
+  ...DarkTheme,
+  colors: {
+    ...DarkTheme.colors,
+    primary: darkColors.primary,
+    background: darkColors.background,
+    card: darkColors.surface,
+    text: darkColors.text,
+    border: darkColors.border,
+    notification: darkColors.primary,
+  },
+};
+
+export { brand, darkColors, lightColors } from '@/theme/palette';

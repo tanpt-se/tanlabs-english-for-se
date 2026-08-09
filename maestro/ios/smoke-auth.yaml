@@ -7,17 +7,16 @@ tags:
 ---
 - launchApp:
     clearState: true
+    clearKeychain: true
 - extendedWaitUntil:
     visible:
       id: 'login-submit'
-    timeout: 30000
+    timeout: 90000
 - tapOn:
     id: 'login-email'
-- eraseText
 - inputText: ${SMOKE_EMAIL}
 - tapOn:
     id: 'login-password'
-- eraseText
 - inputText: ${SMOKE_PASSWORD}
 - tapOn: 'Continue your SE English practice.'
 - tapOn:

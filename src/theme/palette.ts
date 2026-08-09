@@ -1,0 +1,47 @@
+export const brand = {
+  coral800: '#9F2F2F',
+  navy950: '#08122E',
+  navy900: '#0D1E46',
+  navy800: '#152A5C',
+  navy700: '#1E3A7A',
+  navy600: '#2A4A8A',
+  coral700: '#B83838',
+  coral600: '#D64545',
+  coral500: '#E85A4F',
+  coral400: '#F08070',
+  coral300: '#F5A59A',
+  peach100: '#F0E0C0',
+  peach50: '#FFF7F5',
+  ink: '#0D1E46',
+  paper: '#F5F6FA',
+  fog: '#A9B3C9',
+  chalk: '#F7F8FC',
+} as const;
+
+export const lightColors = {
+  background: brand.paper,
+  surface: '#FFFFFF',
+  border: '#E2E6EF',
+  text: brand.ink,
+  textMuted: '#5C667A',
+  primary: brand.coral700,
+  primaryPressed: brand.coral800,
+  onPrimary: '#FFFFFF',
+  primarySoft: brand.peach50,
+  danger: brand.coral700,
+  onDanger: '#FFFFFF',
+} as const;
+
+export const darkColors = {
+  background: brand.navy900,
+  surface: brand.navy800,
+  border: '#2A3F6E',
+  text: brand.chalk,
+  textMuted: brand.fog,
+  primary: brand.coral400,
+  primaryPressed: brand.coral500,
+  onPrimary: brand.navy900,
+  primarySoft: brand.navy700,
+  danger: brand.coral300,
+  onDanger: brand.navy900,
+} as const;

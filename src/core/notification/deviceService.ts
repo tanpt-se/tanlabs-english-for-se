@@ -1,7 +1,7 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 
 import { supabase } from '@/core/supabase/client';
+import { secureSessionStorage } from '@/core/supabase/secureStorage';
 
 const TOKEN_STORAGE_KEY = 'tanlabs.fcm.device_token';
 
@@ -12,7 +12,7 @@ async function readStoredToken(): Promise<string | null> {
     return memoryToken;
   }
   try {
-    const stored = await AsyncStorage.getItem(TOKEN_STORAGE_KEY);
+    const stored = await secureSessionStorage.getItem(TOKEN_STORAGE_KEY);
     memoryToken = stored;
     return stored;
   } catch {
@@ -24,9 +24,9 @@ async function writeStoredToken(token: string | null): Promise<void> {
   memoryToken = token;
   try {
     if (token) {
-      await AsyncStorage.setItem(TOKEN_STORAGE_KEY, token);
+      await secureSessionStorage.setItem(TOKEN_STORAGE_KEY, token);
     } else {
-      await AsyncStorage.removeItem(TOKEN_STORAGE_KEY);
+      await secureSessionStorage.removeItem(TOKEN_STORAGE_KEY);
     }
   } catch {
     // Non-blocking local cache write.
@@ -51,11 +51,15 @@ export function setDevicePushTokenForTests(token: string | null) {
   memoryToken = token;
 }
 
+export async function clearDevicePushToken(): Promise<void> {
+  await writeStoredToken(null);
+}
+
 /**
  * Persist token for the signed-in user and claim ownership from any prior account
  * (via SECURITY DEFINER RPC — see migration 005).
  */
-export async function persistDeviceToken(userId: string, token: string) {
+export async function persistDeviceToken(_userId: string, token: string) {
   const platform = Platform.OS === 'ios' ? 'ios' : 'android';
 
   const { error: claimError } = await supabase.rpc('claim_device_token', {
@@ -64,19 +68,7 @@ export async function persistDeviceToken(userId: string, token: string) {
   });
 
   if (claimError) {
-    // Fallback when RPC not yet migrated: upsert own row only.
-    const { error } = await supabase.from('user_devices').upsert(
-      {
-        user_id: userId,
-        fcm_token: token,
-        platform,
-        is_active: true,
-      },
-      { onConflict: 'user_id,fcm_token' },
-    );
-    if (error) {
-      throw asError(error, 'Failed to persist device token');
-    }
+    throw asError(claimError, 'Failed to claim device token');
   }
 
   await writeStoredToken(token);

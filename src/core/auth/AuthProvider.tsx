@@ -12,6 +12,7 @@ import { resolveAuthRoute } from '@/core/auth/routeResolver';
 import type { ProfileCompleteness, RouteDestination } from '@/core/auth/routeResolver';
 import { getSession, signOut as authSignOut } from '@/core/auth/service';
 import { deactivateCurrentDevice } from '@/core/notification/deviceService';
+import { deleteCurrentFcmToken } from '@/core/notification/fcm';
 import { clearCachedProfile, readCachedProfile, writeCachedProfile } from '@/core/profile/cache';
 import { fetchProfile } from '@/core/profile/service';
 import { supabase } from '@/core/supabase/client';
@@ -111,13 +112,20 @@ export function AuthProvider({ children }: PropsWithChildren) {
 
   const signOut = useCallback(async () => {
     const userId = session?.user.id;
-    try {
-      // Must run while session is still valid (RLS).
-      await deactivateCurrentDevice();
-    } catch (error) {
-      // Still sign out locally; record so silent push-after-logout is diagnosable.
-      const { recordFatalError } = await import('@/core/monitoring/crashlytics');
-      await recordFatalError(error);
+    const revocations = await Promise.allSettled([
+      deactivateCurrentDevice(),
+      deleteCurrentFcmToken(),
+    ]);
+    const failures = revocations.filter((result) => result.status === 'rejected');
+    if (failures.length > 0) {
+      const { recordError } = await import('@/core/monitoring/crashlytics');
+      await recordError(
+        new Error(
+          failures
+            .map((result) => (result.status === 'rejected' ? String(result.reason) : ''))
+            .join('; '),
+        ),
+      );
     }
     await authSignOut();
     if (userId) {

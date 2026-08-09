@@ -6,7 +6,6 @@ import { trackEvent } from '@/core/analytics/events';
 import { useAuth } from '@/core/auth/AuthProvider';
 import {
   getNotificationPermissionGranted,
-  obtainAndPersistFcmToken,
   requestNotificationPermissionWithRationale,
 } from '@/core/notification/fcm';
 import {
@@ -61,20 +60,17 @@ export function useNotificationSettings() {
       if (context) {
         queryClient.setQueryData(context.queryKey, context.previous);
       }
-      Alert.alert(
-        'Notifications',
-        error instanceof Error ? error.message : 'Could not update notification preference.',
-      );
     },
   });
 
   const persistEnabled = useCallback(
-    (enabled: boolean) => {
+    async (enabled: boolean) => {
       if (!userId) {
         Alert.alert('Notifications', 'Missing session.');
-        return;
+        return false;
       }
-      mutation.mutate({ enabled, userId });
+      await mutation.mutateAsync({ enabled, userId });
+      return true;
     },
     [mutation, userId],
   );
@@ -82,7 +78,12 @@ export function useNotificationSettings() {
   const setEnabled = useCallback(
     (enabled: boolean) => {
       if (!enabled) {
-        persistEnabled(false);
+        persistEnabled(false).catch((error) => {
+          Alert.alert(
+            'Notifications',
+            error instanceof Error ? error.message : 'Could not update notification preference.',
+          );
+        });
         return;
       }
 
@@ -91,24 +92,19 @@ export function useNotificationSettings() {
         try {
           const granted = await requestNotificationPermissionWithRationale();
           if (!granted) {
-            persistEnabled(false);
+            await persistEnabled(false);
             return;
           }
-          persistEnabled(true);
-          if (userId) {
-            await Promise.race([
-              obtainAndPersistFcmToken(userId),
-              new Promise<null>((resolve) => {
-                setTimeout(() => resolve(null), 8_000);
-              }),
-            ]);
+          const saved = await persistEnabled(true);
+          if (!saved) {
+            return;
           }
         } catch (error) {
           Alert.alert(
             'Notifications',
             error instanceof Error ? error.message : 'Could not enable notifications.',
           );
-          persistEnabled(false);
+          await persistEnabled(false).catch(() => undefined);
         } finally {
           setPermissionBusy(false);
         }
@@ -116,7 +112,7 @@ export function useNotificationSettings() {
         setPermissionBusy(false);
       });
     },
-    [persistEnabled, userId],
+    [persistEnabled],
   );
 
   const preferenceEnabled = Boolean(query.data?.enabled);

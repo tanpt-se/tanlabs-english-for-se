@@ -1,25 +1,15 @@
-import {
-  Box,
-  Button,
-  ButtonText,
-  FormControl,
-  FormControlError,
-  FormControlErrorText,
-  Input,
-  InputField,
-  Pressable,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
 import { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
+import { AppButton, AppFormError, AppTextInput } from '@/components/ui/AppControls';
 import { AuthHeader } from '@/components/ui/AuthHeader';
 import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { trackEvent } from '@/core/analytics/events';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { upsertProfile } from '@/core/profile/service';
 import { ENGLISH_LEVELS } from '@/core/profile/validation';
-import { accessibleButtonProps } from '@/theme';
+import { EnglishLevelPicker } from '@/features/profile/components/EnglishLevelPicker';
+import { useAppColors } from '@/theme';
 
 export function CompleteProfileScreen() {
   const { user, refreshProfile } = useAuth();
@@ -27,6 +17,7 @@ export function CompleteProfileScreen() {
   const [englishLevel, setEnglishLevel] = useState<(typeof ENGLISH_LEVELS)[number]>('B1');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const colors = useAppColors();
 
   const onSubmit = async () => {
     if (!user?.id) {
@@ -53,62 +44,38 @@ export function CompleteProfileScreen() {
   return (
     <ScreenScroll centered>
       <AuthHeader title="Complete profile" subtitle="Tell us how to greet you." />
-      <VStack space="md">
-        <FormControl isInvalid={Boolean(error)}>
-          <Input>
-            <InputField
-              accessibilityLabel="Display name"
-              placeholder="Display name"
-              value={displayName}
-              onChangeText={setDisplayName}
-            />
-          </Input>
-        </FormControl>
-        <Text accessibilityRole="header" color="$textLight900">
+      <View style={styles.stack}>
+        <AppTextInput
+          accessibilityLabel="Display name"
+          aria-describedby={error ? 'complete-profile-form-error' : undefined}
+          aria-invalid={Boolean(error)}
+          placeholder="Display name"
+          value={displayName}
+          onChangeText={setDisplayName}
+        />
+        <Text accessibilityRole="header" style={[styles.label, { color: colors.text }]}>
           English level
         </Text>
-        <Box flexDirection="row" flexWrap="wrap" gap="$2">
-          {ENGLISH_LEVELS.map((level) => (
-            <Pressable
-              key={level}
-              accessibilityLabel={`English level ${level}`}
-              accessibilityRole="button"
-              accessibilityState={{ selected: englishLevel === level }}
-              onPress={() => setEnglishLevel(level)}
-            >
-              <Box
-                px="$3"
-                minHeight={44}
-                minWidth={44}
-                justifyContent="center"
-                alignItems="center"
-                borderRadius="$md"
-                bg={englishLevel === level ? '$primary500' : '$white'}
-                borderWidth={1}
-                borderColor="$borderLight200"
-              >
-                <Text color={englishLevel === level ? '$white' : '$textLight900'}>{level}</Text>
-              </Box>
-            </Pressable>
-          ))}
-        </Box>
-        {error ? (
-          <FormControl isInvalid>
-            <FormControlError>
-              <FormControlErrorText>{error}</FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-        ) : null}
-        <Button
+        <EnglishLevelPicker value={englishLevel} onChange={setEnglishLevel} />
+        {error ? <AppFormError nativeID="complete-profile-form-error" message={error} /> : null}
+        <AppButton
           accessibilityLabel="Continue"
           accessibilityRole="button"
-          {...accessibleButtonProps}
           onPress={onSubmit}
-          isDisabled={loading}
-        >
-          <ButtonText>{loading ? 'Saving…' : 'Continue'}</ButtonText>
-        </Button>
-      </VStack>
+          disabled={loading}
+          label={loading ? 'Saving…' : 'Continue'}
+        />
+      </View>
     </ScreenScroll>
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  stack: {
+    gap: 16,
+  },
+});

@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT"
 
-PATTERN='SUPABASE_SERVICE_ROLE_KEY|BEGIN PRIVATE KEY|-----BEGIN RSA PRIVATE KEY-----|firebase_private_key'
+PATTERN='SUPABASE_SERVICE_ROLE_KEY|BEGIN PRIVATE KEY|-----BEGIN RSA PRIVATE KEY-----|firebase_private_key|sbp_[A-Za-z0-9_-]{20,}|github_pat_[A-Za-z0-9_]{20,}|gh[pousr]_[A-Za-z0-9]{20,}|sk_live_[A-Za-z0-9]{20,}|postgres(ql)?://[^[:space:]]+:[^@[:space:]]+@|eyJ[A-Za-z0-9_-]{20,}\.eyJ[A-Za-z0-9_-]{20,}'
 SCAN_PATHS=(App.tsx index.js src android/app ios/TanLabsEnglishForSE)
 
 scan_with_rg() {

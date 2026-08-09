@@ -1,4 +1,6 @@
-import { HStack, Pressable, Text } from '@gluestack-ui/themed';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+
+import { useAppColors } from '@/theme';
 
 type SettingRowProps = {
   label: string;
@@ -7,26 +9,36 @@ type SettingRowProps = {
 };
 
 export function SettingRow({ label, value, onPress }: SettingRowProps) {
+  const colors = useAppColors();
+
   return (
     <Pressable onPress={onPress} disabled={!onPress}>
-      <HStack
-        px="$4"
-        py="$3"
-        bg="$white"
-        borderBottomWidth={1}
-        borderColor="$borderLight200"
-        justifyContent="space-between"
-        alignItems="center"
+      <View
+        style={[styles.row, { backgroundColor: colors.surface, borderBottomColor: colors.border }]}
       >
-        <Text color="$textLight900" flexShrink={1} mr="$2">
-          {label}
-        </Text>
-        {value ? (
-          <Text color="$textLight600" flexShrink={1} textAlign="right">
-            {value}
-          </Text>
-        ) : null}
-      </HStack>
+        <Text style={[styles.label, { color: colors.text }]}>{label}</Text>
+        {value ? <Text style={[styles.value, { color: colors.textMuted }]}>{value}</Text> : null}
+      </View>
     </Pressable>
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    flexShrink: 1,
+    marginRight: 8,
+  },
+  row: {
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    minHeight: 44,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+  value: {
+    flexShrink: 1,
+    textAlign: 'right',
+  },
+});

@@ -23,8 +23,11 @@ fi
 
 : "${SMOKE_EMAIL:?Set SMOKE_EMAIL}"
 : "${SMOKE_PASSWORD:?Set SMOKE_PASSWORD}"
+IOS_UDID="${MAESTRO_IOS_UDID:-$(xcrun simctl list devices booted | sed -nE 's/.*\(([0-9A-F-]{36})\) \(Booted\).*/\1/p' | head -1)}"
+: "${IOS_UDID:?Boot an iOS Simulator or set MAESTRO_IOS_UDID}"
 
 maestro test \
+  --udid "${IOS_UDID}" \
   -e "SMOKE_EMAIL=${SMOKE_EMAIL}" \
   -e "SMOKE_PASSWORD=${SMOKE_PASSWORD}" \
   "${ROOT}/maestro/ios/smoke-auth.yaml"

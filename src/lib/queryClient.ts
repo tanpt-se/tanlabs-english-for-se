@@ -27,6 +27,11 @@ export const queryPersister = createAsyncStoragePersister({
 export const queryPersistenceOptions = {
   persister: queryPersister,
   maxAge: CACHE_MAX_AGE,
+  buster: 'security-v2',
+  dehydrateOptions: {
+    shouldDehydrateQuery: (query: { queryKey: readonly unknown[] }) =>
+      query.queryKey[0] === 'remote-config',
+  },
 };
 
 export async function clearPersistedQueryCache(): Promise<void> {

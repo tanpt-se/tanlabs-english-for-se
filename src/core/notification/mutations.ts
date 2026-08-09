@@ -1,5 +1,6 @@
 import { trackEvent } from '@/core/analytics/events';
 import { deactivateCurrentDevice } from '@/core/notification/deviceService';
+import { obtainAndPersistFcmToken } from '@/core/notification/fcm';
 import { setNotificationEnabled } from '@/core/notification/settingsService';
 
 import type { QueryClient } from '@tanstack/react-query';
@@ -16,10 +17,27 @@ export type NotificationSettingsMutationContext = {
   queryKey: readonly ['notification-settings', string];
 };
 
+async function obtainTokenWithTimeout(userId: string): Promise<void> {
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  try {
+    await Promise.race([
+      obtainAndPersistFcmToken(userId),
+      new Promise<null>((resolve) => {
+        timeout = setTimeout(() => resolve(null), 8_000);
+      }),
+    ]);
+  } finally {
+    if (timeout) {
+      clearTimeout(timeout);
+    }
+  }
+}
+
 export async function updateNotificationSettings(input: NotificationSettingsMutationInput) {
   const settings = await setNotificationEnabled(input.userId, input.enabled);
-  if (!input.enabled) {
-    // Preference off must not leave active FCM rows that still accept Console pushes.
+  if (input.enabled) {
+    await obtainTokenWithTimeout(input.userId);
+  } else {
     await deactivateCurrentDevice();
   }
   return settings;

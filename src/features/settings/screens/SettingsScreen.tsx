@@ -1,9 +1,9 @@
-import { Box, Button, ButtonText, Switch, Text, VStack } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { Linking } from 'react-native';
+import { Linking, StyleSheet, Switch, Text, View } from 'react-native';
 
 import type { AppStackParamList } from '@/app/navigation/types';
+import { AppButton } from '@/components/ui/AppControls';
 import { ProfileSection } from '@/components/ui/ProfileSection';
 import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { SettingRow } from '@/components/ui/SettingRow';
@@ -12,7 +12,7 @@ import { useAuth } from '@/core/auth/AuthProvider';
 import { triggerTestCrash } from '@/core/monitoring/crashlytics';
 import { useProfile } from '@/features/profile/hooks/useProfile';
 import { useNotificationSettings } from '@/features/settings/hooks/useNotificationSettings';
-import { accessibleButtonProps } from '@/theme';
+import { useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -22,6 +22,7 @@ export function SettingsScreen() {
   const { data: profile, isError, refetch, isFetching } = useProfile();
   const { preferenceEnabled, osGranted, setEnabled, isUpdating } = useNotificationSettings();
   const [busy, setBusy] = useState(false);
+  const colors = useAppColors();
 
   const onSignOut = async () => {
     setBusy(true);
@@ -35,116 +36,126 @@ export function SettingsScreen() {
 
   return (
     <ScreenScroll>
-      <VStack space="lg">
+      <View style={styles.stack}>
         <ProfileSection title="Profile">
           <SettingRow label="Display name" value={profile?.display_name ?? '—'} />
           <SettingRow label="English level" value={profile?.english_level ?? '—'} />
           {isError ? (
-            <Box px="$4" py="$2">
-              <Text color="$error700">Could not load profile.</Text>
-              <Button
+            <View style={styles.sectionPadding}>
+              <Text style={{ color: colors.danger }}>Could not load profile.</Text>
+              <AppButton
                 accessibilityLabel="Retry loading profile"
                 accessibilityRole="button"
-                size="md"
                 variant="outline"
-                mt="$2"
-                {...accessibleButtonProps}
+                style={styles.buttonSpacing}
                 onPress={() => refetch()}
-                isDisabled={isFetching}
-              >
-                <ButtonText>{isFetching ? 'Retrying…' : 'Retry'}</ButtonText>
-              </Button>
-            </Box>
+                disabled={isFetching}
+                label={isFetching ? 'Retrying…' : 'Retry'}
+              />
+            </View>
           ) : null}
-          <Box px="$4" pb="$3">
-            <Button
+          <View style={styles.sectionBottom}>
+            <AppButton
               accessibilityLabel="Edit profile"
               accessibilityRole="button"
-              size="md"
               variant="outline"
-              {...accessibleButtonProps}
               onPress={() => navigation.navigate('EditProfile')}
-            >
-              <ButtonText>Edit profile</ButtonText>
-            </Button>
-          </Box>
+              label="Edit profile"
+            />
+          </View>
         </ProfileSection>
 
         <ProfileSection
           title="Notifications"
           description="Preference syncs to Supabase when signed in."
         >
-          <Box
-            px="$4"
-            py="$3"
-            minHeight={44}
-            flexDirection="row"
-            justifyContent="space-between"
-            alignItems="center"
-          >
-            <Text color="$textLight900" flexShrink={1} mr="$3">
-              Enable notifications
-            </Text>
+          <View style={styles.switchRow}>
+            <Text style={[styles.switchLabel, { color: colors.text }]}>Enable notifications</Text>
             <Switch
               accessibilityLabel="Enable notifications"
               accessibilityRole="switch"
               value={preferenceEnabled}
               onValueChange={(value: boolean) => setEnabled(value)}
-              isDisabled={isUpdating}
+              disabled={isUpdating}
             />
-          </Box>
+          </View>
           {preferenceEnabled && !osGranted ? (
-            <Box px="$4" pb="$3">
-              <Text color="$textLight600" fontSize="$sm" mb="$2">
+            <View style={styles.sectionBottom}>
+              <Text style={[styles.helpText, { color: colors.textMuted }]}>
                 Notifications are blocked in system settings. Enable them there to receive alerts,
                 or turn the preference off above.
               </Text>
-              <Button
+              <AppButton
                 accessibilityLabel="Open system notification settings"
                 accessibilityRole="button"
-                size="md"
                 variant="outline"
-                {...accessibleButtonProps}
                 onPress={() => {
                   Linking.openSettings().catch(() => undefined);
                 }}
-              >
-                <ButtonText>Open system settings</ButtonText>
-              </Button>
-            </Box>
+                label="Open system settings"
+              />
+            </View>
           ) : null}
         </ProfileSection>
 
         {__DEV__ ? (
           <ProfileSection title="Developer" description="PH1 Firebase Console verification only.">
-            <Box px="$4" pb="$3">
-              <Button
+            <View style={styles.sectionBottom}>
+              <AppButton
                 accessibilityLabel="Trigger test crash for Crashlytics"
                 accessibilityRole="button"
-                size="md"
                 variant="outline"
-                action="negative"
-                {...accessibleButtonProps}
+                tone="danger"
                 onPress={() => triggerTestCrash()}
-              >
-                <ButtonText>Trigger test crash</ButtonText>
-              </Button>
-            </Box>
+                label="Trigger test crash"
+              />
+            </View>
           </ProfileSection>
         ) : null}
 
-        <Button
+        <AppButton
           testID="settings-sign-out"
           accessibilityLabel="Sign out"
           accessibilityRole="button"
-          action="negative"
-          {...accessibleButtonProps}
+          tone="danger"
           onPress={onSignOut}
-          isDisabled={busy}
-        >
-          <ButtonText>{busy ? 'Signing out…' : 'Sign out'}</ButtonText>
-        </Button>
-      </VStack>
+          disabled={busy}
+          label={busy ? 'Signing out…' : 'Sign out'}
+        />
+      </View>
     </ScreenScroll>
   );
 }
+
+const styles = StyleSheet.create({
+  buttonSpacing: {
+    marginTop: 8,
+  },
+  helpText: {
+    fontSize: 14,
+    marginBottom: 8,
+  },
+  sectionBottom: {
+    paddingBottom: 12,
+    paddingHorizontal: 16,
+  },
+  sectionPadding: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  stack: {
+    gap: 24,
+  },
+  switchLabel: {
+    flexShrink: 1,
+    marginRight: 12,
+  },
+  switchRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    minHeight: 44,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+  },
+});

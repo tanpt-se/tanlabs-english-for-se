@@ -1,24 +1,14 @@
-import {
-  Button,
-  ButtonText,
-  FormControl,
-  FormControlError,
-  FormControlErrorText,
-  Input,
-  InputField,
-  Pressable,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { AuthStackParamList } from '@/app/navigation/types';
+import { AppButton, AppFormError, AppTextInput } from '@/components/ui/AppControls';
 import { AuthHeader } from '@/components/ui/AuthHeader';
 import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { trackEvent } from '@/core/analytics/events';
 import { signIn } from '@/core/auth/service';
-import { accessibleButtonProps } from '@/theme';
+import { useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -28,6 +18,7 @@ export function LoginScreen() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const colors = useAppColors();
 
   const onSubmit = async () => {
     setLoading(true);
@@ -45,59 +36,59 @@ export function LoginScreen() {
   return (
     <ScreenScroll centered>
       <AuthHeader title="Sign in" subtitle="Continue your SE English practice." />
-      <VStack space="md">
-        <FormControl isInvalid={Boolean(error)}>
-          <Input>
-            <InputField
-              testID="login-email"
-              accessibilityLabel="Email"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-            />
-          </Input>
-        </FormControl>
-        <FormControl isInvalid={Boolean(error)}>
-          <Input>
-            <InputField
-              testID="login-password"
-              accessibilityLabel="Password"
-              placeholder="Password"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-            />
-          </Input>
-          {error ? (
-            <FormControlError>
-              <FormControlErrorText>{error}</FormControlErrorText>
-            </FormControlError>
-          ) : null}
-        </FormControl>
-        <Button
+      <View style={styles.stack}>
+        <AppTextInput
+          testID="login-email"
+          accessibilityLabel="Email"
+          aria-describedby={error ? 'login-form-error' : undefined}
+          aria-invalid={Boolean(error)}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <AppTextInput
+          testID="login-password"
+          accessibilityLabel="Password"
+          aria-describedby={error ? 'login-form-error' : undefined}
+          aria-invalid={Boolean(error)}
+          placeholder="Password"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        {error ? <AppFormError nativeID="login-form-error" message={error} /> : null}
+        <AppButton
           testID="login-submit"
           accessibilityLabel="Sign in"
           accessibilityRole="button"
-          {...accessibleButtonProps}
           onPress={onSubmit}
-          isDisabled={loading}
-        >
-          <ButtonText>{loading ? 'Signing in…' : 'Sign in'}</ButtonText>
-        </Button>
+          disabled={loading}
+          label={loading ? 'Signing in…' : 'Sign in'}
+        />
         <Pressable
           accessibilityLabel="Create an account"
           accessibilityRole="link"
-          minHeight={44}
-          justifyContent="center"
+          style={styles.link}
           onPress={() => navigation.navigate('Register')}
         >
-          <Text textAlign="center" color="$primary500">
-            Create an account
-          </Text>
+          <Text style={[styles.linkText, { color: colors.primary }]}>Create an account</Text>
         </Pressable>
-      </VStack>
+      </View>
     </ScreenScroll>
   );
 }
+
+const styles = StyleSheet.create({
+  link: {
+    justifyContent: 'center',
+    minHeight: 44,
+  },
+  linkText: {
+    textAlign: 'center',
+  },
+  stack: {
+    gap: 16,
+  },
+});

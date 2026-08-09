@@ -28,6 +28,7 @@ for f in \
   supabase/migrations/003_user_devices.sql \
   supabase/migrations/004_notification_settings.sql \
   supabase/migrations/005_claim_device_token.sql \
+  supabase/migrations/006_security_hardening.sql \
   supabase/seed.sql
 do
   echo "→ $f"

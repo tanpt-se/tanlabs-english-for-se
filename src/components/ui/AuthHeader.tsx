@@ -1,4 +1,6 @@
-import { Box, Heading, Text } from '@gluestack-ui/themed';
+import { StyleSheet, Text, View } from 'react-native';
+
+import { useAppColors } from '@/theme';
 
 type AuthHeaderProps = {
   subtitle?: string;
@@ -6,16 +8,32 @@ type AuthHeaderProps = {
 };
 
 export function AuthHeader({ title, subtitle }: AuthHeaderProps) {
+  const colors = useAppColors();
+
   return (
-    <Box mb="$6" gap="$2">
-      <Heading size="2xl" color="$textLight900">
+    <View style={styles.container}>
+      <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>
         {title}
-      </Heading>
+      </Text>
       {subtitle ? (
-        <Text color="$textLight600" fontSize="$md" lineHeight="$lg">
-          {subtitle}
-        </Text>
+        <Text style={[styles.subtitle, { color: colors.textMuted }]}>{subtitle}</Text>
       ) : null}
-    </Box>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    gap: 8,
+    marginBottom: 24,
+  },
+  subtitle: {
+    fontSize: 16,
+    lineHeight: 24,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: '700',
+    lineHeight: 40,
+  },
+});

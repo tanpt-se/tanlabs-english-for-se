@@ -1,8 +1,7 @@
-import { GluestackUIProvider } from '@gluestack-ui/themed';
 import { NavigationContainer } from '@react-navigation/native';
 import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client';
 import { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StatusBar, StyleSheet, useColorScheme } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
@@ -14,7 +13,7 @@ import {
 import { AuthProvider } from '@/core/auth/AuthProvider';
 import { configureNotificationMutationDefaults } from '@/core/notification/mutations';
 import { queryClient, queryPersistenceOptions } from '@/lib/queryClient';
-import { gluestackConfig } from '@/theme';
+import { navigationDarkTheme, navigationLightTheme } from '@/theme';
 
 import type { PropsWithChildren } from 'react';
 
@@ -23,6 +22,8 @@ configureNotificationMutationDefaults(queryClient);
 function PersistedAppProviders({ children }: PropsWithChildren) {
   const { isConnectionKnown, isOnline } = useNetworkStatus();
   const [cacheRestored, setCacheRestored] = useState(false);
+  const colorScheme = useColorScheme();
+  const navigationTheme = colorScheme === 'dark' ? navigationDarkTheme : navigationLightTheme;
 
   useEffect(() => {
     if (!shouldResumePausedMutations(cacheRestored, isConnectionKnown, isOnline)) {
@@ -38,21 +39,23 @@ function PersistedAppProviders({ children }: PropsWithChildren) {
       onSuccess={() => setCacheRestored(true)}
     >
       <AuthProvider>
-        <NavigationContainer>{children}</NavigationContainer>
+        <NavigationContainer theme={navigationTheme}>{children}</NavigationContainer>
       </AuthProvider>
     </PersistQueryClientProvider>
   );
 }
 
 export function AppProviders({ children }: PropsWithChildren) {
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
+
   return (
     <GestureHandlerRootView style={styles.root}>
       <SafeAreaProvider>
-        <GluestackUIProvider config={gluestackConfig}>
-          <NetworkProvider>
-            <PersistedAppProviders>{children}</PersistedAppProviders>
-          </NetworkProvider>
-        </GluestackUIProvider>
+        <StatusBar barStyle={isDark ? 'light-content' : 'dark-content'} />
+        <NetworkProvider>
+          <PersistedAppProviders>{children}</PersistedAppProviders>
+        </NetworkProvider>
       </SafeAreaProvider>
     </GestureHandlerRootView>
   );

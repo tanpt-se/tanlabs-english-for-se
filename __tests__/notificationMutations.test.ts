@@ -1,6 +1,7 @@
 import { QueryClient } from '@tanstack/react-query';
 
 import { deactivateCurrentDevice } from '@/core/notification/deviceService';
+import { obtainAndPersistFcmToken } from '@/core/notification/fcm';
 import {
   configureNotificationMutationDefaults,
   notificationSettingsMutationKey,
@@ -20,6 +21,10 @@ jest.mock('@/core/notification/settingsService', () => ({
 
 jest.mock('@/core/notification/deviceService', () => ({
   deactivateCurrentDevice: jest.fn(async () => undefined),
+}));
+
+jest.mock('@/core/notification/fcm', () => ({
+  obtainAndPersistFcmToken: jest.fn(async () => 'fcm-token'),
 }));
 
 jest.mock('@/core/analytics/events', () => ({
@@ -75,5 +80,17 @@ test('enabling notifications does not deactivate the device', async () => {
   await updateNotificationSettings({ enabled: true, userId: 'user-1' });
 
   expect(setNotificationEnabled).toHaveBeenCalledWith('user-1', true);
+  expect(obtainAndPersistFcmToken).toHaveBeenCalledWith('user-1');
   expect(deactivateCurrentDevice).not.toHaveBeenCalled();
+});
+
+test('does not activate a token when enabling preference fails', async () => {
+  jest.clearAllMocks();
+  jest.mocked(setNotificationEnabled).mockRejectedValueOnce(new Error('write failed'));
+
+  await expect(updateNotificationSettings({ enabled: true, userId: 'user-1' })).rejects.toThrow(
+    'write failed',
+  );
+
+  expect(obtainAndPersistFcmToken).not.toHaveBeenCalled();
 });

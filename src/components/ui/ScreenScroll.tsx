@@ -1,6 +1,7 @@
-import { Box } from '@gluestack-ui/themed';
-import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet } from 'react-native';
+import { KeyboardAvoidingView, Platform, ScrollView, StyleSheet, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+
+import { useAppColors } from '@/theme';
 
 import type { PropsWithChildren } from 'react';
 
@@ -11,6 +12,7 @@ type ScreenScrollProps = PropsWithChildren<{
 
 export function ScreenScroll({ children, centered = false }: ScreenScrollProps) {
   const insets = useSafeAreaInsets();
+  const colors = useAppColors();
 
   return (
     <KeyboardAvoidingView
@@ -18,7 +20,7 @@ export function ScreenScroll({ children, centered = false }: ScreenScrollProps) 
       behavior={Platform.OS === 'ios' ? 'padding' : undefined}
       keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top : 0}
     >
-      <Box flex={1} bg="$backgroundLight100">
+      <View style={[styles.flex, { backgroundColor: colors.background }]}>
         <ScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={[
@@ -30,9 +32,9 @@ export function ScreenScroll({ children, centered = false }: ScreenScrollProps) 
             },
           ]}
         >
-          <Box px="$4">{children}</Box>
+          <View style={styles.horizontalPadding}>{children}</View>
         </ScrollView>
-      </Box>
+      </View>
     </KeyboardAvoidingView>
   );
 }
@@ -46,5 +48,8 @@ const styles = StyleSheet.create({
   },
   centered: {
     justifyContent: 'center',
+  },
+  horizontalPadding: {
+    paddingHorizontal: 16,
   },
 });

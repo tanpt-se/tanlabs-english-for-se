@@ -1,25 +1,15 @@
-import {
-  Button,
-  ButtonText,
-  FormControl,
-  FormControlError,
-  FormControlErrorText,
-  Input,
-  InputField,
-  Pressable,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { AuthStackParamList } from '@/app/navigation/types';
+import { AppButton, AppFormError, AppTextInput } from '@/components/ui/AppControls';
 import { AuthHeader } from '@/components/ui/AuthHeader';
 import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { trackEvent } from '@/core/analytics/events';
 import { isAuthRateLimitError } from '@/core/auth/errors';
 import { signUp } from '@/core/auth/service';
-import { accessibleButtonProps } from '@/theme';
+import { useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -29,15 +19,19 @@ export function RegisterScreen() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [rateLimited, setRateLimited] = useState(false);
+  const [registered, setRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
+  const colors = useAppColors();
 
   const onSubmit = async () => {
     setLoading(true);
     setError(null);
     setRateLimited(false);
+    setRegistered(false);
     try {
-      await signUp(email, password);
+      const result = await signUp(email, password);
       await trackEvent('register_success');
+      setRegistered(!result.session);
     } catch (err) {
       setRateLimited(isAuthRateLimitError(err));
       setError(err instanceof Error ? err.message : 'Registration failed');
@@ -48,68 +42,71 @@ export function RegisterScreen() {
 
   return (
     <ScreenScroll centered>
-      <AuthHeader title="Create account" subtitle="Email confirmation is off for PH1." />
-      <VStack space="md">
-        <FormControl isInvalid={Boolean(error)}>
-          <Input>
-            <InputField
-              accessibilityLabel="Email"
-              autoCapitalize="none"
-              keyboardType="email-address"
-              placeholder="Email"
-              value={email}
-              onChangeText={setEmail}
-            />
-          </Input>
-        </FormControl>
-        <FormControl isInvalid={Boolean(error)}>
-          <Input>
-            <InputField
-              accessibilityLabel="Password"
-              placeholder="Password (min 6)"
-              secureTextEntry
-              value={password}
-              onChangeText={setPassword}
-            />
-          </Input>
-          {error ? (
-            <FormControlError>
-              <FormControlErrorText>{error}</FormControlErrorText>
-            </FormControlError>
-          ) : null}
-        </FormControl>
-        <Button
+      <AuthHeader title="Create account" subtitle="Use an email address you can verify." />
+      <View style={styles.stack}>
+        <AppTextInput
+          accessibilityLabel="Email"
+          aria-describedby={error ? 'register-form-error' : undefined}
+          aria-invalid={Boolean(error)}
+          autoCapitalize="none"
+          keyboardType="email-address"
+          placeholder="Email"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <AppTextInput
+          accessibilityLabel="Password"
+          aria-describedby={error ? 'register-form-error' : undefined}
+          aria-invalid={Boolean(error)}
+          placeholder="Password (min 6)"
+          secureTextEntry
+          value={password}
+          onChangeText={setPassword}
+        />
+        {error ? <AppFormError nativeID="register-form-error" message={error} /> : null}
+        {registered ? (
+          <Text accessibilityLiveRegion="polite" style={{ color: colors.text }}>
+            Check your email to confirm your account, then sign in.
+          </Text>
+        ) : null}
+        <AppButton
           accessibilityLabel="Register"
           accessibilityRole="button"
-          {...accessibleButtonProps}
           onPress={onSubmit}
-          isDisabled={loading}
-        >
-          <ButtonText>{loading ? 'Creating…' : 'Register'}</ButtonText>
-        </Button>
-        {rateLimited ? (
-          <Button
+          disabled={loading}
+          label={loading ? 'Creating…' : 'Register'}
+        />
+        {rateLimited || registered ? (
+          <AppButton
             accessibilityLabel="Sign in instead"
             accessibilityRole="button"
             variant="outline"
-            {...accessibleButtonProps}
             onPress={() => navigation.navigate('Login')}
-          >
-            <ButtonText>Sign in instead</ButtonText>
-          </Button>
+            label="Sign in instead"
+          />
         ) : null}
         <Pressable
           accessibilityLabel="Already have an account? Sign in"
           accessibilityRole="link"
-          minHeight={44}
-          justifyContent="center"
+          style={styles.link}
           onPress={() => navigation.navigate('Login')}
         >
-          <Text textAlign="center" color="$primary500">
-            Already have an account?
-          </Text>
+          <Text style={[styles.linkText, { color: colors.primary }]}>Already have an account?</Text>
         </Pressable>
-      </VStack>
+      </View>
     </ScreenScroll>
   );
 }
+
+const styles = StyleSheet.create({
+  link: {
+    justifyContent: 'center',
+    minHeight: 44,
+  },
+  linkText: {
+    textAlign: 'center',
+  },
+  stack: {
+    gap: 16,
+  },
+});

@@ -47,5 +47,3 @@ export async function trackEvent(name: string, params?: AnalyticsPayload): Promi
     }
   }
 }
-
-export { recordFatalError } from '@/core/monitoring/crashlytics';

@@ -1,6 +1,6 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, StyleSheet, useColorScheme, View } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 
 import type { AppStackParamList, AuthStackParamList } from '@/app/navigation/types';
@@ -11,6 +11,7 @@ import { HomeScreen } from '@/features/home/screens/HomeScreen';
 import { CompleteProfileScreen } from '@/features/profile/screens/CompleteProfileScreen';
 import { EditProfileScreen } from '@/features/profile/screens/EditProfileScreen';
 import { SettingsScreen } from '@/features/settings/screens/SettingsScreen';
+import { darkColors, lightColors } from '@/theme';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
 const AppStack = createNativeStackNavigator<AppStackParamList>();
@@ -49,6 +50,8 @@ function CompleteProfileNavigator() {
 
 export function RootNavigator() {
   const { bootstrapped, destination, profileSettled, session } = useAuth();
+  const colorScheme = useColorScheme();
+  const isDark = colorScheme === 'dark';
 
   useEffect(() => {
     if (bootstrapped) {
@@ -59,8 +62,13 @@ export function RootNavigator() {
   // Gate only initial account resolution — not every profile refresh.
   if (!bootstrapped || (session && !profileSettled)) {
     return (
-      <View style={styles.boot}>
-        <ActivityIndicator />
+      <View
+        style={[
+          styles.boot,
+          { backgroundColor: isDark ? darkColors.background : lightColors.background },
+        ]}
+      >
+        <ActivityIndicator color={isDark ? darkColors.primary : lightColors.primary} />
       </View>
     );
   }

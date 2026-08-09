@@ -1,13 +1,14 @@
-import { Box, Button, ButtonText, Heading, Text, VStack } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import { APP_ENV, isDevelopment } from '@/app/config/env';
 import type { AppStackParamList } from '@/app/navigation/types';
+import { AppButton } from '@/components/ui/AppControls';
 import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
 import { useProfile } from '@/features/profile/hooks/useProfile';
-import { accessibleButtonProps } from '@/theme';
+import { useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -17,40 +18,62 @@ export function HomeScreen() {
   const { data: profile } = useProfile();
   const flags = useFeatureFlags();
   const current = profile ?? authProfile;
+  const colors = useAppColors();
 
   return (
     <ScreenScroll>
-      <VStack space="md">
-        <Heading size="xl" color="$textLight900">
+      <View style={styles.stack}>
+        <Text accessibilityRole="header" style={[styles.heading, { color: colors.text }]}>
           Hi {current?.display_name ?? 'there'}
-        </Heading>
-        <Text color="$textLight900">English level: {current?.english_level ?? '—'}</Text>
-        <Box bg="$white" p="$4" borderRadius="$xl" borderWidth={1} borderColor="$borderLight200">
-          <Heading size="sm" mb="$2" color="$textLight900">
+        </Text>
+        <Text style={{ color: colors.text }}>English level: {current?.english_level ?? '—'}</Text>
+        <View
+          style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}
+        >
+          <Text accessibilityRole="header" style={[styles.cardTitle, { color: colors.text }]}>
             Grammar
-          </Heading>
-          <Text color="$textLight600">
+          </Text>
+          <Text style={{ color: colors.textMuted }}>
             {flags.data?.grammar
               ? 'Grammar is enabled.'
               : 'Coming soon — Grammar unlocks in a later phase.'}
           </Text>
-        </Box>
-        <Button
+        </View>
+        <AppButton
           testID="home-settings"
           accessibilityLabel="Open settings"
           accessibilityRole="button"
           variant="outline"
-          {...accessibleButtonProps}
           onPress={() => navigation.navigate('Settings')}
-        >
-          <ButtonText>Settings</ButtonText>
-        </Button>
+          label="Settings"
+        />
         {isDevelopment ? (
-          <Text color="$textLight600">
+          <Text style={{ color: colors.textMuted }}>
             env={APP_ENV} · flags loaded={String(Boolean(flags.data))}
           </Text>
         ) : null}
-      </VStack>
+      </View>
     </ScreenScroll>
   );
 }
+
+const styles = StyleSheet.create({
+  card: {
+    borderRadius: 20,
+    borderWidth: 1,
+    padding: 16,
+  },
+  cardTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  heading: {
+    fontSize: 24,
+    fontWeight: '700',
+    lineHeight: 32,
+  },
+  stack: {
+    gap: 16,
+  },
+});

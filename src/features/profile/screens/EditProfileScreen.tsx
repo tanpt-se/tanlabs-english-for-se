@@ -1,28 +1,18 @@
-import {
-  Box,
-  Button,
-  ButtonText,
-  FormControl,
-  FormControlError,
-  FormControlErrorText,
-  Input,
-  InputField,
-  Pressable,
-  Text,
-  VStack,
-} from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
 import type { AppStackParamList } from '@/app/navigation/types';
+import { AppButton, AppFormError, AppTextInput } from '@/components/ui/AppControls';
 import { AuthHeader } from '@/components/ui/AuthHeader';
 import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { upsertProfile } from '@/core/profile/service';
 import { ENGLISH_LEVELS } from '@/core/profile/validation';
+import { EnglishLevelPicker } from '@/features/profile/components/EnglishLevelPicker';
 import { useProfile } from '@/features/profile/hooks/useProfile';
-import { accessibleButtonProps } from '@/theme';
+import { useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -40,6 +30,7 @@ export function EditProfileScreen() {
   const [profileHydrated, setProfileHydrated] = useState(Boolean(profile));
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+  const colors = useAppColors();
 
   useEffect(() => {
     if (!profileHydrated && profile) {
@@ -54,25 +45,23 @@ export function EditProfileScreen() {
     return (
       <ScreenScroll>
         <AuthHeader title="Edit profile" subtitle="Update how we greet you." />
-        <VStack space="md">
-          <Text color="$textLight900">
+        <View style={styles.stack}>
+          <Text style={{ color: colors.text }}>
             {isFetchingProfile
               ? 'Loading profile…'
               : 'Profile is unavailable. Reconnect to the internet and try again.'}
           </Text>
           {!isFetchingProfile ? (
-            <Button
+            <AppButton
               accessibilityLabel="Retry loading profile"
               accessibilityRole="button"
-              {...accessibleButtonProps}
               onPress={() => {
                 refetch().catch(() => undefined);
               }}
-            >
-              <ButtonText>Retry</ButtonText>
-            </Button>
+              label="Retry"
+            />
           ) : null}
-        </VStack>
+        </View>
       </ScreenScroll>
     );
   }
@@ -103,62 +92,38 @@ export function EditProfileScreen() {
   return (
     <ScreenScroll>
       <AuthHeader title="Edit profile" subtitle="Update how we greet you." />
-      <VStack space="md">
-        <FormControl isInvalid={Boolean(error)}>
-          <Input>
-            <InputField
-              accessibilityLabel="Display name"
-              placeholder="Display name"
-              value={displayName}
-              onChangeText={setDisplayName}
-            />
-          </Input>
-        </FormControl>
-        <Text accessibilityRole="header" color="$textLight900">
+      <View style={styles.stack}>
+        <AppTextInput
+          accessibilityLabel="Display name"
+          aria-describedby={error ? 'edit-profile-form-error' : undefined}
+          aria-invalid={Boolean(error)}
+          placeholder="Display name"
+          value={displayName}
+          onChangeText={setDisplayName}
+        />
+        <Text accessibilityRole="header" style={[styles.label, { color: colors.text }]}>
           English level
         </Text>
-        <Box flexDirection="row" flexWrap="wrap" gap="$2">
-          {ENGLISH_LEVELS.map((level) => (
-            <Pressable
-              key={level}
-              accessibilityLabel={`English level ${level}`}
-              accessibilityRole="button"
-              accessibilityState={{ selected: englishLevel === level }}
-              onPress={() => setEnglishLevel(level)}
-            >
-              <Box
-                px="$3"
-                minHeight={44}
-                minWidth={44}
-                justifyContent="center"
-                alignItems="center"
-                borderRadius="$md"
-                bg={englishLevel === level ? '$primary500' : '$white'}
-                borderWidth={1}
-                borderColor="$borderLight200"
-              >
-                <Text color={englishLevel === level ? '$white' : '$textLight900'}>{level}</Text>
-              </Box>
-            </Pressable>
-          ))}
-        </Box>
-        {error ? (
-          <FormControl isInvalid>
-            <FormControlError>
-              <FormControlErrorText>{error}</FormControlErrorText>
-            </FormControlError>
-          </FormControl>
-        ) : null}
-        <Button
+        <EnglishLevelPicker value={englishLevel} onChange={setEnglishLevel} />
+        {error ? <AppFormError nativeID="edit-profile-form-error" message={error} /> : null}
+        <AppButton
           accessibilityLabel="Save profile"
           accessibilityRole="button"
-          {...accessibleButtonProps}
           onPress={onSubmit}
-          isDisabled={loading}
-        >
-          <ButtonText>{loading ? 'Saving…' : 'Save'}</ButtonText>
-        </Button>
-      </VStack>
+          disabled={loading}
+          label={loading ? 'Saving…' : 'Save'}
+        />
+      </View>
     </ScreenScroll>
   );
 }
+
+const styles = StyleSheet.create({
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  stack: {
+    gap: 16,
+  },
+});

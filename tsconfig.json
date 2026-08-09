@@ -6,6 +6,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["**/*.ts", "**/*.tsx"],
-  "exclude": ["**/node_modules", "**/Pods"]
+  "include": ["index.js", "App.tsx", "src/**/*", "__tests__/**/*"],
+  "exclude": ["**/node_modules", "**/Pods", "android", "ios", "vendor", "coverage"]
 }

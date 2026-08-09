@@ -1,5 +1,4 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { secureSessionStorage } from '@/core/supabase/secureStorage';
 import type { Profile } from '@/types/database';
 
 function cacheKey(userId: string) {
@@ -8,7 +7,7 @@ function cacheKey(userId: string) {
 
 export async function readCachedProfile(userId: string): Promise<Profile | null> {
   try {
-    const raw = await AsyncStorage.getItem(cacheKey(userId));
+    const raw = await secureSessionStorage.getItem(cacheKey(userId));
     if (!raw) {
       return null;
     }
@@ -20,7 +19,7 @@ export async function readCachedProfile(userId: string): Promise<Profile | null>
 
 export async function writeCachedProfile(userId: string, profile: Profile): Promise<void> {
   try {
-    await AsyncStorage.setItem(cacheKey(userId), JSON.stringify(profile));
+    await secureSessionStorage.setItem(cacheKey(userId), JSON.stringify(profile));
   } catch {
     // Non-blocking cache write
   }
@@ -28,7 +27,7 @@ export async function writeCachedProfile(userId: string, profile: Profile): Prom
 
 export async function clearCachedProfile(userId: string): Promise<void> {
   try {
-    await AsyncStorage.removeItem(cacheKey(userId));
+    await secureSessionStorage.removeItem(cacheKey(userId));
   } catch {
     // Non-blocking
   }

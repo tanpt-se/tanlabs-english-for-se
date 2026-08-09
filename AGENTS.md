@@ -6,7 +6,7 @@ Prefer editing here over duplicating rules in tool-specific files.
 ## Project
 
 English learning product for software engineers (TanLabs).
-Stack: React Native 0.86 · React Navigation · TanStack Query · Supabase · FastImage (`@d11/react-native-fast-image`) · gluestack-ui themed · Reactotron (dev).
+Stack: React Native 0.86 · React Navigation · TanStack Query · Supabase · FastImage (`@d11/react-native-fast-image`) · React Native core UI · Reactotron (dev).
 
 PH1 source of truth: `plans/PH1.md` (status-only edits when verified; do not change scope/prose).
 
@@ -41,7 +41,7 @@ Use a **type prefix** (lowercase) then a short summary. Prefer one logical chang
 features: add offline profile cache
 fixes: deactivate FCM token before sign-out
 bugs: prevent CompleteProfile flash on account switch
-chores: regenerate package-lock for Node 22 CI
+chores: regenerate pnpm-lock for Node 22 CI
 docs: clarify supabase link CLI pin
 ```
 
@@ -63,19 +63,21 @@ Do **not** use free-form subjects like “Add X so Y” without a prefix.
 ## Verification
 
 ```bash
-npm run check   # eslint + prettier
-npm test
-npm run e2e:ios     # Maestro device smoke (optional; maestro/)
-npm run e2e:android
+pnpm run check   # eslint + prettier
+pnpm test
+pnpm run e2e:ios     # Maestro device smoke (optional; maestro/)
+pnpm run e2e:android
 ```
 
 Git pre-commit (Husky + lint-staged): auto `eslint --fix` + `prettier --write` on staged files.
-`npm run ios` / `android` also run `check` via `preios` / `preandroid`.
+`pnpm run ios` / `android` also run `check` via `preios` / `preandroid`.
+
+Package manager: **pnpm** (`pnpm-lock.yaml`). Use `pnpm install` locally and `pnpm install --frozen-lockfile` in CI. Do not commit `package-lock.json`.
 
 iOS after native deps: `npx pod-install ios`
 
 Fastlane (CI/CD): `bundle install` then `bundle exec fastlane doctor`.
-See `fastlane/README.md` + `fastlane/.env.example`. Prefer `bundle exec fastlane …` / npm `fastlane:*` scripts.
+See `fastlane/README.md` + `fastlane/.env.example`. Prefer `bundle exec fastlane …` / pnpm `fastlane:*` scripts.
 
 ## Cursor-only (optional)
 

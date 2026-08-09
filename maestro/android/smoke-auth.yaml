@@ -10,14 +10,12 @@ tags:
 - extendedWaitUntil:
     visible:
       id: 'login-submit'
-    timeout: 30000
+    timeout: 90000
 - tapOn:
     id: 'login-email'
-- eraseText
 - inputText: ${SMOKE_EMAIL}
 - tapOn:
     id: 'login-password'
-- eraseText
 - inputText: ${SMOKE_PASSWORD}
 - pressKey: Enter
 - tapOn:

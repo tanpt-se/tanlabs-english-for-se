@@ -56,39 +56,6 @@ jest.mock('@d11/react-native-fast-image', () => {
   return { __esModule: true, default: FastImage };
 });
 
-jest.mock('@gluestack-ui/themed', () => {
-  const React = require('react');
-  const { Text, View, TextInput, Pressable, Switch, ActivityIndicator } = require('react-native');
-
-  const passthrough =
-    (Comp = View) =>
-    ({ children, ...props }) =>
-      React.createElement(Comp, props, children);
-
-  return {
-    GluestackUIProvider: passthrough(View),
-    Box: passthrough(View),
-    VStack: passthrough(View),
-    HStack: passthrough(View),
-    Heading: passthrough(Text),
-    Text: passthrough(Text),
-    Button: passthrough(Pressable),
-    ButtonText: passthrough(Text),
-    Input: passthrough(View),
-    InputField: passthrough(TextInput),
-    FormControl: passthrough(View),
-    FormControlError: passthrough(View),
-    FormControlErrorText: passthrough(Text),
-    Pressable: passthrough(Pressable),
-    Switch,
-    Spinner: ActivityIndicator,
-  };
-});
-
-jest.mock('@gluestack-ui/config', () => ({
-  config: {},
-}));
-
 jest.mock('@react-native-firebase/app', () => ({
   __esModule: true,
   getApp: jest.fn(() => ({})),
@@ -109,7 +76,7 @@ jest.mock('@react-native-firebase/messaging', () => {
     getMessaging: jest.fn(() => messagingInstance),
     hasPermission: jest.fn(async () => AuthorizationStatus.AUTHORIZED),
     requestPermission: jest.fn(async () => AuthorizationStatus.AUTHORIZED),
-    registerDeviceForRemoteMessages: jest.fn(async () => undefined),
+    deleteToken: jest.fn(async () => undefined),
     getToken: jest.fn(async () => 'test-token'),
     onTokenRefresh: jest.fn(() => jest.fn()),
     onMessage: jest.fn(() => jest.fn()),
@@ -119,7 +86,7 @@ jest.mock('@react-native-firebase/messaging', () => {
     // Legacy default export kept for accidental namespaced imports in tests.
     default: () => ({
       requestPermission: jest.fn(async () => 1),
-      registerDeviceForRemoteMessages: jest.fn(async () => undefined),
+      deleteToken: jest.fn(async () => undefined),
       getToken: jest.fn(async () => 'test-token'),
       onTokenRefresh: jest.fn(() => jest.fn()),
       onMessage: jest.fn(() => jest.fn()),

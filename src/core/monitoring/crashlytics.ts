@@ -17,14 +17,14 @@ export async function initializeMonitoring(): Promise<void> {
   }
 }
 
-export async function recordFatalError(error: unknown): Promise<void> {
+export async function recordError(error: unknown): Promise<void> {
   try {
-    const { getCrashlytics, recordError } = crashlyticsMod();
+    const { getCrashlytics, recordError: recordCrashlyticsError } = crashlyticsMod();
     const crashlytics = getCrashlytics();
     if (error instanceof Error) {
-      recordError(crashlytics, error);
+      recordCrashlyticsError(crashlytics, error);
     } else {
-      recordError(crashlytics, new Error(String(error)));
+      recordCrashlyticsError(crashlytics, new Error(String(error)));
     }
   } catch {
     if (__DEV__) {

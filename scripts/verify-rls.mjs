@@ -151,6 +151,22 @@ async function main() {
       const check = await rest(userB.token, `/profiles?id=eq.${userB.id}&select=display_name`);
       assert(check.body?.[0]?.display_name === 'User B', 'A was able to mutate B profile');
     }
+    {
+      const { res } = await rest(userA.token, `/profiles?id=eq.${userA.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ display_name: 'x'.repeat(41) }),
+      });
+      assert(!res.ok, 'Profile display-name length constraint is missing');
+    }
+
+    for (const user of [userA, userB]) {
+      const { res, body } = await rest(user.token, '/notification_settings', {
+        method: 'POST',
+        headers: { Prefer: 'resolution=merge-duplicates,return=representation' },
+        body: JSON.stringify({ user_id: user.id, enabled: true }),
+      });
+      assert(res.ok, `Notification setting setup failed: ${JSON.stringify(body)}`);
+    }
 
     // Devices
     const tokenA = `fcm-a-${stamp}`;
@@ -185,6 +201,44 @@ async function main() {
         body: JSON.stringify({ is_active: false }),
       });
       assert(res.ok, `A update own device failed: ${JSON.stringify(body)}`);
+    }
+    {
+      const { res, body } = await rest(userB.token, '/rpc/claim_device_token', {
+        method: 'POST',
+        body: JSON.stringify({ p_token: tokenA, p_platform: 'android' }),
+      });
+      assert(res.ok, `B claim device token failed: ${JSON.stringify(body)}`);
+      const previousOwner = await rest(
+        userA.token,
+        `/user_devices?fcm_token=eq.${tokenA}&select=is_active`,
+      );
+      const currentOwner = await rest(
+        userB.token,
+        `/user_devices?fcm_token=eq.${tokenA}&select=is_active`,
+      );
+      assert(previousOwner.body?.[0]?.is_active === false, 'Claim did not deactivate prior owner');
+      assert(currentOwner.body?.[0]?.is_active === true, 'Claim did not activate current owner');
+    }
+
+    {
+      const { res, body } = await rest(userA.token, '/notification_settings', {
+        method: 'POST',
+        headers: { Prefer: 'resolution=merge-duplicates,return=representation' },
+        body: JSON.stringify({ user_id: userA.id, enabled: true }),
+      });
+      assert(res.ok, `A notification setting failed: ${JSON.stringify(body)}`);
+    }
+    {
+      const { res } = await rest(userB.token, `/notification_settings?user_id=eq.${userA.id}`, {
+        method: 'PATCH',
+        body: JSON.stringify({ enabled: false }),
+      });
+      assert(res.status < 500, `B notification cross-update unexpected ${res.status}`);
+      const check = await rest(
+        userA.token,
+        `/notification_settings?user_id=eq.${userA.id}&select=enabled`,
+      );
+      assert(check.body?.[0]?.enabled === true, 'B changed A notification setting');
     }
 
     // app_config readable for authenticated

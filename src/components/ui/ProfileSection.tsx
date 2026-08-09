@@ -1,4 +1,6 @@
-import { Box, Heading, Text, VStack } from '@gluestack-ui/themed';
+import { StyleSheet, Text, View } from 'react-native';
+
+import { useAppColors } from '@/theme';
 
 import type { PropsWithChildren } from 'react';
 
@@ -8,25 +10,42 @@ type ProfileSectionProps = PropsWithChildren<{
 }>;
 
 export function ProfileSection({ title, description, children }: ProfileSectionProps) {
+  const colors = useAppColors();
+
   return (
-    <Box mb="$4">
-      <Heading size="sm" mb="$2" px="$1" color="$textLight900">
+    <View style={styles.container}>
+      <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>
         {title}
-      </Heading>
+      </Text>
       {description ? (
-        <Text color="$textLight600" mb="$2" px="$1">
-          {description}
-        </Text>
+        <Text style={[styles.description, { color: colors.textMuted }]}>{description}</Text>
       ) : null}
-      <VStack
-        bg="$white"
-        borderRadius="$xl"
-        overflow="hidden"
-        borderWidth={1}
-        borderColor="$borderLight200"
+      <View
+        style={[styles.surface, { backgroundColor: colors.surface, borderColor: colors.border }]}
       >
         {children}
-      </VStack>
-    </Box>
+      </View>
+    </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    marginBottom: 16,
+  },
+  description: {
+    marginBottom: 8,
+    paddingHorizontal: 4,
+  },
+  surface: {
+    borderRadius: 20,
+    borderWidth: 1,
+    overflow: 'hidden',
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 8,
+    paddingHorizontal: 4,
+  },
+});

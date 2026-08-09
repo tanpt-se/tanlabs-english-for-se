@@ -1,6 +1,10 @@
 import { Alert, Linking, PermissionsAndroid, Platform } from 'react-native';
 
-import { getDevicePushToken, persistDeviceToken } from '@/core/notification/deviceService';
+import {
+  clearDevicePushToken,
+  getDevicePushToken,
+  persistDeviceToken,
+} from '@/core/notification/deviceService';
 import { supabase } from '@/core/supabase/client';
 
 type Unsubscribe = () => void;
@@ -78,17 +82,8 @@ export async function requestNotificationPermissionWithRationale(): Promise<bool
                   resolve(await requestAndroidPostNotifications());
                   return;
                 }
-                const {
-                  AuthorizationStatus,
-                  getMessaging,
-                  isDeviceRegisteredForRemoteMessages,
-                  registerDeviceForRemoteMessages,
-                  requestPermission,
-                } = messagingMod();
+                const { AuthorizationStatus, getMessaging, requestPermission } = messagingMod();
                 const messaging = getMessaging();
-                if (!isDeviceRegisteredForRemoteMessages(messaging)) {
-                  await registerDeviceForRemoteMessages(messaging);
-                }
                 const authStatus = await requestPermission(messaging, {
                   alert: true,
                   badge: true,
@@ -146,11 +141,10 @@ export async function requestNotificationPermissionWithRationale(): Promise<bool
 
 export async function obtainAndPersistFcmToken(userId: string): Promise<string | null> {
   try {
-    const { getMessaging, getToken, registerDeviceForRemoteMessages } = messagingMod();
+    const { getMessaging, getToken } = messagingMod();
     const messaging = getMessaging();
-    await registerDeviceForRemoteMessages(messaging);
     const token = await getToken(messaging);
-    if (!token) {
+    if (!token || !(await notificationPreferenceEnabled(userId))) {
       return null;
     }
     await persistDeviceToken(userId, token);
@@ -160,18 +154,27 @@ export async function obtainAndPersistFcmToken(userId: string): Promise<string |
   }
 }
 
+export async function deleteCurrentFcmToken(): Promise<void> {
+  const { deleteToken, getMessaging } = messagingMod();
+  try {
+    await deleteToken(getMessaging());
+  } finally {
+    await clearDevicePushToken();
+  }
+}
+
+async function notificationPreferenceEnabled(userId: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('notification_settings')
+    .select('enabled')
+    .eq('user_id', userId)
+    .maybeSingle();
+  return !error && data?.enabled === true;
+}
+
 export async function syncNotificationsForSignedInUser(userId: string): Promise<void> {
   try {
-    const { data, error } = await supabase
-      .from('notification_settings')
-      .select('enabled')
-      .eq('user_id', userId)
-      .maybeSingle();
-    if (error) {
-      return;
-    }
-    // Do not re-activate tokens when the user preference is off / missing.
-    if (!data?.enabled) {
+    if (!(await notificationPreferenceEnabled(userId))) {
       return;
     }
 
@@ -188,6 +191,7 @@ export async function syncNotificationsForSignedInUser(userId: string): Promise<
 export async function initializeNotifications(): Promise<void> {
   try {
     const {
+      deleteToken,
       getInitialNotification,
       getMessaging,
       onMessage,
@@ -198,11 +202,18 @@ export async function initializeNotifications(): Promise<void> {
 
     unsubscribers.push(
       onTokenRefresh(messaging, async (token: string) => {
-        const {
-          data: { user },
-        } = await supabase.auth.getUser();
-        if (user?.id && token) {
-          await persistDeviceToken(user.id, token);
+        try {
+          const {
+            data: { user },
+          } = await supabase.auth.getUser();
+          if (user?.id && token && (await notificationPreferenceEnabled(user.id))) {
+            await persistDeviceToken(user.id, token);
+            return;
+          }
+          await deleteToken(messaging);
+          await clearDevicePushToken();
+        } catch {
+          await clearDevicePushToken().catch(() => undefined);
         }
       }),
     );
