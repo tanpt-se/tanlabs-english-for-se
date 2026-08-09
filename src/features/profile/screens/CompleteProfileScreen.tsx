@@ -14,10 +14,12 @@ import {
 import { useState } from 'react';
 
 import { AuthHeader } from '@/components/ui/AuthHeader';
+import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { trackEvent } from '@/core/analytics/events';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { upsertProfile } from '@/core/profile/service';
 import { ENGLISH_LEVELS } from '@/core/profile/validation';
+import { accessibleButtonProps } from '@/theme';
 
 export function CompleteProfileScreen() {
   const { user, refreshProfile } = useAuth();
@@ -49,7 +51,7 @@ export function CompleteProfileScreen() {
   };
 
   return (
-    <Box flex={1} bg="$backgroundLight100" px="$4" justifyContent="center">
+    <ScreenScroll centered>
       <AuthHeader title="Complete profile" subtitle="Tell us how to greet you." />
       <VStack space="md">
         <FormControl isInvalid={Boolean(error)}>
@@ -62,7 +64,9 @@ export function CompleteProfileScreen() {
             />
           </Input>
         </FormControl>
-        <Text accessibilityRole="header">English level</Text>
+        <Text accessibilityRole="header" color="$textLight900">
+          English level
+        </Text>
         <Box flexDirection="row" flexWrap="wrap" gap="$2">
           {ENGLISH_LEVELS.map((level) => (
             <Pressable
@@ -72,10 +76,12 @@ export function CompleteProfileScreen() {
               accessibilityState={{ selected: englishLevel === level }}
               onPress={() => setEnglishLevel(level)}
             >
-              {' '}
               <Box
                 px="$3"
-                py="$2"
+                minHeight={44}
+                minWidth={44}
+                justifyContent="center"
+                alignItems="center"
                 borderRadius="$md"
                 bg={englishLevel === level ? '$primary500' : '$white'}
                 borderWidth={1}
@@ -96,13 +102,13 @@ export function CompleteProfileScreen() {
         <Button
           accessibilityLabel="Continue"
           accessibilityRole="button"
-          minHeight={44}
+          {...accessibleButtonProps}
           onPress={onSubmit}
           isDisabled={loading}
         >
           <ButtonText>{loading ? 'Saving…' : 'Continue'}</ButtonText>
         </Button>
       </VStack>
-    </Box>
+    </ScreenScroll>
   );
 }

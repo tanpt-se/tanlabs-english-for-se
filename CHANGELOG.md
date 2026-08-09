@@ -36,6 +36,9 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Changed
 
+- Auth errors map rate-limit / credentials / email-taken / network via `AuthUserError`; Register shows Sign in instead when rate-limited
+- Theme muted/primary contrast raised for AA intent; PH1 screens use `ScreenScroll` + KeyboardAvoiding for Dynamic Type / keyboard
+- Primary buttons use `accessibleButtonProps` (`h: auto`, min 44pt, vertical padding) so large Dynamic Type does not clip label text
 - Notification Switch tracks preference (not preference∧OS) so preference can be turned off when OS is denied
 - Preference OFF deactivates `user_devices`; sign-in sync skips FCM persist when preference is off
 - Device deactivate surfaces Supabase errors; logout records deactivate failures via Crashlytics

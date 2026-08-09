@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   ButtonText,
   FormControl,
@@ -16,8 +15,11 @@ import { useState } from 'react';
 
 import type { AuthStackParamList } from '@/app/navigation/types';
 import { AuthHeader } from '@/components/ui/AuthHeader';
+import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { trackEvent } from '@/core/analytics/events';
+import { isAuthRateLimitError } from '@/core/auth/errors';
 import { signUp } from '@/core/auth/service';
+import { accessibleButtonProps } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -26,15 +28,18 @@ export function RegisterScreen() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
+  const [rateLimited, setRateLimited] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const onSubmit = async () => {
     setLoading(true);
     setError(null);
+    setRateLimited(false);
     try {
       await signUp(email, password);
       await trackEvent('register_success');
     } catch (err) {
+      setRateLimited(isAuthRateLimitError(err));
       setError(err instanceof Error ? err.message : 'Registration failed');
     } finally {
       setLoading(false);
@@ -42,7 +47,7 @@ export function RegisterScreen() {
   };
 
   return (
-    <Box flex={1} bg="$backgroundLight100" px="$4" justifyContent="center">
+    <ScreenScroll centered>
       <AuthHeader title="Create account" subtitle="Email confirmation is off for PH1." />
       <VStack space="md">
         <FormControl isInvalid={Boolean(error)}>
@@ -76,12 +81,23 @@ export function RegisterScreen() {
         <Button
           accessibilityLabel="Register"
           accessibilityRole="button"
-          minHeight={44}
+          {...accessibleButtonProps}
           onPress={onSubmit}
           isDisabled={loading}
         >
           <ButtonText>{loading ? 'Creating…' : 'Register'}</ButtonText>
         </Button>
+        {rateLimited ? (
+          <Button
+            accessibilityLabel="Sign in instead"
+            accessibilityRole="button"
+            variant="outline"
+            {...accessibleButtonProps}
+            onPress={() => navigation.navigate('Login')}
+          >
+            <ButtonText>Sign in instead</ButtonText>
+          </Button>
+        ) : null}
         <Pressable
           accessibilityLabel="Already have an account? Sign in"
           accessibilityRole="link"
@@ -94,6 +110,6 @@ export function RegisterScreen() {
           </Text>
         </Pressable>
       </VStack>
-    </Box>
+    </ScreenScroll>
   );
 }

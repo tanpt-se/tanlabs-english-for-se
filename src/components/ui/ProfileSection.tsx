@@ -10,11 +10,11 @@ type ProfileSectionProps = PropsWithChildren<{
 export function ProfileSection({ title, description, children }: ProfileSectionProps) {
   return (
     <Box mb="$4">
-      <Heading size="sm" mb="$2" px="$1">
+      <Heading size="sm" mb="$2" px="$1" color="$textLight900">
         {title}
       </Heading>
       {description ? (
-        <Text color="$textLight500" mb="$2" px="$1">
+        <Text color="$textLight600" mb="$2" px="$1">
           {description}
         </Text>
       ) : null}

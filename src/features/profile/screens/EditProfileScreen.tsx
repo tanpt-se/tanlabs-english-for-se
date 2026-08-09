@@ -17,10 +17,12 @@ import { useEffect, useState } from 'react';
 
 import type { AppStackParamList } from '@/app/navigation/types';
 import { AuthHeader } from '@/components/ui/AuthHeader';
+import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { upsertProfile } from '@/core/profile/service';
 import { ENGLISH_LEVELS } from '@/core/profile/validation';
 import { useProfile } from '@/features/profile/hooks/useProfile';
+import { accessibleButtonProps } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -50,10 +52,10 @@ export function EditProfileScreen() {
   if (!profileHydrated) {
     const isFetchingProfile = fetchStatus === 'fetching';
     return (
-      <Box flex={1} bg="$backgroundLight100" px="$4" py="$6">
+      <ScreenScroll>
         <AuthHeader title="Edit profile" subtitle="Update how we greet you." />
         <VStack space="md">
-          <Text>
+          <Text color="$textLight900">
             {isFetchingProfile
               ? 'Loading profile…'
               : 'Profile is unavailable. Reconnect to the internet and try again.'}
@@ -62,6 +64,7 @@ export function EditProfileScreen() {
             <Button
               accessibilityLabel="Retry loading profile"
               accessibilityRole="button"
+              {...accessibleButtonProps}
               onPress={() => {
                 refetch().catch(() => undefined);
               }}
@@ -70,7 +73,7 @@ export function EditProfileScreen() {
             </Button>
           ) : null}
         </VStack>
-      </Box>
+      </ScreenScroll>
     );
   }
 
@@ -98,7 +101,7 @@ export function EditProfileScreen() {
   };
 
   return (
-    <Box flex={1} bg="$backgroundLight100" px="$4" py="$6">
+    <ScreenScroll>
       <AuthHeader title="Edit profile" subtitle="Update how we greet you." />
       <VStack space="md">
         <FormControl isInvalid={Boolean(error)}>
@@ -111,7 +114,9 @@ export function EditProfileScreen() {
             />
           </Input>
         </FormControl>
-        <Text accessibilityRole="header">English level</Text>
+        <Text accessibilityRole="header" color="$textLight900">
+          English level
+        </Text>
         <Box flexDirection="row" flexWrap="wrap" gap="$2">
           {ENGLISH_LEVELS.map((level) => (
             <Pressable
@@ -121,10 +126,12 @@ export function EditProfileScreen() {
               accessibilityState={{ selected: englishLevel === level }}
               onPress={() => setEnglishLevel(level)}
             >
-              {' '}
               <Box
                 px="$3"
-                py="$2"
+                minHeight={44}
+                minWidth={44}
+                justifyContent="center"
+                alignItems="center"
                 borderRadius="$md"
                 bg={englishLevel === level ? '$primary500' : '$white'}
                 borderWidth={1}
@@ -145,13 +152,13 @@ export function EditProfileScreen() {
         <Button
           accessibilityLabel="Save profile"
           accessibilityRole="button"
-          minHeight={44}
+          {...accessibleButtonProps}
           onPress={onSubmit}
           isDisabled={loading}
         >
           <ButtonText>{loading ? 'Saving…' : 'Save'}</ButtonText>
         </Button>
       </VStack>
-    </Box>
+    </ScreenScroll>
   );
 }

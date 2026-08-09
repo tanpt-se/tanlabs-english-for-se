@@ -18,8 +18,14 @@ export function SettingRow({ label, value, onPress }: SettingRowProps) {
         justifyContent="space-between"
         alignItems="center"
       >
-        <Text>{label}</Text>
-        {value ? <Text color="$textLight500">{value}</Text> : null}
+        <Text color="$textLight900" flexShrink={1} mr="$2">
+          {label}
+        </Text>
+        {value ? (
+          <Text color="$textLight600" flexShrink={1} textAlign="right">
+            {value}
+          </Text>
+        ) : null}
       </HStack>
     </Pressable>
   );

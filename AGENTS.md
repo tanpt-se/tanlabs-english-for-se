@@ -48,6 +48,12 @@ docs: clarify supabase link CLI pin
 Allowed prefixes: `features:`, `fixes:`, `bugs:`, `chores:`, `docs:`, `tests:`, `refactor:`.
 Do **not** use free-form subjects like “Add X so Y” without a prefix.
 
+### Git push
+
+- **Never `git push` (or force-push) unless the user explicitly approves that push in the conversation.**
+- Commit-only / local commits are OK when the user asks to commit.
+- “Ship it”, “push”, or choosing a prompt option that says push counts as approval for that action only.
+
 ## Communication
 
 - Concise. Direct. Technical accuracy over fluff.

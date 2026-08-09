@@ -5,16 +5,16 @@ import { Linking } from 'react-native';
 
 import type { AppStackParamList } from '@/app/navigation/types';
 import { ProfileSection } from '@/components/ui/ProfileSection';
+import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { SettingRow } from '@/components/ui/SettingRow';
 import { trackEvent } from '@/core/analytics/events';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { triggerTestCrash } from '@/core/monitoring/crashlytics';
 import { useProfile } from '@/features/profile/hooks/useProfile';
 import { useNotificationSettings } from '@/features/settings/hooks/useNotificationSettings';
+import { accessibleButtonProps } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-const MIN_TOUCH = 44;
 
 export function SettingsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
@@ -34,7 +34,7 @@ export function SettingsScreen() {
   };
 
   return (
-    <Box flex={1} bg="$backgroundLight100" px="$4" py="$6">
+    <ScreenScroll>
       <VStack space="lg">
         <ProfileSection title="Profile">
           <SettingRow label="Display name" value={profile?.display_name ?? '—'} />
@@ -48,7 +48,7 @@ export function SettingsScreen() {
                 size="md"
                 variant="outline"
                 mt="$2"
-                minHeight={MIN_TOUCH}
+                {...accessibleButtonProps}
                 onPress={() => refetch()}
                 isDisabled={isFetching}
               >
@@ -62,7 +62,7 @@ export function SettingsScreen() {
               accessibilityRole="button"
               size="md"
               variant="outline"
-              minHeight={MIN_TOUCH}
+              {...accessibleButtonProps}
               onPress={() => navigation.navigate('EditProfile')}
             >
               <ButtonText>Edit profile</ButtonText>
@@ -77,12 +77,14 @@ export function SettingsScreen() {
           <Box
             px="$4"
             py="$3"
-            minHeight={MIN_TOUCH}
+            minHeight={44}
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
           >
-            <Text>Enable notifications</Text>
+            <Text color="$textLight900" flexShrink={1} mr="$3">
+              Enable notifications
+            </Text>
             <Switch
               accessibilityLabel="Enable notifications"
               accessibilityRole="switch"
@@ -102,7 +104,7 @@ export function SettingsScreen() {
                 accessibilityRole="button"
                 size="md"
                 variant="outline"
-                minHeight={MIN_TOUCH}
+                {...accessibleButtonProps}
                 onPress={() => {
                   Linking.openSettings().catch(() => undefined);
                 }}
@@ -122,7 +124,7 @@ export function SettingsScreen() {
                 size="md"
                 variant="outline"
                 action="negative"
-                minHeight={MIN_TOUCH}
+                {...accessibleButtonProps}
                 onPress={() => triggerTestCrash()}
               >
                 <ButtonText>Trigger test crash</ButtonText>
@@ -136,13 +138,13 @@ export function SettingsScreen() {
           accessibilityLabel="Sign out"
           accessibilityRole="button"
           action="negative"
-          minHeight={MIN_TOUCH}
+          {...accessibleButtonProps}
           onPress={onSignOut}
           isDisabled={busy}
         >
           <ButtonText>{busy ? 'Signing out…' : 'Sign out'}</ButtonText>
         </Button>
       </VStack>
-    </Box>
+    </ScreenScroll>
   );
 }

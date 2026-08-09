@@ -1,5 +1,4 @@
 import {
-  Box,
   Button,
   ButtonText,
   FormControl,
@@ -16,8 +15,10 @@ import { useState } from 'react';
 
 import type { AuthStackParamList } from '@/app/navigation/types';
 import { AuthHeader } from '@/components/ui/AuthHeader';
+import { ScreenScroll } from '@/components/ui/ScreenScroll';
 import { trackEvent } from '@/core/analytics/events';
 import { signIn } from '@/core/auth/service';
+import { accessibleButtonProps } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -42,7 +43,7 @@ export function LoginScreen() {
   };
 
   return (
-    <Box flex={1} bg="$backgroundLight100" px="$4" justifyContent="center">
+    <ScreenScroll centered>
       <AuthHeader title="Sign in" subtitle="Continue your SE English practice." />
       <VStack space="md">
         <FormControl isInvalid={Boolean(error)}>
@@ -79,7 +80,7 @@ export function LoginScreen() {
           testID="login-submit"
           accessibilityLabel="Sign in"
           accessibilityRole="button"
-          minHeight={44}
+          {...accessibleButtonProps}
           onPress={onSubmit}
           isDisabled={loading}
         >
@@ -97,6 +98,6 @@ export function LoginScreen() {
           </Text>
         </Pressable>
       </VStack>
-    </Box>
+    </ScreenScroll>
   );
 }
