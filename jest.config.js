@@ -1,33 +1,14 @@
+/** Local + CI global gate. Soft historical floors kept only when COVERAGE_ENFORCE is unset (ad-hoc). */
+const enforceGlobal90 = process.env.COVERAGE_ENFORCE !== '0';
+
 module.exports = {
   preset: '@react-native/jest-preset',
   setupFiles: ['./jest.setup.js'],
   collectCoverageFrom: ['App.tsx', 'src/**/*.{ts,tsx}', '!src/types/**'],
   coverageThreshold: {
-    global: { branches: 24, functions: 30, lines: 35, statements: 34 },
-    './src/core/auth/AuthProvider.tsx': {
-      branches: 50,
-      functions: 70,
-      lines: 70,
-      statements: 70,
-    },
-    './src/core/notification/deviceService.ts': {
-      branches: 75,
-      functions: 85,
-      lines: 85,
-      statements: 85,
-    },
-    './src/core/notification/mutations.ts': {
-      branches: 50,
-      functions: 60,
-      lines: 80,
-      statements: 75,
-    },
-    './src/core/supabase/secureStorage.ts': {
-      branches: 80,
-      functions: 95,
-      lines: 90,
-      statements: 90,
-    },
+    global: enforceGlobal90
+      ? { branches: 90, functions: 90, lines: 90, statements: 90 }
+      : { branches: 24, functions: 30, lines: 35, statements: 34 },
   },
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',

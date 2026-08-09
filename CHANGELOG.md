@@ -36,6 +36,8 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Changed
 
+- Coverage target is global **90%** (lines/functions/branches/statements); CI runs `pnpm run test:coverage` / `test:coverage:enforce` with the hard gate (`COVERAGE_ENFORCE=0` soft escape hatch only for local ad-hoc reports)
+- Unit coverage raised across core services, FCM/Crashlytics/Analytics, hooks, RN UI wrappers, screens, navigator/providers, and API interceptors — `test:coverage:enforce` now passes
 - Notification consent now commits server preference before activating FCM; token refresh and logout revoke delivery safely
 - Profile cache and FCM tokens migrate from plaintext AsyncStorage to Keychain/Keystore; persisted query cache is limited to public remote config
 - Production auth requires email verification; registration handles confirmation-required accounts

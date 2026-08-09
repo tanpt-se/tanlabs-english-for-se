@@ -68,14 +68,33 @@ test('auth service maps failures and resolves session lifecycle', async () => {
   });
   await expect(signIn('user@example.com', 'bad')).rejects.toThrow('Invalid email or password.');
 
+  jest.mocked(supabase.auth.signUp).mockResolvedValue({
+    data: { session: null, user: null },
+    error: { message: 'User already registered' } as never,
+  });
+  await expect(signUp('user@example.com', 'password')).rejects.toThrow(
+    'An account with this email already exists.',
+  );
+
   jest.mocked(supabase.auth.getSession).mockResolvedValue({
     data: { session: null },
     error: null,
   });
   await expect(getSession()).resolves.toBeNull();
 
+  jest.mocked(supabase.auth.getSession).mockResolvedValue({
+    data: { session: null },
+    error: { message: 'session boom' } as never,
+  });
+  await expect(getSession()).rejects.toMatchObject({ message: 'session boom' });
+
   jest.mocked(supabase.auth.signOut).mockResolvedValue({ error: null });
   await expect(signOut()).resolves.toBeUndefined();
+
+  jest.mocked(supabase.auth.signOut).mockResolvedValue({
+    error: { message: 'Network request failed' } as never,
+  });
+  await expect(signOut()).rejects.toThrow('Network unavailable. Try again.');
 });
 
 test('profile service fetches and validates profile writes', async () => {
@@ -89,6 +108,15 @@ test('profile service fetches and validates profile writes', async () => {
   await expect(
     upsertProfile({ userId: 'user-1', displayName: 'x', englishLevel: 'B2' }),
   ).rejects.toThrow('Display name must be at least 2 characters.');
+
+  jest.mocked(supabase.from).mockReturnValueOnce({
+    select: jest.fn(() => ({
+      eq: jest.fn(() => ({
+        maybeSingle: jest.fn(async () => ({ data: null, error: new Error('rls denied') })),
+      })),
+    })),
+  } as never);
+  await expect(fetchProfile('user-1')).rejects.toThrow('rls denied');
 });
 
 test('profile service trims and persists valid profile input', async () => {
@@ -105,6 +133,21 @@ test('profile service trims and persists valid profile input', async () => {
     english_level: 'B2',
     id: 'user-1',
   });
+
+  await expect(
+    upsertProfile({ userId: 'user-1', displayName: 'Profile A', englishLevel: 'Z9' }),
+  ).rejects.toThrow('Select a valid English level.');
+
+  jest.mocked(supabase.from).mockReturnValue({
+    upsert: jest.fn(() => ({
+      select: jest.fn(() => ({
+        single: jest.fn(async () => ({ data: null, error: new Error('upsert failed') })),
+      })),
+    })),
+  } as never);
+  await expect(
+    upsertProfile({ userId: 'user-1', displayName: 'Profile A', englishLevel: 'B2' }),
+  ).rejects.toThrow('upsert failed');
 });
 
 test('notification settings service reads and writes the current user row', async () => {
@@ -122,6 +165,24 @@ test('notification settings service reads and writes the current user row', asyn
 
   await expect(setNotificationEnabled('user-1', true)).resolves.toEqual(settings);
   expect(upsert).toHaveBeenCalledWith({ enabled: true, user_id: 'user-1' });
+
+  jest.mocked(supabase.from).mockReturnValueOnce({
+    select: jest.fn(() => ({
+      eq: jest.fn(() => ({
+        maybeSingle: jest.fn(async () => ({ data: null, error: new Error('settings read') })),
+      })),
+    })),
+  } as never);
+  await expect(fetchNotificationSettings('user-1')).rejects.toThrow('settings read');
+
+  jest.mocked(supabase.from).mockReturnValueOnce({
+    upsert: jest.fn(() => ({
+      select: jest.fn(() => ({
+        single: jest.fn(async () => ({ data: null, error: new Error('settings write') })),
+      })),
+    })),
+  } as never);
+  await expect(setNotificationEnabled('user-1', false)).rejects.toThrow('settings write');
 });
 
 test('remote config returns parsed values and safe defaults on failure', async () => {
@@ -138,6 +199,15 @@ test('remote config returns parsed values and safe defaults on failure', async (
   });
 
   jest.mocked(supabase.from).mockReturnValueOnce({
+    select: jest.fn(async () => ({
+      data: [{ key: 'feature_ai', value: 'yes' }],
+      error: null,
+    })),
+  } as never);
+  await expect(fetchFeatureFlags()).resolves.toEqual(DEFAULT_FEATURE_FLAGS);
+  expect(warn).toHaveBeenCalledWith('[remote-config] invalid keys', ['feature_ai']);
+
+  jest.mocked(supabase.from).mockReturnValueOnce({
     select: jest.fn(async () => ({ data: null, error: new Error('offline') })),
   } as never);
   await expect(fetchFeatureFlags()).resolves.toEqual(DEFAULT_FEATURE_FLAGS);
@@ -152,4 +222,16 @@ test('profile cache round-trips through secure storage', async () => {
 
   await clearCachedProfile('user-1');
   await expect(readCachedProfile('user-1')).resolves.toBeNull();
+});
+
+test('profile cache swallows storage failures', async () => {
+  const { secureSessionStorage } = require('@/core/supabase/secureStorage');
+  jest.spyOn(secureSessionStorage, 'getItem').mockRejectedValueOnce(new Error('read fail'));
+  await expect(readCachedProfile('user-1')).resolves.toBeNull();
+
+  jest.spyOn(secureSessionStorage, 'setItem').mockRejectedValueOnce(new Error('write fail'));
+  await expect(writeCachedProfile('user-1', profile)).resolves.toBeUndefined();
+
+  jest.spyOn(secureSessionStorage, 'removeItem').mockRejectedValueOnce(new Error('clear fail'));
+  await expect(clearCachedProfile('user-1')).resolves.toBeUndefined();
 });

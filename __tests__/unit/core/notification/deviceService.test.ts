@@ -104,4 +104,35 @@ describe('deviceService', () => {
 
     expect(supabase.from).not.toHaveBeenCalled();
   });
+
+  it('maps object errors and local storage write failures', async () => {
+    Object.defineProperty(require('react-native').Platform, 'OS', {
+      configurable: true,
+      get: () => 'android',
+    });
+    (supabase.rpc as jest.Mock).mockResolvedValue({
+      data: null,
+      error: { message: 'rpc object error' },
+    });
+    await expect(persistDeviceToken('user-a', 'tok')).rejects.toThrow('rpc object error');
+
+    const { secureSessionStorage } = require('@/core/supabase/secureStorage');
+    jest.spyOn(secureSessionStorage, 'setItem').mockRejectedValueOnce(new Error('write fail'));
+    (supabase.rpc as jest.Mock).mockResolvedValue({ data: null, error: null });
+    await expect(persistDeviceToken('user-a', 'tok-2')).resolves.toBeUndefined();
+
+    (supabase.auth.getUser as jest.Mock).mockResolvedValue({
+      data: { user: null },
+      error: { message: 'auth boom' },
+    });
+    await expect(deactivateCurrentDevice()).rejects.toThrow('auth boom');
+
+    (supabase.rpc as jest.Mock).mockResolvedValue({
+      data: null,
+      error: 'raw-string-error',
+    });
+    await expect(persistDeviceToken('user-a', 'tok-3')).rejects.toThrow(
+      'Failed to claim device token',
+    );
+  });
 });

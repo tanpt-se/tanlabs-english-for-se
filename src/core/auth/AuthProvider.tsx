@@ -11,8 +11,9 @@ import {
 import { resolveAuthRoute } from '@/core/auth/routeResolver';
 import type { ProfileCompleteness, RouteDestination } from '@/core/auth/routeResolver';
 import { getSession, signOut as authSignOut } from '@/core/auth/service';
+import { recordError } from '@/core/monitoring/crashlytics';
 import { deactivateCurrentDevice } from '@/core/notification/deviceService';
-import { deleteCurrentFcmToken } from '@/core/notification/fcm';
+import { deleteCurrentFcmToken, syncNotificationsForSignedInUser } from '@/core/notification/fcm';
 import { clearCachedProfile, readCachedProfile, writeCachedProfile } from '@/core/profile/cache';
 import { fetchProfile } from '@/core/profile/service';
 import { supabase } from '@/core/supabase/client';
@@ -118,7 +119,6 @@ export function AuthProvider({ children }: PropsWithChildren) {
     ]);
     const failures = revocations.filter((result) => result.status === 'rejected');
     if (failures.length > 0) {
-      const { recordError } = await import('@/core/monitoring/crashlytics');
       await recordError(
         new Error(
           failures
@@ -160,11 +160,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       setSession(nextSession);
       loadProfile(nextSession?.user.id).catch(() => undefined);
       if (nextSession?.user.id) {
-        import('@/core/notification/fcm')
-          .then(({ syncNotificationsForSignedInUser }) =>
-            syncNotificationsForSignedInUser(nextSession.user.id),
-          )
-          .catch(() => undefined);
+        syncNotificationsForSignedInUser(nextSession.user.id).catch(() => undefined);
       }
       if (event === 'SIGNED_OUT') {
         loadedUserId.current = undefined;

@@ -65,6 +65,8 @@ Do **not** use free-form subjects like “Add X so Y” without a prefix.
 ```bash
 pnpm run check   # eslint + prettier
 pnpm test
+pnpm run test:coverage # hard global 90% (also used in CI)
+pnpm run test:coverage:soft # report only (COVERAGE_ENFORCE=0)
 pnpm run e2e:ios     # Maestro device smoke (optional; maestro/)
 pnpm run e2e:android
 ```

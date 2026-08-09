@@ -94,3 +94,57 @@ test('does not activate a token when enabling preference fails', async () => {
 
   expect(obtainAndPersistFcmToken).not.toHaveBeenCalled();
 });
+
+test('mutation defaults track analytics and invalidate on settle', async () => {
+  const { trackEvent } = jest.requireMock('@/core/analytics/events') as {
+    trackEvent: jest.Mock;
+  };
+  const client = new QueryClient();
+  const invalidateQueries = jest
+    .spyOn(client, 'invalidateQueries')
+    .mockResolvedValue(undefined as never);
+  configureNotificationMutationDefaults(client);
+  const defaults = client.getMutationDefaults(notificationSettingsMutationKey);
+
+  await (defaults.onSuccess as (data: { enabled: boolean }) => Promise<void>)({ enabled: true });
+  await (defaults.onSuccess as (data: { enabled: boolean }) => Promise<void>)({ enabled: false });
+  expect(trackEvent).toHaveBeenCalledWith('notification_enabled');
+  expect(trackEvent).toHaveBeenCalledWith('notification_disabled');
+
+  (
+    defaults.onError as (
+      error: Error,
+      input: NotificationSettingsMutationInput,
+      context: unknown,
+    ) => void
+  )(new Error('x'), { enabled: true, userId: 'user-1' }, undefined);
+
+  await (
+    defaults.onSettled as (
+      data: unknown,
+      error: unknown,
+      input: NotificationSettingsMutationInput,
+    ) => Promise<void>
+  )(null, null, { enabled: true, userId: 'user-1' });
+  expect(invalidateQueries).toHaveBeenCalledWith({
+    queryKey: ['notification-settings', 'user-1'],
+  });
+  expect(invalidateQueries).toHaveBeenCalledWith({
+    queryKey: ['notification-os-permission', 'user-1'],
+  });
+});
+
+test('token obtain races against the timeout budget', async () => {
+  jest.useFakeTimers();
+  jest.clearAllMocks();
+  jest.mocked(setNotificationEnabled).mockResolvedValue({
+    enabled: true,
+    updated_at: '2026-08-09T00:00:00.000Z',
+    user_id: 'user-1',
+  });
+  jest.mocked(obtainAndPersistFcmToken).mockImplementationOnce(() => new Promise(() => undefined));
+  const pending = updateNotificationSettings({ enabled: true, userId: 'user-1' });
+  await jest.advanceTimersByTimeAsync(8_000);
+  await expect(pending).resolves.toMatchObject({ enabled: true, user_id: 'user-1' });
+  jest.useRealTimers();
+});
