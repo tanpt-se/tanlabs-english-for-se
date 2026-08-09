@@ -19,6 +19,14 @@ const initialStatus: NetworkStatus = {
 
 const NetworkContext = createContext<NetworkStatus>(initialStatus);
 
+export function shouldResumePausedMutations(
+  cacheRestored: boolean,
+  isConnectionKnown: boolean,
+  isOnline: boolean,
+) {
+  return cacheRestored && isConnectionKnown && isOnline;
+}
+
 function getNetworkStatus(state: NetInfoState): NetworkStatus {
   const isConnectionKnown = state.isConnected !== null;
   // Treat null reachability as unknown/online so OS-flaky simulators do not

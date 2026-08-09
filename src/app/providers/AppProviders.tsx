@@ -6,7 +6,11 @@ import { StyleSheet } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import { NetworkProvider, useNetworkStatus } from '@/app/providers/NetworkProvider';
+import {
+  NetworkProvider,
+  shouldResumePausedMutations,
+  useNetworkStatus,
+} from '@/app/providers/NetworkProvider';
 import { AuthProvider } from '@/core/auth/AuthProvider';
 import { configureNotificationMutationDefaults } from '@/core/notification/mutations';
 import { queryClient, queryPersistenceOptions } from '@/lib/queryClient';
@@ -21,7 +25,7 @@ function PersistedAppProviders({ children }: PropsWithChildren) {
   const [cacheRestored, setCacheRestored] = useState(false);
 
   useEffect(() => {
-    if (!cacheRestored || !isConnectionKnown || !isOnline) {
+    if (!shouldResumePausedMutations(cacheRestored, isConnectionKnown, isOnline)) {
       return;
     }
     queryClient.resumePausedMutations().catch(() => undefined);

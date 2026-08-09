@@ -96,6 +96,7 @@ export function CompleteProfileScreen() {
         <Button
           accessibilityLabel="Continue"
           accessibilityRole="button"
+          minHeight={44}
           onPress={onSubmit}
           isDisabled={loading}
         >

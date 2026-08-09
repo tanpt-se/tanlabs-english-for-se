@@ -1,6 +1,7 @@
 import { Box, Button, ButtonText, Switch, Text, VStack } from '@gluestack-ui/themed';
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
+import { Linking } from 'react-native';
 
 import type { AppStackParamList } from '@/app/navigation/types';
 import { ProfileSection } from '@/components/ui/ProfileSection';
@@ -13,17 +14,13 @@ import { useNotificationSettings } from '@/features/settings/hooks/useNotificati
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+const MIN_TOUCH = 44;
+
 export function SettingsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
   const { signOut } = useAuth();
   const { data: profile, isError, refetch, isFetching } = useProfile();
-  const {
-    data: settings,
-    preferenceEnabled,
-    osGranted,
-    setEnabled,
-    isUpdating,
-  } = useNotificationSettings();
+  const { preferenceEnabled, osGranted, setEnabled, isUpdating } = useNotificationSettings();
   const [busy, setBusy] = useState(false);
 
   const onSignOut = async () => {
@@ -48,9 +45,10 @@ export function SettingsScreen() {
               <Button
                 accessibilityLabel="Retry loading profile"
                 accessibilityRole="button"
-                size="sm"
+                size="md"
                 variant="outline"
                 mt="$2"
+                minHeight={MIN_TOUCH}
                 onPress={() => refetch()}
                 isDisabled={isFetching}
               >
@@ -62,8 +60,9 @@ export function SettingsScreen() {
             <Button
               accessibilityLabel="Edit profile"
               accessibilityRole="button"
-              size="sm"
+              size="md"
               variant="outline"
+              minHeight={MIN_TOUCH}
               onPress={() => navigation.navigate('EditProfile')}
             >
               <ButtonText>Edit profile</ButtonText>
@@ -78,6 +77,7 @@ export function SettingsScreen() {
           <Box
             px="$4"
             py="$3"
+            minHeight={MIN_TOUCH}
             flexDirection="row"
             justifyContent="space-between"
             alignItems="center"
@@ -86,16 +86,29 @@ export function SettingsScreen() {
             <Switch
               accessibilityLabel="Enable notifications"
               accessibilityRole="switch"
-              value={Boolean(settings?.enabled)}
+              value={preferenceEnabled}
               onValueChange={(value: boolean) => setEnabled(value)}
               isDisabled={isUpdating}
             />
           </Box>
           {preferenceEnabled && !osGranted ? (
             <Box px="$4" pb="$3">
-              <Text color="$textLight600" fontSize="$sm">
-                Notifications are blocked in system settings. Enable them there to receive alerts.
+              <Text color="$textLight600" fontSize="$sm" mb="$2">
+                Notifications are blocked in system settings. Enable them there to receive alerts,
+                or turn the preference off above.
               </Text>
+              <Button
+                accessibilityLabel="Open system notification settings"
+                accessibilityRole="button"
+                size="md"
+                variant="outline"
+                minHeight={MIN_TOUCH}
+                onPress={() => {
+                  Linking.openSettings().catch(() => undefined);
+                }}
+              >
+                <ButtonText>Open system settings</ButtonText>
+              </Button>
             </Box>
           ) : null}
         </ProfileSection>
@@ -106,9 +119,10 @@ export function SettingsScreen() {
               <Button
                 accessibilityLabel="Trigger test crash for Crashlytics"
                 accessibilityRole="button"
-                size="sm"
+                size="md"
                 variant="outline"
                 action="negative"
+                minHeight={MIN_TOUCH}
                 onPress={() => triggerTestCrash()}
               >
                 <ButtonText>Trigger test crash</ButtonText>
@@ -122,6 +136,7 @@ export function SettingsScreen() {
           accessibilityLabel="Sign out"
           accessibilityRole="button"
           action="negative"
+          minHeight={MIN_TOUCH}
           onPress={onSignOut}
           isDisabled={busy}
         >

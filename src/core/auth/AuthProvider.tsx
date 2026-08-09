@@ -114,8 +114,10 @@ export function AuthProvider({ children }: PropsWithChildren) {
     try {
       // Must run while session is still valid (RLS).
       await deactivateCurrentDevice();
-    } catch {
-      // Non-blocking — still sign out locally.
+    } catch (error) {
+      // Still sign out locally; record so silent push-after-logout is diagnosable.
+      const { recordFatalError } = await import('@/core/monitoring/crashlytics');
+      await recordFatalError(error);
     }
     await authSignOut();
     if (userId) {

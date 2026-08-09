@@ -121,8 +121,8 @@ export function useNotificationSettings() {
 
   const preferenceEnabled = Boolean(query.data?.enabled);
   const osGranted = osPermission.data !== false;
-  // Switch reflects effective delivery: preference AND OS permission.
-  const enabled = preferenceEnabled && osGranted;
+  // Switch follows stored preference so users can turn preference OFF even when OS is denied.
+  // Delivery still requires both; Settings shows an OS-blocked hint when needed.
 
   return {
     isLoading: query.isLoading,
@@ -132,7 +132,7 @@ export function useNotificationSettings() {
     osGranted,
     data: query.data
       ? {
-          enabled,
+          enabled: preferenceEnabled,
           preferenceEnabled,
           osGranted,
           updated_at: query.data.updated_at,

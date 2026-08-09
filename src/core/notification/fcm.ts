@@ -162,6 +162,19 @@ export async function obtainAndPersistFcmToken(userId: string): Promise<string |
 
 export async function syncNotificationsForSignedInUser(userId: string): Promise<void> {
   try {
+    const { data, error } = await supabase
+      .from('notification_settings')
+      .select('enabled')
+      .eq('user_id', userId)
+      .maybeSingle();
+    if (error) {
+      return;
+    }
+    // Do not re-activate tokens when the user preference is off / missing.
+    if (!data?.enabled) {
+      return;
+    }
+
     const existing = await getDevicePushToken();
     if (existing) {
       await persistDeviceToken(userId, existing);

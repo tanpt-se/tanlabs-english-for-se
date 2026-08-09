@@ -36,6 +36,7 @@ export function HomeScreen() {
           accessibilityLabel="Open settings"
           accessibilityRole="button"
           variant="outline"
+          minHeight={44}
           onPress={() => navigation.navigate('Settings')}
         >
           <ButtonText>Settings</ButtonText>

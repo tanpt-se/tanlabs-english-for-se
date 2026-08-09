@@ -63,23 +63,42 @@ describe('deviceService', () => {
     setDevicePushTokenForTests('fcm-token-3');
     (supabase.auth.getUser as jest.Mock).mockResolvedValue({
       data: { user: { id: 'user-b' } },
+      error: null,
     });
 
-    const eq3 = jest.fn().mockResolvedValue({ error: null });
-    const eq2 = jest.fn(() => ({ eq: eq3 }));
-    const eq1 = jest.fn(() => ({ eq: eq2 }));
-    const update = jest.fn(() => ({ eq: eq1 }));
+    const eqFinal = jest.fn().mockResolvedValue({ error: null });
+    const eqFirst = jest.fn(() => ({ eq: eqFinal }));
+    const update = jest.fn(() => ({ eq: eqFirst }));
     (supabase.from as jest.Mock).mockReturnValue({ update });
 
     await deactivateCurrentDevice();
 
     expect(supabase.from).toHaveBeenCalledWith('user_devices');
     expect(update).toHaveBeenCalledWith({ is_active: false });
-    expect(eq1).toHaveBeenCalledWith('user_id', 'user-b');
+    expect(eqFirst).toHaveBeenCalledWith('user_id', 'user-b');
+    expect(eqFinal).toHaveBeenCalled();
+  });
+
+  it('throws when deactivate updates fail', async () => {
+    setDevicePushTokenForTests('fcm-token-4');
+    (supabase.auth.getUser as jest.Mock).mockResolvedValue({
+      data: { user: { id: 'user-c' } },
+      error: null,
+    });
+
+    const eqFinal = jest.fn().mockResolvedValue({ error: { message: 'rls denied' } });
+    const eqFirst = jest.fn(() => ({ eq: eqFinal }));
+    const update = jest.fn(() => ({ eq: eqFirst }));
+    (supabase.from as jest.Mock).mockReturnValue({ update });
+
+    await expect(deactivateCurrentDevice()).rejects.toThrow(/Device deactivate failed/);
   });
 
   it('no-ops deactivate when there is no signed-in user', async () => {
-    (supabase.auth.getUser as jest.Mock).mockResolvedValue({ data: { user: null } });
+    (supabase.auth.getUser as jest.Mock).mockResolvedValue({
+      data: { user: null },
+      error: null,
+    });
 
     await deactivateCurrentDevice();
 

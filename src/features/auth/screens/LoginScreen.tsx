@@ -79,6 +79,7 @@ export function LoginScreen() {
           testID="login-submit"
           accessibilityLabel="Sign in"
           accessibilityRole="button"
+          minHeight={44}
           onPress={onSubmit}
           isDisabled={loading}
         >
@@ -87,9 +88,10 @@ export function LoginScreen() {
         <Pressable
           accessibilityLabel="Create an account"
           accessibilityRole="link"
+          minHeight={44}
+          justifyContent="center"
           onPress={() => navigation.navigate('Register')}
         >
-          {' '}
           <Text textAlign="center" color="$primary500">
             Create an account
           </Text>

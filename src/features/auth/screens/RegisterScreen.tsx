@@ -76,6 +76,7 @@ export function RegisterScreen() {
         <Button
           accessibilityLabel="Register"
           accessibilityRole="button"
+          minHeight={44}
           onPress={onSubmit}
           isDisabled={loading}
         >
@@ -84,9 +85,10 @@ export function RegisterScreen() {
         <Pressable
           accessibilityLabel="Already have an account? Sign in"
           accessibilityRole="link"
+          minHeight={44}
+          justifyContent="center"
           onPress={() => navigation.navigate('Login')}
         >
-          {' '}
           <Text textAlign="center" color="$primary500">
             Already have an account?
           </Text>

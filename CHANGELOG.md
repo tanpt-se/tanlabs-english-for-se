@@ -36,6 +36,10 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Changed
 
+- Notification Switch tracks preference (not preference∧OS) so preference can be turned off when OS is denied
+- Preference OFF deactivates `user_devices`; sign-in sync skips FCM persist when preference is off
+- Device deactivate surfaces Supabase errors; logout records deactivate failures via Crashlytics
+- Primary auth/home/settings controls use ≥44pt touch height; OS-blocked notifications offer Open settings
 - CI: install ripgrep on Ubuntu, set `HUSKY=0` for `npm ci`; secret-scan falls back to grep; add `.nvmrc` (Node 22)
 - Add repo `.npmrc` with `legacy-peer-deps=true` so CI matches local installs (gluestack peer noise)
 - Session persistence now fails securely when Keychain/Keystore is unavailable

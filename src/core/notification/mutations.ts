@@ -1,4 +1,5 @@
 import { trackEvent } from '@/core/analytics/events';
+import { deactivateCurrentDevice } from '@/core/notification/deviceService';
 import { setNotificationEnabled } from '@/core/notification/settingsService';
 
 import type { QueryClient } from '@tanstack/react-query';
@@ -15,8 +16,13 @@ export type NotificationSettingsMutationContext = {
   queryKey: readonly ['notification-settings', string];
 };
 
-export function updateNotificationSettings(input: NotificationSettingsMutationInput) {
-  return setNotificationEnabled(input.userId, input.enabled);
+export async function updateNotificationSettings(input: NotificationSettingsMutationInput) {
+  const settings = await setNotificationEnabled(input.userId, input.enabled);
+  if (!input.enabled) {
+    // Preference off must not leave active FCM rows that still accept Console pushes.
+    await deactivateCurrentDevice();
+  }
+  return settings;
 }
 
 export function configureNotificationMutationDefaults(client: QueryClient) {

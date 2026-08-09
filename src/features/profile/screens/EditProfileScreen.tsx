@@ -145,6 +145,7 @@ export function EditProfileScreen() {
         <Button
           accessibilityLabel="Save profile"
           accessibilityRole="button"
+          minHeight={44}
           onPress={onSubmit}
           isDisabled={loading}
         >
