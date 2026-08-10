@@ -1,8 +1,6 @@
 apply plugin: "com.android.application"
 apply plugin: "org.jetbrains.kotlin.android"
 apply plugin: "com.facebook.react"
-apply plugin: "com.google.gms.google-services"
-apply plugin: "com.google.firebase.crashlytics"
 
 // react-native-config — load root .env (override with ENVFILE=...)
 project.ext.envConfigFiles = [
@@ -11,6 +9,18 @@ project.ext.envConfigFiles = [
 ]
 def releaseTaskRequested = gradle.startParameter.taskNames.any { it.toLowerCase().contains("release") }
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
+
+def firebaseAppEnv = (project.env["APP_ENV"] ?: "development").trim()
+if (!(firebaseAppEnv in ["development", "production"])) {
+    throw new GradleException("APP_ENV must be development or production for Firebase config selection (got: ${firebaseAppEnv})")
+}
+exec {
+    workingDir rootProject.projectDir.parentFile
+    commandLine "bash", "${rootProject.projectDir}/../scripts/select-firebase-config.sh", firebaseAppEnv
+}
+
+apply plugin: "com.google.gms.google-services"
+apply plugin: "com.google.firebase.crashlytics"
 
 if (releaseTaskRequested) {
     def missingProductionEnv = ["APP_ENV", "SUPABASE_URL", "SUPABASE_ANON_KEY"].findAll {

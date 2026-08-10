@@ -1,16 +1,22 @@
 import Config from 'react-native-config';
 
-export type AppEnv = 'development' | 'staging' | 'production';
+export type AppEnv = 'development' | 'production';
 
 function readString(value: string | undefined): string {
   return (value ?? '').trim();
 }
 
 function resolveAppEnv(raw: string): AppEnv {
-  if (raw === 'staging' || raw === 'production' || raw === 'development') {
-    return raw;
+  if (raw === 'production') {
+    return 'production';
   }
-  return 'development';
+  if (raw === 'development' || raw === '') {
+    return 'development';
+  }
+  if (raw === 'staging') {
+    throw new Error('APP_ENV=staging was removed; use development or production');
+  }
+  throw new Error(`Invalid APP_ENV="${raw}". Expected development or production.`);
 }
 
 export const APP_ENV = resolveAppEnv(readString(Config.APP_ENV));

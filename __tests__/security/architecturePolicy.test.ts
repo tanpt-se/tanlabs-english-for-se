@@ -88,13 +88,14 @@ describe('WP-03 architecture and dependency policy', () => {
     }
   });
 
-  it('documents APP_ENV selection for development/staging/production', () => {
+  it('documents APP_ENV selection for development/production', () => {
     const example = read('.env.example');
     expect(example).toMatch(/APP_ENV=development/);
-    expect(example).toMatch(/staging/);
     expect(example).toMatch(/production/);
+    expect(example).not.toMatch(/^\s*#?\s*- staging:/m);
     expect(example).toMatch(/SUPABASE_URL/);
     expect(example).toMatch(/SUPABASE_ANON_KEY/);
     expect(example).not.toMatch(/^\s*SUPABASE_SERVICE_ROLE_KEY\s*=/m);
+    expect(example).toMatch(/config\/firebase/);
   });
 });

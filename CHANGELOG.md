@@ -17,6 +17,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
+- Firebase per-env client config layout (`config/firebase/{development,production}`) with `pnpm run firebase:config` / `verify:firebase-config`
 - Architecture/dependency policy regression suite (`architecturePolicy.test.ts`) and RN UI shell guards (`uiRegression.test.ts`)
 - Client auth credential validation shared by Login/Register (`src/core/auth/validation.ts`)
 - Offline mutation resume recovery helper (`resumePausedMutationsWithRecovery`) with user-facing sync alerts
@@ -40,6 +41,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Changed
 
+- `APP_ENV` is `development` | `production` only (staging removed by change control); Firebase backends map with fixed package/bundle IDs
 - English-level picker selected state uses a non-color `✓` affordance alongside accessibility selected
 - Notification mutation failures (including auto-resumed paused mutations) alert and roll back optimistic preference
 - RLS verification covers app_config insert denial and anonymous profile leakage/insert denial

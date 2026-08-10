@@ -112,6 +112,7 @@
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "TanLabsEnglishForSE" */;
 			buildPhases = (
 				C38B50BA6285516D6DCD4F65 /* [CP] Check Pods Manifest.lock */,
+				A11F1REBASEC0NF1G0SEL01 /* Select Firebase client config */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
@@ -177,6 +178,22 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		A11F1REBASEC0NF1G0SEL01 /* Select Firebase client config */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Select Firebase client config";
+			outputPaths = (
+				"$(SRCROOT)/TanLabsEnglishForSE/GoogleService-Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -euo pipefail\nROOT=\"${SRCROOT}/..\"\nENV_NAME=\"development\"\nif [ \"${CONFIGURATION}\" = \"Release\" ]; then\n  ENV_NAME=\"production\"\nfi\nif [ -n \"${APP_ENV:-}\" ]; then\n  ENV_NAME=\"${APP_ENV}\"\nfi\nbash \"${ROOT}/scripts/select-firebase-config.sh\" \"${ENV_NAME}\"\n";
+		};
 		00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

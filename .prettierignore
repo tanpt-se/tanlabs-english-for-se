@@ -10,3 +10,8 @@ package-lock.json
 pnpm-lock.yaml
 *.lock
 Pods
+google-services.json
+GoogleService-Info.plist
+config/firebase/**/google-services.json
+config/firebase/**/GoogleService-Info.plist
+plans

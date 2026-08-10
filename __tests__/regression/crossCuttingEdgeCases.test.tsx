@@ -79,19 +79,33 @@ describe('final branch gaps', () => {
     }
   });
 
-  it('resolves staging APP_ENV via isolateModules', () => {
+  it('rejects removed staging APP_ENV', () => {
+    expect(() => {
+      jest.isolateModules(() => {
+        jest.doMock('react-native-config', () => ({
+          APP_ENV: 'staging',
+          SUPABASE_URL: 'https://example.supabase.co',
+          SUPABASE_ANON_KEY: 'anon',
+          API_BASE_URL: '',
+        }));
+        require('@/app/config/env');
+      });
+    }).toThrow(/staging was removed/);
+  });
+
+  it('resolves production APP_ENV via isolateModules', () => {
     jest.isolateModules(() => {
       jest.doMock('react-native-config', () => ({
-        APP_ENV: 'staging',
+        APP_ENV: 'production',
         SUPABASE_URL: 'https://example.supabase.co',
         SUPABASE_ANON_KEY: 'anon',
         API_BASE_URL: '',
       }));
       const { APP_ENV, isDevelopment, isProduction } =
         require('@/app/config/env') as typeof import('@/app/config/env');
-      expect(APP_ENV).toBe('staging');
+      expect(APP_ENV).toBe('production');
       expect(isDevelopment).toBe(false);
-      expect(isProduction).toBe(false);
+      expect(isProduction).toBe(true);
     });
   });
 });
