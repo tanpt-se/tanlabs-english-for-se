@@ -41,6 +41,8 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Changed
 
+- Android Gradle Firebase selection uses ProcessBuilder-style `.execute()` (Gradle Project has no configuration-time `exec {}`)
+- Maestro Android e2e requires a connected `adb` device and prefers erase/hideKeyboard around text entry
 - `APP_ENV` is `development` | `production` only (staging removed by change control); Firebase backends map with fixed package/bundle IDs
 - English-level picker selected state uses a non-color `✓` affordance alongside accessibility selected
 - Notification mutation failures (including auto-resumed paused mutations) alert and roll back optimistic preference

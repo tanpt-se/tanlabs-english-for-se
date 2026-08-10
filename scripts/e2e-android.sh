@@ -24,7 +24,13 @@ fi
 : "${SMOKE_EMAIL:?Set SMOKE_EMAIL}"
 : "${SMOKE_PASSWORD:?Set SMOKE_PASSWORD}"
 
-maestro test \
+if ! adb get-state >/dev/null 2>&1; then
+  echo "No Android device/emulator connected (adb)." >&2
+  echo "Start an API 30–35 AVD (avoid Android 16/17 16KB-page images; Maestro inputText is unreliable there)." >&2
+  exit 1
+fi
+
+maestro --device "$(adb get-serialno)" test \
   -e "SMOKE_EMAIL=${SMOKE_EMAIL}" \
   -e "SMOKE_PASSWORD=${SMOKE_PASSWORD}" \
   "${ROOT}/maestro/android/smoke-auth.yaml"

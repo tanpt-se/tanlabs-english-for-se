@@ -13,11 +13,14 @@ tags:
     timeout: 90000
 - tapOn:
     id: 'login-email'
+- eraseText
 - inputText: ${SMOKE_EMAIL}
+- hideKeyboard
 - tapOn:
     id: 'login-password'
+- eraseText
 - inputText: ${SMOKE_PASSWORD}
-- pressKey: Enter
+- hideKeyboard
 - tapOn:
     id: 'login-submit'
 - extendedWaitUntil:

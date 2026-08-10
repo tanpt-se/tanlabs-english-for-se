@@ -14,9 +14,13 @@ def firebaseAppEnv = (project.env["APP_ENV"] ?: "development").trim()
 if (!(firebaseAppEnv in ["development", "production"])) {
     throw new GradleException("APP_ENV must be development or production for Firebase config selection (got: ${firebaseAppEnv})")
 }
-exec {
-    workingDir rootProject.projectDir.parentFile
-    commandLine "bash", "${rootProject.projectDir}/../scripts/select-firebase-config.sh", firebaseAppEnv
+def selectFirebase = ["bash", "${rootProject.projectDir}/../scripts/select-firebase-config.sh", firebaseAppEnv].execute(
+    null,
+    rootProject.projectDir.parentFile,
+)
+selectFirebase.waitForProcessOutput(System.out, System.err)
+if (selectFirebase.exitValue() != 0) {
+    throw new GradleException("Failed to select Firebase client config for APP_ENV=${firebaseAppEnv}")
 }
 
 apply plugin: "com.google.gms.google-services"
