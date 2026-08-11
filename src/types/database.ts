@@ -77,7 +77,22 @@ export type Database = {
           total_count?: number;
           user_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'grammar_attempts_lesson_id_fkey';
+            columns: ['lesson_id'];
+            isOneToOne: false;
+            referencedRelation: 'grammar_lessons';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'grammar_attempts_topic_id_fkey';
+            columns: ['topic_id'];
+            isOneToOne: false;
+            referencedRelation: 'grammar_topics';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       grammar_exercises: {
         Row: {
@@ -128,7 +143,22 @@ export type Database = {
           type?: string;
           updated_at?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'grammar_exercises_lesson_id_fkey';
+            columns: ['lesson_id'];
+            isOneToOne: false;
+            referencedRelation: 'grammar_lessons';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'grammar_exercises_topic_id_fkey';
+            columns: ['topic_id'];
+            isOneToOne: false;
+            referencedRelation: 'grammar_topics';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       grammar_lessons: {
         Row: {
@@ -170,7 +200,15 @@ export type Database = {
           topic_id?: string;
           updated_at?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'grammar_lessons_topic_id_fkey';
+            columns: ['topic_id'];
+            isOneToOne: false;
+            referencedRelation: 'grammar_topics';
+            referencedColumns: ['id'];
+          },
+        ];
       };
       grammar_topics: {
         Row: {
@@ -320,7 +358,22 @@ export type Database = {
           updated_at?: string;
           user_id?: string;
         };
-        Relationships: [];
+        Relationships: [
+          {
+            foreignKeyName: 'user_grammar_progress_lesson_id_fkey';
+            columns: ['lesson_id'];
+            isOneToOne: false;
+            referencedRelation: 'grammar_lessons';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'user_grammar_progress_topic_id_fkey';
+            columns: ['topic_id'];
+            isOneToOne: false;
+            referencedRelation: 'grammar_topics';
+            referencedColumns: ['id'];
+          },
+        ];
       };
     };
     Views: {
@@ -344,7 +397,27 @@ export type Database = {
           p_topic_id: string;
           p_total_count: number;
         };
-        Returns: Database['public']['Tables']['grammar_attempts']['Row'];
+        Returns: {
+          answers: Json;
+          client_attempt_id: string;
+          completed_at: string;
+          content_revision: number;
+          correct_count: number;
+          created_at: string;
+          id: string;
+          lesson_id: string;
+          score: number;
+          started_at: string;
+          topic_id: string;
+          total_count: number;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'grammar_attempts';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
       };
     };
     Enums: {
