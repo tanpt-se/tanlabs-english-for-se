@@ -31,7 +31,7 @@ Mobile client-server application:
 src/
   app/           env, providers, navigation, bootstrap
   core/          auth, profile, supabase, remote-config, notification, analytics, monitoring
-  features/      auth, home, profile, settings  (+ grammar planned)
+  features/      auth, home, profile, settings, vocabulary, grammar
   components/    shared RN primitives, FastImage
   lib/           api, queryClient, offline recovery
   theme/         colour tokens + navigation themes

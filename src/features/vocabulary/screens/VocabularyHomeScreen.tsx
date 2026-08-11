@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { learningDisabledDestinations } from '@/app/navigation/learningDisabledDestinations';
 import type { AppStackParamList } from '@/app/navigation/types';
 import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
 import { BottomNavigation } from '@/components/ui/navigation';
@@ -36,7 +37,7 @@ export function VocabularyHomeScreen() {
       footer={
         <BottomNavigation
           active="vocabulary"
-          disabledDestinations={['grammar', 'interview'] as const}
+          disabledDestinations={learningDisabledDestinations(flags.data)}
           onSelect={onSelectTab}
         />
       }

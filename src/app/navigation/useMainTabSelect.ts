@@ -20,11 +20,15 @@ export function useMainTabSelect() {
         navigation.navigate('Settings');
         return;
       case 'vocabulary':
-        if (flags.data?.vocabulary) {
+        if (flags.data?.vocabulary === true) {
           navigation.navigate('VocabularyHome');
         }
         return;
       case 'grammar':
+        if (flags.data?.grammar === true) {
+          navigation.navigate('Grammar', { screen: 'GrammarHome' });
+        }
+        return;
       case 'interview':
         return;
       default:

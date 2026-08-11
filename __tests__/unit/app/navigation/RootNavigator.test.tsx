@@ -36,6 +36,9 @@ jest.mock('@/features/profile/screens/CompleteProfileScreen', () => ({
 jest.mock('@/features/profile/screens/EditProfileScreen', () => ({
   EditProfileScreen: () => null,
 }));
+jest.mock('@/features/grammar/navigation/GrammarNavigator', () => ({
+  GrammarNavigator: () => null,
+}));
 jest.mock('@/features/vocabulary/screens/VocabularyHomeScreen', () => ({
   VocabularyHomeScreen: () => null,
 }));
@@ -135,6 +138,7 @@ describe('RootNavigator', () => {
         'Home',
         'Settings',
         'EditProfile',
+        'Grammar',
         'VocabularyHome',
         'VocabularySituation',
         'VocabularyPractice',
@@ -175,6 +179,7 @@ describe('RootNavigator', () => {
     expect(labels).toEqual(
       expect.arrayContaining([
         'Home',
+        'Grammar',
         'VocabularyHome',
         'VocabularySituation',
         'VocabularyPractice',

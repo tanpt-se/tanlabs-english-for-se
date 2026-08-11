@@ -17,6 +17,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
+- PH2 Grammar Sprint 1 foundations: nested `Grammar` navigator + flag-gated Home entry (`feature_grammar` stay off in seed), content contract + seed inventory (5 topics / 5 lessons / 40 exercises), pure practice engine, Supabase migrations `007_grammar_schema` + `008_grammar_seed` + `complete_grammar_attempt` RPC
 - PH1 foundation UI aligned to Figma: Welcome (navy cover + hero mark), auth copy, Complete/Edit profile radios, Home streak + foundation card, Settings summary + confirm sign-out
 - Shared UI: `AppIcon`, `AppSwitch` (Figma 44×28 coral/gray), `ConfirmModal`, `StreakCard`, `HomeFeatureRow`, `ProfileSummaryCard`; `AppButton` `fullWidth`; `SettingRow` switch/chevron
 - Test coverage for PH1/PH3 UI branches (`WelcomeScreen`, `ConfirmModal`, vocabulary flows) to keep CI global 90% gate green

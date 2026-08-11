@@ -8,6 +8,7 @@ import { useAuth } from '@/core/auth/AuthProvider';
 import { LoginScreen } from '@/features/auth/screens/LoginScreen';
 import { RegisterScreen } from '@/features/auth/screens/RegisterScreen';
 import { WelcomeScreen } from '@/features/auth/screens/WelcomeScreen';
+import { GrammarNavigator } from '@/features/grammar/navigation/GrammarNavigator';
 import { HomeScreen } from '@/features/home/screens/HomeScreen';
 import { CompleteProfileScreen } from '@/features/profile/screens/CompleteProfileScreen';
 import { EditProfileScreen } from '@/features/profile/screens/EditProfileScreen';
@@ -43,6 +44,7 @@ function AppNavigator() {
         options={{ title: 'Edit profile' }}
       />
       {/* Always registered so remote-config fail-closed cannot unmount an active learning stack. */}
+      <AppStack.Screen name="Grammar" component={GrammarNavigator} options={{ title: 'Grammar' }} />
       <AppStack.Screen
         name="VocabularyHome"
         component={VocabularyHomeScreen}

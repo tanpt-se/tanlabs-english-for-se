@@ -1,3 +1,4 @@
+import { learningDisabledDestinations } from '@/app/navigation/learningDisabledDestinations';
 import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
 
@@ -27,10 +28,18 @@ describe('useMainTabSelect', () => {
     expect(mockNavigate).toHaveBeenCalledWith('Settings');
   });
 
-  it('opens vocabulary only when the flag is enabled', () => {
+  it('opens vocabulary and grammar only when flags are enabled', () => {
     const onSelect = useMainTabSelect();
     onSelect('vocabulary');
     expect(mockNavigate).toHaveBeenCalledWith('VocabularyHome');
+
+    jest.mocked(useFeatureFlags).mockReturnValue({
+      data: { grammar: true, vocabulary: false, interview: false, ai: false },
+    } as never);
+    mockNavigate.mockClear();
+    const grammarOn = useMainTabSelect();
+    grammarOn('grammar');
+    expect(mockNavigate).toHaveBeenCalledWith('Grammar', { screen: 'GrammarHome' });
 
     jest.mocked(useFeatureFlags).mockReturnValue({
       data: { grammar: false, vocabulary: false, interview: false, ai: false },
@@ -41,5 +50,17 @@ describe('useMainTabSelect', () => {
     gated('grammar');
     gated('interview');
     expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  it('disables learning tabs until flags are strictly true', () => {
+    expect(learningDisabledDestinations(undefined)).toEqual(['interview', 'grammar', 'vocabulary']);
+    expect(
+      learningDisabledDestinations({
+        grammar: true,
+        vocabulary: true,
+        interview: false,
+        ai: false,
+      }),
+    ).toEqual(['interview']);
   });
 });

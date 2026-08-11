@@ -326,7 +326,7 @@ describe('PH1 screens', () => {
       useFeatureFlags: jest.Mock;
     };
     useFeatureFlags.mockReturnValue({
-      data: { grammar: true, vocabulary: false, interview: false, ai: false },
+      data: { grammar: false, vocabulary: false, interview: false, ai: false },
     });
     const root = await mount(<HomeScreen />);
     expect(
@@ -363,6 +363,18 @@ describe('PH1 screens', () => {
     expect(root.root.findAllByProps({ accessibilityLabel: 'Open Vocabulary' })).toHaveLength(0);
     await press(root, 'Profile');
     expect(navigate).toHaveBeenCalledWith('Settings');
+  });
+
+  it('opens grammar from home when the flag is enabled', async () => {
+    const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFlags') as {
+      useFeatureFlags: jest.Mock;
+    };
+    useFeatureFlags.mockReturnValue({
+      data: { grammar: true, vocabulary: false, interview: false, ai: false },
+    });
+    const root = await mount(<HomeScreen />);
+    await press(root, 'Open Grammar');
+    expect(navigate).toHaveBeenCalledWith('Grammar', { screen: 'GrammarHome' });
   });
 
   it('opens vocabulary from home when the flag is enabled', async () => {

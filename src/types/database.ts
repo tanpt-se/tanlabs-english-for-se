@@ -31,6 +31,183 @@ export type Database = {
         };
         Relationships: [];
       };
+      grammar_attempts: {
+        Row: {
+          answers: Json;
+          client_attempt_id: string;
+          completed_at: string;
+          content_revision: number;
+          correct_count: number;
+          created_at: string;
+          id: string;
+          lesson_id: string;
+          score: number;
+          started_at: string;
+          topic_id: string;
+          total_count: number;
+          user_id: string;
+        };
+        Insert: {
+          answers: Json;
+          client_attempt_id: string;
+          completed_at: string;
+          content_revision: number;
+          correct_count: number;
+          created_at?: string;
+          id?: string;
+          lesson_id: string;
+          score: number;
+          started_at: string;
+          topic_id: string;
+          total_count: number;
+          user_id: string;
+        };
+        Update: {
+          answers?: Json;
+          client_attempt_id?: string;
+          completed_at?: string;
+          content_revision?: number;
+          correct_count?: number;
+          created_at?: string;
+          id?: string;
+          lesson_id?: string;
+          score?: number;
+          started_at?: string;
+          topic_id?: string;
+          total_count?: number;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
+      grammar_exercises: {
+        Row: {
+          answer: Json;
+          content_schema_version: number;
+          created_at: string;
+          exercise_key: string;
+          explanation: string;
+          id: string;
+          lesson_id: string;
+          payload: Json;
+          prompt: string;
+          published: boolean;
+          sort_order: number;
+          topic_id: string;
+          type: string;
+          updated_at: string;
+        };
+        Insert: {
+          answer: Json;
+          content_schema_version: number;
+          created_at?: string;
+          exercise_key: string;
+          explanation: string;
+          id?: string;
+          lesson_id: string;
+          payload: Json;
+          prompt: string;
+          published?: boolean;
+          sort_order: number;
+          topic_id: string;
+          type: string;
+          updated_at?: string;
+        };
+        Update: {
+          answer?: Json;
+          content_schema_version?: number;
+          created_at?: string;
+          exercise_key?: string;
+          explanation?: string;
+          id?: string;
+          lesson_id?: string;
+          payload?: Json;
+          prompt?: string;
+          published?: boolean;
+          sort_order?: number;
+          topic_id?: string;
+          type?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      grammar_lessons: {
+        Row: {
+          content: Json;
+          content_revision: number;
+          content_schema_version: number;
+          created_at: string;
+          id: string;
+          published: boolean;
+          slug: string;
+          sort_order: number;
+          summary: string;
+          topic_id: string;
+          updated_at: string;
+        };
+        Insert: {
+          content: Json;
+          content_revision: number;
+          content_schema_version: number;
+          created_at?: string;
+          id?: string;
+          published?: boolean;
+          slug: string;
+          sort_order: number;
+          summary: string;
+          topic_id: string;
+          updated_at?: string;
+        };
+        Update: {
+          content?: Json;
+          content_revision?: number;
+          content_schema_version?: number;
+          created_at?: string;
+          id?: string;
+          published?: boolean;
+          slug?: string;
+          sort_order?: number;
+          summary?: string;
+          topic_id?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      grammar_topics: {
+        Row: {
+          created_at: string;
+          description: string;
+          id: string;
+          level: string;
+          published: boolean;
+          slug: string;
+          sort_order: number;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          description: string;
+          id?: string;
+          level: string;
+          published?: boolean;
+          slug: string;
+          sort_order: number;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          id?: string;
+          level?: string;
+          published?: boolean;
+          slug?: string;
+          sort_order?: number;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       notification_settings: {
         Row: {
           enabled: boolean;
@@ -103,6 +280,48 @@ export type Database = {
         };
         Relationships: [];
       };
+      user_grammar_progress: {
+        Row: {
+          best_score: number;
+          completed_at: string | null;
+          created_at: string;
+          id: string;
+          last_activity_at: string | null;
+          last_score: number;
+          lesson_id: string;
+          status: string;
+          topic_id: string;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          best_score?: number;
+          completed_at?: string | null;
+          created_at?: string;
+          id?: string;
+          last_activity_at?: string | null;
+          last_score?: number;
+          lesson_id: string;
+          status: string;
+          topic_id: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          best_score?: number;
+          completed_at?: string | null;
+          created_at?: string;
+          id?: string;
+          last_activity_at?: string | null;
+          last_score?: number;
+          lesson_id?: string;
+          status?: string;
+          topic_id?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -111,6 +330,21 @@ export type Database = {
       claim_device_token: {
         Args: { p_platform: string; p_token: string };
         Returns: undefined;
+      };
+      complete_grammar_attempt: {
+        Args: {
+          p_answers: Json;
+          p_client_attempt_id: string;
+          p_completed_at: string;
+          p_content_revision: number;
+          p_correct_count: number;
+          p_lesson_id: string;
+          p_score: number;
+          p_started_at: string;
+          p_topic_id: string;
+          p_total_count: number;
+        };
+        Returns: Database['public']['Tables']['grammar_attempts']['Row'];
       };
     };
     Enums: {

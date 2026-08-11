@@ -1,6 +1,7 @@
 import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { learningDisabledDestinations } from '@/app/navigation/learningDisabledDestinations';
 import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
 import { ScreenScroll } from '@/components/ui/layout';
 import { BottomNavigation } from '@/components/ui/navigation';
@@ -31,17 +32,15 @@ export function HomeScreen() {
   const colors = useAppColors();
   const firstName = current?.display_name?.trim().split(/\s+/)[0] ?? 'there';
   const greeting = useMemo(() => daytimeGreeting(), []);
+  const grammarEnabled = flags.data?.grammar === true;
   const vocabularyEnabled = flags.data?.vocabulary === true;
-  const disabledDestinations = vocabularyEnabled
-    ? (['grammar', 'interview'] as const)
-    : (['grammar', 'vocabulary', 'interview'] as const);
 
   return (
     <ScreenScroll
       footer={
         <BottomNavigation
           active="home"
-          disabledDestinations={disabledDestinations}
+          disabledDestinations={learningDisabledDestinations(flags.data)}
           onSelect={onSelectTab}
         />
       }
@@ -55,14 +54,27 @@ export function HomeScreen() {
         <StreakCard />
 
         <Text style={[styles.sectionTitle, { color: colors.text }]}>Learning paths</Text>
-        <HomeFeatureRow
-          accessibilityLabel="Grammar coming soon"
-          icon="book"
-          statusLabel="Coming soon"
-          subtitle="Learn practical grammar for work"
-          title="Grammar"
-          tone="comingSoon"
-        />
+        {grammarEnabled ? (
+          <HomeFeatureRow
+            accessibilityLabel="Open Grammar"
+            icon="book"
+            statusLabel="Open"
+            subtitle="Learn practical grammar for work"
+            testID="home-open-grammar"
+            title="Grammar"
+            tone="available"
+            onPress={() => onSelectTab('grammar')}
+          />
+        ) : (
+          <HomeFeatureRow
+            accessibilityLabel="Grammar coming soon"
+            icon="book"
+            statusLabel="Coming soon"
+            subtitle="Learn practical grammar for work"
+            title="Grammar"
+            tone="comingSoon"
+          />
+        )}
         {vocabularyEnabled ? (
           <HomeFeatureRow
             accessibilityLabel="Open Vocabulary"

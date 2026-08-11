@@ -2,6 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { learningDisabledDestinations } from '@/app/navigation/learningDisabledDestinations';
 import type { AppStackParamList } from '@/app/navigation/types';
 import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
 import { AppButton } from '@/components/ui/button';
@@ -38,9 +39,7 @@ export function SettingsScreen() {
   const [signOutVisible, setSignOutVisible] = useState(false);
   const colors = useAppColors();
   const flags = useFeatureFlags();
-  const disabledDestinations = flags.data?.vocabulary
-    ? (['grammar', 'interview'] as const)
-    : (['grammar', 'vocabulary', 'interview'] as const);
+  const disabledDestinations = learningDisabledDestinations(flags.data);
 
   const displayName = profile?.display_name ?? 'Learner';
   const levelKey = profile?.english_level ?? '—';

@@ -57,6 +57,7 @@ describe('WP-03 architecture and dependency policy', () => {
       'src/features/auth',
       'src/features/profile',
       'src/features/settings',
+      'src/features/grammar',
       'src/components/ui',
       'src/lib',
     ]) {
