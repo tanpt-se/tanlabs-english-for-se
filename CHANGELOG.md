@@ -19,6 +19,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 - PH1 foundation UI aligned to Figma: Welcome (navy cover + hero mark), auth copy, Complete/Edit profile radios, Home streak + foundation card, Settings summary + confirm sign-out
 - Shared UI: `AppIcon`, `AppSwitch` (Figma 44×28 coral/gray), `ConfirmModal`, `StreakCard`, `HomeFeatureRow`, `ProfileSummaryCard`; `AppButton` `fullWidth`; `SettingRow` switch/chevron
+- Test coverage for PH1/PH3 UI branches (`WelcomeScreen`, `ConfirmModal`, vocabulary flows) to keep CI global 90% gate green
 - PH3 learning screens (flag-gated): home → situation → practice → result with mock catalog
 - Learning primitives: `SituationCard`, `ExpressionCard`, `PromptCard`, `ProgressBanner`, `InsightPanel`, `CompletionHero`, `ResultMetric`, `Feedback`, `FieldTextInput`
 - Shell primitives: `TopAppHeader`, `BottomNavigation`, `AnswerOption`, `BottomActionBar`

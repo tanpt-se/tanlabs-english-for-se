@@ -8,6 +8,7 @@ import { signIn, signUp } from '@/core/auth/service';
 import { upsertProfile } from '@/core/profile/service';
 import { LoginScreen } from '@/features/auth/screens/LoginScreen';
 import { RegisterScreen } from '@/features/auth/screens/RegisterScreen';
+import { WelcomeScreen } from '@/features/auth/screens/WelcomeScreen';
 import { HomeScreen } from '@/features/home/screens/HomeScreen';
 import { CompleteProfileScreen } from '@/features/profile/screens/CompleteProfileScreen';
 import { EditProfileScreen } from '@/features/profile/screens/EditProfileScreen';
@@ -161,6 +162,20 @@ describe('PH1 screens', () => {
       setEnabled: jest.fn(),
       isUpdating: false,
     });
+  });
+
+  it('navigates from Welcome to Register and Login', async () => {
+    const root = await mount(<WelcomeScreen />);
+    const getStarted = root.root.findByProps({ testID: 'welcome-get-started' });
+    if (typeof getStarted.props.style === 'function') {
+      getStarted.props.style({ pressed: true });
+      getStarted.props.style({ pressed: false });
+    }
+    await press(root, 'Get started');
+    expect(navigate).toHaveBeenCalledWith('Register');
+
+    await press(root, 'Already learning? Sign in');
+    expect(navigate).toHaveBeenCalledWith('Login');
   });
 
   it('logs in successfully and surfaces failures', async () => {
@@ -554,6 +569,10 @@ describe('PH1 screens', () => {
     });
     expect(setEnabled).toHaveBeenCalledWith(false);
 
+    await press(root, 'Sign out');
+    await act(() => {
+      root.root.findByProps({ testID: 'confirm-modal-cancel' }).props.onPress();
+    });
     await press(root, 'Sign out');
     await act(() => {
       root.root.findByProps({ testID: 'confirm-modal-confirm' }).props.onPress();
