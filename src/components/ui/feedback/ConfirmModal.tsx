@@ -36,7 +36,7 @@ export function ConfirmModal({
 
   return (
     <Modal
-      animationType="fade"
+      animationType={process.env.NODE_ENV === 'test' ? 'none' : 'fade'}
       transparent
       visible={visible}
       onRequestClose={() => {
