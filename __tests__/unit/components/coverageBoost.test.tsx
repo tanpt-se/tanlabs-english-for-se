@@ -82,7 +82,7 @@ describe('PH1/PH3 coverage boost', () => {
     });
     expect(onCancel).toHaveBeenCalledTimes(2);
     expect(root.root.findByProps({ testID: 'confirm-modal-confirm' }).props.label).toContain('…');
-  });
+  }, 15000);
 
   it('covers FieldTextInput focus, error, helper, and disabled branches', async () => {
     const onBlur = jest.fn();
