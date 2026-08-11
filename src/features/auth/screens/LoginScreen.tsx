@@ -3,13 +3,15 @@ import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { AuthStackParamList } from '@/app/navigation/types';
-import { AppButton, AppFormError, AppTextInput } from '@/components/ui/AppControls';
-import { AuthHeader } from '@/components/ui/AuthHeader';
-import { ScreenScroll } from '@/components/ui/ScreenScroll';
+import { AppButton } from '@/components/ui/button';
+import { AppFormError } from '@/components/ui/feedback';
+import { FieldTextInput } from '@/components/ui/input';
+import { ScreenScroll } from '@/components/ui/layout';
 import { trackEvent } from '@/core/analytics/events';
 import { signIn } from '@/core/auth/service';
 import { validateAuthCredentials } from '@/core/auth/validation';
-import { useAppColors } from '@/theme';
+import { AuthHeader } from '@/features/auth/components';
+import { themeTokens, useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -41,26 +43,34 @@ export function LoginScreen() {
 
   return (
     <ScreenScroll centered>
-      <AuthHeader title="Sign in" subtitle="Continue your SE English practice." />
+      <AuthHeader title="Welcome back" subtitle="Sign in to continue learning." />
       <View style={styles.stack}>
-        <AppTextInput
+        <FieldTextInput
           testID="login-email"
           accessibilityLabel="Email"
           aria-describedby={error ? 'login-form-error' : undefined}
           aria-invalid={Boolean(error)}
           autoCapitalize="none"
+          autoComplete="email"
+          error={Boolean(error)}
           keyboardType="email-address"
-          placeholder="Email"
+          label="Email"
+          placeholder="you@example.com"
+          textContentType="emailAddress"
           value={email}
           onChangeText={setEmail}
         />
-        <AppTextInput
+        <FieldTextInput
           testID="login-password"
           accessibilityLabel="Password"
           aria-describedby={error ? 'login-form-error' : undefined}
           aria-invalid={Boolean(error)}
+          autoComplete="password"
+          error={Boolean(error)}
+          label="Password"
+          mode="password"
           placeholder="Password"
-          secureTextEntry
+          textContentType="password"
           value={password}
           onChangeText={setPassword}
         />
@@ -69,9 +79,10 @@ export function LoginScreen() {
           testID="login-submit"
           accessibilityLabel="Sign in"
           accessibilityRole="button"
-          onPress={onSubmit}
           disabled={loading}
+          fullWidth
           label={loading ? 'Signing in…' : 'Sign in'}
+          onPress={onSubmit}
         />
         <Pressable
           accessibilityLabel="Create an account"
@@ -95,6 +106,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   stack: {
-    gap: 16,
+    gap: themeTokens.spacing.md,
+    width: '100%',
   },
 });

@@ -1,17 +1,21 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import { useAppColors } from '@/theme';
+import { BrandLogo } from '@/components/ui/brand';
+import { themeTokens, useAppColors } from '@/theme';
 
 type AuthHeaderProps = {
+  /** Show brand mark above the title (Welcome only in current design). */
+  showLogo?: boolean;
   subtitle?: string;
   title: string;
 };
 
-export function AuthHeader({ title, subtitle }: AuthHeaderProps) {
+export function AuthHeader({ title, subtitle, showLogo = false }: AuthHeaderProps) {
   const colors = useAppColors();
 
   return (
     <View style={styles.container}>
+      {showLogo ? <BrandLogo style={styles.logo} /> : null}
       <Text accessibilityRole="header" style={[styles.title, { color: colors.text }]}>
         {title}
       </Text>
@@ -24,8 +28,11 @@ export function AuthHeader({ title, subtitle }: AuthHeaderProps) {
 
 const styles = StyleSheet.create({
   container: {
-    gap: 8,
-    marginBottom: 24,
+    gap: themeTokens.spacing.sm,
+    marginBottom: themeTokens.spacing.lg,
+  },
+  logo: {
+    marginBottom: themeTokens.spacing.sm,
   },
   subtitle: {
     fontSize: 16,

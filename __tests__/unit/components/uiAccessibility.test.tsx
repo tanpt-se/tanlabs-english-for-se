@@ -2,7 +2,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import ReactTestRenderer from 'react-test-renderer';
 
-import { AppFormError } from '@/components/ui/AppControls';
+import { AppFormError } from '@/components/ui/feedback';
 import { darkColors, lightColors } from '@/theme';
 
 function luminance(hex: string) {

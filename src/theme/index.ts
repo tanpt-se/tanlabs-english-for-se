@@ -2,22 +2,34 @@ import { DarkTheme, DefaultTheme } from '@react-navigation/native';
 import { useColorScheme } from 'react-native';
 
 import { brand, darkColors, lightColors } from '@/theme/palette';
+import type { AppColors } from '@/theme/palette';
 
 import type { Theme } from '@react-navigation/native';
 
+/** Design tokens mirrored from Figma (`spacing/*`, `radius/*`, semantic colors). */
 export const themeTokens = {
   colors: {
     ...lightColors,
     brand,
   },
   radius: {
+    sm: 12,
     md: 12,
+    card: 14,
     lg: 16,
+    xl: 20,
   },
   spacing: {
+    '3': 3,
+    '6': 6,
     xs: 4,
     sm: 8,
+    '10': 10,
+    '12': 12,
+    '14': 14,
     md: 16,
+    '18': 18,
+    '20': 20,
     lg: 24,
     xl: 32,
   },
@@ -41,7 +53,7 @@ export const themeTokens = {
   },
 } as const;
 
-export function useAppColors() {
+export function useAppColors(): AppColors {
   return useColorScheme() === 'dark' ? darkColors : lightColors;
 }
 
@@ -72,3 +84,4 @@ export const navigationDarkTheme: Theme = {
 };
 
 export { brand, darkColors, lightColors } from '@/theme/palette';
+export type { AppColors } from '@/theme/palette';

@@ -5,9 +5,14 @@ import ReactTestRenderer, { act } from 'react-test-renderer';
 
 import { RootNavigator } from '@/app/navigation/RootNavigator';
 import { useAuth } from '@/core/auth/AuthProvider';
+import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
 
 jest.mock('@/core/auth/AuthProvider', () => ({
   useAuth: jest.fn(),
+}));
+
+jest.mock('@/core/remote-config/useFeatureFlags', () => ({
+  useFeatureFlags: jest.fn(),
 }));
 
 jest.mock('@/features/auth/screens/LoginScreen', () => ({
@@ -15,6 +20,9 @@ jest.mock('@/features/auth/screens/LoginScreen', () => ({
 }));
 jest.mock('@/features/auth/screens/RegisterScreen', () => ({
   RegisterScreen: () => null,
+}));
+jest.mock('@/features/auth/screens/WelcomeScreen', () => ({
+  WelcomeScreen: () => null,
 }));
 jest.mock('@/features/home/screens/HomeScreen', () => ({
   HomeScreen: () => null,
@@ -27,6 +35,18 @@ jest.mock('@/features/profile/screens/CompleteProfileScreen', () => ({
 }));
 jest.mock('@/features/profile/screens/EditProfileScreen', () => ({
   EditProfileScreen: () => null,
+}));
+jest.mock('@/features/vocabulary/screens/VocabularyHomeScreen', () => ({
+  VocabularyHomeScreen: () => null,
+}));
+jest.mock('@/features/vocabulary/screens/SituationDetailScreen', () => ({
+  SituationDetailScreen: () => null,
+}));
+jest.mock('@/features/vocabulary/screens/PracticeScreen', () => ({
+  PracticeScreen: () => null,
+}));
+jest.mock('@/features/vocabulary/screens/PracticeResultScreen', () => ({
+  PracticeResultScreen: () => null,
 }));
 
 jest.mock('@react-navigation/native-stack', () => {
@@ -45,6 +65,9 @@ describe('RootNavigator', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     jest.mocked(BootSplash.hide).mockResolvedValue(undefined);
+    jest.mocked(useFeatureFlags).mockReturnValue({
+      data: { grammar: false, vocabulary: true, interview: false, ai: false },
+    } as never);
   });
 
   it('shows a boot spinner until auth is ready', async () => {
@@ -80,7 +103,7 @@ describe('RootNavigator', () => {
 
     expect(BootSplash.hide).toHaveBeenCalledWith({ fade: true });
     const labels = root.root.findAllByType(Text).map((node) => node.props.children);
-    expect(labels).toEqual(expect.arrayContaining(['Login', 'Register']));
+    expect(labels).toEqual(expect.arrayContaining(['Welcome', 'Login', 'Register']));
   });
 
   it('renders complete-profile and app stacks by destination', async () => {
@@ -107,7 +130,17 @@ describe('RootNavigator', () => {
       root.update(<RootNavigator />);
     });
     const labels = root.root.findAllByType(Text).map((node) => node.props.children);
-    expect(labels).toEqual(expect.arrayContaining(['Home', 'Settings', 'EditProfile']));
+    expect(labels).toEqual(
+      expect.arrayContaining([
+        'Home',
+        'Settings',
+        'EditProfile',
+        'VocabularyHome',
+        'VocabularySituation',
+        'VocabularyPractice',
+        'VocabularyResult',
+      ]),
+    );
   });
 
   it('keeps the spinner while session profile is settling', async () => {
@@ -123,5 +156,30 @@ describe('RootNavigator', () => {
       root = ReactTestRenderer.create(<RootNavigator />);
     });
     expect(root.root.findByType(ActivityIndicator)).toBeTruthy();
+  });
+
+  it('keeps vocabulary routes registered when the feature flag is unavailable', async () => {
+    jest.mocked(useAuth).mockReturnValue({
+      bootstrapped: true,
+      destination: 'app',
+      profileSettled: true,
+      session: { user: { id: 'user-1' } },
+    } as never);
+    jest.mocked(useFeatureFlags).mockReturnValue({ data: undefined } as never);
+
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<RootNavigator />);
+    });
+    const labels = root.root.findAllByType(Text).map((node) => node.props.children);
+    expect(labels).toEqual(
+      expect.arrayContaining([
+        'Home',
+        'VocabularyHome',
+        'VocabularySituation',
+        'VocabularyPractice',
+        'VocabularyResult',
+      ]),
+    );
   });
 });

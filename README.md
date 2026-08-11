@@ -1,6 +1,8 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 See [CHANGELOG.md](./CHANGELOG.md) for release history.
+Business / solution documentation (BA & SA): [docs/](./docs/README.md).
+Engineering agent policy: [AGENTS.md](./AGENTS.md).
 
 # Getting Started
 

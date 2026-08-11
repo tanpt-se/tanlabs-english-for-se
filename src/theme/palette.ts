@@ -16,32 +16,64 @@ export const brand = {
   paper: '#F5F6FA',
   fog: '#A9B3C9',
   chalk: '#F7F8FC',
+  success: '#4CAF82',
+  successSoft: '#E6F5ED',
+  warning: '#E8A838',
+  warningSoft: '#FFF4E0',
+  errorSoft: '#FDECEC',
+  borderSubtle: '#EEEFF1',
+  borderDefault: '#E2E6EF',
 } as const;
 
+/** Semantic colors aligned with Figma variables (light). */
 export const lightColors = {
   background: brand.paper,
   surface: '#FFFFFF',
-  border: '#E2E6EF',
+  surfaceSecondary: brand.peach50,
+  border: brand.borderDefault,
+  borderSubtle: brand.borderSubtle,
   text: brand.ink,
   textMuted: '#5C667A',
+  textSecondary: '#5C667A',
+  textInverse: '#FFFFFF',
   primary: brand.coral700,
   primaryPressed: brand.coral800,
   onPrimary: '#FFFFFF',
   primarySoft: brand.peach50,
   danger: brand.coral700,
   onDanger: '#FFFFFF',
+  dangerSoft: brand.errorSoft,
+  success: brand.success,
+  successSoft: brand.successSoft,
+  onSuccess: '#FFFFFF',
+  warning: brand.warning,
+  warningSoft: brand.warningSoft,
 } as const;
 
 export const darkColors = {
   background: brand.navy900,
   surface: brand.navy800,
+  surfaceSecondary: brand.navy700,
   border: '#2A3F6E',
+  borderSubtle: '#243660',
   text: brand.chalk,
   textMuted: brand.fog,
+  textSecondary: brand.fog,
+  textInverse: brand.navy900,
   primary: brand.coral400,
   primaryPressed: brand.coral500,
   onPrimary: brand.navy900,
   primarySoft: brand.navy700,
   danger: brand.coral300,
   onDanger: brand.navy900,
+  dangerSoft: brand.navy700,
+  success: brand.success,
+  successSoft: brand.navy700,
+  onSuccess: brand.navy900,
+  warning: brand.warning,
+  warningSoft: brand.navy700,
 } as const;
+
+export type AppColors = {
+  [K in keyof typeof lightColors]: string;
+};

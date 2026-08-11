@@ -1,93 +1,106 @@
-import { useNavigation } from '@react-navigation/native';
+import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { APP_ENV, isDevelopment } from '@/app/config/env';
-import type { AppStackParamList } from '@/app/navigation/types';
-import { AppButton } from '@/components/ui/AppControls';
-import { ScreenScroll } from '@/components/ui/ScreenScroll';
+import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
+import { ScreenScroll } from '@/components/ui/layout';
+import { BottomNavigation } from '@/components/ui/navigation';
+import { TopAppHeader } from '@/components/ui/navigation';
 import { useAuth } from '@/core/auth/AuthProvider';
-import type { FeatureFlags } from '@/core/remote-config/parser';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
+import { HomeFeatureRow, StreakCard } from '@/features/home/components';
 import { useProfile } from '@/features/profile/hooks/useProfile';
-import { useAppColors } from '@/theme';
+import { themeTokens, useAppColors } from '@/theme';
 
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
-
-const FEATURE_CARDS: Array<{ key: keyof FeatureFlags; title: string }> = [
-  { key: 'grammar', title: 'Grammar' },
-  { key: 'vocabulary', title: 'Vocabulary' },
-  { key: 'interview', title: 'Interview' },
-  { key: 'ai', title: 'AI coach' },
-];
+function daytimeGreeting(date = new Date()): string {
+  const hour = date.getHours();
+  if (hour < 12) {
+    return 'Good morning';
+  }
+  if (hour < 17) {
+    return 'Good afternoon';
+  }
+  return 'Good evening';
+}
 
 export function HomeScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
+  const onSelectTab = useMainTabSelect();
   const { profile: authProfile } = useAuth();
   const { data: profile } = useProfile();
   const flags = useFeatureFlags();
   const current = profile ?? authProfile;
   const colors = useAppColors();
+  const firstName = current?.display_name?.trim().split(/\s+/)[0] ?? 'there';
+  const greeting = useMemo(() => daytimeGreeting(), []);
+  const vocabularyEnabled = flags.data?.vocabulary === true;
+  const disabledDestinations = vocabularyEnabled
+    ? (['grammar', 'interview'] as const)
+    : (['grammar', 'vocabulary', 'interview'] as const);
 
   return (
-    <ScreenScroll>
-      <View style={styles.stack}>
-        <Text accessibilityRole="header" style={[styles.heading, { color: colors.text }]}>
-          Hi {current?.display_name ?? 'there'}
-        </Text>
-        <Text style={{ color: colors.text }}>English level: {current?.english_level ?? '—'}</Text>
-        {FEATURE_CARDS.map(({ key, title }) => {
-          const enabled = Boolean(flags.data?.[key]);
-          return (
-            <View
-              key={key}
-              style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.border }]}
-            >
-              <Text accessibilityRole="header" style={[styles.cardTitle, { color: colors.text }]}>
-                {title}
-              </Text>
-              <Text style={{ color: colors.textMuted }}>
-                {enabled
-                  ? `${title} is enabled.`
-                  : `Coming soon — ${title} unlocks in a later phase.`}
-              </Text>
-            </View>
-          );
-        })}
-        <AppButton
-          testID="home-settings"
-          accessibilityLabel="Open settings"
-          accessibilityRole="button"
-          variant="outline"
-          onPress={() => navigation.navigate('Settings')}
-          label="Settings"
+    <ScreenScroll
+      footer={
+        <BottomNavigation
+          active="home"
+          disabledDestinations={disabledDestinations}
+          onSelect={onSelectTab}
         />
-        {isDevelopment ? (
-          <Text style={{ color: colors.textMuted }}>
-            env={APP_ENV} · flags loaded={String(Boolean(flags.data))}
-          </Text>
+      }
+    >
+      <View style={styles.stack}>
+        <TopAppHeader title={`${greeting}, ${firstName}`} />
+        <Text style={[styles.subtitle, { color: colors.textMuted }]}>
+          What would you like to learn today?
+        </Text>
+
+        <StreakCard />
+
+        <Text style={[styles.sectionTitle, { color: colors.text }]}>Learning paths</Text>
+        <HomeFeatureRow
+          accessibilityLabel="Grammar coming soon"
+          icon="book"
+          statusLabel="Coming soon"
+          subtitle="Learn practical grammar for work"
+          title="Grammar"
+          tone="comingSoon"
+        />
+        {vocabularyEnabled ? (
+          <HomeFeatureRow
+            accessibilityLabel="Open Vocabulary"
+            icon="vocabulary"
+            statusLabel="Open"
+            subtitle="Expressions for real work"
+            testID="home-open-vocabulary"
+            title="Vocabulary"
+            tone="available"
+            onPress={() => onSelectTab('vocabulary')}
+          />
         ) : null}
+        <HomeFeatureRow
+          accessibilityLabel="Interview practice coming soon"
+          icon="interview"
+          statusLabel="Coming soon"
+          subtitle="Practice structured answers"
+          title="Interview practice"
+          tone="comingSoon"
+        />
       </View>
     </ScreenScroll>
   );
 }
 
 const styles = StyleSheet.create({
-  card: {
-    borderRadius: 20,
-    borderWidth: 1,
-    padding: 16,
-  },
-  cardTitle: {
+  sectionTitle: {
     fontSize: 16,
     fontWeight: '600',
-    marginBottom: 8,
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: '700',
-    lineHeight: 32,
+    lineHeight: 22,
   },
   stack: {
-    gap: 16,
+    gap: themeTokens.spacing['14'],
+    width: '100%',
+  },
+  subtitle: {
+    fontSize: 14,
+    fontWeight: '400',
+    lineHeight: 19,
   },
 });

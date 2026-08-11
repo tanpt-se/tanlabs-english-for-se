@@ -3,14 +3,16 @@ import { useState } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { AuthStackParamList } from '@/app/navigation/types';
-import { AppButton, AppFormError, AppTextInput } from '@/components/ui/AppControls';
-import { AuthHeader } from '@/components/ui/AuthHeader';
-import { ScreenScroll } from '@/components/ui/ScreenScroll';
+import { AppButton } from '@/components/ui/button';
+import { AppFormError } from '@/components/ui/feedback';
+import { FieldTextInput } from '@/components/ui/input';
+import { ScreenScroll } from '@/components/ui/layout';
 import { trackEvent } from '@/core/analytics/events';
 import { isAuthRateLimitError } from '@/core/auth/errors';
 import { signUp } from '@/core/auth/service';
 import { validateAuthCredentials } from '@/core/auth/validation';
-import { useAppColors } from '@/theme';
+import { AuthHeader } from '@/features/auth/components';
+import { themeTokens, useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -49,24 +51,33 @@ export function RegisterScreen() {
 
   return (
     <ScreenScroll centered>
-      <AuthHeader title="Create account" subtitle="Use an email address you can verify." />
+      <AuthHeader title="Create your account" subtitle="Use an email address you can verify." />
       <View style={styles.stack}>
-        <AppTextInput
+        <FieldTextInput
           accessibilityLabel="Email"
           aria-describedby={error ? 'register-form-error' : undefined}
           aria-invalid={Boolean(error)}
           autoCapitalize="none"
+          autoComplete="email"
+          error={Boolean(error)}
           keyboardType="email-address"
-          placeholder="Email"
+          label="Email"
+          placeholder="you@example.com"
+          textContentType="emailAddress"
           value={email}
           onChangeText={setEmail}
         />
-        <AppTextInput
+        <FieldTextInput
           accessibilityLabel="Password"
           aria-describedby={error ? 'register-form-error' : undefined}
           aria-invalid={Boolean(error)}
-          placeholder="Password (min 6)"
-          secureTextEntry
+          autoComplete="new-password"
+          error={Boolean(error)}
+          helper="At least 6 characters"
+          label="Password"
+          mode="password"
+          placeholder="Password"
+          textContentType="newPassword"
           value={password}
           onChangeText={setPassword}
         />
@@ -77,16 +88,18 @@ export function RegisterScreen() {
           </Text>
         ) : null}
         <AppButton
-          accessibilityLabel="Register"
+          accessibilityLabel="Create account"
           accessibilityRole="button"
-          onPress={onSubmit}
           disabled={loading}
-          label={loading ? 'Creating…' : 'Register'}
+          fullWidth
+          label={loading ? 'Creating…' : 'Create account'}
+          onPress={onSubmit}
         />
         {rateLimited || registered ? (
           <AppButton
             accessibilityLabel="Sign in instead"
             accessibilityRole="button"
+            fullWidth
             variant="outline"
             onPress={() => navigation.navigate('Login')}
             label="Sign in instead"
@@ -98,7 +111,9 @@ export function RegisterScreen() {
           style={styles.link}
           onPress={() => navigation.navigate('Login')}
         >
-          <Text style={[styles.linkText, { color: colors.primary }]}>Already have an account?</Text>
+          <Text style={[styles.linkText, { color: colors.primary }]}>
+            Already have an account? Sign in
+          </Text>
         </Pressable>
       </View>
     </ScreenScroll>
@@ -114,6 +129,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   stack: {
-    gap: 16,
+    gap: themeTokens.spacing.md,
+    width: '100%',
   },
 });

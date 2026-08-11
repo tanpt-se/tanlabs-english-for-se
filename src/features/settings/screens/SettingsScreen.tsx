@@ -1,161 +1,160 @@
 import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
-import { Linking, StyleSheet, Switch, Text, View } from 'react-native';
+import { StyleSheet, Text, View } from 'react-native';
 
 import type { AppStackParamList } from '@/app/navigation/types';
-import { AppButton } from '@/components/ui/AppControls';
-import { ProfileSection } from '@/components/ui/ProfileSection';
-import { ScreenScroll } from '@/components/ui/ScreenScroll';
-import { SettingRow } from '@/components/ui/SettingRow';
+import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
+import { AppButton } from '@/components/ui/button';
+import { ConfirmModal } from '@/components/ui/feedback';
+import { ScreenScroll } from '@/components/ui/layout';
+import { BottomNavigation } from '@/components/ui/navigation';
+import { TopAppHeader } from '@/components/ui/navigation';
 import { trackEvent } from '@/core/analytics/events';
 import { useAuth } from '@/core/auth/AuthProvider';
-import { triggerTestCrash } from '@/core/monitoring/crashlytics';
+import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
+import { ProfileSummaryCard } from '@/features/profile/components';
 import { useProfile } from '@/features/profile/hooks/useProfile';
+import { SettingRow } from '@/features/settings/components';
 import { useNotificationSettings } from '@/features/settings/hooks/useNotificationSettings';
-import { useAppColors } from '@/theme';
+import { themeTokens, useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+const LEVEL_LABELS: Record<string, string> = {
+  A1: 'A1 · Beginner',
+  A2: 'A2 · Elementary',
+  B1: 'B1 · Intermediate',
+  B2: 'B2 · Upper intermediate',
+  C1: 'C1 · Advanced',
+};
+
 export function SettingsScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
-  const { signOut } = useAuth();
+  const onSelectTab = useMainTabSelect();
+  const { signOut, user } = useAuth();
   const { data: profile, isError, refetch, isFetching } = useProfile();
-  const { preferenceEnabled, osGranted, setEnabled, isUpdating } = useNotificationSettings();
+  const { preferenceEnabled, setEnabled, isUpdating } = useNotificationSettings();
   const [busy, setBusy] = useState(false);
+  const [signOutVisible, setSignOutVisible] = useState(false);
   const colors = useAppColors();
+  const flags = useFeatureFlags();
+  const disabledDestinations = flags.data?.vocabulary
+    ? (['grammar', 'interview'] as const)
+    : (['grammar', 'vocabulary', 'interview'] as const);
 
-  const onSignOut = async () => {
+  const displayName = profile?.display_name ?? 'Learner';
+  const levelKey = profile?.english_level ?? '—';
+  const levelLabel = LEVEL_LABELS[levelKey] ?? levelKey;
+
+  const onConfirmSignOut = async () => {
     setBusy(true);
     try {
       await trackEvent('logout');
       await signOut();
     } finally {
       setBusy(false);
+      setSignOutVisible(false);
     }
   };
 
   return (
-    <ScreenScroll>
+    <ScreenScroll
+      footer={
+        <BottomNavigation
+          active="profile"
+          disabledDestinations={disabledDestinations}
+          onSelect={onSelectTab}
+        />
+      }
+    >
       <View style={styles.stack}>
-        <ProfileSection title="Profile">
-          <SettingRow label="Display name" value={profile?.display_name ?? '—'} />
-          <SettingRow label="English level" value={profile?.english_level ?? '—'} />
-          {isError ? (
-            <View style={styles.sectionPadding}>
-              <Text style={{ color: colors.danger }}>Could not load profile.</Text>
-              <AppButton
-                accessibilityLabel="Retry loading profile"
-                accessibilityRole="button"
-                variant="outline"
-                style={styles.buttonSpacing}
-                onPress={() => refetch()}
-                disabled={isFetching}
-                label={isFetching ? 'Retrying…' : 'Retry'}
-              />
-            </View>
-          ) : null}
-          <View style={styles.sectionBottom}>
+        <TopAppHeader title="Profile & settings" />
+
+        <ProfileSummaryCard
+          displayName={displayName}
+          email={user?.email}
+          levelLabel={levelLabel}
+          onEditPress={() => navigation.navigate('EditProfile')}
+        />
+
+        {isError ? (
+          <View style={styles.errorBlock}>
+            <Text style={{ color: colors.danger }}>Could not load profile.</Text>
             <AppButton
-              accessibilityLabel="Edit profile"
+              accessibilityLabel="Retry loading profile"
               accessibilityRole="button"
+              fullWidth
               variant="outline"
-              onPress={() => navigation.navigate('EditProfile')}
-              label="Edit profile"
+              onPress={() => refetch()}
+              disabled={isFetching}
+              label={isFetching ? 'Retrying…' : 'Retry'}
             />
           </View>
-        </ProfileSection>
-
-        <ProfileSection
-          title="Notifications"
-          description="Preference syncs to Supabase when signed in."
-        >
-          <View style={styles.switchRow}>
-            <Text style={[styles.switchLabel, { color: colors.text }]}>Enable notifications</Text>
-            <Switch
-              accessibilityLabel="Enable notifications"
-              accessibilityRole="switch"
-              value={preferenceEnabled}
-              onValueChange={(value: boolean) => setEnabled(value)}
-              disabled={isUpdating}
-            />
-          </View>
-          {preferenceEnabled && !osGranted ? (
-            <View style={styles.sectionBottom}>
-              <Text style={[styles.helpText, { color: colors.textMuted }]}>
-                Notifications are blocked in system settings. Enable them there to receive alerts,
-                or turn the preference off above.
-              </Text>
-              <AppButton
-                accessibilityLabel="Open system notification settings"
-                accessibilityRole="button"
-                variant="outline"
-                onPress={() => {
-                  Linking.openSettings().catch(() => undefined);
-                }}
-                label="Open system settings"
-              />
-            </View>
-          ) : null}
-        </ProfileSection>
-
-        {__DEV__ ? (
-          <ProfileSection title="Developer" description="PH1 Firebase Console verification only.">
-            <View style={styles.sectionBottom}>
-              <AppButton
-                accessibilityLabel="Trigger test crash for Crashlytics"
-                accessibilityRole="button"
-                variant="outline"
-                tone="danger"
-                onPress={() => triggerTestCrash()}
-                label="Trigger test crash"
-              />
-            </View>
-          </ProfileSection>
         ) : null}
+
+        <View style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>Notifications</Text>
+          <SettingRow
+            label="Enable notifications"
+            switchValue={preferenceEnabled}
+            value="Synced with your account"
+            onValueChange={(value) => setEnabled(value)}
+            disabled={isUpdating}
+          />
+        </View>
+
+        <View style={styles.section}>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>App preferences</Text>
+          <SettingRow label="Appearance" value="System" />
+          <SettingRow label="Language" value="English" />
+        </View>
 
         <AppButton
           testID="settings-sign-out"
           accessibilityLabel="Sign out"
           accessibilityRole="button"
-          tone="danger"
-          onPress={onSignOut}
           disabled={busy}
-          label={busy ? 'Signing out…' : 'Sign out'}
+          fullWidth
+          onPress={() => setSignOutVisible(true)}
+          label="Sign out"
         />
       </View>
+
+      <ConfirmModal
+        busy={busy}
+        confirmLabel="Sign out"
+        confirmTone="danger"
+        message="You’ll need to sign in again to sync progress and continue learning."
+        note="You can sign back in anytime on this device."
+        title="Sign out?"
+        visible={signOutVisible}
+        onCancel={() => {
+          if (!busy) {
+            setSignOutVisible(false);
+          }
+        }}
+        onConfirm={onConfirmSignOut}
+      />
     </ScreenScroll>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonSpacing: {
-    marginTop: 8,
+  errorBlock: {
+    gap: themeTokens.spacing.sm,
   },
-  helpText: {
-    fontSize: 14,
-    marginBottom: 8,
+  section: {
+    gap: themeTokens.spacing.xs,
+    width: '100%',
   },
-  sectionBottom: {
-    paddingBottom: 12,
-    paddingHorizontal: 16,
-  },
-  sectionPadding: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+  sectionTitle: {
+    fontSize: 12,
+    fontWeight: '500',
+    letterSpacing: 0.6,
+    textTransform: 'uppercase',
   },
   stack: {
-    gap: 24,
-  },
-  switchLabel: {
-    flexShrink: 1,
-    marginRight: 12,
-  },
-  switchRow: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    minHeight: 44,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    gap: themeTokens.spacing.md,
+    width: '100%',
   },
 });

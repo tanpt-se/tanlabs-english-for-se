@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
-import { useAppColors } from '@/theme';
+import { themeTokens, useAppColors } from '@/theme';
 
 import type { PropsWithChildren } from 'react';
 
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 4,
   },
   surface: {
-    borderRadius: 20,
+    borderRadius: themeTokens.radius.xl,
     borderWidth: 1,
     overflow: 'hidden',
   },

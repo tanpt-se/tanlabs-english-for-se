@@ -2,7 +2,7 @@ import React from 'react';
 import { useColorScheme } from 'react-native';
 import ReactTestRenderer, { act } from 'react-test-renderer';
 
-import { AppTextInput } from '@/components/ui/AppControls';
+import { AppTextInput } from '@/components/ui/input';
 import { triggerTestCrash, recordError } from '@/core/monitoring/crashlytics';
 import { validateProfileInput } from '@/core/profile/validation';
 

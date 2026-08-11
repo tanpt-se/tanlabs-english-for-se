@@ -8,7 +8,8 @@ Prefer editing here over duplicating rules in tool-specific files.
 English learning product for software engineers (TanLabs).
 Stack: React Native 0.86 · React Navigation · TanStack Query · Supabase · FastImage (`@d11/react-native-fast-image`) · React Native core UI · Reactotron (dev).
 
-PH1 source of truth: `plans/PH1.md` (status-only edits when verified; do not change scope/prose).
+BA/SA system docs (committed): [`docs/`](docs/README.md) — business analysis under `docs/ba/`, solution architecture under `docs/sa/`.
+Phase execution SoT (often gitignored): `plans/PH1.md` / `plans/PH2.md` — status-only edits when verified; do not change scope/prose without change control.
 
 Prefer images via `import FastImage from '@/components/FastImage'` (not RN `Image` for remote URLs).
 HTTP: `import { api } from '@/lib/api'` (axios + auth/refresh interceptors). Set `API_BASE_URL` in `src/app/config/env.ts`.

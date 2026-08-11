@@ -4,15 +4,17 @@ import { useEffect, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import type { AppStackParamList } from '@/app/navigation/types';
-import { AppButton, AppFormError, AppTextInput } from '@/components/ui/AppControls';
-import { AuthHeader } from '@/components/ui/AuthHeader';
-import { ScreenScroll } from '@/components/ui/ScreenScroll';
+import { AppButton } from '@/components/ui/button';
+import { AppFormError } from '@/components/ui/feedback';
+import { FieldTextInput } from '@/components/ui/input';
+import { ScreenScroll } from '@/components/ui/layout';
+import { TopAppHeader } from '@/components/ui/navigation';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { upsertProfile } from '@/core/profile/service';
 import { ENGLISH_LEVELS } from '@/core/profile/validation';
-import { EnglishLevelPicker } from '@/features/profile/components/EnglishLevelPicker';
+import { EnglishLevelPicker } from '@/features/profile/components';
 import { useProfile } from '@/features/profile/hooks/useProfile';
-import { useAppColors } from '@/theme';
+import { themeTokens, useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -44,8 +46,8 @@ export function EditProfileScreen() {
     const isFetchingProfile = fetchStatus === 'fetching';
     return (
       <ScreenScroll>
-        <AuthHeader title="Edit profile" subtitle="Update how we greet you." />
         <View style={styles.stack}>
+          <TopAppHeader showBack title="Edit profile" onBackPress={() => navigation.goBack()} />
           <Text style={{ color: colors.text }}>
             {isFetchingProfile
               ? 'Loading profile…'
@@ -55,6 +57,7 @@ export function EditProfileScreen() {
             <AppButton
               accessibilityLabel="Retry loading profile"
               accessibilityRole="button"
+              fullWidth
               onPress={() => {
                 refetch().catch(() => undefined);
               }}
@@ -91,27 +94,34 @@ export function EditProfileScreen() {
 
   return (
     <ScreenScroll>
-      <AuthHeader title="Edit profile" subtitle="Update how we greet you." />
       <View style={styles.stack}>
-        <AppTextInput
+        <TopAppHeader showBack title="Edit profile" onBackPress={() => navigation.goBack()} />
+        <Text style={[styles.step, { color: colors.primary }]}>Account settings</Text>
+        <View style={[styles.progressTrack, { backgroundColor: colors.borderSubtle }]}>
+          <View style={[styles.progressFill, { backgroundColor: colors.primary }]} />
+        </View>
+        <Text accessibilityRole="header" style={[styles.headline, { color: colors.text }]}>
+          Update how we greet you.
+        </Text>
+        <FieldTextInput
           accessibilityLabel="Display name"
           aria-describedby={error ? 'edit-profile-form-error' : undefined}
           aria-invalid={Boolean(error)}
+          label="Display name"
           placeholder="Display name"
           value={displayName}
           onChangeText={setDisplayName}
         />
-        <Text accessibilityRole="header" style={[styles.label, { color: colors.text }]}>
-          English level
-        </Text>
+        <Text style={[styles.sectionLabel, { color: colors.text }]}>English level</Text>
         <EnglishLevelPicker value={englishLevel} onChange={setEnglishLevel} />
         {error ? <AppFormError nativeID="edit-profile-form-error" message={error} /> : null}
         <AppButton
           accessibilityLabel="Save profile"
           accessibilityRole="button"
-          onPress={onSubmit}
           disabled={loading}
-          label={loading ? 'Saving…' : 'Save'}
+          fullWidth
+          label={loading ? 'Saving…' : 'Save profile'}
+          onPress={onSubmit}
         />
       </View>
     </ScreenScroll>
@@ -119,11 +129,34 @@ export function EditProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  label: {
-    fontSize: 16,
+  headline: {
+    fontSize: 22,
     fontWeight: '600',
+    lineHeight: 30,
+  },
+  progressFill: {
+    borderRadius: 3,
+    height: 6,
+    width: '66%',
+  },
+  progressTrack: {
+    borderRadius: 3,
+    height: 6,
+    overflow: 'hidden',
+    width: '100%',
+  },
+  sectionLabel: {
+    fontSize: 13,
+    fontWeight: '500',
+    lineHeight: 18,
   },
   stack: {
-    gap: 16,
+    gap: themeTokens.spacing['14'],
+    width: '100%',
+  },
+  step: {
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 16,
   },
 });

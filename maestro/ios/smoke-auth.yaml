@@ -10,8 +10,14 @@ tags:
     clearKeychain: true
 - extendedWaitUntil:
     visible:
-      id: 'login-submit'
+      id: 'welcome-sign-in'
     timeout: 90000
+- tapOn:
+    id: 'welcome-sign-in'
+- extendedWaitUntil:
+    visible:
+      id: 'login-submit'
+    timeout: 30000
 - tapOn:
     id: 'login-email'
 - eraseText
@@ -25,12 +31,12 @@ tags:
     id: 'login-submit'
 - extendedWaitUntil:
     visible:
-      id: 'home-settings'
+      id: 'bottom-nav-profile'
     timeout: 60000
 - assertVisible:
-    id: 'home-settings'
+    id: 'bottom-nav-home'
 - tapOn:
-    id: 'home-settings'
+    id: 'bottom-nav-profile'
 - extendedWaitUntil:
     visible:
       id: 'settings-sign-out'
@@ -39,7 +45,13 @@ tags:
     id: 'settings-sign-out'
 - extendedWaitUntil:
     visible:
-      id: 'login-submit'
+      id: 'confirm-modal-confirm'
+    timeout: 10000
+- tapOn:
+    id: 'confirm-modal-confirm'
+- extendedWaitUntil:
+    visible:
+      id: 'welcome-sign-in'
     timeout: 30000
 - assertVisible:
-    id: 'login-submit'
+    id: 'welcome-sign-in'

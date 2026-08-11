@@ -17,11 +17,19 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
+- PH1 foundation UI aligned to Figma: Welcome (navy cover + hero mark), auth copy, Complete/Edit profile radios, Home streak + foundation card, Settings summary + confirm sign-out
+- Shared UI: `AppIcon`, `AppSwitch` (Figma 44×28 coral/gray), `ConfirmModal`, `StreakCard`, `HomeFeatureRow`, `ProfileSummaryCard`; `AppButton` `fullWidth`; `SettingRow` switch/chevron
+- PH3 learning screens (flag-gated): home → situation → practice → result with mock catalog
+- Learning primitives: `SituationCard`, `ExpressionCard`, `PromptCard`, `ProgressBanner`, `InsightPanel`, `CompletionHero`, `ResultMetric`, `Feedback`, `FieldTextInput`
+- Shell primitives: `TopAppHeader`, `BottomNavigation`, `AnswerOption`, `BottomActionBar`
+- `FieldTextInput` password mode with Eye/EyeOff toggle; Login/Register use labeled fields
+- Semantic theme aliases (`borderSubtle`, success/warning/error soft fills, expanded spacing/radius)
+- Reusable TanLabs brand logo in Welcome UI, sourced from the launcher foreground asset
+- Committed BA/SA documentation pack under `docs/ba` (vision, personas, journeys, FRs, glossary) and `docs/sa` (context, architecture, data/security, integrations, NFRs)
 - Firebase per-env client config layout (`config/firebase/{development,production}`) with `pnpm run firebase:config` / `verify:firebase-config`
 - Architecture/dependency policy regression suite (`architecturePolicy.test.ts`) and RN UI shell guards (`uiRegression.test.ts`)
 - Client auth credential validation shared by Login/Register (`src/core/auth/validation.ts`)
 - Offline mutation resume recovery helper (`resumePausedMutationsWithRecovery`) with user-facing sync alerts
-- Home coming-soon cards for all PH1 remote-config feature flags (Grammar, Vocabulary, Interview, AI)
 - Supabase RPC `claim_device_token` (migration 005) so FCM tokens can change owner on account switch under RLS
 - Secure local persistence for the current FCM token (survives cold start / logout deactivate)
 - Keychain/Keystore-backed Supabase session storage with legacy AsyncStorage migration
@@ -35,17 +43,35 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Removed
 
+- Settings DEV “Trigger test crash” UI and `maestro/ios/trigger-crashlytics.yaml`
+- `V2Icon` / `icons/v2` naming — icons live under `AppIcon` + `src/assets/icons/`
 - Repo `docs/` tree (smoke/E2E/build/firebase verify notes); rebuild in later phases as needed
 - Unused `react-dom`, `react-native-web`, `chart.js`, and `d3` (not referenced; were breaking `npm ci`)
 - gluestack UI dependencies; PH1 UI now uses React Native core components and the local theme
 
 ### Changed
 
+- UI components are grouped by stable families (`brand`, `button`, `feedback`, `input`, `layout`, `navigation`, `selection`); feature-only composites now live with their owning feature
+- Auth stack starts on Welcome; Login/Register match foundation copy without header logo
+- Icon PNGs re-exported as transparent white templates so `tintColor` renders correctly (was opaque light canvas)
+- Review fixes: always register Vocabulary routes; Edit profile title; sign-out busy lock; honest session/result/settings copy; practice CTA uses question count; bottom nav flex; dead preference chevrons removed
+- `AppButton` default size is Medium (Figma `Button/AppButton` Size default + screen instances); remove explicit Large overrides on primary CTAs
+- Home drops DEV `env=` / `flags loaded=` debug line
+- Fix TS: `StyleSheet.absoluteFill`, `AppColors` dark/light union-safe, `disabledDestinations` `as const`
+- Settings drops OS permission help, Open system settings, and DEV Trigger test crash
+- Home PH1 layout: greeting + neutral weekly activity, source-safe Learning paths rows (`HomeFeatureRow`), sticky bottom nav with disabled unavailable destinations
+- Auth forms center vertically while content fits and remain keyboard-safe/scrollable for smaller screens and large text
+- Vocabulary Home entry, bottom destination, and routes now fail closed while its remote feature flag is unavailable
+- Home / Settings / Vocabulary share sticky `BottomNavigation` via `useMainTabSelect`
+- Settings uses profile summary, sectioned rows, confirm modal, and Profile tab
+- English level picker is a vertical radio list (`A1 · Beginner` …) with peach selected fill
+- Settings / Profile PH1: coral level on summary, Appearance + Language rows, primary Sign out; Complete/Edit titles, coral step labels, soft-fill level radios, Save profile CTA
+- `AppButton` supports medium/large sizes, secondary style, and `fullWidth`
+- Theme tokens aligned to TanLabs Figma variables (accent, border subtle/default, radius 12/16/20)
 - Android Gradle Firebase selection uses ProcessBuilder-style `.execute()` (Gradle Project has no configuration-time `exec {}`)
 - Maestro Android e2e requires a connected `adb` device and prefers erase/hideKeyboard around text entry
 - Maestro iOS auth smoke clears fields with eraseText and hides the keyboard before submit (aligns with Android flow reliability)
 - `APP_ENV` is `development` | `production` only (staging removed by change control); Firebase backends map with fixed package/bundle IDs
-- English-level picker selected state uses a non-color `✓` affordance alongside accessibility selected
 - Notification mutation failures (including auto-resumed paused mutations) alert and roll back optimistic preference
 - RLS verification covers app_config insert denial and anonymous profile leakage/insert denial
 - Husky verification script (`pnpm run verify:hooks`) and `.husky/.gitignore` so fresh-clone hook install stays reproducible without tracking generated `_/`
@@ -96,7 +122,6 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 - Notification preference enables before FCM token (8s timeout) so Switch is not stuck disabled on Simulator
 - pnpm `secret:scan` + CI gates for format:check / secret:scan
 - Accessibility labels on auth / profile / home / settings controls
-- Dev-only Settings → Trigger test crash (Crashlytics Console verify)
 
 ## [0.0.1] - 2026-08-08
 

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import React from 'react';
-import { Linking, Text } from 'react-native';
+import { Text } from 'react-native';
 import ReactTestRenderer, { act } from 'react-test-renderer';
 
 import { AuthUserError } from '@/core/auth/errors';
@@ -52,10 +52,6 @@ jest.mock('@/core/analytics/events', () => ({
   trackEvent: jest.fn(async () => undefined),
 }));
 
-jest.mock('@/core/monitoring/crashlytics', () => ({
-  triggerTestCrash: jest.fn(),
-}));
-
 jest.mock('@/features/profile/hooks/useProfile', () => ({
   useProfile: jest.fn(),
 }));
@@ -79,9 +75,6 @@ const { useNotificationSettings } = jest.requireMock(
 ) as { useNotificationSettings: jest.Mock };
 const { trackEvent } = jest.requireMock('@/core/analytics/events') as {
   trackEvent: jest.Mock;
-};
-const { triggerTestCrash } = jest.requireMock('@/core/monitoring/crashlytics') as {
-  triggerTestCrash: jest.Mock;
 };
 
 const navigate = jest.fn();
@@ -136,7 +129,6 @@ function changeText(
 describe('PH1 screens', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.spyOn(Linking, 'openSettings').mockResolvedValue(undefined as never);
     jest.mocked(useNavigation).mockReturnValue({ navigate, goBack } as never);
     useAuth.mockReturnValue({
       user: { id: 'user-1' },
@@ -210,7 +202,7 @@ describe('PH1 screens', () => {
 
     await changeText(root, 'Email', 'ada@example.com');
     await changeText(root, 'Password', 'secret1');
-    await press(root, 'Register');
+    await press(root, 'Create account');
 
     expect(trackEvent).toHaveBeenCalledWith('register_success');
     expect(
@@ -228,7 +220,7 @@ describe('PH1 screens', () => {
     const limited = await mount(<RegisterScreen />);
     await changeText(limited, 'Email', 'ada@example.com');
     await changeText(limited, 'Password', 'secret1');
-    await press(limited, 'Register');
+    await press(limited, 'Create account');
     await waitFor(
       () => limited.root.findAllByProps({ accessibilityRole: 'alert' }).length > 0,
       'register error',
@@ -326,49 +318,48 @@ describe('PH1 screens', () => {
       root.root.findAllByType(Text).some((node) => String(node.props.children).includes('Ada')),
     ).toBe(true);
     expect(
-      root.root
-        .findAllByType(Text)
-        .some((node) => String(node.props.children).includes('Grammar is enabled.')),
+      root.root.findAllByType(Text).some((node) => {
+        const value = String(node.props.children);
+        return (
+          value.includes('Good morning') ||
+          value.includes('Good afternoon') ||
+          value.includes('Good evening')
+        );
+      }),
     ).toBe(true);
     expect(
       root.root
         .findAllByType(Text)
         .some((node) =>
-          String(node.props.children).includes(
-            'Coming soon — Vocabulary unlocks in a later phase.',
-          ),
+          String(node.props.children).includes('What would you like to learn today?'),
         ),
     ).toBe(true);
-    await press(root, 'Open settings');
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('Learning paths')),
+    ).toBe(true);
+    expect(
+      root.root.find(
+        (node) =>
+          node.props.accessibilityLabel === 'Grammar coming soon' && node.props.disabled === true,
+      ).props.accessibilityState,
+    ).toEqual({ disabled: true });
+    expect(root.root.findAllByProps({ accessibilityLabel: 'Open Vocabulary' })).toHaveLength(0);
+    await press(root, 'Profile');
     expect(navigate).toHaveBeenCalledWith('Settings');
   });
 
-  it('renders coming-soon for every disabled feature flag', async () => {
+  it('opens vocabulary from home when the flag is enabled', async () => {
     const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFlags') as {
       useFeatureFlags: jest.Mock;
     };
     useFeatureFlags.mockReturnValue({
-      data: { grammar: false, vocabulary: false, interview: false, ai: false },
+      data: { grammar: false, vocabulary: true, interview: false, ai: false },
     });
     const root = await mount(<HomeScreen />);
-    const copy = root.root.findAllByType(Text).map((node) => String(node.props.children));
-    for (const title of ['Grammar', 'Vocabulary', 'Interview', 'AI coach']) {
-      expect(copy.some((line) => line.includes(`Coming soon — ${title}`))).toBe(true);
-    }
-  });
-
-  it('renders enabled copy when a feature flag is on', async () => {
-    const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFlags') as {
-      useFeatureFlags: jest.Mock;
-    };
-    useFeatureFlags.mockReturnValue({
-      data: { grammar: false, vocabulary: true, interview: true, ai: true },
-    });
-    const root = await mount(<HomeScreen />);
-    const copy = root.root.findAllByType(Text).map((node) => String(node.props.children));
-    expect(copy.some((line) => line.includes('Vocabulary is enabled.'))).toBe(true);
-    expect(copy.some((line) => line.includes('Interview is enabled.'))).toBe(true);
-    expect(copy.some((line) => line.includes('AI coach is enabled.'))).toBe(true);
+    await press(root, 'Open Vocabulary');
+    expect(navigate).toHaveBeenCalledWith('VocabularyHome');
   });
 
   it('surfaces complete-profile session and save failures', async () => {
@@ -493,7 +484,7 @@ describe('PH1 screens', () => {
     );
   });
 
-  it('renders settings flows for profile retry, notifications, crash, and sign-out', async () => {
+  it('renders settings flows for profile retry, notifications, and sign-out', async () => {
     const refetch = jest.fn(async () => undefined);
     const setEnabled = jest.fn();
     const signOut = jest.fn(async () => undefined);
@@ -554,17 +545,19 @@ describe('PH1 screens', () => {
     await press(root, 'Edit profile');
     expect(navigate).toHaveBeenCalledWith('EditProfile');
 
-    const toggle = root.root.findByProps({ accessibilityLabel: 'Enable notifications' });
+    const toggle = root.root.findByProps({
+      accessibilityLabel: 'Enable notifications',
+      accessibilityRole: 'switch',
+    });
     await act(() => {
-      toggle.props.onValueChange(false);
+      toggle.props.onPress();
     });
     expect(setEnabled).toHaveBeenCalledWith(false);
 
-    await press(root, 'Open system notification settings');
-    await press(root, 'Trigger test crash for Crashlytics');
-    expect(triggerTestCrash).toHaveBeenCalled();
-
     await press(root, 'Sign out');
+    await act(() => {
+      root.root.findByProps({ testID: 'confirm-modal-confirm' }).props.onPress();
+    });
     expect(trackEvent).toHaveBeenCalledWith('logout');
     expect(signOut).toHaveBeenCalled();
   });
@@ -579,7 +572,7 @@ describe('PH1 screens', () => {
     const root = await mount(<HomeScreen />);
     const labels = root.root.findAllByType(Text).map((node) => String(node.props.children));
     expect(labels.some((text) => text.includes('there'))).toBe(true);
-    expect(labels.some((text) => text.includes('Coming soon'))).toBe(true);
+    expect(labels.some((text) => text.includes('Learning paths'))).toBe(true);
   });
 
   it('surfaces non-Error login failures', async () => {
@@ -602,7 +595,7 @@ describe('PH1 screens', () => {
     const withSession = await mount(<RegisterScreen />);
     await changeText(withSession, 'Email', 'ada@example.com');
     await changeText(withSession, 'Password', 'secret1');
-    await press(withSession, 'Register');
+    await press(withSession, 'Create account');
     expect(
       withSession.root
         .findAllByType(Text)
@@ -613,7 +606,7 @@ describe('PH1 screens', () => {
     const root = await mount(<RegisterScreen />);
     await changeText(root, 'Email', 'ada@example.com');
     await changeText(root, 'Password', 'secret1');
-    await press(root, 'Register');
+    await press(root, 'Create account');
     await waitFor(
       () => root.root.findAllByProps({ accessibilityRole: 'alert' }).length > 0,
       'register string error',
