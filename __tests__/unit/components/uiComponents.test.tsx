@@ -3,8 +3,10 @@ import { Image, Text, TextInput, useColorScheme } from 'react-native';
 import ReactTestRenderer, { act } from 'react-test-renderer';
 
 import { AppButton } from '@/components/ui/button';
+import { BrandLoading } from '@/components/ui/feedback';
 import { AppTextInput, FieldTextInput } from '@/components/ui/input';
 import { ScreenScroll } from '@/components/ui/layout';
+import { CompletionHero, Feedback, ProgressBanner, ResultMetric } from '@/components/ui/learning';
 import { BottomActionBar, BottomNavigation, TopAppHeader } from '@/components/ui/navigation';
 import { AnswerOption } from '@/components/ui/selection';
 import { AuthHeader } from '@/features/auth/components';
@@ -12,13 +14,9 @@ import { HomeFeatureRow } from '@/features/home/components';
 import { EnglishLevelPicker, ProfileSection } from '@/features/profile/components';
 import { SettingRow } from '@/features/settings/components';
 import {
-  CompletionHero,
   ExpressionCard,
-  Feedback,
   InsightPanel,
-  ProgressBanner,
   PromptCard,
-  ResultMetric,
   SituationCard,
 } from '@/features/vocabulary/components';
 import { lightColors, themeTokens } from '@/theme';
@@ -98,6 +96,29 @@ describe('shared UI components', () => {
     expect(root.root.findByType(Image).props.accessibilityLabel).toBe('TanLabs logo');
   });
 
+  it('renders BrandLoading sizes with logo and custom label', async () => {
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<BrandLoading size="sm" testID="brand-loading" />);
+    });
+    expect(root.root.findByProps({ testID: 'brand-loading' })).toBeTruthy();
+    expect(root.root.findByType(Image).props.accessibilityLabel).toBe('TanLabs logo');
+
+    await act(() => {
+      root.update(
+        <BrandLoading
+          size="lg"
+          color={lightColors.primary}
+          accessibilityLabel="Busy"
+          fill
+          testID="brand-loading-fill"
+        />,
+      );
+    });
+    expect(root.root.findByProps({ testID: 'brand-loading-fill' })).toBeTruthy();
+    expect(root.root.findByProps({ accessibilityLabel: 'Busy' })).toBeTruthy();
+  });
+
   it('renders SettingRow value and press handling', async () => {
     const onPress = jest.fn();
     let root!: ReactTestRenderer.ReactTestRenderer;
@@ -173,12 +194,13 @@ describe('shared UI components', () => {
     });
     await act(() => {
       root.update(
-        <ScreenScroll>
+        <ScreenScroll header={<TopAppHeader title="Fixed" />}>
           <Text>Home</Text>
         </ScreenScroll>,
       );
     });
-    expect(root.root.findByType(Text).props.children).toBe('Home');
+    const labels = root.root.findAllByType(Text).map((node) => node.props.children);
+    expect(labels).toEqual(expect.arrayContaining(['Fixed', 'Home']));
   });
 
   it('selects English levels with accessibility selected state', async () => {

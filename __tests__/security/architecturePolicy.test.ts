@@ -75,8 +75,12 @@ describe('WP-03 architecture and dependency policy', () => {
     }
   });
 
-  it('blocks feature screens from calling Supabase or Firebase messaging directly', () => {
-    const featureFiles = walk(resolve(ROOT, 'src/features'));
+  it('blocks feature screens/hooks/components from calling Supabase or Firebase messaging directly', () => {
+    const featureFiles = walk(resolve(ROOT, 'src/features')).filter((file) => {
+      const rel = relative(ROOT, file).replace(/\\/g, '/');
+      // Feature services are the only allowed Supabase boundary under src/features.
+      return !/\/services\//.test(rel);
+    });
     for (const file of featureFiles) {
       const text = readFileSync(file, 'utf8');
       const rel = relative(ROOT, file);
@@ -87,6 +91,59 @@ describe('WP-03 architecture and dependency policy', () => {
       expect(`${rel}:${text}`).not.toMatch(/supabase\s*\.\s*auth\s*\./);
       expect(`${rel}:${text}`).not.toMatch(/getMessaging\s*\(/);
     }
+  });
+
+  it('keeps Grammar seed templates out of the mobile source graph', () => {
+    const srcFiles = walk(resolve(ROOT, 'src'));
+    for (const file of srcFiles) {
+      const rel = relative(ROOT, file).replace(/\\/g, '/');
+      // Preview catalog is the only allowed static bridge to packs.json (dev force-local).
+      if (rel === 'src/features/grammar/services/localSeedCatalog.ts') {
+        continue;
+      }
+      const text = readFileSync(file, 'utf8');
+      expect(`${rel}:${text}`).not.toMatch(/from\s+['"][^'"]*supabase\/seed\/grammar[^'"]*['"]/);
+      expect(`${rel}:${text}`).not.toMatch(/require\s*\(\s*['"][^'"]*packs\.json['"]\s*\)/);
+      expect(`${rel}:${text}`).not.toMatch(/from\s+['"][^'"]*generate-grammar-seed-sql[^'"]*['"]/);
+    }
+    expect(existsSync(resolve(ROOT, 'supabase/seed/grammar/packs.json'))).toBe(true);
+    expect(existsSync(resolve(ROOT, 'scripts/generate-grammar-seed-sql.mjs'))).toBe(true);
+    expect(existsSync(resolve(ROOT, 'src/features/grammar/services/localSeedCatalog.ts'))).toBe(
+      true,
+    );
+    expect(existsSync(resolve(ROOT, 'src/features/grammar/services/localSeedLoader.ts'))).toBe(
+      true,
+    );
+  });
+
+  it('loads local Grammar seed only via dynamic import when force-local is on', () => {
+    const contentService = read('src/features/grammar/services/contentService.ts');
+    const loader = read('src/features/grammar/services/localSeedLoader.ts');
+    expect(contentService).not.toMatch(/from\s+['"][^'"]*localSeedCatalog['"]/);
+    expect(contentService).toMatch(/loadLocalSeedCatalog/);
+    expect(loader).toMatch(
+      /import\s*\(\s*['"]@\/features\/grammar\/services\/localSeedCatalog['"]\s*\)/,
+    );
+  });
+
+  it('keeps Grammar screens off Vocabulary feature modules and domain error imports', () => {
+    const grammarScreens = walk(resolve(ROOT, 'src/features/grammar/screens'));
+    for (const file of grammarScreens) {
+      const rel = relative(ROOT, file).replace(/\\/g, '/');
+      const text = readFileSync(file, 'utf8');
+      expect(`${rel}:${text}`).not.toMatch(/from\s+['"]@\/features\/vocabulary/);
+      expect(`${rel}:${text}`).not.toMatch(
+        /from\s+['"]@\/features\/grammar\/services(?:\/errors)?['"]/,
+      );
+      expect(`${rel}:${text}`).not.toMatch(/\bpracticeReducer\b/);
+    }
+  });
+
+  it('scopes PracticeSessionProvider to the practice flow navigator', () => {
+    const grammarNav = read('src/features/grammar/navigation/GrammarNavigator.tsx');
+    const practiceNav = read('src/features/grammar/navigation/GrammarPracticeFlowNavigator.tsx');
+    expect(grammarNav).not.toMatch(/PracticeSessionProvider/);
+    expect(practiceNav).toMatch(/PracticeSessionProvider/);
   });
 
   it('documents APP_ENV selection for development/production', () => {

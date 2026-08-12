@@ -2,23 +2,21 @@ import { useNavigation } from '@react-navigation/native';
 import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { learningDisabledDestinations } from '@/app/navigation/learningDisabledDestinations';
-import type { AppStackParamList } from '@/app/navigation/types';
-import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
+import type { AppStackParamList, MainTabParamList } from '@/app/navigation/types';
 import { AppButton } from '@/components/ui/button';
 import { ConfirmModal } from '@/components/ui/feedback';
 import { ScreenScroll } from '@/components/ui/layout';
-import { BottomNavigation } from '@/components/ui/navigation';
 import { TopAppHeader } from '@/components/ui/navigation';
 import { trackEvent } from '@/core/analytics/events';
 import { useAuth } from '@/core/auth/AuthProvider';
-import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
 import { ProfileSummaryCard } from '@/features/profile/components';
 import { useProfile } from '@/features/profile/hooks/useProfile';
 import { SettingRow } from '@/features/settings/components';
 import { useNotificationSettings } from '@/features/settings/hooks/useNotificationSettings';
 import { themeTokens, useAppColors } from '@/theme';
 
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import type { CompositeNavigationProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const LEVEL_LABELS: Record<string, string> = {
@@ -29,17 +27,19 @@ const LEVEL_LABELS: Record<string, string> = {
   C1: 'C1 · Advanced',
 };
 
+type Nav = CompositeNavigationProp<
+  BottomTabNavigationProp<MainTabParamList, 'Profile'>,
+  NativeStackNavigationProp<AppStackParamList>
+>;
+
 export function SettingsScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
-  const onSelectTab = useMainTabSelect();
+  const navigation = useNavigation<Nav>();
   const { signOut, user } = useAuth();
   const { data: profile, isError, refetch, isFetching } = useProfile();
   const { preferenceEnabled, setEnabled, isUpdating } = useNotificationSettings();
   const [busy, setBusy] = useState(false);
   const [signOutVisible, setSignOutVisible] = useState(false);
   const colors = useAppColors();
-  const flags = useFeatureFlags();
-  const disabledDestinations = learningDisabledDestinations(flags.data);
 
   const displayName = profile?.display_name ?? 'Learner';
   const levelKey = profile?.english_level ?? '—';
@@ -57,18 +57,8 @@ export function SettingsScreen() {
   };
 
   return (
-    <ScreenScroll
-      footer={
-        <BottomNavigation
-          active="profile"
-          disabledDestinations={disabledDestinations}
-          onSelect={onSelectTab}
-        />
-      }
-    >
+    <ScreenScroll header={<TopAppHeader title="Profile & settings" />}>
       <View style={styles.stack}>
-        <TopAppHeader title="Profile & settings" />
-
         <ProfileSummaryCard
           displayName={displayName}
           email={user?.email}

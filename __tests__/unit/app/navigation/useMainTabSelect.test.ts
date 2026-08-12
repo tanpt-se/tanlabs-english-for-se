@@ -25,13 +25,13 @@ describe('useMainTabSelect', () => {
     onSelect('home');
     onSelect('profile');
     expect(mockNavigate).toHaveBeenCalledWith('Home');
-    expect(mockNavigate).toHaveBeenCalledWith('Settings');
+    expect(mockNavigate).toHaveBeenCalledWith('Profile');
   });
 
   it('opens vocabulary and grammar only when flags are enabled', () => {
     const onSelect = useMainTabSelect();
     onSelect('vocabulary');
-    expect(mockNavigate).toHaveBeenCalledWith('VocabularyHome');
+    expect(mockNavigate).toHaveBeenCalledWith('Vocabulary', { screen: 'VocabularyHome' });
 
     jest.mocked(useFeatureFlags).mockReturnValue({
       data: { grammar: true, vocabulary: false, interview: false, ai: false },
@@ -50,6 +50,15 @@ describe('useMainTabSelect', () => {
     gated('grammar');
     gated('interview');
     expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  it('opens interview when its flag is enabled', () => {
+    jest.mocked(useFeatureFlags).mockReturnValue({
+      data: { grammar: false, vocabulary: false, interview: true, ai: false },
+    } as never);
+    const onSelect = useMainTabSelect();
+    onSelect('interview');
+    expect(mockNavigate).toHaveBeenCalledWith('Interview');
   });
 
   it('disables learning tabs until flags are strictly true', () => {

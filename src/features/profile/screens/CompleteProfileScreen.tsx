@@ -44,9 +44,8 @@ export function CompleteProfileScreen() {
   };
 
   return (
-    <ScreenScroll>
+    <ScreenScroll header={<TopAppHeader title="Complete your profile" />}>
       <View style={styles.stack}>
-        <TopAppHeader title="Complete your profile" />
         <Text style={[styles.step, { color: colors.primary }]}>Final step</Text>
         <View style={[styles.progressTrack, { backgroundColor: colors.borderSubtle }]}>
           <View style={[styles.progressFill, { backgroundColor: colors.primary }]} />

@@ -42,8 +42,10 @@ export function LoginScreen() {
   };
 
   return (
-    <ScreenScroll centered>
-      <AuthHeader title="Welcome back" subtitle="Sign in to continue learning." />
+    <ScreenScroll
+      centered
+      header={<AuthHeader title="Welcome back" subtitle="Sign in to continue learning." />}
+    >
       <View style={styles.stack}>
         <FieldTextInput
           testID="login-email"

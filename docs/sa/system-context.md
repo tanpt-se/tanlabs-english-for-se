@@ -33,7 +33,7 @@ Optional later: first-party HTTP API via `API_BASE_URL` (axios client exists; Gr
 - React Native UI and navigation
 - Client-side session handling and route resolution
 - Local caches (query persistence, encrypted profile cache)
-- Pure grading engine (PH2 — planned, in-app)
+- Pure grading engine (PH2 — delivered, in-app)
 - Feature hooks/services that call backends
 
 ## Outside the boundary

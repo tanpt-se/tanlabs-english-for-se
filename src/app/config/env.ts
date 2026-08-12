@@ -26,3 +26,11 @@ export const API_BASE_URL = readString(Config.API_BASE_URL);
 
 export const isDevelopment = APP_ENV === 'development';
 export const isProduction = APP_ENV === 'production';
+
+function readBoolFlag(value: string | undefined): boolean {
+  const normalized = readString(value).toLowerCase();
+  return normalized === '1' || normalized === 'true' || normalized === 'yes';
+}
+
+export const GRAMMAR_FORCE_LOCAL_SEED =
+  isDevelopment && readBoolFlag(Config.GRAMMAR_FORCE_LOCAL_SEED);

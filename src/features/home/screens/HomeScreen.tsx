@@ -1,10 +1,8 @@
 import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { learningDisabledDestinations } from '@/app/navigation/learningDisabledDestinations';
 import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
 import { ScreenScroll } from '@/components/ui/layout';
-import { BottomNavigation } from '@/components/ui/navigation';
 import { TopAppHeader } from '@/components/ui/navigation';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
@@ -36,17 +34,8 @@ export function HomeScreen() {
   const vocabularyEnabled = flags.data?.vocabulary === true;
 
   return (
-    <ScreenScroll
-      footer={
-        <BottomNavigation
-          active="home"
-          disabledDestinations={learningDisabledDestinations(flags.data)}
-          onSelect={onSelectTab}
-        />
-      }
-    >
+    <ScreenScroll header={<TopAppHeader title={`${greeting}, ${firstName}`} />}>
       <View style={styles.stack}>
-        <TopAppHeader title={`${greeting}, ${firstName}`} />
         <Text style={[styles.subtitle, { color: colors.textMuted }]}>
           What would you like to learn today?
         </Text>

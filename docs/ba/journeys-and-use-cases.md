@@ -1,6 +1,6 @@
 # Journeys and use cases
 
-IDs are stable for traceability (`UC-*`). Status: **Delivered** = PH1 in app; **Planned** = PH2.
+IDs are stable for traceability (`UC-*`). Status: **Delivered** = implemented in app.
 
 ## Journey map (high level)
 
@@ -71,40 +71,40 @@ Install → Register/Login → Complete profile → Home
 - **Main flow:** Sign out A → sign in B → UI and cached identity show only B; device token ownership claimed for B
 - **Status:** Delivered (historical + lifecycle rules)
 
-## Use cases — Grammar (PH2, planned)
+## Use cases — Grammar (PH2)
 
 ### UC-GR-01 Enter Grammar when enabled
 
 - **Preconditions:** `feature_grammar` true; profile complete
 - **Main flow:** Home → Grammar Home
 - **Alternate:** Flag false → coming-soon / no entry
-- **Status:** Planned
+- **Status:** Delivered
 
 ### UC-GR-02 Browse topics and open a lesson
 
 - **Main flow:** Grammar Home → select topic → open lesson (rules + SE examples from published content)
-- **Status:** Planned
+- **Status:** Delivered
 
 ### UC-GR-03 Practise exercises
 
 - **Main flow:** Start practice → answer MC / fill-blank / sentence-order items → immediate deterministic feedback and optional retry of an item per rules
 - **Alternate:** Connectivity lost after questions loaded → local practice continues
-- **Status:** Planned
+- **Status:** Delivered
 
 ### UC-GR-04 Complete attempt and view result
 
-- **Main flow:** Finish practice → Final Check → Result (score, completion vs 70%, best/last) → persist attempt idempotently
-- **Status:** Planned
+- **Main flow:** Finish practice → Review answers → Submit → Result (score, completion vs 70%) → persist attempt idempotently
+- **Status:** Delivered
 
 ### UC-GR-05 Continue learning
 
-- **Main flow:** Return to Grammar/Home → Continue Learning selects most recent incomplete published lesson (stable tie-breakers) or first not-started
-- **Status:** Planned
+- **Main flow:** Return to Grammar Home → Continue Learning selects most recent incomplete published lesson (stable tie-breakers) or first not-started
+- **Status:** Delivered
 
 ### UC-GR-06 Retry lesson
 
 - **Main flow:** From Result or progress → new attempt; best score never decreases
-- **Status:** Planned
+- **Status:** Delivered
 
 ## Non-goals (not use cases in current phases)
 

@@ -167,10 +167,12 @@ export type Database = {
           content_schema_version: number;
           created_at: string;
           id: string;
+          level: string;
           published: boolean;
           slug: string;
           sort_order: number;
-          summary: string;
+          title: string;
+          description: string;
           topic_id: string;
           updated_at: string;
         };
@@ -179,11 +181,13 @@ export type Database = {
           content_revision: number;
           content_schema_version: number;
           created_at?: string;
+          description: string;
           id?: string;
+          level: string;
           published?: boolean;
           slug: string;
           sort_order: number;
-          summary: string;
+          title: string;
           topic_id: string;
           updated_at?: string;
         };
@@ -192,11 +196,13 @@ export type Database = {
           content_revision?: number;
           content_schema_version?: number;
           created_at?: string;
+          description?: string;
           id?: string;
+          level?: string;
           published?: boolean;
           slug?: string;
           sort_order?: number;
-          summary?: string;
+          title?: string;
           topic_id?: string;
           updated_at?: string;
         };
@@ -215,7 +221,6 @@ export type Database = {
           created_at: string;
           description: string;
           id: string;
-          level: string;
           published: boolean;
           slug: string;
           sort_order: number;
@@ -226,7 +231,6 @@ export type Database = {
           created_at?: string;
           description: string;
           id?: string;
-          level: string;
           published?: boolean;
           slug: string;
           sort_order: number;
@@ -237,7 +241,6 @@ export type Database = {
           created_at?: string;
           description?: string;
           id?: string;
-          level?: string;
           published?: boolean;
           slug?: string;
           sort_order?: number;

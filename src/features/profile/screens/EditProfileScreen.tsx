@@ -45,9 +45,12 @@ export function EditProfileScreen() {
   if (!profileHydrated) {
     const isFetchingProfile = fetchStatus === 'fetching';
     return (
-      <ScreenScroll>
-        <View style={styles.stack}>
+      <ScreenScroll
+        header={
           <TopAppHeader showBack title="Edit profile" onBackPress={() => navigation.goBack()} />
+        }
+      >
+        <View style={styles.stack}>
           <Text style={{ color: colors.text }}>
             {isFetchingProfile
               ? 'Loading profile…'
@@ -93,9 +96,12 @@ export function EditProfileScreen() {
   };
 
   return (
-    <ScreenScroll>
-      <View style={styles.stack}>
+    <ScreenScroll
+      header={
         <TopAppHeader showBack title="Edit profile" onBackPress={() => navigation.goBack()} />
+      }
+    >
+      <View style={styles.stack}>
         <Text style={[styles.step, { color: colors.primary }]}>Account settings</Text>
         <View style={[styles.progressTrack, { backgroundColor: colors.borderSubtle }]}>
           <View style={[styles.progressFill, { backgroundColor: colors.primary }]} />

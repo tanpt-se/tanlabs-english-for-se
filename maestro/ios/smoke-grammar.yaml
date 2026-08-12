@@ -1,0 +1,82 @@
+appId: com.tanlabs.en-for-se
+name: iOS smoke — grammar browse → practice → review → result
+tags:
+  - smoke
+  - ios
+  - ph2
+  - grammar
+---
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: 'welcome-sign-in'
+    timeout: 90000
+- tapOn:
+    id: 'welcome-sign-in'
+- extendedWaitUntil:
+    visible:
+      id: 'login-submit'
+    timeout: 30000
+- tapOn:
+    id: 'login-email'
+- eraseText
+- inputText: ${SMOKE_EMAIL}
+- tapOn:
+    id: 'login-password'
+- eraseText
+- inputText: ${SMOKE_PASSWORD}
+- hideKeyboard
+- tapOn:
+    id: 'login-submit'
+- extendedWaitUntil:
+    visible:
+      id: 'bottom-nav-grammar'
+    timeout: 60000
+- tapOn:
+    id: 'bottom-nav-grammar'
+- extendedWaitUntil:
+    visible:
+      id: 'grammar-home'
+    timeout: 30000
+- assertVisible:
+    id: 'grammar-topic-present-simple'
+- tapOn:
+    id: 'grammar-topic-present-simple'
+- extendedWaitUntil:
+    visible:
+      id: 'grammar-topic'
+    timeout: 20000
+- tapOn:
+    id: 'grammar-topic-continue'
+- extendedWaitUntil:
+    visible:
+      id: 'grammar-lesson'
+    timeout: 20000
+- tapOn:
+    id: 'grammar-practice-cta'
+- extendedWaitUntil:
+    visible:
+      id: 'grammar-practice'
+    timeout: 30000
+- assertVisible:
+    id: 'grammar-practice-stem'
+- repeat:
+    times: 20
+    commands:
+      - tapOn:
+          id: 'grammar-practice-skip'
+          optional: true
+- extendedWaitUntil:
+    visible:
+      id: 'grammar-review'
+    timeout: 30000
+- tapOn:
+    id: 'grammar-review-submit'
+- extendedWaitUntil:
+    visible:
+      id: 'grammar-result'
+    timeout: 60000
+- assertVisible:
+    id: 'grammar-result-retry'

@@ -100,12 +100,39 @@ describe('final branch gaps', () => {
         SUPABASE_URL: 'https://example.supabase.co',
         SUPABASE_ANON_KEY: 'anon',
         API_BASE_URL: '',
+        GRAMMAR_FORCE_LOCAL_SEED: '1',
       }));
-      const { APP_ENV, isDevelopment, isProduction } =
+      const { APP_ENV, isDevelopment, isProduction, GRAMMAR_FORCE_LOCAL_SEED } =
         require('@/app/config/env') as typeof import('@/app/config/env');
       expect(APP_ENV).toBe('production');
       expect(isDevelopment).toBe(false);
       expect(isProduction).toBe(true);
+      expect(GRAMMAR_FORCE_LOCAL_SEED).toBe(false);
+    });
+  });
+
+  it('enables GRAMMAR_FORCE_LOCAL_SEED only for development truthy flags', () => {
+    jest.isolateModules(() => {
+      jest.doMock('react-native-config', () => ({
+        APP_ENV: 'development',
+        SUPABASE_URL: 'https://example.supabase.co',
+        SUPABASE_ANON_KEY: 'anon',
+        GRAMMAR_FORCE_LOCAL_SEED: 'yes',
+      }));
+      const { GRAMMAR_FORCE_LOCAL_SEED } =
+        require('@/app/config/env') as typeof import('@/app/config/env');
+      expect(GRAMMAR_FORCE_LOCAL_SEED).toBe(true);
+    });
+    jest.isolateModules(() => {
+      jest.doMock('react-native-config', () => ({
+        APP_ENV: 'development',
+        SUPABASE_URL: 'https://example.supabase.co',
+        SUPABASE_ANON_KEY: 'anon',
+        GRAMMAR_FORCE_LOCAL_SEED: '0',
+      }));
+      const { GRAMMAR_FORCE_LOCAL_SEED } =
+        require('@/app/config/env') as typeof import('@/app/config/env');
+      expect(GRAMMAR_FORCE_LOCAL_SEED).toBe(false);
     });
   });
 });

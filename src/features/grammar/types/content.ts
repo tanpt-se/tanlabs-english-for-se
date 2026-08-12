@@ -1,11 +1,11 @@
-/** PH2 content contract — schema version for lesson JSONB. */
 export const LESSON_CONTENT_SCHEMA_VERSION = 1;
 
-/** PH2 content contract — schema version for exercise payload/answer. */
 export const EXERCISE_CONTENT_SCHEMA_VERSION = 1;
 
-/** Completion threshold: score >= 70 → completed. */
 export const GRAMMAR_COMPLETION_THRESHOLD = 70;
+
+export const GRAMMAR_LEVELS = ['A2', 'B1', 'B2', 'C1'] as const;
+export type GrammarLevel = (typeof GRAMMAR_LEVELS)[number];
 
 export const GRAMMAR_TOPIC_SLUGS = [
   'present-simple',
@@ -13,15 +13,25 @@ export const GRAMMAR_TOPIC_SLUGS = [
   'past-simple',
   'present-perfect',
   'future-forms',
+  'modals',
+  'conditionals',
+  'passives',
+  'articles',
+  'reported-speech',
+  'present-perfect-continuous',
+  'verb-patterns',
+  'connectors',
 ] as const;
-
 export type GrammarTopicSlug = (typeof GRAMMAR_TOPIC_SLUGS)[number];
+
+/** @deprecated Use GRAMMAR_TOPIC_SLUGS — kept as alias for the topic slug list. */
+export const GRAMMAR_TENSE_SLUGS = GRAMMAR_TOPIC_SLUGS;
+export type GrammarTenseSlug = GrammarTopicSlug;
 
 export type GrammarTopicDefinition = {
   slug: GrammarTopicSlug;
   title: string;
   description: string;
-  level: 'A2' | 'B1' | 'B2';
   sortOrder: number;
 };
 
@@ -56,7 +66,6 @@ export type MultipleChoiceAnswer = {
 };
 
 export type FillBlankPayload = {
-  /** Template with a single `___` blank. */
   template: string;
 };
 
@@ -113,19 +122,20 @@ export type GrammarExercise = MultipleChoiceExercise | FillBlankExercise | Sente
 export type GrammarLessonDefinition = {
   topicSlug: GrammarTopicSlug;
   slug: string;
-  summary: string;
+  title: string;
+  description: string;
+  level: GrammarLevel;
   content: LessonContent;
   contentSchemaVersion: number;
   contentRevision: number;
   sortOrder: number;
 };
 
-/** Privacy-bounded persisted answer (no raw fill-blank text). */
 export type PrivacyBoundedAnswerRecord = {
   exerciseId: string;
   correct: boolean;
-  /** Stable option/token IDs when applicable. */
   selectedIds?: string[];
+  skipped?: boolean;
 };
 
 export type CompletedPracticeSession = {
@@ -141,3 +151,7 @@ export type CompletedPracticeSession = {
   startedAt: string;
   completedAt: string;
 };
+
+export function isGrammarLevel(value: string): value is GrammarLevel {
+  return (GRAMMAR_LEVELS as readonly string[]).includes(value);
+}

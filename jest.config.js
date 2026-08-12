@@ -5,6 +5,7 @@ module.exports = {
   preset: '@react-native/jest-preset',
   setupFiles: ['./jest.setup.js'],
   collectCoverageFrom: ['App.tsx', 'src/**/*.{ts,tsx}', '!src/types/**'],
+  testPathIgnorePatterns: ['/node_modules/', '/__tests__/helpers/'],
   coverageThreshold: {
     global: enforceGlobal90
       ? { branches: 90, functions: 90, lines: 90, statements: 90 }

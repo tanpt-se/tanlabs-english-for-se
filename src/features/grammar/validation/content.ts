@@ -73,8 +73,15 @@ export function validateLessonDefinition(lesson: GrammarLessonDefinition): Valid
   if (!isGrammarTopicSlug(lesson.topicSlug)) {
     return { ok: false, error: 'Unknown topic slug' };
   }
-  if (!isNonEmptyString(lesson.slug, 80) || !isNonEmptyString(lesson.summary, 240)) {
+  if (
+    !isNonEmptyString(lesson.slug, 80) ||
+    !isNonEmptyString(lesson.title, 80) ||
+    !isNonEmptyString(lesson.description, 240)
+  ) {
     return { ok: false, error: 'Invalid lesson meta' };
+  }
+  if (!['A2', 'B1', 'B2', 'C1'].includes(lesson.level)) {
+    return { ok: false, error: 'Invalid lesson level' };
   }
   if (lesson.contentSchemaVersion !== LESSON_CONTENT_SCHEMA_VERSION) {
     return { ok: false, error: 'Unsupported lesson schema version' };
@@ -181,12 +188,11 @@ export function validateTopicDefinition(topic: GrammarTopicDefinition): Validati
   if (!isGrammarTopicSlug(topic.slug)) {
     return { ok: false, error: 'Unknown topic slug' };
   }
-  if (
-    !isNonEmptyString(topic.title, 80) ||
-    !isNonEmptyString(topic.description, 240) ||
-    !['A2', 'B1', 'B2'].includes(topic.level)
-  ) {
+  if (!isNonEmptyString(topic.title, 80) || !isNonEmptyString(topic.description, 240)) {
     return { ok: false, error: 'Invalid topic meta' };
+  }
+  if (!Number.isInteger(topic.sortOrder) || topic.sortOrder < 1) {
+    return { ok: false, error: 'Invalid topic sort order' };
   }
   return { ok: true };
 }

@@ -5,18 +5,12 @@ import ReactTestRenderer, { act } from 'react-test-renderer';
 import { AppIcon } from '@/components/ui/brand';
 import { ConfirmModal } from '@/components/ui/feedback';
 import { FieldTextInput } from '@/components/ui/input';
+import { Feedback, LearningScreen, ProgressBanner } from '@/components/ui/learning';
 import { AnswerOption, AppSwitch } from '@/components/ui/selection';
 import { HomeFeatureRow, StreakCard } from '@/features/home/components';
 import { ProfileSection, ProfileSummaryCard } from '@/features/profile/components';
 import { SettingRow } from '@/features/settings/components';
-import {
-  ExpressionCard,
-  Feedback,
-  InsightPanel,
-  LearningScreen,
-  ProgressBanner,
-  SituationCard,
-} from '@/features/vocabulary/components';
+import { ExpressionCard, InsightPanel, SituationCard } from '@/features/vocabulary/components';
 import {
   getExpressions,
   getPracticeQuestions,
@@ -147,7 +141,7 @@ describe('PH1/PH3 coverage boost', () => {
           <LearningScreen footer={<Text>Footer</Text>}>
             <Text>Body</Text>
           </LearningScreen>
-          <LearningScreen>
+          <LearningScreen header={<Text>Sticky</Text>}>
             <Text>No footer</Text>
           </LearningScreen>
         </>,

@@ -1,7 +1,10 @@
 export {
   EXERCISE_CONTENT_SCHEMA_VERSION,
   GRAMMAR_COMPLETION_THRESHOLD,
+  GRAMMAR_LEVELS,
+  GRAMMAR_TENSE_SLUGS,
   GRAMMAR_TOPIC_SLUGS,
+  isGrammarLevel,
   LESSON_CONTENT_SCHEMA_VERSION,
 } from '@/features/grammar/types/content';
 
@@ -12,7 +15,9 @@ export type {
   FillBlankPayload,
   GrammarExercise,
   GrammarExerciseType,
+  GrammarLevel,
   GrammarLessonDefinition,
+  GrammarTenseSlug,
   GrammarTopicDefinition,
   GrammarTopicSlug,
   LessonContent,

@@ -56,19 +56,19 @@ Post-render bootstrap keeps Crashlytics/Analytics/messaging non-blocking where a
 
 `RootNavigator` selects a root stack from auth destination:
 
-| Destination       | Stack                                                          |
-| ----------------- | -------------------------------------------------------------- |
-| `auth`            | Login, Register                                                |
-| `completeProfile` | Complete Profile                                               |
-| `app`             | Home, Settings, Edit Profile (+ Grammar routes when PH2 lands) |
+| Destination       | Stack                                                                               |
+| ----------------- | ----------------------------------------------------------------------------------- |
+| `auth`            | Login, Register                                                                     |
+| `completeProfile` | Complete Profile                                                                    |
+| `app`             | Main tabs: Home, Grammar, Vocabulary, Interview, Profile (flag-gated learning tabs) |
 
 Route resolution centralised in `core/auth/routeResolver` to avoid Complete Profile flashes on same-user refresh and to support offline `unknown` profile completeness → app shell.
 
 ## Feature flags
 
-Remote keys on `app_config` drive Home. Planned Grammar navigation remains dark in production until `feature_grammar` is enabled after PH2 acceptance.
+Remote keys on `app_config` drive Home and learning tabs. Grammar remains off in production until `feature_grammar` is intentionally enabled after release sign-off.
 
-## PH2 module contract (planned)
+## PH2 Grammar module (delivered)
 
 ```text
 Screen → Grammar hook/query → Grammar service → Supabase
@@ -90,14 +90,14 @@ Constraints:
 
 ## Cross-cutting mechanisms
 
-| Concern        | Mechanism                                                                        |
-| -------------- | -------------------------------------------------------------------------------- |
-| Theming        | System light/dark via RN + navigation themes                                     |
-| Images         | FastImage wrapper for remote URLs                                                |
-| Offline reads  | Query persistence for allowed public/server state                                |
-| Offline writes | Pause/persist/resume mutations (notifications today; Grammar completion planned) |
-| Errors         | Domain error mapping (e.g. auth) + user alerts                                   |
-| A11y           | Labels, roles, min touch height, non-colour-only selection                       |
+| Concern        | Mechanism                                                                             |
+| -------------- | ------------------------------------------------------------------------------------- |
+| Theming        | System light/dark via RN + navigation themes                                          |
+| Images         | FastImage wrapper for remote URLs                                                     |
+| Offline reads  | Query persistence for allowed public/server state                                     |
+| Offline writes | Pause/persist/resume mutations (notifications); Grammar completion via idempotent RPC |
+| Errors         | Domain error mapping (e.g. auth) + user alerts                                        |
+| A11y           | Labels, roles, min touch height, non-colour-only selection                            |
 
 ## Deliberate exclusions
 

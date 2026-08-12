@@ -17,6 +17,37 @@ export async function initializeMonitoring(): Promise<void> {
   }
 }
 
+export async function setMonitoringAttribute(key: string, value: string): Promise<void> {
+  try {
+    const { getCrashlytics, setAttribute } = crashlyticsMod();
+    await setAttribute(getCrashlytics(), key, value);
+  } catch {
+    // Non-blocking
+  }
+}
+
+/** Bounded Grammar context only — never answers, email, or free text. */
+export async function setGrammarMonitoringContext(input: {
+  route?: string;
+  lessonSlug?: string | null;
+}): Promise<void> {
+  await setMonitoringAttribute('current_feature', 'grammar');
+  if (input.route) {
+    await setMonitoringAttribute('grammar_route', input.route.slice(0, 64));
+  }
+  if (input.lessonSlug) {
+    await setMonitoringAttribute('grammar_lesson_slug', input.lessonSlug.slice(0, 64));
+  } else if (input.lessonSlug === null) {
+    await setMonitoringAttribute('grammar_lesson_slug', '');
+  }
+}
+
+export async function clearGrammarMonitoringContext(): Promise<void> {
+  await setMonitoringAttribute('current_feature', '');
+  await setMonitoringAttribute('grammar_route', '');
+  await setMonitoringAttribute('grammar_lesson_slug', '');
+}
+
 export async function recordError(error: unknown): Promise<void> {
   try {
     const { getCrashlytics, recordError: recordCrashlyticsError } = crashlyticsMod();

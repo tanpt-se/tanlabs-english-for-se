@@ -43,6 +43,30 @@ describe('analytics event whitelist', () => {
     expect(logEvent).toHaveBeenCalledWith(getAnalytics(), 'logout', undefined);
   });
 
+  it('accepts grammar practice completion with score bucket only', async () => {
+    await trackEvent('grammar_practice_completed', {
+      topic_slug: 'present-simple',
+      lesson_slug: 'core',
+      score_bucket: '70-84',
+      score: 78,
+      text: 'ignored',
+    });
+    expect(logEvent).toHaveBeenCalledWith(getAnalytics(), 'grammar_practice_completed', {
+      topic_slug: 'present-simple',
+      lesson_slug: 'core',
+      score_bucket: '70-84',
+    });
+  });
+
+  it('accepts grammar funnel open events', async () => {
+    await trackEvent('grammar_opened');
+    await trackEvent('grammar_topic_opened', { topic_slug: 'modals', email: 'x@y.z' });
+    expect(logEvent).toHaveBeenCalledWith(getAnalytics(), 'grammar_opened', undefined);
+    expect(logEvent).toHaveBeenCalledWith(getAnalytics(), 'grammar_topic_opened', {
+      topic_slug: 'modals',
+    });
+  });
+
   it('logs in __DEV__ when Firebase analytics fails', async () => {
     const log = jest.spyOn(console, 'log').mockImplementation(() => undefined);
     mockedLogEvent.mockRejectedValueOnce(new Error('analytics down'));

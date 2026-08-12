@@ -28,23 +28,22 @@ app_config (key → jsonb)   # feature flags / remote config
 
 Notable RPC: `claim_device_token` (security definer) for account-switch token ownership.
 
-Migration head at documentation time: `006_security_hardening.sql`.
+Migration head at documentation time: `012_grammar_score_validation.sql` (includes `007`–`012` Grammar).
 
-## Logical data model — Grammar (planned)
+## Logical data model — Grammar (delivered)
 
 ```text
 grammar_topics
-    └── grammar_lessons
-            ├── examples (or embedded structured content)
-            └── exercises (structured JSONB payloads)
+    └── grammar_lessons (level A2–C1, title, description, content JSONB)
+            └── grammar_exercises (structured JSONB payloads)
 
 user_grammar_progress  (per user + lesson)
 grammar_attempts       (immutable completes; unique (user_id, client_attempt_id))
 ```
 
-Planned write path: security-definer `complete_grammar_attempt` derives `user_id` from `auth.uid()`, inserts attempt idempotently, upserts progress in one transaction.
+Write path: security-definer `complete_grammar_attempt` derives `user_id` from `auth.uid()`, inserts attempt idempotently, upserts progress in one transaction. Migration `012` validates score matches correct/total counts.
 
-Exact column contracts freeze in the PH2 content/database tasks; this doc states intent only.
+Column contracts: migrations `007`–`011`; generated types in `src/types/database.ts`.
 
 ## Access control matrix (intent)
 

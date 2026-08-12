@@ -2,21 +2,25 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { learningDisabledDestinations } from '@/app/navigation/learningDisabledDestinations';
-import type { AppStackParamList } from '@/app/navigation/types';
-import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
-import { BottomNavigation } from '@/components/ui/navigation';
+import type { MainTabParamList, VocabularyStackParamList } from '@/app/navigation/types';
+import { LearningScreen, ProgressBanner } from '@/components/ui/learning';
 import { TopAppHeader } from '@/components/ui/navigation';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
-import { LearningScreen, ProgressBanner, SituationCard } from '@/features/vocabulary/components';
+import { SituationCard } from '@/features/vocabulary/components';
 import { formatProgress, VOCABULARY_SITUATIONS } from '@/features/vocabulary/data/mockCatalog';
-import { useAppColors } from '@/theme';
+import { themeTokens, useAppColors } from '@/theme';
 
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
+import type { CompositeNavigationProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+type Nav = CompositeNavigationProp<
+  NativeStackNavigationProp<VocabularyStackParamList, 'VocabularyHome'>,
+  BottomTabNavigationProp<MainTabParamList>
+>;
+
 export function VocabularyHomeScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
-  const onSelectTab = useMainTabSelect();
+  const navigation = useNavigation<Nav>();
   const flags = useFeatureFlags();
   const colors = useAppColors();
   const vocabularyEnabled = flags.data?.vocabulary === true;
@@ -32,17 +36,7 @@ export function VocabularyHomeScreen() {
   }
 
   return (
-    <LearningScreen
-      testID="vocabulary-home"
-      footer={
-        <BottomNavigation
-          active="vocabulary"
-          disabledDestinations={learningDisabledDestinations(flags.data)}
-          onSelect={onSelectTab}
-        />
-      }
-    >
-      <TopAppHeader title="Vocabulary" />
+    <LearningScreen testID="vocabulary-home" header={<TopAppHeader title="Vocabulary" />}>
       <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
         Useful expressions for real engineering work.
       </Text>
@@ -70,7 +64,7 @@ export function VocabularyHomeScreen() {
 
 const styles = StyleSheet.create({
   list: {
-    gap: 14,
+    gap: themeTokens.spacing['14'],
   },
   section: {
     fontSize: 16,

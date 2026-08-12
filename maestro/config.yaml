@@ -1,4 +1,4 @@
-# Maestro E2E (PH1 smoke)
+# Maestro E2E (PH1 smoke + PH2 grammar)
 #
 # Install CLI: curl -fsSL "https://get.maestro.mobile.dev" | bash
 # PATH: export PATH="$PATH:$HOME/.maestro/bin"
@@ -7,8 +7,13 @@
 #   cp .env.maestro.example .env.maestro
 #   # fill SMOKE_EMAIL / SMOKE_PASSWORD
 #
-# Or pass inline:
-#   maestro test -e SMOKE_EMAIL=... -e SMOKE_PASSWORD=... maestro/ios/smoke-auth.yaml
+# PH1 auth smoke:
+#   pnpm run e2e:ios
+#   pnpm run e2e:android
+#
+# PH2 grammar smoke (requires feature_grammar enabled for smoke user):
+#   pnpm run e2e:ios:grammar
+#   pnpm run e2e:android:grammar
 
 flows:
   - ios/*

@@ -6,20 +6,20 @@ export type AuthStackParamList = {
   Register: undefined;
 };
 
-/** Nested Grammar learning stack (PH2). Result carries only clientAttemptId. */
+export type GrammarPracticeStackParamList = {
+  GrammarPractice: { topicId: string; lessonId: string };
+  GrammarReview: undefined;
+  GrammarResult: { clientAttemptId: string };
+};
+
 export type GrammarStackParamList = {
   GrammarHome: undefined;
   GrammarTopic: { topicId: string };
   GrammarLesson: { topicId: string; lessonId: string };
-  GrammarPractice: { topicId: string; lessonId: string };
-  GrammarResult: { clientAttemptId: string };
+  GrammarPracticeFlow: NavigatorScreenParams<GrammarPracticeStackParamList>;
 };
 
-export type AppStackParamList = {
-  Home: undefined;
-  Settings: undefined;
-  EditProfile: undefined;
-  Grammar: NavigatorScreenParams<GrammarStackParamList> | undefined;
+export type VocabularyStackParamList = {
   VocabularyHome: undefined;
   VocabularySituation: { situationId: string };
   VocabularyPractice: { situationId: string };
@@ -28,6 +28,19 @@ export type AppStackParamList = {
     correct: number;
     total: number;
   };
+};
+
+export type MainTabParamList = {
+  Home: undefined;
+  Grammar: NavigatorScreenParams<GrammarStackParamList> | undefined;
+  Vocabulary: NavigatorScreenParams<VocabularyStackParamList> | undefined;
+  Interview: undefined;
+  Profile: undefined;
+};
+
+export type AppStackParamList = {
+  MainTabs: NavigatorScreenParams<MainTabParamList> | undefined;
+  EditProfile: undefined;
 };
 
 export type RootStackParamList = AuthStackParamList &

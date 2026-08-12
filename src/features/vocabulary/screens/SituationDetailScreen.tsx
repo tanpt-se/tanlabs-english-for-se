@@ -1,10 +1,11 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
 
-import type { AppStackParamList } from '@/app/navigation/types';
+import type { VocabularyStackParamList } from '@/app/navigation/types';
+import { LearningScreen } from '@/components/ui/learning';
 import { BottomActionBar } from '@/components/ui/navigation';
 import { TopAppHeader } from '@/components/ui/navigation';
-import { ExpressionCard, LearningScreen } from '@/features/vocabulary/components';
+import { ExpressionCard } from '@/features/vocabulary/components';
 import {
   getExpressions,
   getPracticeQuestions,
@@ -16,8 +17,8 @@ import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function SituationDetailScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
-  const route = useRoute<RouteProp<AppStackParamList, 'VocabularySituation'>>();
+  const navigation = useNavigation<NativeStackNavigationProp<VocabularyStackParamList>>();
+  const route = useRoute<RouteProp<VocabularyStackParamList, 'VocabularySituation'>>();
   const colors = useAppColors();
   const situation = getSituation(route.params.situationId);
   const expressions = getExpressions(route.params.situationId);
@@ -29,6 +30,7 @@ export function SituationDetailScreen() {
   return (
     <LearningScreen
       testID="vocabulary-situation"
+      header={<TopAppHeader showBack title={title} onBackPress={() => navigation.goBack()} />}
       footer={
         <BottomActionBar
           label={`Practice ${practiceCount} question${practiceCount === 1 ? '' : 's'}`}
@@ -41,7 +43,6 @@ export function SituationDetailScreen() {
         />
       }
     >
-      <TopAppHeader showBack title={title} onBackPress={() => navigation.goBack()} />
       <Text style={[styles.blurb, { color: colors.textSecondary }]}>{description}</Text>
       <View style={styles.list}>
         {expressions.map((expression) => (

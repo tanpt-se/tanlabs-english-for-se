@@ -12,6 +12,7 @@ import {
 } from '@/app/providers/NetworkProvider';
 import { AuthProvider } from '@/core/auth/AuthProvider';
 import { configureNotificationMutationDefaults } from '@/core/notification/mutations';
+import { configureGrammarMutationDefaults } from '@/features/grammar/mutations';
 import { resumePausedMutationsWithRecovery } from '@/lib/offlineRecovery';
 import { queryClient, queryPersistenceOptions } from '@/lib/queryClient';
 import { navigationDarkTheme, navigationLightTheme } from '@/theme';
@@ -19,6 +20,7 @@ import { navigationDarkTheme, navigationLightTheme } from '@/theme';
 import type { PropsWithChildren } from 'react';
 
 configureNotificationMutationDefaults(queryClient);
+configureGrammarMutationDefaults(queryClient);
 
 function PersistedAppProviders({ children }: PropsWithChildren) {
   const { isConnectionKnown, isOnline } = useNetworkStatus();

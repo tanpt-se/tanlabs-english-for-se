@@ -17,7 +17,7 @@ Business Analysis and Solution Architecture documentation for **TanLabs English 
 | [Vision and scope](./ba/vision-and-scope.md)                   | Product intent, phase roadmap, in/out of scope |
 | [Stakeholders and personas](./ba/stakeholders-and-personas.md) | Actors and primary user persona                |
 | [Journeys and use cases](./ba/journeys-and-use-cases.md)       | End-to-end flows and use-case catalogue        |
-| [Functional requirements](./ba/functional-requirements.md)     | FR baseline for shipped PH1 and planned PH2    |
+| [Functional requirements](./ba/functional-requirements.md)     | FR baseline for shipped PH1 and PH2 Grammar    |
 | [Glossary](./ba/glossary.md)                                   | Shared business and domain terms               |
 
 ### Solution Architecture (`docs/sa/`)
@@ -35,9 +35,9 @@ Business Analysis and Solution Architecture documentation for **TanLabs English 
 | Field         | Value                                                                      |
 | ------------- | -------------------------------------------------------------------------- |
 | Product       | TanLabs English for SE                                                     |
-| Version       | 0.1 (foundation baseline + PH2 planned)                                    |
+| Version       | 0.2 (PH1 foundation + PH2 Grammar delivered)                               |
 | Language      | English                                                                    |
-| Last reviewed | 2026-08-11                                                                 |
+| Last reviewed | 2026-08-12                                                                 |
 | Status        | Living baseline — update when phase scope or architecture contracts change |
 
 ## Relationship to other sources

@@ -8,13 +8,16 @@ import type { PropsWithChildren, ReactNode } from 'react';
 type ScreenScrollProps = PropsWithChildren<{
   /** Vertically center content when it fits (auth forms). */
   centered?: boolean;
+  /** Fixed chrome above the scroll area (typically TopAppHeader / AuthHeader). */
+  header?: ReactNode;
   /** Sticky footer (e.g. bottom tab bar). */
   footer?: ReactNode;
 }>;
 
-export function ScreenScroll({ children, centered = false, footer }: ScreenScrollProps) {
+export function ScreenScroll({ children, centered = false, header, footer }: ScreenScrollProps) {
   const insets = useSafeAreaInsets();
   const colors = useAppColors();
+  const topInset = Math.max(insets.top, 16);
 
   return (
     <KeyboardAvoidingView
@@ -23,12 +26,13 @@ export function ScreenScroll({ children, centered = false, footer }: ScreenScrol
       keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top : 0}
     >
       <View style={[styles.flex, { backgroundColor: colors.background }]}>
+        {header ? <View style={[styles.header, { paddingTop: topInset }]}>{header}</View> : null}
         <ScrollView
           keyboardShouldPersistTaps="handled"
           contentContainerStyle={[
             styles.content,
             centered ? styles.centered : undefined,
-            { paddingTop: Math.max(insets.top, 16) },
+            header ? styles.contentBelowHeader : { paddingTop: topInset },
             footer ? styles.contentWithFooter : { paddingBottom: Math.max(insets.bottom, 24) },
           ]}
         >
@@ -47,6 +51,9 @@ const styles = StyleSheet.create({
   content: {
     flexGrow: 1,
   },
+  contentBelowHeader: {
+    paddingTop: 16,
+  },
   contentWithFooter: {
     paddingBottom: 24,
   },
@@ -54,6 +61,10 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   footer: {
+    width: '100%',
+  },
+  header: {
+    paddingHorizontal: 16,
     width: '100%',
   },
   horizontalPadding: {

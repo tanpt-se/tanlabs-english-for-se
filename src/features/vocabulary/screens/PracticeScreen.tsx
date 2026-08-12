@@ -2,11 +2,12 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { useMemo, useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import type { AppStackParamList } from '@/app/navigation/types';
+import type { VocabularyStackParamList } from '@/app/navigation/types';
+import { LearningScreen } from '@/components/ui/learning';
 import { BottomActionBar } from '@/components/ui/navigation';
 import { TopAppHeader } from '@/components/ui/navigation';
 import { AnswerOption } from '@/components/ui/selection';
-import { InsightPanel, LearningScreen, PromptCard } from '@/features/vocabulary/components';
+import { InsightPanel, PromptCard } from '@/features/vocabulary/components';
 import { getPracticeQuestions, getSituation } from '@/features/vocabulary/data/mockCatalog';
 import { useAppColors } from '@/theme';
 
@@ -14,8 +15,8 @@ import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function PracticeScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
-  const route = useRoute<RouteProp<AppStackParamList, 'VocabularyPractice'>>();
+  const navigation = useNavigation<NativeStackNavigationProp<VocabularyStackParamList>>();
+  const route = useRoute<RouteProp<VocabularyStackParamList, 'VocabularyPractice'>>();
   const colors = useAppColors();
   const situation = getSituation(route.params.situationId);
   const questions = useMemo(
@@ -48,6 +49,13 @@ export function PracticeScreen() {
   return (
     <LearningScreen
       testID="vocabulary-practice"
+      header={
+        <TopAppHeader
+          showBack
+          title={situation?.title ?? 'Practice'}
+          onBackPress={() => navigation.goBack()}
+        />
+      }
       footer={
         <BottomActionBar
           disabled={selected === null}
@@ -81,11 +89,6 @@ export function PracticeScreen() {
         />
       }
     >
-      <TopAppHeader
-        showBack
-        title={situation?.title ?? 'Practice'}
-        onBackPress={() => navigation.goBack()}
-      />
       <Text style={[styles.progress, { color: colors.textMuted }]}>
         {index + 1} of {total}
       </Text>

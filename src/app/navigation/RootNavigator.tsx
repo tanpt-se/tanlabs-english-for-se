@@ -1,22 +1,17 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, useColorScheme, View } from 'react-native';
+import { StyleSheet, useColorScheme, View } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 
+import { MainTabNavigator } from '@/app/navigation/MainTabNavigator';
 import type { AppStackParamList, AuthStackParamList } from '@/app/navigation/types';
+import { BrandLoading } from '@/components/ui/feedback';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { LoginScreen } from '@/features/auth/screens/LoginScreen';
 import { RegisterScreen } from '@/features/auth/screens/RegisterScreen';
 import { WelcomeScreen } from '@/features/auth/screens/WelcomeScreen';
-import { GrammarNavigator } from '@/features/grammar/navigation/GrammarNavigator';
-import { HomeScreen } from '@/features/home/screens/HomeScreen';
 import { CompleteProfileScreen } from '@/features/profile/screens/CompleteProfileScreen';
 import { EditProfileScreen } from '@/features/profile/screens/EditProfileScreen';
-import { SettingsScreen } from '@/features/settings/screens/SettingsScreen';
-import { PracticeResultScreen } from '@/features/vocabulary/screens/PracticeResultScreen';
-import { PracticeScreen } from '@/features/vocabulary/screens/PracticeScreen';
-import { SituationDetailScreen } from '@/features/vocabulary/screens/SituationDetailScreen';
-import { VocabularyHomeScreen } from '@/features/vocabulary/screens/VocabularyHomeScreen';
 import { darkColors, lightColors } from '@/theme';
 
 const AuthStack = createNativeStackNavigator<AuthStackParamList>();
@@ -36,34 +31,11 @@ function AuthNavigator() {
 function AppNavigator() {
   return (
     <AppStack.Navigator screenOptions={{ headerShown: false }}>
-      <AppStack.Screen name="Home" component={HomeScreen} options={{ title: 'Home' }} />
-      <AppStack.Screen name="Settings" component={SettingsScreen} options={{ title: 'Settings' }} />
+      <AppStack.Screen name="MainTabs" component={MainTabNavigator} />
       <AppStack.Screen
         name="EditProfile"
         component={EditProfileScreen}
-        options={{ title: 'Edit profile' }}
-      />
-      {/* Always registered so remote-config fail-closed cannot unmount an active learning stack. */}
-      <AppStack.Screen name="Grammar" component={GrammarNavigator} options={{ title: 'Grammar' }} />
-      <AppStack.Screen
-        name="VocabularyHome"
-        component={VocabularyHomeScreen}
-        options={{ title: 'Vocabulary' }}
-      />
-      <AppStack.Screen
-        name="VocabularySituation"
-        component={SituationDetailScreen}
-        options={{ title: 'Situation' }}
-      />
-      <AppStack.Screen
-        name="VocabularyPractice"
-        component={PracticeScreen}
-        options={{ title: 'Practice' }}
-      />
-      <AppStack.Screen
-        name="VocabularyResult"
-        component={PracticeResultScreen}
-        options={{ title: 'Result' }}
+        options={{ title: 'Edit profile', animation: 'slide_from_right' }}
       />
     </AppStack.Navigator>
   );
@@ -97,7 +69,12 @@ export function RootNavigator() {
           { backgroundColor: isDark ? darkColors.background : lightColors.background },
         ]}
       >
-        <ActivityIndicator color={isDark ? darkColors.primary : lightColors.primary} />
+        <BrandLoading
+          color={isDark ? darkColors.primary : lightColors.primary}
+          fill
+          size="md"
+          testID="app-boot-loading"
+        />
       </View>
     );
   }

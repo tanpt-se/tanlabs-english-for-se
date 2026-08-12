@@ -50,8 +50,12 @@ export function RegisterScreen() {
   };
 
   return (
-    <ScreenScroll centered>
-      <AuthHeader title="Create your account" subtitle="Use an email address you can verify." />
+    <ScreenScroll
+      centered
+      header={
+        <AuthHeader title="Create your account" subtitle="Use an email address you can verify." />
+      }
+    >
       <View style={styles.stack}>
         <FieldTextInput
           accessibilityLabel="Email"

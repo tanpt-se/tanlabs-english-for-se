@@ -20,11 +20,11 @@ Engineers often know technical English passively but struggle to use tense and s
 
 ## Current delivery posture
 
-| Phase   | Business intent                                                                         | System status                                                            |
-| ------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| PH1     | Accounts, profile, secure backend, remote flags, notifications lifecycle, quality gates | **Delivered** (foundation baseline)                                      |
-| PH2     | Five-tense Grammar learn → practise → save progress loop                                | **Planned / in design** — production exposure gated by `feature_grammar` |
-| PH3–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                               |
+| Phase   | Business intent                                                                         | System status                                                                         |
+| ------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+| PH1     | Accounts, profile, secure backend, remote flags, notifications lifecycle, quality gates | **Delivered** (foundation baseline)                                                   |
+| PH2     | Grammar learn → practise → save progress loop (13 topics incl. PH2.1)                   | **Delivered (code + seed template)** — production exposure gated by `feature_grammar` |
+| PH3–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                                            |
 
 ## In scope (system today + locked next)
 
@@ -41,24 +41,37 @@ Engineers often know technical English passively but struggle to use tense and s
 - Dual environment Firebase client mapping (`development` \| `production`)
 - Automated quality gates (lint/format/unit/coverage/CI) and auth smoke E2E
 
-### PH2 — Grammar / Tenses (planned)
+### PH2 — Grammar / Tenses (delivered)
 
 Learning loop:
 
 ```text
-Choose tense → Learn rule → See IT examples → Practice
+Choose topic → Learn rule → See IT examples → Practice
 → Deterministic feedback → Save progress → Continue later
 ```
 
-Topics (exactly five):
+Topics (ten workplace families for PH2 core; CEFR on lessons):
 
 1. Present Simple
 2. Present Continuous
 3. Past Simple
 4. Present Perfect
 5. Future Forms (`will`, `be going to`)
+6. Modals (`can`, `could`, `should`, `must`, `might`)
+7. Conditionals (0/1 + `unless`)
+8. Passives
+9. Articles (`a` / `the` / ∅)
+10. Reported Speech
 
-Content volume (minimums): ≥1 lesson/topic, 5–8 examples/topic, 8–12 exercises/topic. Exercise types: multiple choice, fill blank, sentence order. Completion threshold: **70%**. Screens: Grammar Home, Topic, Lesson, Practice, Result.
+### PH2.1 — Grammar expansions (seeded in packs template)
+
+Additional families for workplace transfer (same lesson shape A2–C1 × 18):
+
+11. Present Perfect Continuous (`have been + V-ing` — open investigations)
+12. Verb Patterns (`need to` / `avoid -ing` / `keep -ing`)
+13. Connectors (`because` / `so` / `however` / `which means`)
+
+Content volume (core + PH2.1 template): **13 topics** × **4 lessons** × **18 exercises**. Exercise types unchanged. Completion threshold: **70%**.
 
 ## Explicitly out of scope (near term)
 
@@ -66,7 +79,7 @@ Content volume (minimums): ≥1 lesson/topic, 5–8 examples/topic, 8–12 exerc
 - Speech / STT / TTS / listening exams
 - Vocabulary and Interview product loops (later phases)
 - Full CEFR curriculum, spaced repetition, XP/coins/leaderboards
-- Additional tenses beyond the five PH2 topics
+- Further grammar families beyond the thirteen seeded topics (e.g. phrasal verbs as a dedicated grammar track, relative clauses as a full topic)
 - High-security exam anti-cheat
 - A generic cross-feature “learning platform” framework before a second feature proves reuse
 - Store///Ops deep automation as a product requirement (platform concern)

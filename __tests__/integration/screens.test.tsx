@@ -321,7 +321,7 @@ describe('PH1 screens', () => {
     expect(goBack).toHaveBeenCalled();
   });
 
-  it('renders home greeting and opens settings', async () => {
+  it('renders home greeting and gated learning paths', async () => {
     const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFlags') as {
       useFeatureFlags: jest.Mock;
     };
@@ -361,8 +361,6 @@ describe('PH1 screens', () => {
       ).props.accessibilityState,
     ).toEqual({ disabled: true });
     expect(root.root.findAllByProps({ accessibilityLabel: 'Open Vocabulary' })).toHaveLength(0);
-    await press(root, 'Profile');
-    expect(navigate).toHaveBeenCalledWith('Settings');
   });
 
   it('opens grammar from home when the flag is enabled', async () => {
@@ -386,7 +384,7 @@ describe('PH1 screens', () => {
     });
     const root = await mount(<HomeScreen />);
     await press(root, 'Open Vocabulary');
-    expect(navigate).toHaveBeenCalledWith('VocabularyHome');
+    expect(navigate).toHaveBeenCalledWith('Vocabulary', { screen: 'VocabularyHome' });
   });
 
   it('surfaces complete-profile session and save failures', async () => {

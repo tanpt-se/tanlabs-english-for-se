@@ -17,7 +17,12 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
-- PH2 Grammar Sprint 1 foundations: nested `Grammar` navigator + flag-gated Home entry (`feature_grammar` stay off in seed), content contract + seed inventory (5 topics / 5 lessons / 40 exercises), pure practice engine, Supabase migrations `007_grammar_schema` + `008_grammar_seed` + `complete_grammar_attempt` RPC
+- Shared UI: `BrandLoading` (Figma Feedback/BrandLoading — logo + coral orbit ring); replaces `ActivityIndicator` on boot + Grammar loading states
+- Navigation: main Home/Grammar/Vocabulary/Interview/Profile uses React Navigation Bottom Tabs so the tab bar stays fixed (no stack slide)
+- PH2 Grammar UI pass against Figma `04 — PH2 Grammar`: LessonCard + progress banner bar, Topic/Lesson layouts, Practice InsightPanel, Result CompletionHero/metrics/Feedback
+- PH2 Sprint 3 practice: feature-local session provider, Practice UI for multiple-choice / fill-blank / sentence-order, Result resolves by `clientAttemptId` only (persist still PH2-09)
+- PH2 Sprint 2 browse path: Grammar service/hooks read published Supabase content; Home → Topic → Lesson wired without screen-level Supabase; authoring map in `src/features/grammar/data/README.md`
+- PH2 Grammar Sprint 1 foundations: nested `Grammar` navigator + flag-gated Home entry (`feature_grammar` stay off in seed), content contract + empty in-repo inventory, pure practice engine, Supabase migrations `007_grammar_schema` + `008_grammar_seed` (clears catalogs) + `009` C1 level + `complete_grammar_attempt` RPC
 - PH1 foundation UI aligned to Figma: Welcome (navy cover + hero mark), auth copy, Complete/Edit profile radios, Home streak + foundation card, Settings summary + confirm sign-out
 - Shared UI: `AppIcon`, `AppSwitch` (Figma 44×28 coral/gray), `ConfirmModal`, `StreakCard`, `HomeFeatureRow`, `ProfileSummaryCard`; `AppButton` `fullWidth`; `SettingRow` switch/chevron
 - Test coverage for PH1/PH3 UI branches (`WelcomeScreen`, `ConfirmModal`, vocabulary flows) to keep CI global 90% gate green
@@ -33,6 +38,42 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 - Client auth credential validation shared by Login/Register (`src/core/auth/validation.ts`)
 - Offline mutation resume recovery helper (`resumePausedMutationsWithRecovery`) with user-facing sync alerts
 - Supabase RPC `claim_device_token` (migration 005) so FCM tokens can change owner on account switch under RLS
+
+### Changed
+
+- Grammar: Result labels this attempt (not “best”); Review can reopen Wrong as well as Skipped; save-fail returns to Review
+- Grammar: topic cards show **0%** and an empty progress bar until the first lesson is started (no min-width fill artifact)
+- Grammar: Continue Learning on Home picks the most recently active incomplete lesson (`last_activity_at`), else first not-started; topic Continue uses the same rule
+- Grammar: Maestro PH2 smoke (`pnpm run e2e:ios:grammar` / `e2e:android:grammar`) — login → Grammar → topic → lesson → practice
+- Grammar: RPC `complete_grammar_attempt` rejects score/count mismatch (migration `012`); analytics `grammar_attempt_complete` on submit
+- Grammar: Result resolves memory → AsyncStorage cache → Supabase attempt; Continue Learning uses one lessons catalog query
+- Grammar: practice shuffles question order + MC/SO choices each attempt; topic/lesson progress uses best score % (not 0 until pass); submit persists via local preview map or `complete_grammar_attempt`
+- Grammar: fill-blank stems use `___ (lemma · polarity)` cues (negative / affirmative / question) plus matching Practice instructions; input placeholder is a short form hint
+- Grammar: PH2.1 topics seeded (`present-perfect-continuous`, `verb-patterns`, `connectors`) — 13×4×18; `pnpm run grammar:score`
+- Grammar: job-fit quality gate (`pnpm run grammar:audit:quality`) + AUTHORING checklist
+- Tests: Grammar unit suites grouped under `__tests__/unit/features/grammar/{screens,components,hooks,services,session,utils,content}`
+- Chores: drop one-shot pack reshapers (`generate-ph21`, `reshape`, `rewrite-fill-cues`, `improve-job-fit`, `grammar-lesson-theory`) after packs sealed
+- Grammar: `contentService` dynamic-imports local seed only when `GRAMMAR_FORCE_LOCAL_SEED` is on (packs.json stays out of the default Metro graph)
+- Grammar: `PracticeSessionProvider` wraps Practice → Review → Result only (`GrammarPracticeFlow`); screens use `applyAction` instead of peeking `practiceReducer`; errors surface via `grammarErrorMessage`
+- Grammar: Practice ends on a Review answers screen (Done / Skipped, reopen, then Submit) before Result; Figma PH2 frame `14 · Review answers`
+- Grammar: Practice UI uses a thin question progress bar with Previous/Skip icon controls, small instruction + large stem; Figma PH2 practice frames updated to match
+- Grammar: Review/Practice back flow restores skipped coverage on abort, leave-confirm exits once, Submit drops Practice from the stack
+- Grammar: Practice guards sentence-order Check until full token length; action taps debounce; Home topic completion needs all CEFR lessons; submit fail-closed if coverage incomplete
+- Grammar: lessons use `title` + `description` (same shape as topics); Topic list shows both lines
+- Grammar: topics are shared per family; CEFR `level` moves to `grammar_lessons` (migration `010`); packs seed 10 topics × **4 lessons (A2–C1)** (5 tenses + modals, conditionals, passives, articles, reported speech), **18 exercises / lesson**, original B1–C1 (not A2 clones)
+- Grammar: authoring spec + closed SE lexicon + fail-closed Accuracy / deny-list; `pnpm run grammar:audit` gates `packs.json` (do not apply `008` to a remote DB unless asked)
+- Grammar: bootstrap catalogs via `supabase/seed/grammar/packs.json` → `pnpm run grammar:seed:sql` → `008`; day-to-day edits on Supabase (app inventory stays empty)
+- Grammar: content served from Supabase (local `GRAMMAR_FORCE_LOCAL_SEED` preview removed from `.env.example`; migrate `008`–`012` for catalogs)
+- Docs: BA/SA baseline synced for PH2 closure (FR/NFR/UC Delivered; migration head `012`)
+- BrandLoading: orbit transform on a wrapper (borders on child) to avoid native-driver boot crash
+
+### Fixed
+
+- Grammar: submit commits completed session only after server ack; failed save mints a new `clientAttemptId`; Review gates reopen/back while saving; Result Retry resets the practice stack; unauthenticated complete throws instead of navigating to Result
+- Grammar: offline completion uses paused mutation queue (`grammar-complete-attempt`) with account-switch guard; Result shows saving/queued/retry-save; PH2 analytics funnel + Crashlytics grammar context; `verify-rls` covers grammar content/progress/RPC; Maestro grammar smoke reaches Result
+- Fixed screen headers: `LearningScreen` / `ScreenScroll` `header` slot stays put while content scrolls (app-wide TopAppHeader / AuthHeader)
+- BrandLoading: `fill` centers the mark in the available screen area (boot + Grammar loading)
+- Main tabs: render custom `tabBar` as JSX (`renderAppTabBar` → `<AppTabBar />`) so hooks work — React Navigation invokes `tabBar` as a plain function
 - Secure local persistence for the current FCM token (survives cold start / logout deactivate)
 - Keychain/Keystore-backed Supabase session storage with legacy AsyncStorage migration
 - Regression coverage for auth profile races, secure storage, and patched image parsing
@@ -77,8 +118,8 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 - Notification mutation failures (including auto-resumed paused mutations) alert and roll back optimistic preference
 - RLS verification covers app_config insert denial and anonymous profile leakage/insert denial
 - Husky verification script (`pnpm run verify:hooks`) and `.husky/.gitignore` so fresh-clone hook install stays reproducible without tracking generated `_/`
-- Coverage target is global **90%** (lines/functions/branches/statements); CI runs `pnpm run test:coverage` / `test:coverage:enforce` with the hard gate (`COVERAGE_ENFORCE=0` soft escape hatch only for local ad-hoc reports)
-- Unit coverage raised across core services, FCM/Crashlytics/Analytics, hooks, RN UI wrappers, screens, navigator/providers, and API interceptors — `test:coverage:enforce` now passes
+- Coverage target is global **90%** (lines/functions/branches/statements); CI runs `pnpm run test:coverage` with the hard gate (`COVERAGE_ENFORCE=0` soft escape hatch only for local ad-hoc reports via `test:coverage:soft`)
+- Unit coverage raised across core services, FCM/Crashlytics/Analytics, hooks, RN UI wrappers, screens, navigator/providers, and API interceptors — `test:coverage` passes in CI
 - Notification consent now commits server preference before activating FCM; token refresh and logout revoke delivery safely
 - Profile cache and FCM tokens migrate from plaintext AsyncStorage to Keychain/Keystore; persisted query cache is limited to public remote config
 - Production auth requires email verification; registration handles confirmation-required accounts

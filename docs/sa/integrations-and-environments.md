@@ -2,14 +2,14 @@
 
 ## External systems
 
-| System                   | Use                                          | Client surface                       |
-| ------------------------ | -------------------------------------------- | ------------------------------------ |
-| Supabase Auth            | Email auth, JWT session                      | `@supabase/supabase-js`              |
-| Supabase Postgres        | Profiles, config, devices, (planned) grammar | Same client + RLS/RPC                |
-| Firebase Cloud Messaging | Push token + message delivery                | `@react-native-firebase/messaging`   |
-| Firebase Crashlytics     | Crash reporting                              | `@react-native-firebase/crashlytics` |
-| Firebase Analytics       | Allow-listed events                          | `@react-native-firebase/analytics`   |
-| Optional HTTP API        | Future/non-Supabase REST                     | `src/lib/api` (axios + interceptors) |
+| System                   | Use                                         | Client surface                       |
+| ------------------------ | ------------------------------------------- | ------------------------------------ |
+| Supabase Auth            | Email auth, JWT session                     | `@supabase/supabase-js`              |
+| Supabase Postgres        | Profiles, config, devices, grammar catalogs | Same client + RLS/RPC                |
+| Firebase Cloud Messaging | Push token + message delivery               | `@react-native-firebase/messaging`   |
+| Firebase Crashlytics     | Crash reporting                             | `@react-native-firebase/crashlytics` |
+| Firebase Analytics       | Allow-listed events                         | `@react-native-firebase/analytics`   |
+| Optional HTTP API        | Future/non-Supabase REST                    | `src/lib/api` (axios + interceptors) |
 
 ## Environment model
 
@@ -56,12 +56,14 @@ Settings → preference mutation → (permission) → FCM token
         → device service upsert → server row
 ```
 
-### Grammar complete (planned)
+### Grammar complete (delivered)
 
 ```text
 Practice UI → engine result → complete_grammar_attempt RPC
            → attempt insert + progress upsert → Result UI
 ```
+
+Maestro smoke: `pnpm run e2e:ios:grammar` / `e2e:android:grammar` (requires simulator/emulator + `.env.maestro`).
 
 ## Failure & degrade
 

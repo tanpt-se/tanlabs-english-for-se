@@ -27,11 +27,11 @@ Priority: **M** Must | **S** Should | **C** Could.
 
 ## Home and feature exposure
 
-| ID         | Requirement                                                                                                                          | Pri | Status         |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------ | --- | -------------- |
-| FR-HOME-01 | Home shall present feature entries driven by remote flags `feature_grammar`, `feature_vocabulary`, `feature_interview`, `feature_ai` | M   | Delivered      |
-| FR-HOME-02 | When a flag is off, Home shall show a non-interactive coming-soon state for that feature                                             | M   | Delivered      |
-| FR-HOME-03 | Production Grammar entry shall remain closed until PH2 is accepted and `feature_grammar` is intentionally enabled                    | M   | Planned (gate) |
+| ID         | Requirement                                                                                                                          | Pri | Status           |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------ | --- | ---------------- |
+| FR-HOME-01 | Home shall present feature entries driven by remote flags `feature_grammar`, `feature_vocabulary`, `feature_interview`, `feature_ai` | M   | Delivered        |
+| FR-HOME-02 | When a flag is off, Home shall show a non-interactive coming-soon state for that feature                                             | M   | Delivered        |
+| FR-HOME-03 | Production Grammar entry shall remain closed until PH2 is accepted and `feature_grammar` is intentionally enabled                    | M   | Delivered (gate) |
 
 ## Notifications
 
@@ -47,40 +47,40 @@ Priority: **M** Must | **S** Should | **C** Could.
 
 ## Grammar learning (PH2)
 
-| ID       | Requirement                                                                                                                       | Pri | Status  |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------- | --- | ------- |
-| FR-GR-01 | System shall expose exactly five grammar topics listed in Vision                                                                  | M   | Planned |
-| FR-GR-02 | Lessons, examples, and exercises shall be loaded from published backend content (not hard-coded per-tense screens)                | M   | Planned |
-| FR-GR-03 | System shall support exercise types: multiple choice, fill blank, sentence order                                                  | M   | Planned |
-| FR-GR-04 | Grading and feedback shall be deterministic; AI/fuzzy scoring shall not be used                                                   | M   | Planned |
-| FR-GR-05 | Practice shall remain usable after questions are loaded even if connectivity drops                                                | M   | Planned |
-| FR-GR-06 | Completing practice shall persist an attempt idempotently using a client attempt id                                               | M   | Planned |
-| FR-GR-07 | Score ≥ 70% on first completion path shall mark lesson progress completed; lower scores mark in progress                          | M   | Planned |
-| FR-GR-08 | Retry shall create a new attempt and shall not reduce best score                                                                  | M   | Planned |
-| FR-GR-09 | System shall show Result with score and navigation to retry/continue                                                              | M   | Planned |
-| FR-GR-10 | Continue Learning shall pick the most recently active incomplete published lesson, else first not-started (stable sort tie-break) | M   | Planned |
-| FR-GR-11 | Users shall only read published content; clients shall not mutate content tables                                                  | M   | Planned |
-| FR-GR-12 | Users shall only read/write their own progress and attempts                                                                       | M   | Planned |
-| FR-GR-13 | Grammar screens shall call hooks/services only (no direct Supabase from screens)                                                  | M   | Planned |
-| FR-GR-14 | One representative E2E Grammar flow shall exist for release                                                                       | M   | Planned |
-| FR-GR-15 | Optional daily Grammar reminder                                                                                                   | C   | Stretch |
+| ID       | Requirement                                                                                                                       | Pri | Status    |
+| -------- | --------------------------------------------------------------------------------------------------------------------------------- | --- | --------- |
+| FR-GR-01 | System shall expose the thirteen grammar topics listed in Vision (10 PH2 core + 3 PH2.1)                                          | M   | Delivered |
+| FR-GR-02 | Lessons, examples, and exercises shall be loaded from published backend content (not hard-coded per-tense screens)                | M   | Delivered |
+| FR-GR-03 | System shall support exercise types: multiple choice, fill blank, sentence order                                                  | M   | Delivered |
+| FR-GR-04 | Grading and feedback shall be deterministic; AI/fuzzy scoring shall not be used                                                   | M   | Delivered |
+| FR-GR-05 | Practice shall remain usable after questions are loaded even if connectivity drops                                                | M   | Delivered |
+| FR-GR-06 | Completing practice shall persist an attempt idempotently using a client attempt id                                               | M   | Delivered |
+| FR-GR-07 | Score ≥ 70% on first completion path shall mark lesson progress completed; lower scores mark in progress                          | M   | Delivered |
+| FR-GR-08 | Retry shall create a new attempt and shall not reduce best score                                                                  | M   | Delivered |
+| FR-GR-09 | System shall show Result with score and navigation to retry/continue                                                              | M   | Delivered |
+| FR-GR-10 | Continue Learning shall pick the most recently active incomplete published lesson, else first not-started (stable sort tie-break) | M   | Delivered |
+| FR-GR-11 | Users shall only read published content; clients shall not mutate content tables                                                  | M   | Delivered |
+| FR-GR-12 | Users shall only read/write their own progress and attempts                                                                       | M   | Delivered |
+| FR-GR-13 | Grammar screens shall call hooks/services only (no direct Supabase from screens)                                                  | M   | Delivered |
+| FR-GR-14 | One representative E2E Grammar flow shall exist for release                                                                       | M   | Delivered |
+| FR-GR-15 | Optional daily Grammar reminder                                                                                                   | C   | Stretch   |
 
 ## Security and privacy (functional)
 
-| ID        | Requirement                                                                                     | Pri | Status                                           |
-| --------- | ----------------------------------------------------------------------------------------------- | --- | ------------------------------------------------ |
-| FR-SEC-01 | Mobile app shall never embed Supabase service_role or private keys                              | M   | Delivered                                        |
-| FR-SEC-02 | Cross-user profile/device/progress access shall be denied by RLS                                | M   | Delivered (foundation); Planned (Grammar tables) |
-| FR-SEC-03 | Remote config / app_config shall be readable per policy; clients shall not insert/update config | M   | Delivered                                        |
-| FR-SEC-04 | Analytics/Crashlytics shall not send raw secrets or passwords                                   | M   | Delivered (wiring); Console proof Deferred       |
+| ID        | Requirement                                                                                     | Pri | Status                                     |
+| --------- | ----------------------------------------------------------------------------------------------- | --- | ------------------------------------------ |
+| FR-SEC-01 | Mobile app shall never embed Supabase service_role or private keys                              | M   | Delivered                                  |
+| FR-SEC-02 | Cross-user profile/device/progress access shall be denied by RLS                                | M   | Delivered                                  |
+| FR-SEC-03 | Remote config / app_config shall be readable per policy; clients shall not insert/update config | M   | Delivered                                  |
+| FR-SEC-04 | Analytics/Crashlytics shall not send raw secrets or passwords                                   | M   | Delivered (wiring); Console proof Deferred |
 
 ## Observability (functional expectations)
 
-| ID        | Requirement                                                                | Pri | Status                                   |
-| --------- | -------------------------------------------------------------------------- | --- | ---------------------------------------- |
-| FR-OBS-01 | App shall initialise Crashlytics without blocking bootstrap                | M   | Delivered                                |
-| FR-OBS-02 | App shall emit only allow-listed analytics events with non-sensitive props | M   | Delivered (base); Grammar events Planned |
-| FR-OBS-03 | Controlled Console crash / DebugView evidence                              | S   | Deferred                                 |
+| ID        | Requirement                                                                | Pri | Status    |
+| --------- | -------------------------------------------------------------------------- | --- | --------- |
+| FR-OBS-01 | App shall initialise Crashlytics without blocking bootstrap                | M   | Delivered |
+| FR-OBS-02 | App shall emit only allow-listed analytics events with non-sensitive props | M   | Delivered |
+| FR-OBS-03 | Controlled Console crash / DebugView evidence                              | S   | Deferred  |
 
 ## Explicit non-requirements
 
@@ -91,4 +91,4 @@ Priority: **M** Must | **S** Should | **C** Could.
 
 ## Coverage notes
 
-Delivered requirements map primarily to `src/features/{auth,home,profile,settings}` and `src/core/*`. Planned Grammar requirements will map to `src/features/grammar/**` and new Supabase migrations after the content contract is frozen.
+Delivered requirements map primarily to `src/features/{auth,home,profile,settings}` and `src/core/*`. Grammar requirements map to `src/features/grammar/**` and Supabase migrations `007`–`012`.

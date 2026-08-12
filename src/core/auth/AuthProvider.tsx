@@ -11,7 +11,7 @@ import {
 import { resolveAuthRoute } from '@/core/auth/routeResolver';
 import type { ProfileCompleteness, RouteDestination } from '@/core/auth/routeResolver';
 import { getSession, signOut as authSignOut } from '@/core/auth/service';
-import { recordError } from '@/core/monitoring/crashlytics';
+import { clearGrammarMonitoringContext, recordError } from '@/core/monitoring/crashlytics';
 import { deactivateCurrentDevice } from '@/core/notification/deviceService';
 import { deleteCurrentFcmToken, syncNotificationsForSignedInUser } from '@/core/notification/fcm';
 import { clearCachedProfile, readCachedProfile, writeCachedProfile } from '@/core/profile/cache';
@@ -132,6 +132,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       await clearCachedProfile(userId);
     }
     await clearPersistedQueryCache();
+    await clearGrammarMonitoringContext().catch(() => undefined);
     setProfile(null);
     setProfileCompleteness('incomplete');
     setProfileSettled(true);

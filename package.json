@@ -6,7 +6,6 @@
   "scripts": {
     "android": "react-native run-android --active-arch-only",
     "ios": "react-native run-ios",
-    "ios:dev": "react-native run-ios --mode Debug",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -16,7 +15,6 @@
     "start": "react-native start",
     "test": "jest",
     "test:coverage": "COVERAGE_ENFORCE=1 jest --ci --coverage --coverageReporters=text-summary",
-    "test:coverage:enforce": "COVERAGE_ENFORCE=1 jest --ci --coverage --coverageReporters=text-summary",
     "test:coverage:soft": "COVERAGE_ENFORCE=0 jest --ci --coverage --coverageReporters=text-summary",
     "audit:security": "node scripts/audit-dependencies.mjs",
     "prepare": "husky",
@@ -36,8 +34,14 @@
     "verify:hooks": "bash scripts/verify-hooks.sh",
     "db:migrate": "bash scripts/apply-migrations.sh",
     "db:types": "bash scripts/gen-database-types.sh",
+    "grammar:seed:sql": "node scripts/generate-grammar-seed-sql.mjs",
+    "grammar:audit": "node scripts/audit-grammar-packs.mjs",
+    "grammar:audit:quality": "node scripts/audit-grammar-quality.mjs",
+    "grammar:score": "node scripts/score-grammar-topics.mjs",
     "e2e:ios": "bash scripts/e2e-ios.sh",
-    "e2e:android": "bash scripts/e2e-android.sh"
+    "e2e:android": "bash scripts/e2e-android.sh",
+    "e2e:ios:grammar": "bash scripts/e2e-grammar-ios.sh",
+    "e2e:android:grammar": "bash scripts/e2e-grammar-android.sh"
   },
   "dependencies": {
     "@d11/react-native-fast-image": "^8.13.0",
@@ -47,6 +51,7 @@
     "@react-native-firebase/app": "^26.1.0",
     "@react-native-firebase/crashlytics": "^26.1.0",
     "@react-native-firebase/messaging": "^26.1.0",
+    "@react-navigation/bottom-tabs": "^7.18.16",
     "@react-navigation/native": "^7.3.16",
     "@react-navigation/native-stack": "^7.18.8",
     "@supabase/supabase-js": "^2.112.2",

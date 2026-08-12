@@ -1,4 +1,4 @@
-import { randomBytes } from 'node:crypto';
+import { randomBytes, randomUUID } from 'node:crypto';
 
 /**
  * Cross-user RLS checks via Auth Admin + PostgREST.
@@ -8,6 +8,10 @@ const url = process.env.SUPABASE_URL?.replace(/\/$/, '');
 const anon = process.env.SUPABASE_ANON_KEY;
 const service = process.env.SUPABASE_SERVICE_ROLE_KEY;
 const password = process.env.RLS_TEST_PASSWORD || `${randomBytes(24).toString('base64url')}Aa1!`;
+
+function cryptoRandomUuid() {
+  return randomUUID();
+}
 
 if (!url || !anon || !service) {
   console.error('Missing SUPABASE_URL / SUPABASE_ANON_KEY / SUPABASE_SERVICE_ROLE_KEY');
@@ -287,6 +291,140 @@ async function main() {
           anonymousInsert.status === 42501 ||
           !anonymousInsert.ok,
         `anonymous profiles insert unexpectedly allowed: ${anonymousInsert.status}`,
+      );
+    }
+
+    // Grammar content + progress RLS (PH2)
+    {
+      const topics = await rest(userA.token, '/grammar_topics?select=id,slug&published=eq.true&limit=1');
+      assert(
+        topics.res.ok && Array.isArray(topics.body) && topics.body.length >= 1,
+        `A cannot read published grammar topics: ${JSON.stringify(topics.body)}`,
+      );
+      const topicId = topics.body[0].id;
+      const lessons = await rest(
+        userA.token,
+        `/grammar_lessons?topic_id=eq.${topicId}&published=eq.true&select=id&limit=1`,
+      );
+      assert(
+        lessons.res.ok && Array.isArray(lessons.body) && lessons.body.length >= 1,
+        `A cannot read published grammar lessons: ${JSON.stringify(lessons.body)}`,
+      );
+      const lessonId = lessons.body[0].id;
+      const exercises = await rest(
+        userA.token,
+        `/grammar_exercises?lesson_id=eq.${lessonId}&published=eq.true&select=id&limit=1`,
+      );
+      assert(
+        exercises.res.ok && Array.isArray(exercises.body),
+        `A cannot read published grammar exercises: ${JSON.stringify(exercises.body)}`,
+      );
+
+      const insertTopic = await rest(userA.token, '/grammar_topics', {
+        method: 'POST',
+        body: JSON.stringify({
+          slug: `rls-probe-${stamp}`,
+          title: 'probe',
+          description: 'probe',
+          sort_order: 9999,
+          published: true,
+        }),
+      });
+      assert(!insertTopic.res.ok, 'A must not insert grammar_topics');
+
+      const insertProgress = await rest(userA.token, '/user_grammar_progress', {
+        method: 'POST',
+        body: JSON.stringify({
+          user_id: userA.id,
+          topic_id: topicId,
+          lesson_id: lessonId,
+          status: 'in_progress',
+          best_score: 10,
+          last_score: 10,
+        }),
+      });
+      assert(!insertProgress.res.ok, 'A must not directly insert user_grammar_progress');
+
+      const insertAttempt = await rest(userA.token, '/grammar_attempts', {
+        method: 'POST',
+        body: JSON.stringify({
+          user_id: userA.id,
+          client_attempt_id: cryptoRandomUuid(),
+          topic_id: topicId,
+          lesson_id: lessonId,
+          content_revision: 1,
+          correct_count: 1,
+          total_count: 1,
+          score: 100,
+          answers: [],
+          started_at: new Date().toISOString(),
+          completed_at: new Date().toISOString(),
+        }),
+      });
+      assert(!insertAttempt.res.ok, 'A must not directly insert grammar_attempts');
+
+      const attemptId = cryptoRandomUuid();
+      const rpcOk = await rest(userA.token, '/rpc/complete_grammar_attempt', {
+        method: 'POST',
+        body: JSON.stringify({
+          p_client_attempt_id: attemptId,
+          p_topic_id: topicId,
+          p_lesson_id: lessonId,
+          p_content_revision: 1,
+          p_correct_count: 1,
+          p_total_count: 1,
+          p_score: 100,
+          p_answers: [{ exerciseId: 'x', correct: true, selectedIds: [], skipped: false }],
+          p_started_at: new Date().toISOString(),
+          p_completed_at: new Date().toISOString(),
+        }),
+      });
+      assert(rpcOk.res.ok, `complete_grammar_attempt failed: ${JSON.stringify(rpcOk.body)}`);
+
+      const rpcDup = await rest(userA.token, '/rpc/complete_grammar_attempt', {
+        method: 'POST',
+        body: JSON.stringify({
+          p_client_attempt_id: attemptId,
+          p_topic_id: topicId,
+          p_lesson_id: lessonId,
+          p_content_revision: 1,
+          p_correct_count: 0,
+          p_total_count: 1,
+          p_score: 0,
+          p_answers: [{ exerciseId: 'x', correct: false, selectedIds: [], skipped: true }],
+          p_started_at: new Date().toISOString(),
+          p_completed_at: new Date().toISOString(),
+        }),
+      });
+      assert(rpcDup.res.ok, `idempotent complete_grammar_attempt failed: ${JSON.stringify(rpcDup.body)}`);
+      assert(
+        rpcDup.body?.score === 100 || rpcDup.body?.[0]?.score === 100,
+        'idempotent RPC must keep first score',
+      );
+
+      const ownProgress = await rest(
+        userA.token,
+        `/user_grammar_progress?user_id=eq.${userA.id}&select=lesson_id,best_score`,
+      );
+      assert(
+        ownProgress.res.ok && Array.isArray(ownProgress.body) && ownProgress.body.length >= 1,
+        'A cannot read own grammar progress',
+      );
+      const crossProgress = await rest(
+        userB.token,
+        `/user_grammar_progress?user_id=eq.${userA.id}&select=lesson_id`,
+      );
+      assert(
+        crossProgress.res.ok && Array.isArray(crossProgress.body) && crossProgress.body.length === 0,
+        'B must not read A grammar progress',
+      );
+      const crossAttempts = await rest(
+        userB.token,
+        `/grammar_attempts?user_id=eq.${userA.id}&select=id`,
+      );
+      assert(
+        crossAttempts.res.ok && Array.isArray(crossAttempts.body) && crossAttempts.body.length === 0,
+        'B must not read A grammar attempts',
       );
     }
 

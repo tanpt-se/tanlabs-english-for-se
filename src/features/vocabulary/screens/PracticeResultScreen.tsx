@@ -1,15 +1,10 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { StyleSheet, Text, View } from 'react-native';
 
-import type { AppStackParamList } from '@/app/navigation/types';
+import type { VocabularyStackParamList } from '@/app/navigation/types';
+import { CompletionHero, Feedback, LearningScreen, ResultMetric } from '@/components/ui/learning';
 import { BottomActionBar } from '@/components/ui/navigation';
 import { TopAppHeader } from '@/components/ui/navigation';
-import {
-  CompletionHero,
-  Feedback,
-  LearningScreen,
-  ResultMetric,
-} from '@/features/vocabulary/components';
 import { getSituation } from '@/features/vocabulary/data/mockCatalog';
 import { useAppColors } from '@/theme';
 
@@ -17,8 +12,8 @@ import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function PracticeResultScreen() {
-  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
-  const route = useRoute<RouteProp<AppStackParamList, 'VocabularyResult'>>();
+  const navigation = useNavigation<NativeStackNavigationProp<VocabularyStackParamList>>();
+  const route = useRoute<RouteProp<VocabularyStackParamList, 'VocabularyResult'>>();
   const colors = useAppColors();
   const situation = getSituation(route.params.situationId);
   const { correct, total } = route.params;
@@ -28,6 +23,13 @@ export function PracticeResultScreen() {
   return (
     <LearningScreen
       testID="vocabulary-result"
+      header={
+        <TopAppHeader
+          showBack
+          title="Practice result"
+          onBackPress={() => navigation.navigate('VocabularyHome')}
+        />
+      }
       footer={
         <BottomActionBar
           label="Back to situations"
@@ -36,11 +38,6 @@ export function PracticeResultScreen() {
         />
       }
     >
-      <TopAppHeader
-        showBack
-        title="Practice result"
-        onBackPress={() => navigation.navigate('VocabularyHome')}
-      />
       <CompletionHero
         situation={(situation?.title ?? 'Situation').toUpperCase()}
         title="Practice complete"

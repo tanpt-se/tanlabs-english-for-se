@@ -1,14 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 
-import type { AppStackParamList } from '@/app/navigation/types';
+import type { MainTabParamList } from '@/app/navigation/types';
 import type { BottomNavDestination } from '@/components/ui/navigation';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
 
-import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
-/** Shared main-tab routing for Home / Profile / flag-gated learning tabs. */
 export function useMainTabSelect() {
-  const navigation = useNavigation<NativeStackNavigationProp<AppStackParamList>>();
+  const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>();
   const flags = useFeatureFlags();
 
   return (destination: BottomNavDestination) => {
@@ -17,11 +16,11 @@ export function useMainTabSelect() {
         navigation.navigate('Home');
         return;
       case 'profile':
-        navigation.navigate('Settings');
+        navigation.navigate('Profile');
         return;
       case 'vocabulary':
         if (flags.data?.vocabulary === true) {
-          navigation.navigate('VocabularyHome');
+          navigation.navigate('Vocabulary', { screen: 'VocabularyHome' });
         }
         return;
       case 'grammar':
@@ -30,6 +29,9 @@ export function useMainTabSelect() {
         }
         return;
       case 'interview':
+        if (flags.data?.interview === true) {
+          navigation.navigate('Interview');
+        }
         return;
       default:
         return;

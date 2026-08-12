@@ -1,9 +1,10 @@
 import React from 'react';
-import { ActivityIndicator, Text } from 'react-native';
+import { Text } from 'react-native';
 import BootSplash from 'react-native-bootsplash';
 import ReactTestRenderer, { act } from 'react-test-renderer';
 
 import { RootNavigator } from '@/app/navigation/RootNavigator';
+import { BrandLoading } from '@/components/ui/feedback';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
 
@@ -24,32 +25,14 @@ jest.mock('@/features/auth/screens/RegisterScreen', () => ({
 jest.mock('@/features/auth/screens/WelcomeScreen', () => ({
   WelcomeScreen: () => null,
 }));
-jest.mock('@/features/home/screens/HomeScreen', () => ({
-  HomeScreen: () => null,
-}));
-jest.mock('@/features/settings/screens/SettingsScreen', () => ({
-  SettingsScreen: () => null,
-}));
 jest.mock('@/features/profile/screens/CompleteProfileScreen', () => ({
   CompleteProfileScreen: () => null,
 }));
 jest.mock('@/features/profile/screens/EditProfileScreen', () => ({
   EditProfileScreen: () => null,
 }));
-jest.mock('@/features/grammar/navigation/GrammarNavigator', () => ({
-  GrammarNavigator: () => null,
-}));
-jest.mock('@/features/vocabulary/screens/VocabularyHomeScreen', () => ({
-  VocabularyHomeScreen: () => null,
-}));
-jest.mock('@/features/vocabulary/screens/SituationDetailScreen', () => ({
-  SituationDetailScreen: () => null,
-}));
-jest.mock('@/features/vocabulary/screens/PracticeScreen', () => ({
-  PracticeScreen: () => null,
-}));
-jest.mock('@/features/vocabulary/screens/PracticeResultScreen', () => ({
-  PracticeResultScreen: () => null,
+jest.mock('@/app/navigation/MainTabNavigator', () => ({
+  MainTabNavigator: () => null,
 }));
 
 jest.mock('@react-navigation/native-stack', () => {
@@ -86,7 +69,7 @@ describe('RootNavigator', () => {
       root = ReactTestRenderer.create(<RootNavigator />);
     });
 
-    expect(root.root.findByType(ActivityIndicator)).toBeTruthy();
+    expect(root.root.findByType(BrandLoading)).toBeTruthy();
     expect(BootSplash.hide).not.toHaveBeenCalled();
   });
 
@@ -133,18 +116,7 @@ describe('RootNavigator', () => {
       root.update(<RootNavigator />);
     });
     const labels = root.root.findAllByType(Text).map((node) => node.props.children);
-    expect(labels).toEqual(
-      expect.arrayContaining([
-        'Home',
-        'Settings',
-        'EditProfile',
-        'Grammar',
-        'VocabularyHome',
-        'VocabularySituation',
-        'VocabularyPractice',
-        'VocabularyResult',
-      ]),
-    );
+    expect(labels).toEqual(expect.arrayContaining(['MainTabs', 'EditProfile']));
   });
 
   it('keeps the spinner while session profile is settling', async () => {
@@ -159,10 +131,10 @@ describe('RootNavigator', () => {
     await act(() => {
       root = ReactTestRenderer.create(<RootNavigator />);
     });
-    expect(root.root.findByType(ActivityIndicator)).toBeTruthy();
+    expect(root.root.findByType(BrandLoading)).toBeTruthy();
   });
 
-  it('keeps vocabulary routes registered when the feature flag is unavailable', async () => {
+  it('keeps MainTabs registered when remote feature flags are unavailable', async () => {
     jest.mocked(useAuth).mockReturnValue({
       bootstrapped: true,
       destination: 'app',
@@ -176,15 +148,6 @@ describe('RootNavigator', () => {
       root = ReactTestRenderer.create(<RootNavigator />);
     });
     const labels = root.root.findAllByType(Text).map((node) => node.props.children);
-    expect(labels).toEqual(
-      expect.arrayContaining([
-        'Home',
-        'Grammar',
-        'VocabularyHome',
-        'VocabularySituation',
-        'VocabularyPractice',
-        'VocabularyResult',
-      ]),
-    );
+    expect(labels).toEqual(expect.arrayContaining(['MainTabs', 'EditProfile']));
   });
 });

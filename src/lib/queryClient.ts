@@ -31,6 +31,17 @@ export const queryPersistenceOptions = {
   dehydrateOptions: {
     shouldDehydrateQuery: (query: { queryKey: readonly unknown[] }) =>
       query.queryKey[0] === 'remote-config',
+    shouldDehydrateMutation: (mutation: {
+      state: { isPaused?: boolean };
+      options: { mutationKey?: readonly unknown[] };
+    }) => {
+      const key = mutation.options.mutationKey?.[0];
+      if (key !== 'grammar-complete-attempt' && key !== 'notification-settings-update') {
+        return false;
+      }
+      // Persist paused online mutations so relaunch can resume after reconnect.
+      return Boolean(mutation.state.isPaused);
+    },
   },
 };
 
