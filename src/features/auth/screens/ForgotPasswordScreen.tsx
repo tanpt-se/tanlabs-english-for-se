@@ -6,25 +6,24 @@ import type { AuthStackParamList } from '@/app/navigation/types';
 import { AppButton } from '@/components/ui/button';
 import { AppFormError } from '@/components/ui/feedback';
 import { FieldTextInput } from '@/components/ui/input';
-import { trackEvent } from '@/core/analytics/events';
 import { isAuthRateLimitError } from '@/core/auth/errors';
-import { signUp } from '@/core/auth/service';
-import { validateAuthCredentials } from '@/core/auth/validation';
+import { requestPasswordReset } from '@/core/auth/service';
+import { validateEmailOnly } from '@/core/auth/validation';
 import { AuthFormScreen, AuthNote } from '@/features/auth/components';
 import { authFormStyles } from '@/features/auth/components/authFormStyles';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export function RegisterScreen() {
+export function ForgotPasswordScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [rateLimited, setRateLimited] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [sent, setSent] = useState(false);
 
   const onSubmit = async () => {
-    const validationError = validateAuthCredentials(email, password);
+    const validationError = validateEmailOnly(email);
     if (validationError) {
       setError(validationError);
       setRateLimited(false);
@@ -33,27 +32,28 @@ export function RegisterScreen() {
     setLoading(true);
     setError(null);
     setRateLimited(false);
+    setSent(false);
     try {
-      const result = await signUp(email, password);
-      await trackEvent('register_success');
-      if (!result.session) {
-        navigation.navigate('ConfirmSignup', { email: email.trim() });
-      }
+      await requestPasswordReset(email);
+      setSent(true);
     } catch (err) {
       setRateLimited(isAuthRateLimitError(err));
-      setError(err instanceof Error ? err.message : 'Registration failed');
+      setError(err instanceof Error ? err.message : 'Could not send reset email');
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <AuthFormScreen subtitle="Use an email address you can verify." title="Create your account">
+    <AuthFormScreen
+      subtitle="We will email a link that opens the app to set a new password."
+      title="Reset your password"
+    >
       <View style={authFormStyles.form}>
         <View style={authFormStyles.fields}>
           <FieldTextInput
             accessibilityLabel="Email"
-            aria-describedby={error ? 'register-form-error' : undefined}
+            aria-describedby={error ? 'forgot-password-form-error' : undefined}
             aria-invalid={Boolean(error)}
             autoCapitalize="none"
             autoComplete="email"
@@ -61,52 +61,32 @@ export function RegisterScreen() {
             keyboardType="email-address"
             label="Email"
             placeholder="you@example.com"
+            testID="forgot-password-email"
             textContentType="emailAddress"
             value={email}
             onChangeText={setEmail}
           />
-          <FieldTextInput
-            accessibilityLabel="Password"
-            aria-describedby={error ? 'register-form-error' : undefined}
-            aria-invalid={Boolean(error)}
-            autoComplete="new-password"
-            error={Boolean(error)}
-            label="Password"
-            mode="password"
-            placeholder="Password"
-            textContentType="newPassword"
-            value={password}
-            onChangeText={setPassword}
-          />
-          <AuthNote tone="medium">Password must be at least 6 characters.</AuthNote>
-          {error ? <AppFormError nativeID="register-form-error" message={error} /> : null}
+          {error ? <AppFormError nativeID="forgot-password-form-error" message={error} /> : null}
+          {sent ? <AuthNote>Reset link sent. Open it on this device to continue.</AuthNote> : null}
         </View>
         <View style={authFormStyles.actions}>
           <AppButton
-            accessibilityLabel="Create account"
+            accessibilityLabel="Send reset link"
+            disabled={rateLimited}
             fullWidth
-            label="Create account"
+            label="Send reset link"
             loading={loading}
+            testID="forgot-password-submit"
             variant="primary"
             onPress={onSubmit}
           />
-          {rateLimited ? (
-            <AppButton
-              accessibilityLabel="Sign in instead"
-              fullWidth
-              label="Sign in instead"
-              variant="secondary"
-              onPress={() => navigation.navigate('Login')}
-            />
-          ) : (
-            <AppButton
-              accessibilityLabel="Already have an account? Sign in"
-              fullWidth
-              label="Already have an account? Sign in"
-              variant="ghost"
-              onPress={() => navigation.navigate('Login')}
-            />
-          )}
+          <AppButton
+            accessibilityLabel="Back to sign in"
+            fullWidth
+            label="Back to sign in"
+            variant="ghost"
+            onPress={() => navigation.navigate('Login')}
+          />
         </View>
       </View>
     </AuthFormScreen>

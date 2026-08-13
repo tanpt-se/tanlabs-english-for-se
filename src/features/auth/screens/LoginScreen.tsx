@@ -1,36 +1,46 @@
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react';
+import { View } from 'react-native';
 
 import type { AuthStackParamList } from '@/app/navigation/types';
 import { AppButton } from '@/components/ui/button';
 import { AppFormError } from '@/components/ui/feedback';
 import { FieldTextInput } from '@/components/ui/input';
-import { ScreenScroll } from '@/components/ui/layout';
 import { trackEvent } from '@/core/analytics/events';
+import { useAuth } from '@/core/auth/AuthProvider';
 import { signIn } from '@/core/auth/service';
 import { validateAuthCredentials } from '@/core/auth/validation';
-import { AuthHeader } from '@/features/auth/components';
-import { themeTokens, useAppColors } from '@/theme';
+import { AuthFormScreen } from '@/features/auth/components';
+import { authFormStyles } from '@/features/auth/components/authFormStyles';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function LoginScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
+  const { clearRecoveryLinkError, recoveryLinkError } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const colors = useAppColors();
+  const formError = error ?? recoveryLinkError;
+  const formErrorId = formError ? 'login-form-error' : undefined;
+
+  useEffect(() => {
+    if (recoveryLinkError) {
+      setError(null);
+    }
+  }, [recoveryLinkError]);
 
   const onSubmit = async () => {
     const validationError = validateAuthCredentials(email, password);
     if (validationError) {
       setError(validationError);
+      clearRecoveryLinkError();
       return;
     }
     setLoading(true);
     setError(null);
+    clearRecoveryLinkError();
     try {
       await signIn(email, password);
       await trackEvent('login_success');
@@ -42,73 +52,67 @@ export function LoginScreen() {
   };
 
   return (
-    <ScreenScroll
-      centered
-      header={<AuthHeader title="Welcome back" subtitle="Sign in to continue learning." />}
-    >
-      <View style={styles.stack}>
-        <FieldTextInput
-          testID="login-email"
-          accessibilityLabel="Email"
-          aria-describedby={error ? 'login-form-error' : undefined}
-          aria-invalid={Boolean(error)}
-          autoCapitalize="none"
-          autoComplete="email"
-          error={Boolean(error)}
-          keyboardType="email-address"
-          label="Email"
-          placeholder="you@example.com"
-          textContentType="emailAddress"
-          value={email}
-          onChangeText={setEmail}
-        />
-        <FieldTextInput
-          testID="login-password"
-          accessibilityLabel="Password"
-          aria-describedby={error ? 'login-form-error' : undefined}
-          aria-invalid={Boolean(error)}
-          autoComplete="password"
-          error={Boolean(error)}
-          label="Password"
-          mode="password"
-          placeholder="Password"
-          textContentType="password"
-          value={password}
-          onChangeText={setPassword}
-        />
-        {error ? <AppFormError nativeID="login-form-error" message={error} /> : null}
-        <AppButton
-          testID="login-submit"
-          accessibilityLabel="Sign in"
-          accessibilityRole="button"
-          disabled={loading}
-          fullWidth
-          label={loading ? 'Signing in…' : 'Sign in'}
-          onPress={onSubmit}
-        />
-        <Pressable
-          accessibilityLabel="Create an account"
-          accessibilityRole="link"
-          style={styles.link}
-          onPress={() => navigation.navigate('Register')}
-        >
-          <Text style={[styles.linkText, { color: colors.primary }]}>Create an account</Text>
-        </Pressable>
+    <AuthFormScreen subtitle="Sign in to continue learning." title="Welcome back">
+      <View style={authFormStyles.form}>
+        <View style={authFormStyles.fields}>
+          <FieldTextInput
+            testID="login-email"
+            accessibilityLabel="Email"
+            aria-describedby={formErrorId}
+            aria-invalid={Boolean(error)}
+            autoCapitalize="none"
+            autoComplete="email"
+            error={Boolean(error)}
+            keyboardType="email-address"
+            label="Email"
+            placeholder="you@example.com"
+            textContentType="emailAddress"
+            value={email}
+            onChangeText={setEmail}
+          />
+          <FieldTextInput
+            testID="login-password"
+            accessibilityLabel="Password"
+            aria-describedby={formErrorId}
+            aria-invalid={Boolean(error)}
+            autoComplete="password"
+            error={Boolean(error)}
+            label="Password"
+            mode="password"
+            placeholder="Password"
+            textContentType="password"
+            value={password}
+            onChangeText={setPassword}
+          />
+          {formError ? <AppFormError nativeID="login-form-error" message={formError} /> : null}
+        </View>
+        <View style={authFormStyles.actions}>
+          <AppButton
+            accessibilityLabel="Forgot password"
+            fullWidth
+            label="Forgot password?"
+            testID="login-forgot-password"
+            variant="ghost"
+            onPress={() => navigation.navigate('ForgotPassword')}
+          />
+          <AppButton
+            testID="login-submit"
+            accessibilityLabel="Sign in"
+            fullWidth
+            label="Sign in"
+            loading={loading}
+            variant="primary"
+            onPress={onSubmit}
+          />
+          <AppButton
+            accessibilityLabel="Create an account"
+            fullWidth
+            label="Create an account"
+            variant="ghost"
+            onPress={() => navigation.navigate('Register')}
+          />
+        </View>
       </View>
-    </ScreenScroll>
+    </AuthFormScreen>
   );
 }
-
-const styles = StyleSheet.create({
-  link: {
-    justifyContent: 'center',
-    minHeight: 44,
-  },
-  linkText: {
-    textAlign: 'center',
-  },
-  stack: {
-    gap: themeTokens.spacing.md,
-    width: '100%',
-  },
-});

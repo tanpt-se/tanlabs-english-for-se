@@ -296,7 +296,10 @@ async function main() {
 
     // Grammar content + progress RLS (PH2)
     {
-      const topics = await rest(userA.token, '/grammar_topics?select=id,slug&published=eq.true&limit=1');
+      const topics = await rest(
+        userA.token,
+        '/grammar_topics?select=id,slug&published=eq.true&limit=1',
+      );
       assert(
         topics.res.ok && Array.isArray(topics.body) && topics.body.length >= 1,
         `A cannot read published grammar topics: ${JSON.stringify(topics.body)}`,
@@ -396,7 +399,10 @@ async function main() {
           p_completed_at: new Date().toISOString(),
         }),
       });
-      assert(rpcDup.res.ok, `idempotent complete_grammar_attempt failed: ${JSON.stringify(rpcDup.body)}`);
+      assert(
+        rpcDup.res.ok,
+        `idempotent complete_grammar_attempt failed: ${JSON.stringify(rpcDup.body)}`,
+      );
       assert(
         rpcDup.body?.score === 100 || rpcDup.body?.[0]?.score === 100,
         'idempotent RPC must keep first score',
@@ -415,7 +421,9 @@ async function main() {
         `/user_grammar_progress?user_id=eq.${userA.id}&select=lesson_id`,
       );
       assert(
-        crossProgress.res.ok && Array.isArray(crossProgress.body) && crossProgress.body.length === 0,
+        crossProgress.res.ok &&
+          Array.isArray(crossProgress.body) &&
+          crossProgress.body.length === 0,
         'B must not read A grammar progress',
       );
       const crossAttempts = await rest(
@@ -423,7 +431,9 @@ async function main() {
         `/grammar_attempts?user_id=eq.${userA.id}&select=id`,
       );
       assert(
-        crossAttempts.res.ok && Array.isArray(crossAttempts.body) && crossAttempts.body.length === 0,
+        crossAttempts.res.ok &&
+          Array.isArray(crossAttempts.body) &&
+          crossAttempts.body.length === 0,
         'B must not read A grammar attempts',
       );
     }

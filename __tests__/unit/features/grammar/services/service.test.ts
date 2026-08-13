@@ -7,10 +7,10 @@ const mockGetUser = jest.fn(async () => ({
 
 jest.mock('@/core/supabase/client', () => ({
   supabase: {
-    from: (...args: unknown[]) => mockFrom(...args),
-    rpc: (...args: unknown[]) => mockRpc(...args),
+    from: (...args: unknown[]) => mockFrom.apply(null, args as []),
+    rpc: (...args: unknown[]) => mockRpc.apply(null, args as []),
     auth: {
-      getUser: (...args: unknown[]) => mockGetUser(...args),
+      getUser: (...args: unknown[]) => mockGetUser.apply(null, args as []),
     },
   },
 }));

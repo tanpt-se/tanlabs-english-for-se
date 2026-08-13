@@ -4,6 +4,8 @@ export type AuthStackParamList = {
   Welcome: undefined;
   Login: undefined;
   Register: undefined;
+  ConfirmSignup: { email: string };
+  ForgotPassword: undefined;
 };
 
 export type GrammarPracticeStackParamList = {
@@ -19,15 +21,18 @@ export type GrammarStackParamList = {
   GrammarPracticeFlow: NavigatorScreenParams<GrammarPracticeStackParamList>;
 };
 
+export type VocabularyPracticeStackParamList = {
+  VocabularyPractice: { situationId: string; mode?: 'situation' | 'weak' };
+  VocabularyReview: undefined;
+  VocabularyResult: { clientAttemptId: string };
+};
+
 export type VocabularyStackParamList = {
   VocabularyHome: undefined;
   VocabularySituation: { situationId: string };
-  VocabularyPractice: { situationId: string };
-  VocabularyResult: {
-    situationId: string;
-    correct: number;
-    total: number;
-  };
+  VocabularyTerm: { situationId: string; itemId: string };
+  VocabularyWeak: undefined;
+  VocabularyPracticeFlow: NavigatorScreenParams<VocabularyPracticeStackParamList>;
 };
 
 export type MainTabParamList = {

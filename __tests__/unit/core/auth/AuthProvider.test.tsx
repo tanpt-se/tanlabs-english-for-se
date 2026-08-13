@@ -1,8 +1,9 @@
 import React from 'react';
+import { Linking } from 'react-native';
 import ReactTestRenderer, { act } from 'react-test-renderer';
 
 import { AuthProvider, useAuth } from '@/core/auth/AuthProvider';
-import { getSession, signOut as authSignOut } from '@/core/auth/service';
+import { getSession, signOut as authSignOut, verifyRecoveryFromUrl } from '@/core/auth/service';
 import { recordError } from '@/core/monitoring/crashlytics';
 import { deactivateCurrentDevice } from '@/core/notification/deviceService';
 import { deleteCurrentFcmToken, syncNotificationsForSignedInUser } from '@/core/notification/fcm';
@@ -18,6 +19,7 @@ let latestAuth: ReturnType<typeof useAuth> | undefined;
 jest.mock('@/core/auth/service', () => ({
   getSession: jest.fn(),
   signOut: jest.fn(async () => undefined),
+  verifyRecoveryFromUrl: jest.fn(async () => undefined),
 }));
 
 jest.mock('@/core/profile/cache', () => ({
@@ -41,6 +43,7 @@ jest.mock('@/core/notification/fcm', () => ({
 
 jest.mock('@/core/monitoring/crashlytics', () => ({
   recordError: jest.fn(async () => undefined),
+  clearGrammarMonitoringContext: jest.fn(async () => undefined),
 }));
 
 jest.mock('@/core/supabase/client', () => ({
@@ -106,6 +109,8 @@ beforeEach(() => {
   jest.mocked(readCachedProfile).mockResolvedValue(null);
   jest.mocked(getSession).mockResolvedValue(null);
   jest.mocked(fetchProfile).mockResolvedValue(null);
+  jest.spyOn(Linking, 'getInitialURL').mockResolvedValue(null);
+  jest.spyOn(Linking, 'addEventListener').mockReturnValue({ remove: jest.fn() } as never);
 });
 
 test('ignores a stale profile response after the signed-in user changes', async () => {
@@ -220,4 +225,42 @@ test('ignores bootstrap work after unmount and clears signed-out user id', async
     await Promise.resolve();
   });
   expect(latestAuth?.session).toBeNull();
+});
+
+test('routes to setPassword on PASSWORD_RECOVERY and clears after callback', async () => {
+  jest.mocked(getSession).mockResolvedValue(session('user-a'));
+  jest.mocked(fetchProfile).mockResolvedValue(profile('user-a'));
+  await mountProvider();
+
+  await act(async () => {
+    mockAuthListener?.('PASSWORD_RECOVERY', session('user-a'));
+    await Promise.resolve();
+  });
+  expect(latestAuth?.destination).toBe('setPassword');
+
+  await act(async () => {
+    latestAuth?.clearPasswordRecovery();
+  });
+  expect(latestAuth?.destination).toBe('app');
+});
+
+test('consumes recovery deep links on bootstrap', async () => {
+  jest
+    .spyOn(Linking, 'getInitialURL')
+    .mockResolvedValue('tanlabs://auth/reset?token_hash=abc&type=recovery');
+  await mountProvider();
+  expect(verifyRecoveryFromUrl).toHaveBeenCalledWith(
+    'tanlabs://auth/reset?token_hash=abc&type=recovery',
+  );
+});
+
+test('records recovery link failures and exposes message on auth context', async () => {
+  jest
+    .spyOn(Linking, 'getInitialURL')
+    .mockResolvedValue('tanlabs://auth/reset?token_hash=bad&type=recovery');
+  jest.mocked(verifyRecoveryFromUrl).mockRejectedValueOnce(new Error('Reset link expired'));
+  await mountProvider();
+  expect(recordError).toHaveBeenCalled();
+  expect(latestAuth?.recoveryLinkError).toBe('Reset link expired');
+  expect(latestAuth?.destination).toBe('auth');
 });

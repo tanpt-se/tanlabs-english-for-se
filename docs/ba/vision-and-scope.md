@@ -24,7 +24,8 @@ Engineers often know technical English passively but struggle to use tense and s
 | ------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | PH1     | Accounts, profile, secure backend, remote flags, notifications lifecycle, quality gates | **Delivered** (foundation baseline)                                                   |
 | PH2     | Grammar learn → practise → save progress loop (13 topics incl. PH2.1)                   | **Delivered (code + seed template)** — production exposure gated by `feature_grammar` |
-| PH3–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                                            |
+| PH3     | Vocabulary / Expressions (situation-first; **2000–3000** unique IT terms)               | **In progress (Sprint 0–1)** — packs scaffold + readiness; `feature_vocabulary` OFF   |
+| PH4–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                                            |
 
 ## In scope (system today + locked next)
 
@@ -77,7 +78,7 @@ Content volume (core + PH2.1 template): **13 topics** × **4 lessons** × **18 e
 
 - AI correction, generative content, chat tutors
 - Speech / STT / TTS / listening exams
-- Vocabulary and Interview product loops (later phases)
+- Vocabulary and Interview **product loops** (PH3 Vocabulary is in progress; Interview remains later)
 - Full CEFR curriculum, spaced repetition, XP/coins/leaderboards
 - Further grammar families beyond the thirteen seeded topics (e.g. phrasal verbs as a dedicated grammar track, relative clauses as a full topic)
 - High-security exam anti-cheat
@@ -92,7 +93,8 @@ Stretch (non-blocking): optional single daily Grammar reminder after PH2 core is
 | --------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | PH1             | Engineer can register/sign in, complete profile, use Home/Settings, with stable sessions and flag-safe Home                         |
 | PH2             | Engineer can complete a seeded Grammar loop, see deterministic feedback, return and continue from saved progress on Android and iOS |
-| Release control | Grammar remains hidden in production until `feature_grammar` is intentionally enabled                                               |
+| PH3             | Engineer can learn/practise workplace vocabulary (2000–3000 unique terms), review weak items, with flag-safe exposure               |
+| Release control | Grammar/Vocabulary remain hidden in production until their feature flags are intentionally enabled                                  |
 
 ## Constraints (business-facing)
 

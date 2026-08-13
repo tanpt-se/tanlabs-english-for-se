@@ -19,6 +19,8 @@ describe('mapAuthError', () => {
     expect(mapAuthError({ message: 'User already registered' }).kind).toBe('email_taken');
     expect(mapAuthError({ message: 'User has already been registered' }).kind).toBe('email_taken');
     expect(mapAuthError({ message: 'Network request failed' }).kind).toBe('network');
+    expect(mapAuthError({ message: 'Token has expired or is invalid' }).kind).toBe('unknown');
+    expect(mapAuthError({ message: 'Invalid OTP' }).kind).toBe('otp_invalid');
     expect(mapAuthError('fetch failed')).toBeInstanceOf(AuthUserError);
     expect(mapAuthError({ message: 'weird' }).kind).toBe('unknown');
     expect(mapAuthError({ message: 'too many requests' }).kind).toBe('rate_limit');
@@ -31,5 +33,30 @@ describe('mapAuthError', () => {
     expect(isAuthRateLimitError(mapAuthError({ status: 429, message: '' }))).toBe(true);
     expect(isAuthRateLimitError(new Error('rate limit'))).toBe(false);
     expect(isAuthRateLimitError(new AuthUserError('unknown', 'x'))).toBe(false);
+  });
+
+  it('maps recovery token errors with recovery_invalid kind', () => {
+    const fromCode = mapAuthError({ code: 'token_expired', message: 'x' }, 'recovery');
+    expect(fromCode.kind).toBe('recovery_invalid');
+    expect(fromCode.message).toMatch(/reset link expired/i);
+
+    expect(mapAuthError({ message: 'Token has expired or is invalid' }, 'recovery').kind).toBe(
+      'recovery_invalid',
+    );
+
+    // Bare "expired" without token/OTP context must not become recovery_invalid
+    expect(mapAuthError({ message: 'Session expired elsewhere' }, 'recovery').kind).toBe('unknown');
+
+    expect(mapAuthError({ code: 'token_expired', message: 'x' }).kind).toBe('unknown');
+  });
+
+  it('maps signup_otp token expiry to otp_invalid', () => {
+    expect(mapAuthError({ message: 'Invalid OTP' }, 'signup_otp').kind).toBe('otp_invalid');
+    expect(mapAuthError({ code: 'token_expired', message: 'x' }, 'signup_otp').kind).toBe(
+      'otp_invalid',
+    );
+    expect(mapAuthError({ message: 'Token has expired or is invalid' }, 'signup_otp').kind).toBe(
+      'otp_invalid',
+    );
   });
 });

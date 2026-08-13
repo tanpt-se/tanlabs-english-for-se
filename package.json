@@ -38,6 +38,8 @@
     "grammar:audit": "node scripts/audit-grammar-packs.mjs",
     "grammar:audit:quality": "node scripts/audit-grammar-quality.mjs",
     "grammar:score": "node scripts/score-grammar-topics.mjs",
+    "vocabulary:audit": "node scripts/audit-vocabulary-packs.mjs",
+    "vocabulary:audit:ship": "node scripts/audit-vocabulary-packs.mjs --ship",
     "e2e:ios": "bash scripts/e2e-ios.sh",
     "e2e:android": "bash scripts/e2e-android.sh",
     "e2e:ios:grammar": "bash scripts/e2e-grammar-ios.sh",

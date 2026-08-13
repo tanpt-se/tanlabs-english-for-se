@@ -17,6 +17,8 @@ tags:
     visible:
       id: 'login-submit'
     timeout: 30000
+- assertVisible:
+    id: 'login-forgot-password'
 - tapOn:
     id: 'login-email'
 - eraseText

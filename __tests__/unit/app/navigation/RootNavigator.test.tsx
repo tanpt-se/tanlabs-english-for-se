@@ -89,7 +89,24 @@ describe('RootNavigator', () => {
 
     expect(BootSplash.hide).toHaveBeenCalledWith({ fade: true });
     const labels = root.root.findAllByType(Text).map((node) => node.props.children);
-    expect(labels).toEqual(expect.arrayContaining(['Welcome', 'Login', 'Register']));
+    expect(labels).toEqual(
+      expect.arrayContaining(['Welcome', 'Login', 'Register', 'ConfirmSignup', 'ForgotPassword']),
+    );
+  });
+
+  it('renders set-password stack during recovery', async () => {
+    jest.mocked(useAuth).mockReturnValue({
+      bootstrapped: true,
+      destination: 'setPassword',
+      profileSettled: true,
+      session: { user: { id: 'user-1' } },
+    } as never);
+
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<RootNavigator />);
+    });
+    expect(root.root.findByType(Text).props.children).toBe('SetNewPassword');
   });
 
   it('renders complete-profile and app stacks by destination', async () => {

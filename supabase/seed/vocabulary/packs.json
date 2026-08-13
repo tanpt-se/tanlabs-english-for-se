@@ -1,0 +1,205 @@
+{
+  "contentSchemaVersion": 1,
+  "situations": [
+    {
+      "slug": "daily-standup",
+      "title": "Daily Standup",
+      "description": "Updates, blockers, priorities",
+      "sortOrder": 1,
+      "items": [
+        {
+          "key": "blocker",
+          "type": "word",
+          "term": "blocker",
+          "meaning": "Something that stops you from making progress.",
+          "context": "Standup",
+          "level": "A2",
+          "sortOrder": 1,
+          "patterns": ["I'm blocked by…", "The blocker is…"],
+          "examples": [["Standup", "My blocker is the missing staging credentials."]],
+          "alternatives": ["impediment"],
+          "notes": ["Prefer concrete blocker + owner next step."],
+          "exercises": []
+        },
+        {
+          "key": "on-track",
+          "type": "phrase",
+          "term": "on track",
+          "meaning": "Progressing as planned toward the goal.",
+          "context": "Standup",
+          "level": "A2",
+          "sortOrder": 2,
+          "patterns": ["I'm on track to…", "The task is on track."],
+          "examples": [["Standup", "I'm on track to finish the API contract today."]],
+          "alternatives": ["on schedule"],
+          "notes": [],
+          "exercises": []
+        },
+        {
+          "key": "blocked-by-api",
+          "type": "expression",
+          "term": "I'm blocked by the API dependency.",
+          "meaning": "I cannot continue until another service or team delivers an API piece.",
+          "context": "Standup",
+          "level": "B1",
+          "sortOrder": 3,
+          "patterns": ["I'm blocked by…"],
+          "examples": [
+            ["Standup", "I'm blocked by the API dependency until Auth lands the token refresh."]
+          ],
+          "alternatives": ["I'm waiting on the API dependency."],
+          "notes": [],
+          "exercises": []
+        }
+      ]
+    },
+    {
+      "slug": "meetings",
+      "title": "Meetings",
+      "description": "Agree, challenge, decide",
+      "sortOrder": 2,
+      "items": [
+        {
+          "key": "action-item",
+          "type": "phrase",
+          "term": "action item",
+          "meaning": "A concrete follow-up task with an owner.",
+          "context": "Meeting",
+          "level": "A2",
+          "sortOrder": 1,
+          "patterns": ["Let's capture an action item…", "My action item is…"],
+          "examples": [["Meeting", "Action item: Tan will draft the rollback runbook by Friday."]],
+          "alternatives": ["follow-up"],
+          "notes": [],
+          "exercises": []
+        },
+        {
+          "key": "align-on-scope",
+          "type": "expression",
+          "term": "Let's align on scope before we estimate.",
+          "meaning": "Agree what is in/out of the work before sizing it.",
+          "context": "Meeting",
+          "level": "B1",
+          "sortOrder": 2,
+          "patterns": ["Let's align on…"],
+          "examples": [["Meeting", "Let's align on scope before we estimate the cutover."]],
+          "alternatives": [],
+          "notes": [],
+          "exercises": []
+        }
+      ]
+    },
+    {
+      "slug": "task-progress",
+      "title": "Task & Progress",
+      "description": "Status, ownership, next steps",
+      "sortOrder": 3,
+      "items": [
+        {
+          "key": "eta",
+          "type": "word",
+          "term": "ETA",
+          "meaning": "Estimated time of arrival / completion.",
+          "context": "Ticket",
+          "level": "A2",
+          "sortOrder": 1,
+          "patterns": ["ETA is…", "Updated ETA…"],
+          "examples": [["Ticket", "Updated ETA for the hotfix is 16:00 UTC."]],
+          "alternatives": ["estimate"],
+          "notes": ["State timezone when sharing an ETA."],
+          "exercises": []
+        },
+        {
+          "key": "next-step-tests",
+          "type": "expression",
+          "term": "The next step is to add tests.",
+          "meaning": "Announce the immediate follow-on work after implementation.",
+          "context": "PR",
+          "level": "A2",
+          "sortOrder": 2,
+          "patterns": ["The next step is to…"],
+          "examples": [["PR", "The next step is to add tests for the rollback path."]],
+          "alternatives": [],
+          "notes": [],
+          "exercises": []
+        }
+      ]
+    },
+    {
+      "slug": "bugs-problems",
+      "title": "Bugs & Problems",
+      "description": "Diagnose, explain, propose",
+      "sortOrder": 4,
+      "items": [
+        {
+          "key": "root-cause",
+          "type": "phrase",
+          "term": "root cause",
+          "meaning": "The underlying reason a defect happened.",
+          "context": "Incident",
+          "level": "B1",
+          "sortOrder": 1,
+          "patterns": ["Root cause is…", "We are still confirming root cause."],
+          "examples": [["Incident", "Root cause was a bad canary flag default in production."]],
+          "alternatives": ["underlying cause"],
+          "notes": [],
+          "exercises": []
+        },
+        {
+          "key": "repro-steps",
+          "type": "expression",
+          "term": "I can reproduce it with these steps.",
+          "meaning": "Confirm the bug is deterministic and share how to trigger it.",
+          "context": "Ticket",
+          "level": "B1",
+          "sortOrder": 2,
+          "patterns": ["I can reproduce it…"],
+          "examples": [
+            ["Ticket", "I can reproduce it with these steps on staging after the deploy."]
+          ],
+          "alternatives": ["It's reproducible with…"],
+          "notes": [],
+          "exercises": []
+        }
+      ]
+    },
+    {
+      "slug": "client-communication",
+      "title": "Client Communication",
+      "description": "Clarify, align, follow up",
+      "sortOrder": 5,
+      "items": [
+        {
+          "key": "follow-up",
+          "type": "phrase",
+          "term": "follow up",
+          "meaning": "Continue a conversation or check progress later.",
+          "context": "Client",
+          "level": "A2",
+          "sortOrder": 1,
+          "patterns": ["I'll follow up…", "As a follow-up…"],
+          "examples": [["Client", "I'll follow up tomorrow with the revised acceptance criteria."]],
+          "alternatives": ["get back to you"],
+          "notes": [],
+          "exercises": []
+        },
+        {
+          "key": "clarify-requirement",
+          "type": "expression",
+          "term": "Could you clarify the acceptance criteria?",
+          "meaning": "Ask the client to make success conditions explicit.",
+          "context": "Client",
+          "level": "B1",
+          "sortOrder": 2,
+          "patterns": ["Could you clarify…?"],
+          "examples": [
+            ["Client", "Could you clarify the acceptance criteria for the cutover window?"]
+          ],
+          "alternatives": ["Can you spell out the acceptance criteria?"],
+          "notes": [],
+          "exercises": []
+        }
+      ]
+    }
+  ]
+}

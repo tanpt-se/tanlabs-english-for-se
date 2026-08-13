@@ -43,7 +43,7 @@ jest.mock('@/core/auth/AuthProvider', () => ({
 }));
 
 jest.mock('@/core/analytics/events', () => ({
-  trackEvent: (...args: unknown[]) => mockTrackEvent(...args),
+  trackEvent: (...args: unknown[]) => mockTrackEvent.apply(null, args as []),
 }));
 
 jest.mock('@/features/profile/hooks/useProfile', () => ({
@@ -232,8 +232,8 @@ describe('SettingsScreen', () => {
     let resolveSignOut: (() => void) | undefined;
     mockSignOut.mockImplementationOnce(
       () =>
-        new Promise<void>((resolve) => {
-          resolveSignOut = resolve;
+        new Promise<undefined>((resolve) => {
+          resolveSignOut = () => resolve(undefined);
         }),
     );
 

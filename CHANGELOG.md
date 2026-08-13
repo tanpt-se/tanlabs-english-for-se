@@ -17,6 +17,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
+- PH3 Vocabulary packs scaffold: `supabase/seed/vocabulary/` (AUTHORING, lexicon, sample `packs.json`) + `pnpm run vocabulary:audit` / `vocabulary:audit:ship` (ship band 2000–3000 unique terms)
 - Shared UI: `BrandLoading` (Figma Feedback/BrandLoading — logo + coral orbit ring); replaces `ActivityIndicator` on boot + Grammar loading states
 - Navigation: main Home/Grammar/Vocabulary/Interview/Profile uses React Navigation Bottom Tabs so the tab bar stays fixed (no stack slide)
 - PH2 Grammar UI pass against Figma `04 — PH2 Grammar`: LessonCard + progress banner bar, Topic/Lesson layouts, Practice InsightPanel, Result CompletionHero/metrics/Feedback

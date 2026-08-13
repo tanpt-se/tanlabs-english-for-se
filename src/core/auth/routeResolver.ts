@@ -1,4 +1,4 @@
-export type RouteDestination = 'auth' | 'completeProfile' | 'app';
+export type RouteDestination = 'auth' | 'completeProfile' | 'app' | 'setPassword';
 
 /**
  * `unknown` = session exists but profile completeness could not be confirmed
@@ -9,6 +9,7 @@ export type ProfileCompleteness = 'complete' | 'incomplete' | 'unknown';
 
 export type AuthRouteInput = {
   hasSession: boolean;
+  passwordRecovery: boolean;
   profileCompleteness: ProfileCompleteness;
 };
 
@@ -18,6 +19,9 @@ export type AuthRouteInput = {
 export function resolveAuthRoute(input: AuthRouteInput): RouteDestination {
   if (!input.hasSession) {
     return 'auth';
+  }
+  if (input.passwordRecovery) {
+    return 'setPassword';
   }
   if (input.profileCompleteness === 'incomplete') {
     return 'completeProfile';
