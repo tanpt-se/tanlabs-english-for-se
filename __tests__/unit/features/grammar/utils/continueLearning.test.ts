@@ -137,5 +137,25 @@ describe('continueLearning', () => {
         },
       ]),
     ).toEqual({ topicId: 't1', lessonId: 'l1a' });
+
+    expect(
+      pickContinueLessonForTopic(
+        [
+          { id: 'l1', sortOrder: 1 },
+          { id: 'l2', sortOrder: 2 },
+        ],
+        [
+          { lessonId: 'l1', status: 'in_progress', lastActivityAt: 'not-a-date' },
+          { lessonId: 'l2', status: 'in_progress', lastActivityAt: 'also-bad' },
+        ],
+      ),
+    ).toEqual({ id: 'l1', sortOrder: 1 });
+
+    expect(
+      pickContinueLessonForTopic(
+        [{ id: 'l1', sortOrder: 1 }],
+        [{ lessonId: 'l1', status: 'completed', lastActivityAt: null }],
+      ),
+    ).toBeNull();
   });
 });

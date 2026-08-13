@@ -353,4 +353,55 @@ describe('practiceReducer branches', () => {
       ),
     ).toHaveLength(1);
   });
+
+  it('covers nextOpenIndex -1 paths via duplicate ids and sparse guards', () => {
+    const dup = FIXTURE_EXERCISES[0]!;
+    expect(
+      practiceReducer(
+        {
+          ...startState(),
+          exercises: [dup, { ...dup, prompt: 'dup' }],
+          checked: [{ exerciseId: dup.id, correct: false, selectedIds: [], skipped: true }],
+        },
+        { type: 'skip' },
+      ).phase,
+    ).toBe('reviewing');
+
+    expect(
+      practiceReducer(
+        {
+          ...startState(),
+          exercises: [dup, { ...dup, prompt: 'dup' }],
+          phase: 'checked',
+          checked: [{ exerciseId: dup.id, correct: true, selectedIds: ['a'] }],
+          correctCount: 1,
+        },
+        { type: 'continue' },
+      ).phase,
+    ).toBe('reviewing');
+
+    expect(
+      practiceReducer(
+        {
+          ...startState(),
+          phase: 'answering',
+          checked: [
+            undefined as unknown as { exerciseId: string; correct: boolean; selectedIds: string[] },
+          ],
+        },
+        { type: 'back' },
+      ).phase,
+    ).toBe('answering');
+
+    expect(
+      practiceReducer(
+        {
+          ...startState(),
+          phase: 'reviewing',
+          exercises: [FIXTURE_EXERCISES[0]!, undefined as unknown as (typeof FIXTURE_EXERCISES)[0]],
+        },
+        { type: 'reopen', index: 1 },
+      ).phase,
+    ).toBe('reviewing');
+  });
 });

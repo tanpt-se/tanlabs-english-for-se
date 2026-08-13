@@ -17,7 +17,7 @@ Install → Register/Login → Complete profile → Home
 
 - **Actor:** New learner
 - **Preconditions:** App installed; network available
-- **Main flow:** Open Register → enter email/password → submit → receive auth result (session or confirmation-required messaging per environment policy)
+- **Main flow:** Open Register → enter email/password → submit → if email confirmation is required, enter 6-digit OTP on Confirm signup screen
 - **Postcondition:** Account exists; user proceeds toward profile or confirmation handling
 - **Status:** Delivered
 
@@ -25,6 +25,12 @@ Install → Register/Login → Complete profile → Home
 
 - **Actor:** Returning learner
 - **Main flow:** Login → credentials → Home or Complete Profile per profile completeness
+- **Status:** Delivered
+
+### UC-AUTH-02b Reset password
+
+- **Actor:** Returning learner
+- **Main flow:** Login → Forgot password → email reset link → app opens via `tanlabs://auth/reset` → set new password
 - **Status:** Delivered
 
 ### UC-AUTH-03 Restore session

@@ -65,6 +65,28 @@ jest.mock('@/core/remote-config/useFeatureFlags', () => ({
   useFeatureFlags: jest.fn(() => ({ data: { grammar: false } })),
 }));
 
+jest.mock('@/features/grammar/hooks', () => ({
+  useGrammarTopics: jest.fn(() => ({
+    data: [],
+    isLoading: false,
+    isSuccess: true,
+  })),
+  useGrammarProgress: jest.fn(() => ({
+    data: [],
+  })),
+}));
+
+jest.mock('@/features/vocabulary/hooks/useVocabularyProgress', () => ({
+  useVocabularyProgress: jest.fn(() => ({
+    ready: true,
+    overallLabel: '0 / 2500',
+    overallRatio: 0,
+    situations: [],
+    totalKnown: 0,
+    totalTerms: 2500,
+  })),
+}));
+
 const { useAuth } = jest.requireMock('@/core/auth/AuthProvider') as {
   useAuth: jest.Mock;
 };
@@ -79,6 +101,7 @@ const { trackEvent } = jest.requireMock('@/core/analytics/events') as {
 };
 
 const navigate = jest.fn();
+const replace = jest.fn();
 const goBack = jest.fn();
 
 async function mount(element: React.ReactElement) {
@@ -130,8 +153,10 @@ function changeText(
 describe('PH1 screens', () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    jest.mocked(useNavigation).mockReturnValue({ navigate, goBack } as never);
+    jest.mocked(useNavigation).mockReturnValue({ navigate, replace, goBack } as never);
     useAuth.mockReturnValue({
+      clearRecoveryLinkError: jest.fn(),
+      recoveryLinkError: null,
       user: { id: 'user-1' },
       profile: {
         id: 'user-1',
@@ -178,6 +203,21 @@ describe('PH1 screens', () => {
     expect(navigate).toHaveBeenCalledWith('Login');
   });
 
+  it('replaces Welcome with Login when recovery link failed', async () => {
+    useAuth.mockReturnValue({
+      clearRecoveryLinkError: jest.fn(),
+      recoveryLinkError: 'Reset link expired or invalid. Request a new one from Forgot password.',
+      user: null,
+      profile: null,
+      refreshProfile: jest.fn(async () => undefined),
+      signOut: jest.fn(async () => undefined),
+    });
+
+    await mount(<WelcomeScreen />);
+    expect(replace).toHaveBeenCalledWith('Login');
+    expect(navigate).not.toHaveBeenCalledWith('Login');
+  });
+
   it('logs in successfully and surfaces failures', async () => {
     const invalid = await mount(<LoginScreen />);
     await press(invalid, 'Sign in');
@@ -211,6 +251,12 @@ describe('PH1 screens', () => {
     expect(navigate).toHaveBeenCalledWith('Register');
   });
 
+  it('opens forgot password from login', async () => {
+    const root = await mount(<LoginScreen />);
+    await press(root, 'Forgot password');
+    expect(navigate).toHaveBeenCalledWith('ForgotPassword');
+  });
+
   it('registers, handles email confirmation and rate limits', async () => {
     jest.mocked(signUp).mockResolvedValueOnce({ session: null } as never);
     const root = await mount(<RegisterScreen />);
@@ -220,14 +266,7 @@ describe('PH1 screens', () => {
     await press(root, 'Create account');
 
     expect(trackEvent).toHaveBeenCalledWith('register_success');
-    expect(
-      root.root
-        .findAllByType(Text)
-        .some((node) => String(node.props.children).includes('Check your email')),
-    ).toBe(true);
-
-    await press(root, 'Sign in instead');
-    expect(navigate).toHaveBeenCalledWith('Login');
+    expect(navigate).toHaveBeenCalledWith('ConfirmSignup', { email: 'ada@example.com' });
 
     jest
       .mocked(signUp)
@@ -371,7 +410,7 @@ describe('PH1 screens', () => {
       data: { grammar: true, vocabulary: false, interview: false, ai: false },
     });
     const root = await mount(<HomeScreen />);
-    await press(root, 'Open Grammar');
+    await press(root, 'Grammar, 0 / 0');
     expect(navigate).toHaveBeenCalledWith('Grammar', { screen: 'GrammarHome' });
   });
 
@@ -383,7 +422,7 @@ describe('PH1 screens', () => {
       data: { grammar: false, vocabulary: true, interview: false, ai: false },
     });
     const root = await mount(<HomeScreen />);
-    await press(root, 'Open Vocabulary');
+    await press(root, 'Vocabulary, 0 / 2500');
     expect(navigate).toHaveBeenCalledWith('Vocabulary', { screen: 'VocabularyHome' });
   });
 

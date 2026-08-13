@@ -15,3 +15,5 @@ GoogleService-Info.plist
 config/firebase/**/google-services.json
 config/firebase/**/GoogleService-Info.plist
 plans
+supabase/seed/vocabulary/packs.json
+supabase/seed/vocabulary/sources/*.json

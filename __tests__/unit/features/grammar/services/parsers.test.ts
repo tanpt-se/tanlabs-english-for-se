@@ -250,4 +250,72 @@ describe('grammar content parsers', () => {
       }),
     ).toThrow(/answers\[0\]\.exerciseId/);
   });
+
+  it('rejects invalid ints, levels, unpublished lessons, and empty strings', () => {
+    expect(() =>
+      parsePublishedTopic({
+        id: 't1',
+        slug: 'present-simple',
+        title: 'Present Simple',
+        description: 'Habits',
+        sort_order: 1.5,
+        published: true,
+      }),
+    ).toThrow(/sort_order/);
+
+    expect(() =>
+      parsePublishedTopic({
+        id: '',
+        slug: 'present-simple',
+        title: 'Present Simple',
+        description: 'Habits',
+        sort_order: 1,
+        published: true,
+      }),
+    ).toThrow(/topic.id/);
+
+    expect(() =>
+      parsePublishedLesson({
+        id: 'l1',
+        topic_id: 't1',
+        slug: 'a2',
+        title: 'A2',
+        description: 'x',
+        level: 'A2',
+        content: FIXTURE_LESSON.content,
+        content_schema_version: 1,
+        content_revision: 1,
+        sort_order: 1,
+        published: false,
+      }),
+    ).toThrow(/Unpublished lesson/);
+
+    expect(() =>
+      parsePublishedLesson({
+        id: 'l1',
+        topic_id: 't1',
+        slug: 'a2',
+        title: 'A2',
+        description: 'x',
+        level: 'Z9',
+        content: FIXTURE_LESSON.content,
+        content_schema_version: 1,
+        content_revision: 1,
+        sort_order: 1,
+        published: true,
+      }),
+    ).toThrow(/Invalid lesson level/);
+
+    expect(() =>
+      parseLessonProgress({
+        lesson_id: 'l1',
+        topic_id: 't1',
+        status: 'completed',
+        best_score: 1.5,
+        last_score: 80,
+        last_activity_at: null,
+        completed_at: null,
+      }),
+    ).toThrow();
+  });
 });

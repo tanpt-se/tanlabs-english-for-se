@@ -48,5 +48,7 @@ describe('shufflePracticeExercises', () => {
     expect(out).toHaveLength(4);
     expect([...out].sort((a, b) => a - b)).toEqual([1, 2, 3, 4]);
     expect(input).toEqual([1, 2, 3, 4]);
+    expect(shuffleArray([1]).sort()).toEqual([1]);
+    expect(shuffleArray([1, 2]).sort()).toEqual([1, 2]);
   });
 });

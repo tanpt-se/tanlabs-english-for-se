@@ -188,9 +188,10 @@ describe('PH1/PH3 coverage boost', () => {
             title="Risk"
             description="Escalate early"
             progress="0 / 8"
+            progressRatio={0}
             onPress={() => undefined}
           />
-          <ProgressBanner title="Progress" subtitle="Dark banner" />
+          <ProgressBanner title="Progress" subtitle="Dark banner" progress={0} />
           <StreakCard
             badge="Sprint"
             days={['complete', 'complete', 'today', 'upcoming', 'upcoming', 'upcoming', 'upcoming']}

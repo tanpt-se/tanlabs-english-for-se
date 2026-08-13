@@ -70,10 +70,12 @@ const hooks = jest.requireMock('@/features/grammar/hooks') as {
   useGrammarTopic: jest.Mock;
   useGrammarLessons: jest.Mock;
 };
+const rq = jest.requireMock('@tanstack/react-query') as { useMutationState: jest.Mock };
 
 describe('GrammarResultScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
+    rq.useMutationState.mockReturnValue([]);
     hooks.useGrammarTopic.mockReturnValue({
       data: { title: 'Present Simple', slug: 'present-simple' },
     });
@@ -170,5 +172,145 @@ describe('GrammarResultScreen', () => {
       }),
     );
     expect(mockNavigate).not.toHaveBeenCalled();
+  });
+
+  it('covers save states, next lesson, retry save, and completed messaging', async () => {
+    hooks.useGrammarTopic.mockReturnValue({
+      data: { title: 'Present Simple', slug: 'present-simple' },
+    });
+    hooks.useGrammarLessons.mockReturnValue({
+      data: [
+        { id: 'lesson-1', slug: 'a2', title: 'A2' },
+        { id: 'lesson-2', slug: 'b1', title: 'B1' },
+      ],
+    });
+    hooks.useGrammarResultSession.mockReturnValue({
+      session: {
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-1',
+        contentRevision: 1,
+        correctCount: 9,
+        totalCount: 10,
+        score: 90,
+        completed: true,
+        answers: [],
+        startedAt: 'x',
+        completedAt: 'y',
+      },
+      isLoading: false,
+    });
+
+    rq.useMutationState.mockReturnValue([
+      { status: 'pending', isPaused: true, variables: { clientAttemptId: 'attempt-1' } },
+    ]);
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<GrammarResultScreen />);
+    });
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('Waiting for connection')),
+    ).toBe(true);
+
+    rq.useMutationState.mockReturnValue([
+      { status: 'pending', isPaused: false, variables: { clientAttemptId: 'attempt-1' } },
+    ]);
+    await act(() => {
+      root.update(<GrammarResultScreen />);
+    });
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('Saving progress')),
+    ).toBe(true);
+
+    rq.useMutationState.mockReturnValue([
+      { status: 'error', isPaused: false, variables: { clientAttemptId: 'attempt-1' } },
+    ]);
+    await act(() => {
+      root.update(<GrammarResultScreen />);
+    });
+    await act(() => {
+      root.root.findByProps({ testID: 'grammar-result-retry-save' }).props.onPress();
+    });
+    expect(mockMutate).toHaveBeenCalled();
+
+    rq.useMutationState.mockReturnValue([
+      { status: 'success', isPaused: false, variables: { clientAttemptId: 'attempt-1' } },
+    ]);
+    await act(() => {
+      root.update(<GrammarResultScreen />);
+    });
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('Progress saved')),
+    ).toBe(true);
+
+    await act(() => {
+      root.root.findByProps({ testID: 'grammar-result-next' }).props.onPress();
+    });
+    expect(mockExitFlow).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({
+        name: 'GrammarLesson',
+        params: { topicId: 'topic-1', lessonId: 'lesson-2' },
+      }),
+    );
+
+    hooks.useGrammarResultSession.mockReturnValue({
+      session: {
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-2',
+        contentRevision: 1,
+        correctCount: 10,
+        totalCount: 10,
+        score: 100,
+        completed: true,
+        answers: [],
+        startedAt: 'x',
+        completedAt: 'y',
+      },
+      isLoading: false,
+    });
+    rq.useMutationState.mockReturnValue([]);
+    await act(() => {
+      root.update(<GrammarResultScreen />);
+    });
+    await act(() => {
+      root.root.findByProps({ testID: 'grammar-result-home' }).props.onPress();
+    });
+    expect(mockExitFlow).toHaveBeenCalledWith(
+      expect.anything(),
+      expect.objectContaining({ name: 'GrammarTopic' }),
+    );
+
+    hooks.useGrammarResultSession.mockReturnValue({
+      session: {
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-1',
+        contentRevision: 1,
+        correctCount: 3,
+        totalCount: 10,
+        score: 30,
+        completed: false,
+        answers: [],
+        startedAt: 'x',
+        completedAt: 'y',
+      },
+      isLoading: false,
+    });
+    await act(() => {
+      root.update(<GrammarResultScreen />);
+    });
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('Keep practicing')),
+    ).toBe(true);
   });
 });

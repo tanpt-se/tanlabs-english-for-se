@@ -58,6 +58,7 @@ describe('WP-03 architecture and dependency policy', () => {
       'src/features/profile',
       'src/features/settings',
       'src/features/grammar',
+      'src/features/vocabulary',
       'src/components/ui',
       'src/lib',
     ]) {
@@ -116,6 +117,29 @@ describe('WP-03 architecture and dependency policy', () => {
     );
   });
 
+  it('keeps Vocabulary seed packs out of screens/hooks (catalog bridge only)', () => {
+    const allowed = new Set([
+      'src/features/vocabulary/data/localPackCatalog.ts',
+      'src/features/vocabulary/data/mockCatalog.ts',
+    ]);
+    const srcFiles = walk(resolve(ROOT, 'src'));
+    for (const file of srcFiles) {
+      const rel = relative(ROOT, file).replace(/\\/g, '/');
+      if (allowed.has(rel)) {
+        continue;
+      }
+      const text = readFileSync(file, 'utf8');
+      expect(`${rel}:${text}`).not.toMatch(/from\s+['"][^'"]*supabase\/seed\/vocabulary[^'"]*['"]/);
+      expect(`${rel}:${text}`).not.toMatch(
+        /from\s+['"][^'"]*generate-vocabulary-seed-sql[^'"]*['"]/,
+      );
+    }
+    expect(existsSync(resolve(ROOT, 'supabase/seed/vocabulary/packs.json'))).toBe(true);
+    expect(existsSync(resolve(ROOT, 'src/features/vocabulary/data/localPackCatalog.ts'))).toBe(
+      true,
+    );
+  });
+
   it('loads local Grammar seed only via dynamic import when force-local is on', () => {
     const contentService = read('src/features/grammar/services/contentService.ts');
     const loader = read('src/features/grammar/services/localSeedLoader.ts');
@@ -139,11 +163,30 @@ describe('WP-03 architecture and dependency policy', () => {
     }
   });
 
+  it('keeps Vocabulary screens off Grammar feature modules and domain error imports', () => {
+    const vocabularyScreens = walk(resolve(ROOT, 'src/features/vocabulary/screens'));
+    for (const file of vocabularyScreens) {
+      const rel = relative(ROOT, file).replace(/\\/g, '/');
+      const text = readFileSync(file, 'utf8');
+      expect(`${rel}:${text}`).not.toMatch(/from\s+['"]@\/features\/grammar/);
+      expect(`${rel}:${text}`).not.toMatch(
+        /from\s+['"]@\/features\/vocabulary\/services(?:\/errors)?['"]/,
+      );
+    }
+  });
+
   it('scopes PracticeSessionProvider to the practice flow navigator', () => {
     const grammarNav = read('src/features/grammar/navigation/GrammarNavigator.tsx');
     const practiceNav = read('src/features/grammar/navigation/GrammarPracticeFlowNavigator.tsx');
     expect(grammarNav).not.toMatch(/PracticeSessionProvider/);
     expect(practiceNav).toMatch(/PracticeSessionProvider/);
+
+    const vocabularyNav = read('src/features/vocabulary/navigation/VocabularyNavigator.tsx');
+    const vocabularyPracticeNav = read(
+      'src/features/vocabulary/navigation/VocabularyPracticeFlowNavigator.tsx',
+    );
+    expect(vocabularyNav).not.toMatch(/PracticeSessionProvider/);
+    expect(vocabularyPracticeNav).toMatch(/PracticeSessionProvider/);
   });
 
   it('documents APP_ENV selection for development/production', () => {

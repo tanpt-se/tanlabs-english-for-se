@@ -17,8 +17,29 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
-- PH3 Vocabulary packs scaffold: `supabase/seed/vocabulary/` (AUTHORING, lexicon, sample `packs.json`) + `pnpm run vocabulary:audit` / `vocabulary:audit:ship` (ship band 2000–3000 unique terms)
+- Auth foundation: `AppButton` loading spinner (replaces label, keeps colors, disables press); signup confirm screen (6-digit OTP via Supabase `verifyOtp`) with `OtpPinInput` (6 PIN boxes); forgot-password flow with `tanlabs://auth/reset` deeplink → set-new-password screen
+- Supabase Auth wrappers: `verifySignupOtp`, `resendSignupOtp`, `requestPasswordReset`, `verifyRecoveryFromUrl`, `updatePassword`; iOS/Android URL scheme + `AuthProvider` recovery deeplink handler
+- Figma PH1 Foundation: screens **10 Confirm signup** (6-box OTP PIN), **11 Forgot password**, **12 Set new password**, **02b Sign in · Loading**; `Button/AppButton` **State=Loading** variant; Sign in aligned with app (no social row)
+
+### Fixed
+
+- Auth recovery: await initial deeplink verification before bootstrap completes; surface invalid/expired reset links on Sign in (`recoveryLinkError`) instead of swallowing failures
+- Auth analytics: allow `register_confirmed`; tighten OTP vs generic token error mapping; `AppButton` loading accessibility label; OTP PIN forwards `aria-*` props; Set new password only in recovery navigator (not auth stack)
+- Foundation auth screens aligned with Figma PH1: 30px titles, 15px subtitles, 14px form rhythm, 342×24 column, `AuthFormScreen` / `AuthLink` / `AuthNote`; Welcome medium CTA; Register password note; Confirm resend secondary button
+- Auth polish: Welcome `replace`→Login on recovery error; `recovery_invalid` kind; runtime deeplink errors recorded; Forgot rate-limit disables CTA; Set password sign-out feedback; OTP PIN a11y single focus target; Confirm resent uses `AuthNote`
+- Figma Design System **V2**: theme tokens (type scale Display→Caption, spacing/radius, semantic colors); `AppText`; `AppButton` Size/Style (primary/secondary/ghost/destructive); Auth/Profile/Grammar/Vocabulary layout pass; component map in `docs/sa/figma-code-connect.md`
+
+- PH3 Vocabulary packs: curated `sources/` → `pnpm run vocabulary:packs:generate` → **2500** unique IT terms + **2500** item-linked exercises (`choose_expression` / `fill_blank` / `sentence_order`); `vocabulary:audit` / `vocabulary:audit:ship`; exercise contract fixture
+- PH3 Vocabulary schema: migrations `013_vocabulary_schema` (5 tables + `complete_vocabulary_attempt`) and `014_vocabulary_seed` (`pnpm run vocabulary:seed:sql`)
+- Dev preview: `VOCABULARY_FORCE_LOCAL_SEED=1` loads packs into Vocabulary UI and forces the tab on; practice composes 5/3/2 from pack exercises
+- Vocabulary situation UX: compact `TermRow` (term only; no WORD/A2 chips), Known/Learning toggle, full-width `SegmentedControl` filter (default All); practice CTA opens nested Practice → Review → Result (10-question mix)
+- PH3 Vocabulary client loop: services/hooks/mutations, `PracticeSessionProvider`, three exercise UIs, Review + Result save states (`clientAttemptId`), Weak items list/retry, analytics event allowlist
+- Vocabulary progress: Home/Situation show known/total from local Known marks (refreshes on focus); overall + per-situation progress bars
+- Vocabulary browse: CEFR sections A2–C1 (collapsible `LevelSectionHeader`), colored POS badges, tap term → Cambridge-style detail
 - Shared UI: `BrandLoading` (Figma Feedback/BrandLoading — logo + coral orbit ring); replaces `ActivityIndicator` on boot + Grammar loading states
+
+- Home learning paths: Grammar/Vocabulary show progress counts (`N / total`) with `tone="progress"` instead of `Open`
+- PH3-12/14: Vocabulary Home/Weak loading·empty·retry + a11y labels; architecture policy covers Vocabulary; Maestro smoke-vocabulary + `e2e:ios:vocabulary` / `e2e:android:vocabulary`
 - Navigation: main Home/Grammar/Vocabulary/Interview/Profile uses React Navigation Bottom Tabs so the tab bar stays fixed (no stack slide)
 - PH2 Grammar UI pass against Figma `04 — PH2 Grammar`: LessonCard + progress banner bar, Topic/Lesson layouts, Practice InsightPanel, Result CompletionHero/metrics/Feedback
 - PH2 Sprint 3 practice: feature-local session provider, Practice UI for multiple-choice / fill-blank / sentence-order, Result resolves by `clientAttemptId` only (persist still PH2-09)
@@ -70,6 +91,9 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Fixed
 
+- Vocabulary practice: wait for Known store before `startSession`, and refuse mid-flow session restarts so Review submit is not wiped; `beforeRemove` reads live session phase so Result navigation is not blocked after submit
+- Vocabulary seed SQL: `escLiteral` emits Postgres single-quoted literals (014 regenerates cleanly); ignore bulk `packs.json` / `sources/*.json` in Prettier
+- Maestro vocabulary smoke: recover from iOS “Save Password?” / accidental Register navigation after login
 - Grammar: submit commits completed session only after server ack; failed save mints a new `clientAttemptId`; Review gates reopen/back while saving; Result Retry resets the practice stack; unauthenticated complete throws instead of navigating to Result
 - Grammar: offline completion uses paused mutation queue (`grammar-complete-attempt`) with account-switch guard; Result shows saving/queued/retry-save; PH2 analytics funnel + Crashlytics grammar context; `verify-rls` covers grammar content/progress/RPC; Maestro grammar smoke reaches Result
 - Fixed screen headers: `LearningScreen` / `ScreenScroll` `header` slot stays put while content scrolls (app-wide TopAppHeader / AuthHeader)
@@ -95,6 +119,9 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Changed
 
+- Figma PH3 Vocabulary list items synced to shipping app: Situation `TermRow` + CEFR headers + PosBadge, Home `SituationCard` progress bars + Weak entry, Weak compact rows; practice CTA sample **10** questions
+- Grammar lesson rows: completed lessons use light green (`successSoft`) surface + green check/badge
+- Figma PH2 **07 · Topic overview** rebuilt to match `GrammarTopicScreen` / `GrammarLessonRow` (fixed clipped rows, progress copy, index badges, Continue CTA)
 - UI components are grouped by stable families (`brand`, `button`, `feedback`, `input`, `layout`, `navigation`, `selection`); feature-only composites now live with their owning feature
 - Auth stack starts on Welcome; Login/Register match foundation copy without header logo
 - Icon PNGs re-exported as transparent white templates so `tintColor` renders correctly (was opaque light canvas)

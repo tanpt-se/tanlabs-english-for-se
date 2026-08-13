@@ -40,6 +40,7 @@ jest.mock('@/features/grammar/services/localSeedLoader', () => ({
 
 import {
   completeGrammarAttempt,
+  getAllPublishedLessons,
   getExercisesByLesson,
   getLesson,
   getLessonProgress,
@@ -139,6 +140,9 @@ describe('grammar local packs preview', () => {
     expect(new Set(exercises.map((row) => row.type))).toEqual(
       new Set(['multiple_choice', 'fill_blank', 'sentence_order']),
     );
+
+    const allLessons = await getAllPublishedLessons();
+    expect(allLessons.length).toBeGreaterThan(10);
 
     expect(await getProgressForUser('user-1')).toEqual([]);
     expect(await getLessonProgress('user-1', lesson.id)).toBeNull();

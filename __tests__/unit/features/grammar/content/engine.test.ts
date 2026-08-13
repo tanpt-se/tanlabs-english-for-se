@@ -67,6 +67,9 @@ describe('PH2-03 grammar practice engine', () => {
         tokenIds: order.answer.tokenIds.map(() => 'missing'),
       }),
     ).toMatchObject({ error: 'Unknown token id' });
+    expect(
+      gradeExercise({ ...mc, type: 'unknown' as never }, { type: 'unknown' } as never),
+    ).toMatchObject({ error: 'Unknown exercise type' });
   });
 
   it('scores 0/69/70/100 and never decreases best score', () => {

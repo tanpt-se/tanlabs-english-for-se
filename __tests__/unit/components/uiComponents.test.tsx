@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image, Text, TextInput, useColorScheme } from 'react-native';
+import { ActivityIndicator, Image, Text, TextInput, useColorScheme } from 'react-native';
 import ReactTestRenderer, { act } from 'react-test-renderer';
 
 import { AppButton } from '@/components/ui/button';
@@ -9,6 +9,7 @@ import { ScreenScroll } from '@/components/ui/layout';
 import { CompletionHero, Feedback, ProgressBanner, ResultMetric } from '@/components/ui/learning';
 import { BottomActionBar, BottomNavigation, TopAppHeader } from '@/components/ui/navigation';
 import { AnswerOption } from '@/components/ui/selection';
+import { AppText } from '@/components/ui/typography';
 import { AuthHeader } from '@/features/auth/components';
 import { HomeFeatureRow } from '@/features/home/components';
 import { EnglishLevelPicker, ProfileSection } from '@/features/profile/components';
@@ -68,6 +69,113 @@ describe('shared UI components', () => {
     ).toBe(true);
   });
 
+  it('shows a spinner instead of label while loading without dimming solid buttons', async () => {
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(
+        <AppButton label="Sign in" loading accessibilityLabel="Sign in" />,
+      );
+    });
+
+    expect(root.root.findByType(ActivityIndicator)).toBeTruthy();
+    expect(root.root.findAllByType(Text).some((node) => node.props.children === 'Sign in')).toBe(
+      false,
+    );
+
+    const button = root.root.find(
+      (node) =>
+        node.props.accessibilityLabel === 'Sign in, loading' &&
+        typeof node.props.style === 'function',
+    );
+    const style = button.props.style({ pressed: false });
+    expect(
+      style.some(
+        (entry: { backgroundColor?: string } | false | undefined) =>
+          entry && entry.backgroundColor === lightColors.primary,
+      ),
+    ).toBe(true);
+    expect(button.props.disabled).toBe(true);
+    expect(button.props.accessibilityState).toEqual({ busy: true, disabled: true });
+  });
+
+  it('renders secondary, ghost, solid-danger, and small AppButton branches', async () => {
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(
+        <AppButton
+          fullWidth
+          label="Secondary"
+          size="small"
+          variant="secondary"
+          accessibilityLabel="Secondary"
+        />,
+      );
+    });
+
+    let button = root.root.find(
+      (node) =>
+        node.props.accessibilityLabel === 'Secondary' && typeof node.props.style === 'function',
+    );
+    let style = button.props.style({ pressed: true });
+    expect(
+      style.some(
+        (entry: { backgroundColor?: string } | false | undefined) =>
+          entry && entry.backgroundColor === lightColors.primarySoft,
+      ),
+    ).toBe(true);
+
+    await act(() => {
+      root.update(
+        <AppButton
+          label="Solid danger"
+          tone="danger"
+          variant="solid"
+          accessibilityLabel="Solid danger"
+        />,
+      );
+    });
+    button = root.root.find(
+      (node) =>
+        node.props.accessibilityLabel === 'Solid danger' && typeof node.props.style === 'function',
+    );
+    style = button.props.style({ pressed: false });
+    expect(style.some((entry: { backgroundColor?: string } | false | undefined) => entry)).toBe(
+      true,
+    );
+
+    await act(() => {
+      root.update(<AppButton disabled label="Ghost" variant="ghost" accessibilityLabel="Ghost" />);
+    });
+    button = root.root.find(
+      (node) => node.props.accessibilityLabel === 'Ghost' && typeof node.props.style === 'function',
+    );
+    style = button.props.style({ pressed: false });
+    expect(
+      style.some(
+        (entry: { opacity?: number } | false | undefined) => entry && entry.opacity === 0.5,
+      ),
+    ).toBe(true);
+  });
+
+  it('renders AppText variants with optional overrides', async () => {
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(
+        <AppText variant="h1" color="#111" align="center" weight="700">
+          Title
+        </AppText>,
+      );
+    });
+
+    const text = root.root.findByType(Text);
+    expect(text.props.children).toBe('Title');
+    expect(text.props.style).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ fontWeight: '700', textAlign: 'center', color: '#111' }),
+      ]),
+    );
+  });
+
   it('renders AppTextInput with theme placeholder color', async () => {
     let root!: ReactTestRenderer.ReactTestRenderer;
     await act(() => {
@@ -83,7 +191,7 @@ describe('shared UI components', () => {
   it('renders AuthHeader with optional subtitle and logo', async () => {
     let root!: ReactTestRenderer.ReactTestRenderer;
     await act(() => {
-      root = ReactTestRenderer.create(<AuthHeader title="Welcome back" />);
+      root = ReactTestRenderer.create(<AuthHeader showLogo={false} title="Welcome back" />);
     });
     expect(root.root.findAllByType(Text)).toHaveLength(1);
     expect(root.root.findAllByType(Image)).toHaveLength(0);
@@ -410,8 +518,13 @@ describe('shared UI components', () => {
     expect(lightColors.dangerSoft).toBe('#FDECEC');
     expect(lightColors.warning).toBe('#E8A838');
     expect(themeTokens.radius.xl).toBe(20);
-    expect(themeTokens.radius.card).toBe(14);
+    expect(themeTokens.radius.card).toBe(16);
+    expect(themeTokens.radius.xs).toBe(8);
     expect(themeTokens.spacing['12']).toBe(12);
+    expect(themeTokens.typography.size.h1).toBe(28);
+    expect(themeTokens.typography.size.body).toBe(15);
+    expect(lightColors.borderStrong).toBe('#B0B4BF');
+    expect(lightColors.primaryHover).toBe('#D64545');
   });
 
   it('renders PH3 learning primitives', async () => {
@@ -420,11 +533,16 @@ describe('shared UI components', () => {
     await act(() => {
       root = ReactTestRenderer.create(
         <>
-          <ProgressBanner title="Progress across 5 workplace situations" subtitle="Offline" />
+          <ProgressBanner
+            title="Progress across 5 workplace situations"
+            subtitle="Offline"
+            progress={0.3}
+          />
           <SituationCard
             title="Task & Progress"
             description="Status, ownership, next steps"
             progress="3 / 10"
+            progressRatio={0.3}
             selected
             onPress={onSituation}
           />

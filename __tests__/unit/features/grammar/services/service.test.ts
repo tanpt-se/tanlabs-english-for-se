@@ -541,4 +541,59 @@ describe('grammar contentService', () => {
     await expect(getLesson('l1')).rejects.toMatchObject({ code: 'invalid_content' });
     await expect(getExercisesByLesson('l1')).resolves.toEqual([]);
   });
+
+  it('covers getTopic query errors and attempt auth mismatches', async () => {
+    mockFrom.mockReturnValue({
+      select: () => ({
+        eq: () => ({
+          eq: () => ({
+            maybeSingle: async () => ({ data: null, error: { message: 'boom' } }),
+          }),
+        }),
+      }),
+    });
+    await expect(getTopic('t1')).rejects.toMatchObject({ code: 'unavailable' });
+
+    mockFrom.mockReturnValue({
+      select: () => ({
+        eq: async () => ({ data: null, error: { message: 'progress down' } }),
+      }),
+    });
+    await expect(getProgressForUser('user-1')).rejects.toMatchObject({ code: 'unavailable' });
+
+    (mockGetUser as jest.Mock).mockResolvedValueOnce({ data: { user: null }, error: null });
+    await expect(
+      completeGrammarAttempt('user-1', {
+        clientAttemptId: 'attempt-1',
+        topicId: 't1',
+        lessonId: 'l1',
+        contentRevision: 1,
+        correctCount: 7,
+        totalCount: 10,
+        score: 70,
+        answers: [],
+        startedAt: '2026-08-12T00:00:00Z',
+        completedAt: '2026-08-12T00:01:00Z',
+      }),
+    ).rejects.toMatchObject({ code: 'unauthorized' });
+
+    mockGetUser.mockResolvedValueOnce({
+      data: { user: { id: 'other-user' } },
+      error: null,
+    });
+    await expect(
+      completeGrammarAttempt('user-1', {
+        clientAttemptId: 'attempt-1',
+        topicId: 't1',
+        lessonId: 'l1',
+        contentRevision: 1,
+        correctCount: 7,
+        totalCount: 10,
+        score: 70,
+        answers: [],
+        startedAt: '2026-08-12T00:00:00Z',
+        completedAt: '2026-08-12T00:01:00Z',
+      }),
+    ).rejects.toMatchObject({ code: 'unauthorized' });
+  });
 });

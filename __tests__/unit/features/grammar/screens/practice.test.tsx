@@ -1360,4 +1360,266 @@ describe('grammar practice interactions', () => {
     });
     expect(mockNavigate).toHaveBeenCalledWith('GrammarReview');
   });
+
+  it('invokes exercise onChange callbacks and skip/back guards', async () => {
+    const dispatch = jest.fn();
+    const applyAction = jest.fn(() => ({ phase: 'answering' }));
+    session.usePracticeSession.mockReturnValue({
+      state: {
+        exercises: [mc],
+        index: 0,
+        phase: 'answering',
+        response: null,
+        lastCorrect: null,
+        lastExplanation: null,
+        checked: [],
+        correctCount: 0,
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-1',
+        contentRevision: 1,
+        startedAt: 'x',
+        completedAt: null,
+        score: null,
+        completed: null,
+        resumeReviewOnBack: false,
+        reopenedPrior: null,
+      },
+      dispatch,
+      applyAction,
+      startSession: jest.fn(),
+      clearActiveSession: jest.fn(),
+      commitCompletedSession: jest.fn(),
+      getCompletedSession: jest.fn(),
+    });
+    hooks.useGrammarExercises.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      data: [
+        {
+          id: mc.id,
+          exerciseKey: mc.id,
+          topicId: 'topic-1',
+          lessonId: 'lesson-1',
+          type: mc.type,
+          prompt: mc.prompt,
+          explanation: mc.explanation,
+          sortOrder: mc.sortOrder,
+          contentSchemaVersion: 1,
+          payload: mc.payload,
+          answer: mc.answer,
+        },
+      ],
+      refetch: jest.fn(),
+    });
+
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<GrammarPracticeScreen />);
+    });
+    await act(() => {
+      const mcView = root.root.findByProps({ testID: 'grammar-exercise-mc' });
+      const pressable = mcView.findAllByProps({ accessibilityRole: 'button' })[0];
+      pressable?.props.onPress?.();
+    });
+    expect(dispatch).toHaveBeenCalledWith(
+      expect.objectContaining({
+        type: 'set_response',
+        response: expect.objectContaining({ type: 'multiple_choice' }),
+      }),
+    );
+
+    // double primary hits action lock early-return
+    session.usePracticeSession.mockReturnValue({
+      state: {
+        exercises: [mc],
+        index: 0,
+        phase: 'answering',
+        response: { type: 'multiple_choice', optionId: mc.answer.optionId },
+        lastCorrect: null,
+        lastExplanation: null,
+        checked: [],
+        correctCount: 0,
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-1',
+        contentRevision: 1,
+        startedAt: 'x',
+        completedAt: null,
+        score: null,
+        completed: null,
+        resumeReviewOnBack: false,
+        reopenedPrior: null,
+      },
+      dispatch,
+      applyAction,
+      startSession: jest.fn(),
+      clearActiveSession: jest.fn(),
+      commitCompletedSession: jest.fn(),
+      getCompletedSession: jest.fn(),
+    });
+    await act(() => {
+      root.update(<GrammarPracticeScreen />);
+    });
+    await act(() => {
+      const action = root.root.findByProps({ testID: 'grammar-practice-action' });
+      action.props.onPress();
+      action.props.onPress();
+    });
+
+    session.usePracticeSession.mockReturnValue({
+      state: {
+        exercises: [fill],
+        index: 0,
+        phase: 'answering',
+        response: { type: 'fill_blank', text: '' },
+        lastCorrect: null,
+        lastExplanation: null,
+        checked: [],
+        correctCount: 0,
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-1',
+        contentRevision: 1,
+        startedAt: 'x',
+        completedAt: null,
+        score: null,
+        completed: null,
+        resumeReviewOnBack: false,
+        reopenedPrior: null,
+      },
+      dispatch,
+      applyAction,
+      startSession: jest.fn(),
+      clearActiveSession: jest.fn(),
+      commitCompletedSession: jest.fn(),
+      getCompletedSession: jest.fn(),
+    });
+    hooks.useGrammarExercises.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      data: [
+        {
+          id: fill.id,
+          exerciseKey: fill.id,
+          topicId: 'topic-1',
+          lessonId: 'lesson-1',
+          type: fill.type,
+          prompt: fill.prompt,
+          explanation: fill.explanation,
+          sortOrder: fill.sortOrder,
+          contentSchemaVersion: 1,
+          payload: fill.payload,
+          answer: fill.answer,
+        },
+      ],
+      refetch: jest.fn(),
+    });
+    await act(() => {
+      root.update(<GrammarPracticeScreen />);
+    });
+    await act(() => {
+      root.root.findByProps({ testID: 'grammar-exercise-fill' }).props.onChangeText('ships');
+    });
+    expect(dispatch).toHaveBeenCalledWith({
+      type: 'set_response',
+      response: { type: 'fill_blank', text: 'ships' },
+    });
+
+    session.usePracticeSession.mockReturnValue({
+      state: {
+        exercises: [order],
+        index: 0,
+        phase: 'answering',
+        response: { type: 'sentence_order', tokenIds: [] },
+        lastCorrect: null,
+        lastExplanation: null,
+        checked: [],
+        correctCount: 0,
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-1',
+        contentRevision: 1,
+        startedAt: 'x',
+        completedAt: null,
+        score: null,
+        completed: null,
+        resumeReviewOnBack: false,
+        reopenedPrior: null,
+      },
+      dispatch,
+      applyAction,
+      startSession: jest.fn(),
+      clearActiveSession: jest.fn(),
+      commitCompletedSession: jest.fn(),
+      getCompletedSession: jest.fn(),
+    });
+    hooks.useGrammarExercises.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      data: [
+        {
+          id: order.id,
+          exerciseKey: order.id,
+          topicId: 'topic-1',
+          lessonId: 'lesson-1',
+          type: order.type,
+          prompt: order.prompt,
+          explanation: order.explanation,
+          sortOrder: order.sortOrder,
+          contentSchemaVersion: 1,
+          payload: order.payload,
+          answer: order.answer,
+        },
+      ],
+      refetch: jest.fn(),
+    });
+    await act(() => {
+      root.update(<GrammarPracticeScreen />);
+    });
+    await act(() => {
+      const tokenLabel = order.payload.tokens[0]!.text;
+      root.root.findByProps({ accessibilityLabel: `Add ${tokenLabel}` }).props.onPress();
+    });
+
+    // skip ignored outside answering; progress back ignored when cannot
+    session.usePracticeSession.mockReturnValue({
+      state: {
+        exercises: [mc],
+        index: 0,
+        phase: 'checked',
+        response: null,
+        lastCorrect: true,
+        lastExplanation: 'x',
+        checked: [],
+        correctCount: 0,
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-1',
+        contentRevision: 1,
+        startedAt: 'x',
+        completedAt: null,
+        score: null,
+        completed: null,
+        resumeReviewOnBack: false,
+        reopenedPrior: null,
+      },
+      dispatch,
+      applyAction,
+      startSession: jest.fn(),
+      clearActiveSession: jest.fn(),
+      commitCompletedSession: jest.fn(),
+      getCompletedSession: jest.fn(),
+    });
+    await act(() => {
+      root.update(<GrammarPracticeScreen />);
+    });
+    await act(() => {
+      root.root.findByProps({ testID: 'grammar-practice-skip' }).props.onPress();
+      root.root.findByProps({ testID: 'grammar-practice-back' }).props.onPress();
+    });
+  });
 });
