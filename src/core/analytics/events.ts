@@ -3,6 +3,7 @@ type AnalyticsPayload = Record<string, string | number | boolean | undefined>;
 const ALLOWED = new Set([
   'app_open',
   'register_success',
+  'register_confirmed',
   'login_success',
   'profile_completed',
   'notification_enabled',
@@ -15,6 +16,12 @@ const ALLOWED = new Set([
   'grammar_practice_started',
   'grammar_practice_completed',
   'grammar_practice_retry',
+  'vocabulary_opened',
+  'vocabulary_situation_opened',
+  'vocabulary_practice_started',
+  'vocabulary_practice_completed',
+  'vocabulary_practice_retry',
+  'vocabulary_weak_opened',
 ]);
 
 const GRAMMAR_EVENTS = new Set([
@@ -27,7 +34,17 @@ const GRAMMAR_EVENTS = new Set([
   'grammar_practice_retry',
 ]);
 
+const VOCABULARY_EVENTS = new Set([
+  'vocabulary_opened',
+  'vocabulary_situation_opened',
+  'vocabulary_practice_started',
+  'vocabulary_practice_completed',
+  'vocabulary_practice_retry',
+  'vocabulary_weak_opened',
+]);
+
 const GRAMMAR_PARAM_KEYS = new Set(['topic_slug', 'lesson_slug', 'score_bucket']);
+const VOCABULARY_PARAM_KEYS = new Set(['situation_slug', 'score_bucket']);
 
 function sanitizeParams(
   name: string,
@@ -38,6 +55,7 @@ function sanitizeParams(
   }
   const out: Record<string, string | number> = {};
   const grammarOnly = GRAMMAR_EVENTS.has(name);
+  const vocabularyOnly = VOCABULARY_EVENTS.has(name);
 
   for (const [key, value] of Object.entries(params)) {
     // Never forward free-text / English practice content.
@@ -45,6 +63,9 @@ function sanitizeParams(
       continue;
     }
     if (grammarOnly && !GRAMMAR_PARAM_KEYS.has(key)) {
+      continue;
+    }
+    if (vocabularyOnly && !VOCABULARY_PARAM_KEYS.has(key)) {
       continue;
     }
     if (typeof value === 'string' || typeof value === 'number') {

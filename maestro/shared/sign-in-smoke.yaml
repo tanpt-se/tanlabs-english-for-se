@@ -1,0 +1,28 @@
+appId: com.tanlabs.en-for-se
+---
+- tapOn:
+    id: 'login-email'
+- eraseText:
+    optional: true
+- inputText: ${SMOKE_EMAIL}
+- tapOn:
+    id: 'login-password'
+- tapOn:
+    id: 'login-password-visibility'
+- tapOn:
+    id: 'login-password'
+- eraseText:
+    optional: true
+- inputText: ${SMOKE_PASSWORD}
+- hideKeyboard
+- extendedWaitUntil:
+    visible:
+      id: 'login-submit'
+    timeout: 10000
+- tapOn:
+    id: 'login-submit'
+- runFlow:
+    when:
+      visible: 'Save Password?'
+    commands:
+      - tapOn: 'Not Now'

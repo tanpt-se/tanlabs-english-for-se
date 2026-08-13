@@ -1,0 +1,76 @@
+{
+  "contentSchemaVersion": 1,
+  "normalization": {
+    "trim": true,
+    "case": "preserve-for-display; compare lowercased for fill_blank accepted set membership after trim",
+    "apostrophe": "curly ’ → straight '",
+    "fuzzy": false,
+    "aiGrading": false
+  },
+  "sessionMix": {
+    "targetTotal": 10,
+    "choose_expression": 5,
+    "fill_blank": 3,
+    "sentence_order": 2,
+    "allowedRange": [8, 12]
+  },
+  "exercises": {
+    "choose_expression": {
+      "prompt": "string",
+      "payload": {
+        "options": [
+          { "id": "opt_a", "text": "string" },
+          { "id": "opt_b", "text": "string" },
+          { "id": "opt_c", "text": "string" },
+          { "id": "opt_d", "text": "string" }
+        ],
+        "correctOptionId": "opt_a"
+      },
+      "feedback": {
+        "expression": "string",
+        "meaning": "string",
+        "context": "string",
+        "example": "string",
+        "explanation": "string"
+      }
+    },
+    "fill_blank": {
+      "prompt": "string with exactly one ___",
+      "payload": {
+        "accepted": ["shipped", "Shipped"],
+        "cue": "optional lemma/polarity hint in prompt parentheses"
+      },
+      "feedback": {
+        "expression": "string",
+        "meaning": "string",
+        "context": "string",
+        "example": "string",
+        "explanation": "string"
+      }
+    },
+    "sentence_order": {
+      "prompt": "string",
+      "payload": {
+        "tokens": [
+          { "id": "t1", "text": "We" },
+          { "id": "t2", "text": "rolled" },
+          { "id": "t3", "text": "back" },
+          { "id": "t4", "text": "the" },
+          { "id": "t5", "text": "canary." }
+        ],
+        "correctOrder": ["t1", "t2", "t3", "t4", "t5"]
+      },
+      "feedback": {
+        "expression": "string",
+        "meaning": "string",
+        "context": "string",
+        "example": "string",
+        "explanation": "string"
+      }
+    }
+  },
+  "itemAggregation": "any incorrect mapped exercise ⇒ item incorrect for the session; else correct",
+  "weakPredicate": "last_result = false OR incorrect_count > correct_count",
+  "weakOrder": ["last_seen_at asc", "item.sort_order asc", "item.id asc"],
+  "scoreBuckets": ["0-49", "50-69", "70-84", "85-100"]
+}

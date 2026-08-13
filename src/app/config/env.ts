@@ -34,3 +34,7 @@ function readBoolFlag(value: string | undefined): boolean {
 
 export const GRAMMAR_FORCE_LOCAL_SEED =
   isDevelopment && readBoolFlag(Config.GRAMMAR_FORCE_LOCAL_SEED);
+
+/** Dev-only: Vocabulary UI reads supabase/seed/vocabulary/packs.json and forces feature on. */
+export const VOCABULARY_FORCE_LOCAL_SEED =
+  isDevelopment && readBoolFlag(Config.VOCABULARY_FORCE_LOCAL_SEED);

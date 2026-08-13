@@ -1,0 +1,79 @@
+appId: com.tanlabs.en-for-se
+name: iOS smoke — vocabulary browse → practice → review → result
+tags:
+  - smoke
+  - ios
+  - ph3
+  - vocabulary
+---
+- launchApp:
+    clearState: true
+    clearKeychain: true
+- extendedWaitUntil:
+    visible:
+      id: 'welcome-sign-in'
+    timeout: 90000
+- tapOn:
+    id: 'welcome-sign-in'
+- extendedWaitUntil:
+    visible:
+      id: 'login-submit'
+    timeout: 30000
+- runFlow:
+    when:
+      visible: 'Create your account'
+    commands:
+      - tapOn: 'Already have an account? Sign in'
+      - extendedWaitUntil:
+          visible:
+            id: 'login-submit'
+          timeout: 15000
+- runFlow:
+    file: ../shared/sign-in-smoke.yaml
+    env:
+      SMOKE_EMAIL: ${SMOKE_EMAIL}
+      SMOKE_PASSWORD: ${SMOKE_PASSWORD}
+- extendedWaitUntil:
+    visible:
+      id: 'bottom-nav-vocabulary'
+    timeout: 60000
+- tapOn:
+    id: 'bottom-nav-vocabulary'
+- extendedWaitUntil:
+    visible:
+      id: 'vocabulary-home'
+    timeout: 30000
+- assertVisible:
+    id: 'vocabulary-situation-daily-standup'
+- tapOn:
+    id: 'vocabulary-situation-daily-standup'
+- extendedWaitUntil:
+    visible:
+      id: 'vocabulary-situation'
+    timeout: 20000
+- tapOn:
+    id: 'practice-cta'
+- extendedWaitUntil:
+    visible:
+      id: 'vocabulary-practice'
+    timeout: 30000
+- assertVisible:
+    id: 'vocabulary-practice-stem'
+- repeat:
+    times: 20
+    commands:
+      - tapOn:
+          id: 'vocabulary-practice-skip'
+          optional: true
+- extendedWaitUntil:
+    visible:
+      id: 'vocabulary-review'
+    timeout: 30000
+- tapOn:
+    id: 'vocabulary-review-submit'
+- extendedWaitUntil:
+    visible:
+      id: 'vocabulary-result'
+    timeout: 60000
+- assertVisible:
+    id: 'vocabulary-result-retry'

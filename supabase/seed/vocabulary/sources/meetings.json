@@ -1,0 +1,8318 @@
+[
+  {
+    "term": "dissent recorded",
+    "type": "phrase",
+    "meaning": "Formal note that someone disagreed but the group proceeded.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Dissent recorded; we still ship the RFC"
+    ],
+    "example": [
+      "Meeting",
+      "Dissent recorded; we still ship the RFC."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "consensus threshold",
+    "type": "phrase",
+    "meaning": "Minimum agreement level required before committing.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "We did not meet the consensus threshold"
+    ],
+    "example": [
+      "Decision",
+      "We did not meet the consensus threshold."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "facilitator neutrality",
+    "type": "phrase",
+    "meaning": "Facilitator avoids steering outcomes while managing process.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Keep facilitator neutrality on this debate"
+    ],
+    "example": [
+      "Meeting",
+      "Keep facilitator neutrality on this debate."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "timebox overrun",
+    "type": "phrase",
+    "meaning": "Discussion that exceeds the agreed duration.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Park it — we are in timebox overrun"
+    ],
+    "example": [
+      "Meeting",
+      "Park it — we are in timebox overrun."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "parking-lot triage",
+    "type": "phrase",
+    "meaning": "Sort deferred topics into owners and next forums.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Do parking-lot triage in the last five minutes"
+    ],
+    "example": [
+      "Meeting",
+      "Do parking-lot triage in the last five minutes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pre-read compliance",
+    "type": "phrase",
+    "meaning": "Whether attendees actually read materials before the meeting.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Pre-read compliance was low"
+    ],
+    "example": [
+      "Meeting",
+      "Pre-read compliance was low."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "silent brainstorm",
+    "type": "phrase",
+    "meaning": "Write ideas privately first to reduce anchoring bias.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Start with a silent brainstorm"
+    ],
+    "example": [
+      "Meeting",
+      "Start with a silent brainstorm."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "round-robin airtime",
+    "type": "phrase",
+    "meaning": "Give each person a turn so dominant voices do not crowd others.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Use round-robin airtime for feedback"
+    ],
+    "example": [
+      "Meeting",
+      "Use round-robin airtime for feedback."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision rights",
+    "type": "phrase",
+    "meaning": "Clarity on who can decide versus who is consulted.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "Clarify decision rights before debating options"
+    ],
+    "example": [
+      "Decision",
+      "Clarify decision rights before debating options."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "consulted vs informed",
+    "type": "phrase",
+    "meaning": "RACI distinction between people asked for input and people only notified.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "You are informed, not consulted, on this change"
+    ],
+    "example": [
+      "Meeting",
+      "You are informed, not consulted, on this change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "irreversible decision",
+    "type": "phrase",
+    "meaning": "One-way-door choice that is costly to undo.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "Treat schema deletion as irreversible"
+    ],
+    "example": [
+      "Decision",
+      "Treat schema deletion as irreversible."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reversible decision",
+    "type": "phrase",
+    "meaning": "Two-way-door choice that can be undone cheaply.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "UI copy is a reversible decision"
+    ],
+    "example": [
+      "Decision",
+      "UI copy is a reversible decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "meeting ROI",
+    "type": "phrase",
+    "meaning": "Whether the outcome justified the calendar cost.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Cancel if meeting ROI is unclear"
+    ],
+    "example": [
+      "Meeting",
+      "Cancel if meeting ROI is unclear."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "async-first update",
+    "type": "phrase",
+    "meaning": "Status shared in writing so the live meeting stays for decisions.",
+    "context": "Slack",
+    "level": "C1",
+    "patterns": [
+      "Send an async-first update before the sync"
+    ],
+    "example": [
+      "Slack",
+      "Send an async-first update before the sync."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "working agreements",
+    "type": "phrase",
+    "meaning": "Team norms for how meetings and decisions should run.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Refresh working agreements this quarter"
+    ],
+    "example": [
+      "Meeting",
+      "Refresh working agreements this quarter."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "stakeholder alignment debt",
+    "type": "phrase",
+    "meaning": "Accumulated mismatch in expectations across groups.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "We have stakeholder alignment debt with Sales"
+    ],
+    "example": [
+      "Meeting",
+      "We have stakeholder alignment debt with Sales."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "objection handling",
+    "type": "phrase",
+    "meaning": "Structured way to surface and resolve blockers to a proposal.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Leave ten minutes for objection handling"
+    ],
+    "example": [
+      "Meeting",
+      "Leave ten minutes for objection handling."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "closure criteria",
+    "type": "phrase",
+    "meaning": "Conditions that mean a topic is done and can leave the agenda.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Define closure criteria up front"
+    ],
+    "example": [
+      "Meeting",
+      "Define closure criteria up front."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cadence review",
+    "type": "phrase",
+    "meaning": "Periodic check of whether recurring meetings still earn their slot.",
+    "context": "Calendar",
+    "level": "C1",
+    "patterns": [
+      "Quarterly cadence review killed two syncs"
+    ],
+    "example": [
+      "Calendar",
+      "Quarterly cadence review killed two syncs."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "agenda",
+    "type": "word",
+    "meaning": "Ordered list of topics for a meeting.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "On the agenda…"
+    ],
+    "example": [
+      "Meeting",
+      "On the agenda: go/no-go for the Friday deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "facilitator",
+    "type": "word",
+    "meaning": "Person guiding the meeting process.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Facilitator is…"
+    ],
+    "example": [
+      "Meeting",
+      "Facilitator will keep us to the timebox."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "note-taker",
+    "type": "word",
+    "meaning": "Person capturing decisions and actions.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Who is note-taker…"
+    ],
+    "example": [
+      "Meeting",
+      "Note-taker will capture action items in the ticket."
+    ],
+    "alternatives": [
+      "scribe"
+    ],
+    "notes": []
+  },
+  {
+    "term": "timekeeper",
+    "type": "word",
+    "meaning": "Person watching the clock for agenda items.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Timekeeper please…"
+    ],
+    "example": [
+      "Meeting",
+      "Timekeeper, we have five minutes left on this topic."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "quorum",
+    "type": "word",
+    "meaning": "Minimum attendance required to decide.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "Do we have quorum…"
+    ],
+    "example": [
+      "Meeting",
+      "Do we have quorum to decide on the cutover?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "consensus",
+    "type": "word",
+    "meaning": "General agreement without formal vote.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "We have consensus…"
+    ],
+    "example": [
+      "Meeting",
+      "We have consensus to keep the feature flag off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dissent",
+    "type": "word",
+    "meaning": "Disagreement with a proposed decision.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Recording dissent…"
+    ],
+    "example": [
+      "Meeting",
+      "Recording dissent on shipping without a rollback test."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "objection",
+    "type": "word",
+    "meaning": "Formal challenge to a proposal.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Any objections…"
+    ],
+    "example": [
+      "Meeting",
+      "Any objections to promoting the staging build?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "abstain",
+    "type": "word",
+    "meaning": "Choose not to vote on a decision.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "I abstain…"
+    ],
+    "example": [
+      "Meeting",
+      "I abstain on the vendor choice; lacking context."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "vote",
+    "type": "word",
+    "meaning": "Formal count of preferences for a decision.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Let’s vote…"
+    ],
+    "example": [
+      "Meeting",
+      "Let's vote on the go/no-go for prod."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "majority",
+    "type": "word",
+    "meaning": "More than half supporting a choice.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Majority prefers…"
+    ],
+    "example": [
+      "Meeting",
+      "Majority prefers delaying the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "unanimous",
+    "type": "word",
+    "meaning": "Everyone agrees on the decision.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Unanimous decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Unanimous decision to roll back the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "tie-break",
+    "type": "word",
+    "meaning": "Method to resolve an equal vote.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Need a tie-break…"
+    ],
+    "example": [
+      "Meeting",
+      "Need a tie-break from the engineering manager."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "chair",
+    "type": "word",
+    "meaning": "Person formally leading the meeting.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Chair will…"
+    ],
+    "example": [
+      "Meeting",
+      "Chair will close after action items are assigned."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "attendee",
+    "type": "word",
+    "meaning": "Person present in the meeting.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Attendees include…"
+    ],
+    "example": [
+      "Calendar",
+      "Attendees include on-call and the API owners."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "invitee",
+    "type": "word",
+    "meaning": "Person invited, may or may not attend.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Invitees…"
+    ],
+    "example": [
+      "Calendar",
+      "Invitees: QA, platform, and the client DRI."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "optional",
+    "type": "word",
+    "meaning": "Attendance not required.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Optional for…"
+    ],
+    "example": [
+      "Calendar",
+      "Optional for folks not owning the deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "required",
+    "type": "word",
+    "meaning": "Attendance expected for decision quality.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Required attendees…"
+    ],
+    "example": [
+      "Calendar",
+      "Required attendees: DRI and on-call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "recurring",
+    "type": "word",
+    "meaning": "Meeting that repeats on a schedule.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Recurring sync…"
+    ],
+    "example": [
+      "Calendar",
+      "Recurring sync moved to avoid the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ad-hoc",
+    "type": "word",
+    "meaning": "Meeting called for a specific need, not regular.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Ad-hoc meeting…"
+    ],
+    "example": [
+      "Calendar",
+      "Ad-hoc meeting to unblock the API dependency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "standup-meeting",
+    "type": "word",
+    "meaning": "Short daily status meeting variant label.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "In the standup meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "In the standup meeting we parked the RFC debate."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "1:1",
+    "type": "word",
+    "meaning": "Private meeting between two people.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "In our 1:1…"
+    ],
+    "example": [
+      "Calendar",
+      "In our 1:1 let’s cover the on-call handoff."
+    ],
+    "alternatives": [
+      "one-on-one"
+    ],
+    "notes": []
+  },
+  {
+    "term": "one-on-one",
+    "type": "word",
+    "meaning": "Private two-person meeting.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "One-on-one tomorrow…"
+    ],
+    "example": [
+      "Calendar",
+      "One-on-one tomorrow to review the career goal and blockers."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "all-hands",
+    "type": "word",
+    "meaning": "Company/org-wide meeting.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "At all-hands…"
+    ],
+    "example": [
+      "Meeting",
+      "At all-hands we will share the incident lessons."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "town-hall",
+    "type": "word",
+    "meaning": "Open Q&A style org meeting.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "In the town hall…"
+    ],
+    "example": [
+      "Meeting",
+      "In the town hall, ask about the release freeze policy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "workshop",
+    "type": "word",
+    "meaning": "Working session to produce an artifact.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Workshop on…"
+    ],
+    "example": [
+      "Meeting",
+      "Workshop on the cutover runbook this afternoon."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "brainstorm",
+    "type": "word",
+    "meaning": "Idea-generation session without deciding yet.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Brainstorm first…"
+    ],
+    "example": [
+      "Meeting",
+      "Brainstorm first; decide after we list risks."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "retro-meeting",
+    "type": "word",
+    "meaning": "Meeting to improve how the team works.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "In the retro meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "In the retro meeting we should discuss CI flake trends."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "planning",
+    "type": "word",
+    "meaning": "Meeting to select and size upcoming work.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "In planning…"
+    ],
+    "example": [
+      "Meeting",
+      "In planning we estimated the feature-flag work."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "grooming",
+    "type": "word",
+    "meaning": "Refining backlog tickets for readiness.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "During grooming…"
+    ],
+    "example": [
+      "Meeting",
+      "During grooming we clarified acceptance criteria."
+    ],
+    "alternatives": [
+      "refinement"
+    ],
+    "notes": []
+  },
+  {
+    "term": "refinement",
+    "type": "word",
+    "meaning": "Improving ticket clarity before sprint pull.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "In refinement…"
+    ],
+    "example": [
+      "Meeting",
+      "In refinement we split the oversized ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "estimation",
+    "type": "word",
+    "meaning": "Meeting or activity to size work.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "During estimation…"
+    ],
+    "example": [
+      "Meeting",
+      "During estimation we flagged the dependency risk."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "poker",
+    "type": "word",
+    "meaning": "Planning poker sizing technique.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Planning poker…"
+    ],
+    "example": [
+      "Meeting",
+      "Planning poker gave the spike a 3."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "story-point",
+    "type": "word",
+    "meaning": "Relative effort unit used in estimation.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Story points…"
+    ],
+    "example": [
+      "Meeting",
+      "Story points jumped after the API contract change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "t-shirt",
+    "type": "word",
+    "meaning": "Coarse sizing using S/M/L labels.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "T-shirt size…"
+    ],
+    "example": [
+      "Meeting",
+      "T-shirt size is L because of the migration."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "MoSCoW",
+    "type": "word",
+    "meaning": "Must/Should/Could/Won’t prioritization method.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Using MoSCoW…"
+    ],
+    "example": [
+      "Meeting",
+      "Using MoSCoW, the rollback test is a Must."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "RICE",
+    "type": "word",
+    "meaning": "Reach/Impact/Confidence/Effort prioritization.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "RICE score…"
+    ],
+    "example": [
+      "Meeting",
+      "RICE score favors shipping the feature flag first."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "trade-off",
+    "type": "word",
+    "meaning": "Choice accepting a downside for a benefit.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Trade-off is…"
+    ],
+    "example": [
+      "Meeting",
+      "Trade-off is speed versus rollback safety."
+    ],
+    "alternatives": [
+      "tradeoff"
+    ],
+    "notes": []
+  },
+  {
+    "term": "tradeoff",
+    "type": "word",
+    "meaning": "Accepted compromise between competing goals.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "The tradeoff…"
+    ],
+    "example": [
+      "Meeting",
+      "The tradeoff is delayed scope for a safer deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "constraint",
+    "type": "word",
+    "meaning": "Hard limit on time, people, or tech.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Constraint is…"
+    ],
+    "example": [
+      "Meeting",
+      "Constraint is the Friday change freeze."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "risk-register",
+    "type": "word",
+    "meaning": "Tracked list of delivery risks.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Update the risk register…"
+    ],
+    "example": [
+      "Meeting",
+      "Update the risk register with the CI flake risk."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "RAID",
+    "type": "word",
+    "meaning": "Risks/Assumptions/Issues/Dependencies log.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "RAID log…"
+    ],
+    "example": [
+      "Meeting",
+      "RAID log shows a dependency on Auth."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision-log",
+    "type": "word",
+    "meaning": "Record of choices and rationale.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Add to the decision log…"
+    ],
+    "example": [
+      "Meeting",
+      "Add to the decision log: flag defaults to off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ADR-meeting",
+    "type": "word",
+    "meaning": "Meeting to finalize an architecture decision.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "ADR meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "ADR meeting to choose the queue design."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pre-read",
+    "type": "word",
+    "meaning": "Material attendees should read before meeting.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Please pre-read…"
+    ],
+    "example": [
+      "Calendar",
+      "Please pre-read the RFC before the design review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "prework",
+    "type": "word",
+    "meaning": "Tasks to complete before a working session.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Prework is…"
+    ],
+    "example": [
+      "Calendar",
+      "Prework is estimating the tickets before planning."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "round-robin",
+    "type": "word",
+    "meaning": "Each person speaks in turn.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Round-robin updates…"
+    ],
+    "example": [
+      "Meeting",
+      "Round-robin updates, then blockers."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "lean-coffee",
+    "type": "word",
+    "meaning": "Agenda built democratically in the room.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Lean coffee format…"
+    ],
+    "example": [
+      "Meeting",
+      "Lean coffee format for today’s engineering sync."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "fishbowl",
+    "type": "word",
+    "meaning": "Discussion format with an inner speaking circle.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Fishbowl discussion…"
+    ],
+    "example": [
+      "Meeting",
+      "Fishbowl discussion on the incident response gaps."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "breakout",
+    "type": "word",
+    "meaning": "Smaller subgroup session during a larger meeting.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Breakout rooms…"
+    ],
+    "example": [
+      "Meeting",
+      "Breakout rooms to draft action items by area."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "plenary",
+    "type": "word",
+    "meaning": "Full-group portion after breakouts.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Back in plenary…"
+    ],
+    "example": [
+      "Meeting",
+      "Back in plenary to share breakout decisions."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "icebreaker",
+    "type": "word",
+    "meaning": "Short opener to settle the group (workplace-safe).",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Skip the icebreaker…"
+    ],
+    "example": [
+      "Meeting",
+      "Skip the icebreaker; we have a hard stop for deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "hard-stop",
+    "type": "word",
+    "meaning": "Fixed end time that cannot slip.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Hard stop at…"
+    ],
+    "example": [
+      "Meeting",
+      "Hard stop at 11:00 for the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "soft-stop",
+    "type": "word",
+    "meaning": "Preferred end time that can flex slightly.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Soft stop…"
+    ],
+    "example": [
+      "Meeting",
+      "Soft stop at 30 minutes unless we need a decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "overrun",
+    "type": "word",
+    "meaning": "Meeting continuing past scheduled end.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "We are overrunning…"
+    ],
+    "example": [
+      "Meeting",
+      "We are overrunning; capture actions and end."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "extension",
+    "type": "word",
+    "meaning": "Approved extra time for a meeting.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Need a five-minute extension…"
+    ],
+    "example": [
+      "Meeting",
+      "Need a five-minute extension to assign owners."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reschedule",
+    "type": "word",
+    "meaning": "Move a meeting to another time.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Let’s reschedule…"
+    ],
+    "example": [
+      "Calendar",
+      "Let's reschedule around the on-call handoff."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cancel",
+    "type": "word",
+    "meaning": "Call off a scheduled meeting.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Canceling…"
+    ],
+    "example": [
+      "Calendar",
+      "Canceling the sync; decision already made in Slack."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decline",
+    "type": "word",
+    "meaning": "Refuse a calendar invitation.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Declining…"
+    ],
+    "example": [
+      "Calendar",
+      "Declining due to the production incident."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "accept",
+    "type": "word",
+    "meaning": "Confirm attendance on an invite.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Accepted…"
+    ],
+    "example": [
+      "Calendar",
+      "Accepted the go/no-go invite."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "tentative",
+    "type": "word",
+    "meaning": "Maybe attending; not confirmed.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Marked tentative…"
+    ],
+    "example": [
+      "Calendar",
+      "Marked tentative while on-call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "propose-new-time",
+    "type": "word",
+    "meaning": "Suggest an alternative meeting slot.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Propose a new time…"
+    ],
+    "example": [
+      "Calendar",
+      "Propose a new time after the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "working-agreements",
+    "type": "word",
+    "meaning": "Team norms for how meetings run.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Per working agreements…"
+    ],
+    "example": [
+      "Meeting",
+      "Per working agreements, cameras optional, actions required."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ground-rules",
+    "type": "word",
+    "meaning": "Explicit rules for discussion behavior.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Ground rules…"
+    ],
+    "example": [
+      "Meeting",
+      "Ground rules: one speaker, decisions with owners."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "psychological-safety",
+    "type": "word",
+    "meaning": "Climate where people can raise risks openly.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Psychological safety…"
+    ],
+    "example": [
+      "Meeting",
+      "Psychological safety matters when challenging a go decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "speak-up",
+    "type": "word",
+    "meaning": "Raise a concern even if uncomfortable.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Please speak up…"
+    ],
+    "example": [
+      "Meeting",
+      "Please speak up if the rollback path is unclear."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pushback",
+    "type": "word",
+    "meaning": "Respectful challenge to a proposal.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Pushback on…"
+    ],
+    "example": [
+      "Meeting",
+      "Pushback on shipping without QA sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "challenge",
+    "type": "word",
+    "meaning": "Question assumptions or a plan.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "I want to challenge…"
+    ],
+    "example": [
+      "Meeting",
+      "I want to challenge the assumption staging mirrors prod."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "clarify",
+    "type": "word",
+    "meaning": "Make an unclear point precise.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "To clarify…"
+    ],
+    "example": [
+      "Meeting",
+      "To clarify, is rollback the default mitigation?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "summarize",
+    "type": "word",
+    "meaning": "Restate key points briefly.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "To summarize…"
+    ],
+    "example": [
+      "Meeting",
+      "To summarize: flag off, canary tomorrow, QA owns sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "recap",
+    "type": "word",
+    "meaning": "Short review of what was said/decided.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Quick recap…"
+    ],
+    "example": [
+      "Meeting",
+      "Quick recap of decisions before we leave."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "playback",
+    "type": "word",
+    "meaning": "Repeat what you heard to confirm understanding.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Let me playback…"
+    ],
+    "example": [
+      "Meeting",
+      "Let me playback the decision on cutover timing."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "table",
+    "type": "word",
+    "meaning": "Postpone discussion of a motion/topic.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Table this…"
+    ],
+    "example": [
+      "Meeting",
+      "Table this until we have latency data from canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reopen",
+    "type": "word",
+    "meaning": "Bring a closed topic back for discussion.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Reopen the decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Reopen the decision if the canary fails."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ratify",
+    "type": "word",
+    "meaning": "Formally confirm a provisional decision.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "Ratify…"
+    ],
+    "example": [
+      "Meeting",
+      "Ratify the rollback policy in writing after this call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "endorse",
+    "type": "word",
+    "meaning": "Publicly support a proposal.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "I endorse…"
+    ],
+    "example": [
+      "Meeting",
+      "I endorse delaying the rollout for more soak time."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sponsor",
+    "type": "word",
+    "meaning": "Senior supporter of an initiative.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Sponsor is…"
+    ],
+    "example": [
+      "Meeting",
+      "Sponsor is needed for the cross-team RFC."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "DRI-meeting",
+    "type": "word",
+    "meaning": "Meeting focused on clarifying the responsible owner.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Confirm DRI…"
+    ],
+    "example": [
+      "Meeting",
+      "Confirm DRI for the incident action items."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "RACI-review",
+    "type": "word",
+    "meaning": "Meeting to clarify Responsible/Accountable roles.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "RACI review…"
+    ],
+    "example": [
+      "Meeting",
+      "RACI review for the cutover workstreams."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "stakeholder-map",
+    "type": "word",
+    "meaning": "Who cares about / influences an outcome.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Stakeholder map…"
+    ],
+    "example": [
+      "Meeting",
+      "Stakeholder map shows client success needs an update."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "escalation-path",
+    "type": "word",
+    "meaning": "Who to contact when blocked.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Escalation path…"
+    ],
+    "example": [
+      "Meeting",
+      "Escalation path is on-call, then engineering manager."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision-owner",
+    "type": "word",
+    "meaning": "Person accountable for making the call.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision owner is…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision owner is the service DRI for go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "consulted",
+    "type": "word",
+    "meaning": "People whose input is sought before deciding.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Consulted parties…"
+    ],
+    "example": [
+      "Meeting",
+      "Consulted parties: QA and security for the auth change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "informed",
+    "type": "word",
+    "meaning": "People told after a decision is made.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Informed group…"
+    ],
+    "example": [
+      "Meeting",
+      "Informed group: client channel after we decide."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "responsible",
+    "type": "word",
+    "meaning": "Person doing the work.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Responsible is…"
+    ],
+    "example": [
+      "Meeting",
+      "Responsible is Tan for the rollback runbook."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "accountable",
+    "type": "word",
+    "meaning": "Person finally answerable for the outcome.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Accountable is…"
+    ],
+    "example": [
+      "Meeting",
+      "Accountable is the engineering manager for release risk."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "deadline-meeting",
+    "type": "word",
+    "meaning": "Meeting focused on a hard date.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Deadline meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Deadline meeting for the client demo on Friday."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "checkpoint",
+    "type": "word",
+    "meaning": "Scheduled progress review against a plan.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Checkpoint tomorrow…"
+    ],
+    "example": [
+      "Meeting",
+      "Checkpoint tomorrow on canary metrics."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "milestone",
+    "type": "word",
+    "meaning": "Significant delivery marker.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Milestone is…"
+    ],
+    "example": [
+      "Meeting",
+      "Milestone is staging sign-off before prod."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "gate-review",
+    "type": "word",
+    "meaning": "Meeting that decides whether a gate passes.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Gate review…"
+    ],
+    "example": [
+      "Meeting",
+      "Gate review for promoting the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "CAB",
+    "type": "word",
+    "meaning": "Change Advisory Board reviewing risky changes.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "CAB approval…"
+    ],
+    "example": [
+      "Meeting",
+      "CAB approval needed for the production cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "CAB-meeting",
+    "type": "word",
+    "meaning": "Meeting of the change advisory board.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "In the CAB meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "In the CAB meeting we present the rollback plan."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "change-request",
+    "type": "word",
+    "meaning": "Formal ask to modify production.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Submit a change request…"
+    ],
+    "example": [
+      "Meeting",
+      "Submit a change request before the prod cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "risk-score",
+    "type": "word",
+    "meaning": "Numeric rating of change risk.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Risk score is…"
+    ],
+    "example": [
+      "Meeting",
+      "Risk score is high without a dress rehearsal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "impact-analysis",
+    "type": "word",
+    "meaning": "Study of who/what a change affects.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Impact analysis…"
+    ],
+    "example": [
+      "Meeting",
+      "Impact analysis shows checkout and billing paths."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rollback-plan",
+    "type": "word",
+    "meaning": "Documented steps to undo a change.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Rollback plan…"
+    ],
+    "example": [
+      "Meeting",
+      "Rollback plan must be demoed in this meeting."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "comms-plan",
+    "type": "word",
+    "meaning": "Who gets which status updates when.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Comms plan…"
+    ],
+    "example": [
+      "Meeting",
+      "Comms plan: Slack every 30 minutes during cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "success-criteria",
+    "type": "word",
+    "meaning": "Measurable definition of a good outcome.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Success criteria…"
+    ],
+    "example": [
+      "Meeting",
+      "Success criteria: p95 latency under 200ms on canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "exit-criteria",
+    "type": "word",
+    "meaning": "Conditions required to leave a phase.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Exit criteria…"
+    ],
+    "example": [
+      "Meeting",
+      "Exit criteria for soak: no SEV alerts for 24 hours."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "entry-criteria",
+    "type": "word",
+    "meaning": "Conditions required to start a phase.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Entry criteria…"
+    ],
+    "example": [
+      "Meeting",
+      "Entry criteria for prod: QA sign-off and green CI."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "definition-of-ready",
+    "type": "word",
+    "meaning": "Checklist before work can start.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Definition of Ready…"
+    ],
+    "example": [
+      "Meeting",
+      "Definition of Ready fails without clear acceptance criteria."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "definition-of-done",
+    "type": "word",
+    "meaning": "Checklist before work is complete.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Definition of Done…"
+    ],
+    "example": [
+      "Meeting",
+      "Definition of Done includes docs and monitoring."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "working-session",
+    "type": "word",
+    "meaning": "Meeting used to do work, not just talk.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Working session on…"
+    ],
+    "example": [
+      "Meeting",
+      "Working session on the postmortem action items."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "office-hours-meeting",
+    "type": "word",
+    "meaning": "Open help slot scheduled on calendar.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Office hours meeting…"
+    ],
+    "example": [
+      "Calendar",
+      "Office hours meeting for platform questions at 15:00."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "office-hour-slot",
+    "type": "word",
+    "meaning": "A single scheduled help appointment.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Office-hour slot…"
+    ],
+    "example": [
+      "Calendar",
+      "Book an office-hour slot for the deploy script review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sync-up",
+    "type": "word",
+    "meaning": "Meeting to align status or decisions.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Sync-up on…"
+    ],
+    "example": [
+      "Meeting",
+      "Sync-up on the Auth dependency blocker."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "huddle-meeting",
+    "type": "word",
+    "meaning": "Short live meeting to unblock quickly.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Huddle meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Huddle meeting for five minutes on the alert."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bridge-call",
+    "type": "word",
+    "meaning": "Conference call for incident/war-room work.",
+    "context": "War room",
+    "level": "B1",
+    "patterns": [
+      "Join the bridge call…"
+    ],
+    "example": [
+      "Meeting",
+      "Join the bridge call; IC needs API owners."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "war-room-call",
+    "type": "word",
+    "meaning": "Focused incident meeting.",
+    "context": "War room",
+    "level": "B1",
+    "patterns": [
+      "War-room call…"
+    ],
+    "example": [
+      "Meeting",
+      "War-room call starting for the checkout outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "debrief-meeting",
+    "type": "word",
+    "meaning": "Post-event review meeting.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Debrief meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Debrief meeting tomorrow after the deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "lessons-meeting",
+    "type": "word",
+    "meaning": "Meeting focused on improvements after an event.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Lessons meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Lessons meeting to turn findings into tickets."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "readout-meeting",
+    "type": "word",
+    "meaning": "Meeting to present findings to stakeholders.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Readout meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Readout meeting on the latency spike findings."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "demo-meeting",
+    "type": "word",
+    "meaning": "Meeting to show working software.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Demo meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Demo meeting of the staging build for the client."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "client-call",
+    "type": "word",
+    "meaning": "Meeting with the external client.",
+    "context": "Client",
+    "level": "A2",
+    "patterns": [
+      "On the client call…"
+    ],
+    "example": [
+      "Meeting",
+      "On the client call we shared the new ETA."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "steering",
+    "type": "word",
+    "meaning": "Leadership meeting guiding a program.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Steering committee…"
+    ],
+    "example": [
+      "Meeting",
+      "Steering committee decides whether to extend the freeze."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "steering-committee",
+    "type": "word",
+    "meaning": "Group of leaders deciding program direction.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Steering committee…"
+    ],
+    "example": [
+      "Meeting",
+      "Steering committee approved the cutover date."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "program-review",
+    "type": "word",
+    "meaning": "Periodic review of multi-team delivery.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Program review…"
+    ],
+    "example": [
+      "Meeting",
+      "Program review covers risks to the Friday ship."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "status-meeting",
+    "type": "word",
+    "meaning": "Meeting primarily for progress updates.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Status meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Status meeting can be async if there are no decisions."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision-meeting",
+    "type": "word",
+    "meaning": "Meeting whose purpose is to decide.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision meeting: choose rollback versus forward-fix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "alignment-meeting",
+    "type": "word",
+    "meaning": "Meeting to get shared understanding.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Alignment meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Alignment meeting on scope before we estimate."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "kickoff-meeting",
+    "type": "word",
+    "meaning": "Meeting that starts a workstream.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Kickoff meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Kickoff meeting for the latency workstream."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "closeout",
+    "type": "word",
+    "meaning": "Meeting to finish and hand off remaining work.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Closeout meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "Closeout meeting after the release is stable."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "retrospective",
+    "type": "word",
+    "meaning": "Structured review of what to improve.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "In the retrospective…"
+    ],
+    "example": [
+      "Meeting",
+      "In the retrospective we will discuss the CI flake trend."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "action-owner",
+    "type": "word",
+    "meaning": "Person responsible for a follow-up.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Action owner…"
+    ],
+    "example": [
+      "Meeting",
+      "Action owner for the runbook update is on-call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "due-date",
+    "type": "word",
+    "meaning": "When an action item must be done.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Due date…"
+    ],
+    "example": [
+      "Meeting",
+      "Due date for the rollback test is Wednesday."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "follow-through",
+    "type": "word",
+    "meaning": "Actually completing agreed actions.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Follow-through on…"
+    ],
+    "example": [
+      "Meeting",
+      "Follow-through on last week’s action items is weak."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "accountability",
+    "type": "word",
+    "meaning": "Clear ownership for outcomes.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Accountability gap…"
+    ],
+    "example": [
+      "Meeting",
+      "Accountability gap on who owns the alert tuning."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "transparency",
+    "type": "word",
+    "meaning": "Open sharing of status and risks.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Transparency helps…"
+    ],
+    "example": [
+      "Meeting",
+      "Transparency helps when the ETA slips."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bias-for-action",
+    "type": "word",
+    "meaning": "Prefer deciding and moving over endless talk.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Bias for action…"
+    ],
+    "example": [
+      "Meeting",
+      "Bias for action: pick a mitigation and assign an owner."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "disagree-and-commit",
+    "type": "word",
+    "meaning": "Voice dissent then support the decided path.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "Disagree and commit…"
+    ],
+    "example": [
+      "Meeting",
+      "Disagree and commit: we ship behind the flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "strong-opinion",
+    "type": "word",
+    "meaning": "Clear preference held with reasons.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Strong opinion…"
+    ],
+    "example": [
+      "Meeting",
+      "Strong opinion: do not promote without soak data."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "weak-opinion",
+    "type": "word",
+    "meaning": "Preference held lightly; open to change.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Weak opinion…"
+    ],
+    "example": [
+      "Meeting",
+      "Weak opinion: either rollback or forward-fix is fine."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "data-driven",
+    "type": "word",
+    "meaning": "Decisions based on evidence/metrics.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Data-driven call…"
+    ],
+    "example": [
+      "Meeting",
+      "Data-driven call: latency charts decide go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "anecdote",
+    "type": "word",
+    "meaning": "Single story, not strong evidence alone.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "That is an anecdote…"
+    ],
+    "example": [
+      "Meeting",
+      "That is an anecdote; check the dashboard before deciding."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sample-size",
+    "type": "word",
+    "meaning": "How much evidence supports a claim.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Sample size is small…"
+    ],
+    "example": [
+      "Meeting",
+      "Sample size is small; one canary hour is not enough."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "confidence-level",
+    "type": "word",
+    "meaning": "How sure the group is about a decision.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Confidence level…"
+    ],
+    "example": [
+      "Meeting",
+      "Confidence level is low without a dress rehearsal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reversible",
+    "type": "word",
+    "meaning": "Decision that can be undone cheaply.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Reversible decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Feature-flag default is a reversible decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "irreversible",
+    "type": "word",
+    "meaning": "Decision costly or impossible to undo.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Irreversible decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Schema drop is irreversible without a restore plan."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "two-way-door",
+    "type": "word",
+    "meaning": "Reversible decision metaphor.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "Two-way door…"
+    ],
+    "example": [
+      "Meeting",
+      "Two-way door: we can toggle the flag back off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "one-way-door",
+    "type": "word",
+    "meaning": "Hard-to-reverse decision metaphor.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "One-way door…"
+    ],
+    "example": [
+      "Meeting",
+      "One-way door: deleting the old API path."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "premortem",
+    "type": "word",
+    "meaning": "Imagine failure in advance to find risks.",
+    "context": "Meeting",
+    "level": "C1",
+    "patterns": [
+      "Premortem exercise…"
+    ],
+    "example": [
+      "Meeting",
+      "Premortem exercise before the Friday cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "post-decision",
+    "type": "word",
+    "meaning": "Review after a choice to learn.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Post-decision review…"
+    ],
+    "example": [
+      "Meeting",
+      "Post-decision review if the canary fails."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "meeting-notes",
+    "type": "word",
+    "meaning": "Written record of discussion and actions.",
+    "context": "Docs",
+    "level": "A2",
+    "patterns": [
+      "Meeting notes…"
+    ],
+    "example": [
+      "Meeting",
+      "Meeting notes will live in the Docs folder."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "minutes",
+    "type": "word",
+    "meaning": "Formal written record of a meeting.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Meeting minutes…"
+    ],
+    "example": [
+      "Meeting",
+      "Meeting minutes must include the go/no-go outcome."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "recording",
+    "type": "word",
+    "meaning": "Saved audio/video of a meeting.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Recording available…"
+    ],
+    "example": [
+      "Calendar",
+      "Recording available for those on-call who missed it."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "transcript",
+    "type": "word",
+    "meaning": "Text version of meeting audio.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Transcript…"
+    ],
+    "example": [
+      "Meeting",
+      "Transcript will help us extract action items."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "agenda-item",
+    "type": "word",
+    "meaning": "Single topic on the meeting agenda.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Next agenda item…"
+    ],
+    "example": [
+      "Meeting",
+      "Next agenda item is the rollback plan review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "parking-lot-item",
+    "type": "word",
+    "meaning": "Deferred topic captured for later.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Parking-lot item…"
+    ],
+    "example": [
+      "Meeting",
+      "Parking-lot item: vendor SLA discussion."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "open-floor",
+    "type": "word",
+    "meaning": "Time for unscheduled topics.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Open floor…"
+    ],
+    "example": [
+      "Meeting",
+      "Open floor for any deploy risks before we close."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "roundup",
+    "type": "word",
+    "meaning": "Final summary before ending.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Roundup…"
+    ],
+    "example": [
+      "Meeting",
+      "Roundup: owners, due dates, and Slack channel."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "AOB",
+    "type": "word",
+    "meaning": "Any other business; leftover topics.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "AOB…"
+    ],
+    "example": [
+      "Meeting",
+      "AOB: remind everyone about the change freeze."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "call-to-order",
+    "type": "word",
+    "meaning": "Formal start of a meeting.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Call to order…"
+    ],
+    "example": [
+      "Meeting",
+      "Call to order; we have a hard stop for deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "adjourn",
+    "type": "word",
+    "meaning": "Formally end a meeting.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Motion to adjourn…"
+    ],
+    "example": [
+      "Meeting",
+      "Motion to adjourn after actions are assigned."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "motion",
+    "type": "word",
+    "meaning": "Formal proposal for the group to decide.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "I move that…"
+    ],
+    "example": [
+      "Meeting",
+      "I move that we delay the canary until soak completes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "second",
+    "type": "word",
+    "meaning": "Support that allows a motion to proceed.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "I second…"
+    ],
+    "example": [
+      "Meeting",
+      "I second the motion to delay the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "amendment",
+    "type": "word",
+    "meaning": "Change proposed to a motion/decision.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Amendment…"
+    ],
+    "example": [
+      "Meeting",
+      "Amendment: delay only if error rate stays above 1%."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "proxy",
+    "type": "word",
+    "meaning": "Someone voting/speaking on behalf of another.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Proxy for…"
+    ],
+    "example": [
+      "Meeting",
+      "Proxy for the absent DRI on this go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "delegate",
+    "type": "word",
+    "meaning": "Assign attendance or decision authority.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Delegate to…"
+    ],
+    "example": [
+      "Meeting",
+      "Delegate to secondary on-call if primary is in the war room."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "stand-in",
+    "type": "word",
+    "meaning": "Temporary replacement attendee.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Stand-in for…"
+    ],
+    "example": [
+      "Calendar",
+      "Stand-in for the API lead in today’s sync."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "no-show",
+    "type": "word",
+    "meaning": "Expected attendee who did not join.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "No-show…"
+    ],
+    "example": [
+      "Meeting",
+      "No-show from QA; we cannot sign off yet."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "late-join",
+    "type": "word",
+    "meaning": "Person joining after the meeting started.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Late join…"
+    ],
+    "example": [
+      "Meeting",
+      "Late join — recap the decision on the flag default."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "early-leave",
+    "type": "word",
+    "meaning": "Person exiting before the meeting ends.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Early leave…"
+    ],
+    "example": [
+      "Meeting",
+      "Early leave after my update; on-call page."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "camera-on",
+    "type": "word",
+    "meaning": "Expectation to enable video.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Camera on…"
+    ],
+    "example": [
+      "Meeting",
+      "Camera on for the client demo please."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "camera-off",
+    "type": "word",
+    "meaning": "Video disabled; audio only.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Camera off…"
+    ],
+    "example": [
+      "Meeting",
+      "Camera off is fine for this internal sync."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "unmute",
+    "type": "word",
+    "meaning": "Enable your microphone.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Unmute…"
+    ],
+    "example": [
+      "Meeting",
+      "Unmute if you have an objection to the go decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "screen-share",
+    "type": "word",
+    "meaning": "Show your screen to attendees.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Screen share…"
+    ],
+    "example": [
+      "Meeting",
+      "Screen share the dashboard for the go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "whiteboard",
+    "type": "word",
+    "meaning": "Shared drawing surface for ideas.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "On the whiteboard…"
+    ],
+    "example": [
+      "Meeting",
+      "On the whiteboard, map the cutover steps."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "figjam",
+    "type": "word",
+    "meaning": "Collaborative board tool often used in workshops.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "In FigJam…"
+    ],
+    "example": [
+      "Meeting",
+      "In FigJam, capture risks for the cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "miro",
+    "type": "word",
+    "meaning": "Collaborative board tool for workshops.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "In Miro…"
+    ],
+    "example": [
+      "Meeting",
+      "In Miro, cluster the retro themes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "poll",
+    "type": "word",
+    "meaning": "Quick vote inside a meeting tool.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Quick poll…"
+    ],
+    "example": [
+      "Meeting",
+      "Quick poll: rollback now or soak another hour?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reaction",
+    "type": "word",
+    "meaning": "Emoji acknowledgment in chat during a meeting.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "React with…"
+    ],
+    "example": [
+      "Slack",
+      "React with ✅ if you agree with the decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "thread-summary",
+    "type": "word",
+    "meaning": "Condensed outcome of a Slack discussion.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Thread summary…"
+    ],
+    "example": [
+      "Meeting",
+      "Thread summary from Slack: flag stays off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision-record",
+    "type": "word",
+    "meaning": "Written capture of what was decided.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Decision record…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision record goes into the ADR folder."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rationale",
+    "type": "word",
+    "meaning": "Why a decision was made.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Rationale is…"
+    ],
+    "example": [
+      "Meeting",
+      "Rationale is customer impact risk on Friday."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "consequence",
+    "type": "word",
+    "meaning": "Likely result of a decision.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Consequence is…"
+    ],
+    "example": [
+      "Meeting",
+      "Consequence is a one-day slip on the client demo."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "option-A",
+    "type": "word",
+    "meaning": "First alternative under consideration.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Option A…"
+    ],
+    "example": [
+      "Meeting",
+      "Option A: rollback now and re-canary tomorrow."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "option-B",
+    "type": "word",
+    "meaning": "Second alternative under consideration.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Option B…"
+    ],
+    "example": [
+      "Meeting",
+      "Option B: forward-fix behind the kill switch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "option-C",
+    "type": "word",
+    "meaning": "Third alternative under consideration.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Option C…"
+    ],
+    "example": [
+      "Meeting",
+      "Option C: pause and gather another hour of metrics."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "fallback-option",
+    "type": "word",
+    "meaning": "Backup choice if the primary fails.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Fallback option…"
+    ],
+    "example": [
+      "Meeting",
+      "Fallback option is an immediate rollback."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "preferred-option",
+    "type": "word",
+    "meaning": "Currently favored choice.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Preferred option…"
+    ],
+    "example": [
+      "Meeting",
+      "Preferred option is soak overnight then decide."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "non-goal",
+    "type": "word",
+    "meaning": "Explicitly out of scope for this discussion.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Non-goal…"
+    ],
+    "example": [
+      "Meeting",
+      "Non-goal today: redesigning the whole API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "in-scope",
+    "type": "word",
+    "meaning": "Included in the current discussion/work.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "In scope…"
+    ],
+    "example": [
+      "Meeting",
+      "In scope: canary criteria and rollback owner."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "out-of-scope",
+    "type": "word",
+    "meaning": "Excluded from the current discussion/work.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Out of scope…"
+    ],
+    "example": [
+      "Meeting",
+      "Out of scope: rewriting the billing service."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sidebar",
+    "type": "word",
+    "meaning": "Side conversation off the main thread.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Take a sidebar…"
+    ],
+    "example": [
+      "Meeting",
+      "Take a sidebar after; do not derail the go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "derail",
+    "type": "word",
+    "meaning": "Pull discussion off the agenda.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Don’t derail…"
+    ],
+    "example": [
+      "Meeting",
+      "Don't derail into the RFC; park it."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rabbit-hole",
+    "type": "word",
+    "meaning": "Overly deep digression.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Avoid the rabbit hole…"
+    ],
+    "example": [
+      "Meeting",
+      "Avoid the rabbit hole on micro-optimizations."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bike-shedding",
+    "type": "word",
+    "meaning": "Over-debating a trivial detail.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Bike-shedding…"
+    ],
+    "example": [
+      "Meeting",
+      "Bike-shedding the color of the dashboard is not helpful."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "yak-shaving",
+    "type": "word",
+    "meaning": "Chain of tangents before the real task.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Yak-shaving…"
+    ],
+    "example": [
+      "Meeting",
+      "Yak-shaving the tooling will burn the timebox."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "prealignment",
+    "type": "word",
+    "meaning": "Align key people before a larger meeting.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Prealignment done…"
+    ],
+    "example": [
+      "Meeting",
+      "Prealignment done with QA before the client call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "prebrief",
+    "type": "word",
+    "meaning": "Short briefing before a meeting.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Prebrief…"
+    ],
+    "example": [
+      "Meeting",
+      "Prebrief the DRI before the steering committee."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "offline-align",
+    "type": "word",
+    "meaning": "Align outside the current meeting.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Align offline…"
+    ],
+    "example": [
+      "Slack",
+      "Align offline and bring a proposal to the next sync."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bring-a-proposal",
+    "type": "word",
+    "meaning": "Come with a concrete recommendation.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Bring a proposal…"
+    ],
+    "example": [
+      "Meeting",
+      "Bring a proposal, not only open questions."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision-needed-tag",
+    "type": "word",
+    "meaning": "Label that a meeting/thread requires a decision.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Tag as decision needed…"
+    ],
+    "example": [
+      "Slack",
+      "Tag as decision needed for the go/no-go owners."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "FYI-meeting",
+    "type": "word",
+    "meaning": "Meeting for information, not decision.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "FYI meeting…"
+    ],
+    "example": [
+      "Meeting",
+      "FYI meeting; no decisions expected today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "working-backwards",
+    "type": "word",
+    "meaning": "Start from the desired customer outcome.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Working backwards…"
+    ],
+    "example": [
+      "Meeting",
+      "Working backwards from the client demo success criteria."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "north-star",
+    "type": "word",
+    "meaning": "Guiding long-term goal for decisions.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "North star…"
+    ],
+    "example": [
+      "Meeting",
+      "North star is reliable checkout, not feature speed."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "OKR",
+    "type": "word",
+    "meaning": "Objectives and key results used in planning.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "OKR check…"
+    ],
+    "example": [
+      "Meeting",
+      "OKR check: does this cutover support reliability?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "KPI",
+    "type": "word",
+    "meaning": "Key performance indicator tracked by the team.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "KPI…"
+    ],
+    "example": [
+      "Meeting",
+      "KPI for this release is p95 latency on checkout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "baseline",
+    "type": "word",
+    "meaning": "Reference measurement before a change.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Baseline…"
+    ],
+    "example": [
+      "Meeting",
+      "Baseline latency before canary was 120ms."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "delta",
+    "type": "word",
+    "meaning": "Change versus baseline.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Delta is…"
+    ],
+    "example": [
+      "Meeting",
+      "Delta is +40ms on canary; above our threshold."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "action item",
+    "type": "phrase",
+    "meaning": "Concrete follow-up task with an owner.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Let's capture an action item…"
+    ],
+    "example": [
+      "Meeting",
+      "Action item: Tan will draft the rollback runbook by Friday."
+    ],
+    "alternatives": [
+      "follow-up"
+    ],
+    "notes": []
+  },
+  {
+    "term": "align on scope",
+    "type": "phrase",
+    "meaning": "Agree what is in/out before estimating.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Let's align on scope…"
+    ],
+    "example": [
+      "Meeting",
+      "Let's align on scope before we estimate the cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "park that topic",
+    "type": "phrase",
+    "meaning": "Defer a discussion for later.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Park that topic…"
+    ],
+    "example": [
+      "Meeting",
+      "Park that topic until after the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "hard stop at",
+    "type": "phrase",
+    "meaning": "Fixed end time that cannot slip.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Hard stop at…"
+    ],
+    "example": [
+      "Meeting",
+      "Hard stop at 11:00 for the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "any objections",
+    "type": "phrase",
+    "meaning": "Ask whether anyone opposes a proposal.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Any objections to…"
+    ],
+    "example": [
+      "Meeting",
+      "Any objections to promoting the staging build?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "disagree and commit",
+    "type": "phrase",
+    "meaning": "Voice dissent then support the decided path.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Disagree and commit…"
+    ],
+    "example": [
+      "Meeting",
+      "Disagree and commit: we ship behind the feature flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision owner",
+    "type": "phrase",
+    "meaning": "Person accountable for making the call.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision owner is…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision owner is the service DRI for go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "capture the decision",
+    "type": "phrase",
+    "meaning": "Write down what was decided and why.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Capture the decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Capture the decision in the ADR before we leave."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pre-read required",
+    "type": "phrase",
+    "meaning": "Attendees must read materials first.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Pre-read required…"
+    ],
+    "example": [
+      "Calendar",
+      "Pre-read required: RFC and rollback plan."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "working session",
+    "type": "phrase",
+    "meaning": "Meeting used to produce work, not just talk.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Working session on…"
+    ],
+    "example": [
+      "Meeting",
+      "Working session on the postmortem action items."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "timebox the discussion",
+    "type": "phrase",
+    "meaning": "Limit how long a topic can run.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Timebox the discussion…"
+    ],
+    "example": [
+      "Meeting",
+      "Timebox the discussion to ten minutes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "round-robin updates",
+    "type": "phrase",
+    "meaning": "Each person speaks in turn.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Round-robin updates…"
+    ],
+    "example": [
+      "Meeting",
+      "Round-robin updates, then blockers."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "open the floor",
+    "type": "phrase",
+    "meaning": "Invite unscheduled contributions.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Open the floor…"
+    ],
+    "example": [
+      "Meeting",
+      "Open the floor for deploy risks before we close."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "move to a vote",
+    "type": "phrase",
+    "meaning": "Switch from discussion to formal decision.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Move to a vote…"
+    ],
+    "example": [
+      "Meeting",
+      "Move to a vote on the go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "table the motion",
+    "type": "phrase",
+    "meaning": "Postpone a formal proposal.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Table the motion…"
+    ],
+    "example": [
+      "Meeting",
+      "Table the motion until we have canary data."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "second the motion",
+    "type": "phrase",
+    "meaning": "Support a proposal so it can proceed.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "I second the motion…"
+    ],
+    "example": [
+      "Meeting",
+      "I second the motion to delay the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "raise an objection",
+    "type": "phrase",
+    "meaning": "Formally challenge a proposal.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "I raise an objection…"
+    ],
+    "example": [
+      "Meeting",
+      "I raise an objection to shipping without QA sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "record the dissent",
+    "type": "phrase",
+    "meaning": "Document disagreement with a decision.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Record the dissent…"
+    ],
+    "example": [
+      "Meeting",
+      "Record the dissent on skipping the dress rehearsal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "confirm quorum",
+    "type": "phrase",
+    "meaning": "Check enough people are present to decide.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Confirm quorum…"
+    ],
+    "example": [
+      "Meeting",
+      "Confirm quorum before we decide on cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "assign an owner",
+    "type": "phrase",
+    "meaning": "Make someone accountable for a follow-up.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Assign an owner…"
+    ],
+    "example": [
+      "Meeting",
+      "Assign an owner for the alert threshold change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "set a due date",
+    "type": "phrase",
+    "meaning": "Attach a deadline to an action.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Set a due date…"
+    ],
+    "example": [
+      "Meeting",
+      "Set a due date of Wednesday for the runbook update."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "close the loop",
+    "type": "phrase",
+    "meaning": "Confirm an ask was completed.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Close the loop…"
+    ],
+    "example": [
+      "Slack",
+      "Close the loop in Slack when the action is done."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "send the notes",
+    "type": "phrase",
+    "meaning": "Distribute the written meeting record.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Send the notes…"
+    ],
+    "example": [
+      "Slack",
+      "Send the notes with owners and due dates."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "update the calendar",
+    "type": "phrase",
+    "meaning": "Change invite time/attendees/details.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Update the calendar…"
+    ],
+    "example": [
+      "Calendar",
+      "Update the calendar to avoid the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "propose a new time",
+    "type": "phrase",
+    "meaning": "Suggest an alternative meeting slot.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Propose a new time…"
+    ],
+    "example": [
+      "Calendar",
+      "Propose a new time after on-call handoff."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decline due to incident",
+    "type": "phrase",
+    "meaning": "Refuse an invite because of an active incident.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Declining due to incident…"
+    ],
+    "example": [
+      "Calendar",
+      "Declining due to the production incident."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "tentative while on-call",
+    "type": "phrase",
+    "meaning": "Maybe attending because of pager duty.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Tentative while on-call…"
+    ],
+    "example": [
+      "Calendar",
+      "Tentative while on-call this week."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "protect maker time",
+    "type": "phrase",
+    "meaning": "Keep deep-work hours free of meetings.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Protect maker time…"
+    ],
+    "example": [
+      "Calendar",
+      "Protect maker time around the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "no-meeting day",
+    "type": "phrase",
+    "meaning": "Day reserved without recurring meetings.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "No-meeting day…"
+    ],
+    "example": [
+      "Calendar",
+      "No-meeting day Thursday for the spike."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "overlap hours only",
+    "type": "phrase",
+    "meaning": "Schedule only in shared timezone windows.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Overlap hours only…"
+    ],
+    "example": [
+      "Calendar",
+      "Overlap hours only for the decision call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "async first",
+    "type": "phrase",
+    "meaning": "Prefer written updates before calling a meeting.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Async first…"
+    ],
+    "example": [
+      "Slack",
+      "Async first; meet only if a decision is blocked."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "meeting optional",
+    "type": "phrase",
+    "meaning": "Attendance not required for this invite.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Meeting optional…"
+    ],
+    "example": [
+      "Calendar",
+      "Meeting optional if you already reviewed the RFC."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision required",
+    "type": "phrase",
+    "meaning": "Meeting/thread must produce a choice.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision required…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision required: rollback now or soak longer."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "FYI only",
+    "type": "phrase",
+    "meaning": "Informational; no decision expected.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "FYI only…"
+    ],
+    "example": [
+      "Meeting",
+      "FYI only; no decisions expected today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bring a proposal",
+    "type": "phrase",
+    "meaning": "Come with a concrete recommendation.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Bring a proposal…"
+    ],
+    "example": [
+      "Meeting",
+      "Bring a proposal, not only open questions."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "strong opinion, weakly held",
+    "type": "phrase",
+    "meaning": "Clear preference, open to better evidence.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Strong opinion, weakly held…"
+    ],
+    "example": [
+      "Meeting",
+      "Strong opinion, weakly held: delay the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "data-driven decision",
+    "type": "phrase",
+    "meaning": "Choice based on metrics/evidence.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Data-driven decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Data-driven decision using canary latency charts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "two-way door decision",
+    "type": "phrase",
+    "meaning": "Reversible choice that can be undone.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Two-way door decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Two-way door decision: feature flag default."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "one-way door decision",
+    "type": "phrase",
+    "meaning": "Hard-to-reverse choice needing care.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "One-way door decision…"
+    ],
+    "example": [
+      "Meeting",
+      "One-way door decision: dropping the old API path."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "run a premortem",
+    "type": "phrase",
+    "meaning": "Imagine failure in advance to find risks.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Run a premortem…"
+    ],
+    "example": [
+      "Meeting",
+      "Run a premortem before the Friday cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "success criteria clear",
+    "type": "phrase",
+    "meaning": "Outcome definition is unambiguous.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Success criteria clear…"
+    ],
+    "example": [
+      "Meeting",
+      "Success criteria clear: p95 under 200ms."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "abort criteria defined",
+    "type": "phrase",
+    "meaning": "Stop rules for a rollout are set.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Abort criteria defined…"
+    ],
+    "example": [
+      "Meeting",
+      "Abort criteria defined for the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "promote criteria met",
+    "type": "phrase",
+    "meaning": "Advance rules for a rollout are satisfied.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Promote criteria met…"
+    ],
+    "example": [
+      "Meeting",
+      "Promote criteria met after one healthy hour."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rollback owner assigned",
+    "type": "phrase",
+    "meaning": "Someone is accountable for executing rollback.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Rollback owner assigned…"
+    ],
+    "example": [
+      "Meeting",
+      "Rollback owner assigned to primary on-call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "comms owner assigned",
+    "type": "phrase",
+    "meaning": "Someone owns status updates.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Comms owner assigned…"
+    ],
+    "example": [
+      "Meeting",
+      "Comms owner assigned for the cutover window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "verification owner assigned",
+    "type": "phrase",
+    "meaning": "Someone owns checking success.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Verification owner assigned…"
+    ],
+    "example": [
+      "Meeting",
+      "Verification owner assigned to QA lead."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "CAB approval needed",
+    "type": "phrase",
+    "meaning": "Change board must approve before proceeding.",
+    "context": "Policy",
+    "level": "B2",
+    "patterns": [
+      "CAB approval needed…"
+    ],
+    "example": [
+      "Meeting",
+      "CAB approval needed for the production cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "change request filed",
+    "type": "phrase",
+    "meaning": "Formal production change ask submitted.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Change request filed…"
+    ],
+    "example": [
+      "Meeting",
+      "Change request filed for the Friday deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "policy exception requested",
+    "type": "phrase",
+    "meaning": "Asked to deviate from a rule temporarily.",
+    "context": "Policy",
+    "level": "B2",
+    "patterns": [
+      "Policy exception requested…"
+    ],
+    "example": [
+      "Meeting",
+      "Policy exception requested for quiet-hours hotfix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "waiver approved",
+    "type": "phrase",
+    "meaning": "Exception to a control was granted.",
+    "context": "Policy",
+    "level": "B2",
+    "patterns": [
+      "Waiver approved…"
+    ],
+    "example": [
+      "Meeting",
+      "Waiver approved for the emergency hotfix path."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "risk score high",
+    "type": "phrase",
+    "meaning": "Change risk rating is elevated.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Risk score high…"
+    ],
+    "example": [
+      "Meeting",
+      "Risk score high without a dress rehearsal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "impact analysis complete",
+    "type": "phrase",
+    "meaning": "Who/what is affected is documented.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Impact analysis complete…"
+    ],
+    "example": [
+      "Meeting",
+      "Impact analysis complete for checkout and billing."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rollback plan reviewed",
+    "type": "phrase",
+    "meaning": "Revert steps were checked in the meeting.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Rollback plan reviewed…"
+    ],
+    "example": [
+      "Meeting",
+      "Rollback plan reviewed and demoed on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "comms plan agreed",
+    "type": "phrase",
+    "meaning": "Who gets updates when is settled.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Comms plan agreed…"
+    ],
+    "example": [
+      "Meeting",
+      "Comms plan agreed: Slack every 30 minutes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "entry criteria unmet",
+    "type": "phrase",
+    "meaning": "Not ready to start the next phase.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Entry criteria unmet…"
+    ],
+    "example": [
+      "Meeting",
+      "Entry criteria unmet: QA has not signed off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "exit criteria unmet",
+    "type": "phrase",
+    "meaning": "Not ready to leave the current phase.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Exit criteria unmet…"
+    ],
+    "example": [
+      "Meeting",
+      "Exit criteria unmet for ending the soak."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "definition of ready fails",
+    "type": "phrase",
+    "meaning": "Ticket/work is not ready to start.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Definition of Ready fails…"
+    ],
+    "example": [
+      "Meeting",
+      "Definition of Ready fails without clear AC."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "definition of done includes monitoring",
+    "type": "phrase",
+    "meaning": "Done means observability is in place.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Definition of Done includes…"
+    ],
+    "example": [
+      "Meeting",
+      "Definition of Done includes monitoring and docs."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "scope lock agreed",
+    "type": "phrase",
+    "meaning": "Agreement not to expand scope.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Scope lock agreed…"
+    ],
+    "example": [
+      "Meeting",
+      "Scope lock agreed until after the client demo."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cut scope to hit the date",
+    "type": "phrase",
+    "meaning": "Reduce included work to protect a deadline.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Cut scope to hit the date…"
+    ],
+    "example": [
+      "Meeting",
+      "Cut scope to hit the Friday deploy date."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "critical path blocked",
+    "type": "phrase",
+    "meaning": "The schedule-determining sequence is stuck.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Critical path blocked…"
+    ],
+    "example": [
+      "Meeting",
+      "Critical path blocked by the Auth dependency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "capacity check failed",
+    "type": "phrase",
+    "meaning": "People cannot take the proposed work.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Capacity check failed…"
+    ],
+    "example": [
+      "Meeting",
+      "Capacity check failed for another ticket this sprint."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "external dependency at risk",
+    "type": "phrase",
+    "meaning": "Outside wait threatens the plan.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "External dependency at risk…"
+    ],
+    "example": [
+      "Meeting",
+      "External dependency at risk: vendor credentials."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bus factor of one",
+    "type": "phrase",
+    "meaning": "Only one person can do critical work.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Bus factor of one…"
+    ],
+    "example": [
+      "Meeting",
+      "Bus factor of one on the deploy scripts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "knowledge silo risk",
+    "type": "phrase",
+    "meaning": "Critical know-how is too concentrated.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Knowledge silo risk…"
+    ],
+    "example": [
+      "Meeting",
+      "Knowledge silo risk on the rollback procedure."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "temperature check",
+    "type": "phrase",
+    "meaning": "Quick poll of comfort with a path.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Temperature check…"
+    ],
+    "example": [
+      "Meeting",
+      "Temperature check: how confident are we to go?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "fist to five",
+    "type": "phrase",
+    "meaning": "Hand-signal confidence vote.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Fist to five…"
+    ],
+    "example": [
+      "Meeting",
+      "Fist to five on promoting the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dot vote on options",
+    "type": "phrase",
+    "meaning": "Prioritize options with limited votes.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Dot vote on options…"
+    ],
+    "example": [
+      "Meeting",
+      "Dot vote on options A, B, and C."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "consent decision",
+    "type": "phrase",
+    "meaning": "Proceed unless there is a reasoned objection.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Consent decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Consent decision unless someone has a reasoned objection."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "default to status quo",
+    "type": "phrase",
+    "meaning": "Keep current state if undecided.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Default to status quo…"
+    ],
+    "example": [
+      "Meeting",
+      "Default to status quo: keep the flag off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pilot before full rollout",
+    "type": "phrase",
+    "meaning": "Trial small before committing widely.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Pilot before full rollout…"
+    ],
+    "example": [
+      "Meeting",
+      "Pilot before full rollout using an internal cohort."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "phased rollout preferred",
+    "type": "phrase",
+    "meaning": "Ship in stages rather than big-bang.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Phased rollout preferred…"
+    ],
+    "example": [
+      "Meeting",
+      "Phased rollout preferred over a big-bang cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "big-bang cutover rejected",
+    "type": "phrase",
+    "meaning": "All-at-once switch was declined.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Big-bang cutover rejected…"
+    ],
+    "example": [
+      "Meeting",
+      "Big-bang cutover rejected due to blast radius."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dark launch first",
+    "type": "phrase",
+    "meaning": "Run new code without user-visible exposure.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Dark launch first…"
+    ],
+    "example": [
+      "Meeting",
+      "Dark launch first, then enable the flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "shadow traffic next",
+    "type": "phrase",
+    "meaning": "Mirror prod traffic to validate a new path.",
+    "context": "RFC",
+    "level": "B2",
+    "patterns": [
+      "Shadow traffic next…"
+    ],
+    "example": [
+      "Meeting",
+      "Shadow traffic next before shifting real users."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "canary analysis automated",
+    "type": "phrase",
+    "meaning": "Canary health evaluated by automation.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Canary analysis automated…"
+    ],
+    "example": [
+      "Meeting",
+      "Canary analysis automated; human still owns go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "manual rollback only",
+    "type": "phrase",
+    "meaning": "Revert requires a human trigger.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Manual rollback only…"
+    ],
+    "example": [
+      "Meeting",
+      "Manual rollback only until automation is trusted."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "automated rollback enabled",
+    "type": "phrase",
+    "meaning": "System can revert on bad signals.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Automated rollback enabled…"
+    ],
+    "example": [
+      "Meeting",
+      "Automated rollback enabled for 5xx abort criteria."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "IC handoff every two hours",
+    "type": "phrase",
+    "meaning": "Incident command rotates on a schedule.",
+    "context": "War room",
+    "level": "B2",
+    "patterns": [
+      "IC handoff…"
+    ],
+    "example": [
+      "Meeting",
+      "IC handoff every two hours during the war room."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bridge etiquette reminder",
+    "type": "phrase",
+    "meaning": "Restate expected bridge behavior.",
+    "context": "War room",
+    "level": "B1",
+    "patterns": [
+      "Bridge etiquette…"
+    ],
+    "example": [
+      "Meeting",
+      "Bridge etiquette: mute, state name, keep updates crisp."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "status cadence every fifteen minutes",
+    "type": "phrase",
+    "meaning": "Update frequency during an incident.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Status cadence…"
+    ],
+    "example": [
+      "Meeting",
+      "Status cadence every fifteen minutes until mitigated."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "single source of truth",
+    "type": "phrase",
+    "meaning": "One authoritative place for status.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Single source of truth…"
+    ],
+    "example": [
+      "Meeting",
+      "Single source of truth is the incident ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "holding statement ready",
+    "type": "phrase",
+    "meaning": "Initial careful public message prepared.",
+    "context": "Client",
+    "level": "B2",
+    "patterns": [
+      "Holding statement ready…"
+    ],
+    "example": [
+      "Meeting",
+      "Holding statement ready for the status page."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "customer comms drafted",
+    "type": "phrase",
+    "meaning": "External message prepared.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Customer comms drafted…"
+    ],
+    "example": [
+      "Meeting",
+      "Customer comms drafted for the outage impact."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "executive summary prepared",
+    "type": "phrase",
+    "meaning": "Short leadership summary ready.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Executive summary prepared…"
+    ],
+    "example": [
+      "Meeting",
+      "Executive summary prepared: mitigated, ETA noon."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "QBR next week",
+    "type": "phrase",
+    "meaning": "Quarterly business review scheduled soon.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "QBR next week…"
+    ],
+    "example": [
+      "Calendar",
+      "QBR next week; prepare reliability metrics."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "escalation call with the client",
+    "type": "phrase",
+    "meaning": "Serious-issue meeting with the customer.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Escalation call…"
+    ],
+    "example": [
+      "Meeting",
+      "Escalation call with the client about the outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "UAT review scheduled",
+    "type": "phrase",
+    "meaning": "User acceptance review is on the calendar.",
+    "context": "QA",
+    "level": "B1",
+    "patterns": [
+      "UAT review scheduled…"
+    ],
+    "example": [
+      "Calendar",
+      "UAT review scheduled after staging sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "change order needed",
+    "type": "phrase",
+    "meaning": "Formal scope change required.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Change order needed…"
+    ],
+    "example": [
+      "Meeting",
+      "Change order needed for the extra migration work."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "build versus buy",
+    "type": "phrase",
+    "meaning": "Decide whether to build or purchase.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Build versus buy…"
+    ],
+    "example": [
+      "Meeting",
+      "Build versus buy for the queue infrastructure."
+    ],
+    "alternatives": [
+      "make versus buy"
+    ],
+    "notes": []
+  },
+  {
+    "term": "sunk cost fallacy",
+    "type": "phrase",
+    "meaning": "Letting past spend force a bad future choice.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Avoid the sunk cost fallacy…"
+    ],
+    "example": [
+      "Meeting",
+      "Avoid the sunk cost fallacy; judge the path forward."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "opportunity cost high",
+    "type": "phrase",
+    "meaning": "Chosen path forgoes valuable alternatives.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Opportunity cost high…"
+    ],
+    "example": [
+      "Meeting",
+      "Opportunity cost high if we delay the reliability work."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "vendor lock-in risk",
+    "type": "phrase",
+    "meaning": "Hard to leave a vendor/tech later.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Vendor lock-in risk…"
+    ],
+    "example": [
+      "Meeting",
+      "Vendor lock-in risk if we customize too deeply."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "exit plan required",
+    "type": "phrase",
+    "meaning": "Must define how to leave a path later.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Exit plan required…"
+    ],
+    "example": [
+      "Meeting",
+      "Exit plan required before we choose the vendor."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sunset plan drafted",
+    "type": "phrase",
+    "meaning": "Retirement plan for a system/feature written.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Sunset plan drafted…"
+    ],
+    "example": [
+      "Meeting",
+      "Sunset plan drafted for the legacy webhook."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "deprecation plan reviewed",
+    "type": "phrase",
+    "meaning": "Phase-out plan checked by the group.",
+    "context": "RFC",
+    "level": "B1",
+    "patterns": [
+      "Deprecation plan reviewed…"
+    ],
+    "example": [
+      "Meeting",
+      "Deprecation plan reviewed for the old API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "maintenance window booked",
+    "type": "phrase",
+    "meaning": "Disruptive maintenance time reserved.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Maintenance window booked…"
+    ],
+    "example": [
+      "Calendar",
+      "Maintenance window booked for Saturday 02:00 UTC."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "freeze window starts Friday",
+    "type": "phrase",
+    "meaning": "Restricted-change period begins Friday.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Freeze window starts…"
+    ],
+    "example": [
+      "Meeting",
+      "Freeze window starts Friday; finish reviews today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "release train departure Friday",
+    "type": "phrase",
+    "meaning": "Cadence cutoff for making the release.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Release train departure…"
+    ],
+    "example": [
+      "Meeting",
+      "Release train departure Friday; code must be merged."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "missed the release train",
+    "type": "phrase",
+    "meaning": "Work did not make the cadence cutoff.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Missed the release train…"
+    ],
+    "example": [
+      "Meeting",
+      "Missed the release train; slips to next cadence."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "compat window agreed",
+    "type": "phrase",
+    "meaning": "Period supporting old and new behavior.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Compat window agreed…"
+    ],
+    "example": [
+      "Meeting",
+      "Compat window agreed for two release trains."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dual-write during migration",
+    "type": "phrase",
+    "meaning": "Write to old and new systems while moving.",
+    "context": "RFC",
+    "level": "B2",
+    "patterns": [
+      "Dual-write during migration…"
+    ],
+    "example": [
+      "Meeting",
+      "Dual-write during migration until cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dual-read during migration",
+    "type": "phrase",
+    "meaning": "Read from old/new while moving.",
+    "context": "RFC",
+    "level": "B2",
+    "patterns": [
+      "Dual-read during migration…"
+    ],
+    "example": [
+      "Meeting",
+      "Dual-read during migration with comparison checks."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "hypercare for forty-eight hours",
+    "type": "phrase",
+    "meaning": "Heightened support after launch.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Hypercare for…"
+    ],
+    "example": [
+      "Meeting",
+      "Hypercare for forty-eight hours after cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "go-live at sixteen hundred",
+    "type": "phrase",
+    "meaning": "Live switch time stated.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "Go-live at…"
+    ],
+    "example": [
+      "Meeting",
+      "Go-live at 16:00 after go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "readiness review passed",
+    "type": "phrase",
+    "meaning": "Group agreed we are ready to proceed.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Readiness review passed…"
+    ],
+    "example": [
+      "Meeting",
+      "Readiness review passed for opening the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "launch review complete",
+    "type": "phrase",
+    "meaning": "Pre-launch checklist meeting finished.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Launch review complete…"
+    ],
+    "example": [
+      "Meeting",
+      "Launch review complete; flag and playbook ready."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "tabletop exercise scheduled",
+    "type": "phrase",
+    "meaning": "Simulated incident practice is planned.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Tabletop exercise scheduled…"
+    ],
+    "example": [
+      "Calendar",
+      "Tabletop exercise scheduled for the payment outage runbook."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "game day next week",
+    "type": "phrase",
+    "meaning": "Reliability exercise planned soon.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Game day next week…"
+    ],
+    "example": [
+      "Calendar",
+      "Game day next week to practice failover and comms."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dry-run the cutover",
+    "type": "phrase",
+    "meaning": "Practice switchover steps before real event.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Dry-run the cutover…"
+    ],
+    "example": [
+      "Meeting",
+      "Dry-run the cutover on staging this afternoon."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rehearse the rollback",
+    "type": "phrase",
+    "meaning": "Practice revert commands/path.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Rehearse the rollback…"
+    ],
+    "example": [
+      "Meeting",
+      "Rehearse the rollback commands on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "architecture review booked",
+    "type": "phrase",
+    "meaning": "Design review is on the calendar.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Architecture review booked…"
+    ],
+    "example": [
+      "Calendar",
+      "Architecture review booked for the queue RFC."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "security review required",
+    "type": "phrase",
+    "meaning": "Security must review before proceeding.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Security review required…"
+    ],
+    "example": [
+      "Meeting",
+      "Security review required for the auth change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "design critique tomorrow",
+    "type": "phrase",
+    "meaning": "Structured design feedback session soon.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Design critique tomorrow…"
+    ],
+    "example": [
+      "Calendar",
+      "Design critique tomorrow on the cutover sequence."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "code walkthrough after this",
+    "type": "phrase",
+    "meaning": "Live explanation of a change next.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Code walkthrough after this…"
+    ],
+    "example": [
+      "Meeting",
+      "Code walkthrough after this on the rollback script."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "peer review the runbook",
+    "type": "phrase",
+    "meaning": "Ask peers to review ops docs.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Peer review the runbook…"
+    ],
+    "example": [
+      "Meeting",
+      "Peer review the runbook before on-call starts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "compliance review blocked us",
+    "type": "phrase",
+    "meaning": "Compliance gate stopped progress.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Compliance review blocked us…"
+    ],
+    "example": [
+      "Meeting",
+      "Compliance review blocked us on the PII field."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "legal review pending",
+    "type": "phrase",
+    "meaning": "Waiting on legal feedback.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Legal review pending…"
+    ],
+    "example": [
+      "Meeting",
+      "Legal review pending on the client comms script."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "NDA constrains what we can share",
+    "type": "phrase",
+    "meaning": "Nondisclosure limits meeting content.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "NDA constrains…"
+    ],
+    "example": [
+      "Meeting",
+      "NDA constrains what we can share on this client call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "redlines received from legal",
+    "type": "phrase",
+    "meaning": "Tracked contract edits arrived.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Redlines received…"
+    ],
+    "example": [
+      "Meeting",
+      "Redlines received from legal on the SOW."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "SOW change needed",
+    "type": "phrase",
+    "meaning": "Statement of work must be updated.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "SOW change needed…"
+    ],
+    "example": [
+      "Meeting",
+      "SOW change needed for the extra migration."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "MSA terms apply",
+    "type": "phrase",
+    "meaning": "Master agreement governs this discussion.",
+    "context": "Client",
+    "level": "B2",
+    "patterns": [
+      "MSA terms apply…"
+    ],
+    "example": [
+      "Meeting",
+      "MSA terms apply to the SLA discussion."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "SLA review this quarter",
+    "type": "phrase",
+    "meaning": "Service-level check is due soon.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "SLA review this quarter…"
+    ],
+    "example": [
+      "Meeting",
+      "SLA review this quarter against uptime targets."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ROI does not justify the build",
+    "type": "phrase",
+    "meaning": "Return is too low versus cost.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "ROI does not justify…"
+    ],
+    "example": [
+      "Meeting",
+      "ROI does not justify building the queue ourselves."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "TCO favors the vendor",
+    "type": "phrase",
+    "meaning": "Total cost lower buying than building.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "TCO favors…"
+    ],
+    "example": [
+      "Meeting",
+      "TCO favors the vendor over a two-year horizon."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "budget holder approval needed",
+    "type": "phrase",
+    "meaning": "Spend owner must approve.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Budget holder approval needed…"
+    ],
+    "example": [
+      "Meeting",
+      "Budget holder approval needed for the vendor contract."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "procurement in progress",
+    "type": "phrase",
+    "meaning": "Buying process underway.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Procurement in progress…"
+    ],
+    "example": [
+      "Meeting",
+      "Procurement in progress for the observability tool."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cost center confirmed",
+    "type": "phrase",
+    "meaning": "Accounting owner for spend is set.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Cost center confirmed…"
+    ],
+    "example": [
+      "Meeting",
+      "Cost center confirmed for the new infra spend."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "switching cost too high",
+    "type": "phrase",
+    "meaning": "Leaving current path is expensive.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Switching cost too high…"
+    ],
+    "example": [
+      "Meeting",
+      "Switching cost too high mid-migration."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "lock-in acceptable for now",
+    "type": "phrase",
+    "meaning": "Accept temporary difficulty leaving.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Lock-in acceptable for now…"
+    ],
+    "example": [
+      "Meeting",
+      "Lock-in acceptable for now with an exit plan."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "north star is reliability",
+    "type": "phrase",
+    "meaning": "Guiding goal emphasized.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "North star is…"
+    ],
+    "example": [
+      "Meeting",
+      "North star is reliability, not feature speed this quarter."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "OKR alignment check",
+    "type": "phrase",
+    "meaning": "Verify work supports objectives.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "OKR alignment check…"
+    ],
+    "example": [
+      "Meeting",
+      "OKR alignment check: does cutover support reliability?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "KPI for this release",
+    "type": "phrase",
+    "meaning": "Primary metric for the ship.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "KPI for this release…"
+    ],
+    "example": [
+      "Meeting",
+      "KPI for this release is checkout p95 latency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "baseline before canary",
+    "type": "phrase",
+    "meaning": "Reference measurement pre-rollout.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Baseline before canary…"
+    ],
+    "example": [
+      "Meeting",
+      "Baseline before canary was 120ms p95."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "delta above threshold",
+    "type": "phrase",
+    "meaning": "Change versus baseline exceeds limit.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Delta above threshold…"
+    ],
+    "example": [
+      "Meeting",
+      "Delta above threshold on canary latency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "guardrail metric breached",
+    "type": "phrase",
+    "meaning": "Must-not-degrade metric failed.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Guardrail metric breached…"
+    ],
+    "example": [
+      "Meeting",
+      "Guardrail metric breached: error rate above 1%."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "leading indicator positive",
+    "type": "phrase",
+    "meaning": "Early signal looks good.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Leading indicator positive…"
+    ],
+    "example": [
+      "Meeting",
+      "Leading indicator positive on canary success rate."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "lagging indicator pending",
+    "type": "phrase",
+    "meaning": "Outcome metric not visible yet.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Lagging indicator pending…"
+    ],
+    "example": [
+      "Meeting",
+      "Lagging indicator pending until overnight soak ends."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "counter metric watched",
+    "type": "phrase",
+    "meaning": "Watching a metric for unintended harm.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Counter metric watched…"
+    ],
+    "example": [
+      "Meeting",
+      "Counter metric watched: support ticket volume."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "hypothesis for the experiment",
+    "type": "phrase",
+    "meaning": "Testable belief stated.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Hypothesis for the experiment…"
+    ],
+    "example": [
+      "Meeting",
+      "Hypothesis: retries reduce checkout failures by 20%."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "result inconclusive",
+    "type": "phrase",
+    "meaning": "Evidence not strong enough to decide.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Result inconclusive…"
+    ],
+    "example": [
+      "Meeting",
+      "Result inconclusive; extend the canary soak."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "practically significant",
+    "type": "phrase",
+    "meaning": "Effect size matters operationally.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Practically significant…"
+    ],
+    "example": [
+      "Meeting",
+      "Practically significant latency drop for checkout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "statistically significant but tiny",
+    "type": "phrase",
+    "meaning": "Significant yet not useful effect.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Statistically significant but tiny…"
+    ],
+    "example": [
+      "Meeting",
+      "Statistically significant but tiny; not worth the risk."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dashboard review weekly",
+    "type": "phrase",
+    "meaning": "Regular metrics inspection cadence.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Dashboard review weekly…"
+    ],
+    "example": [
+      "Meeting",
+      "Dashboard review weekly for SLO burn."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reliability review this Friday",
+    "type": "phrase",
+    "meaning": "SLO/error-budget meeting soon.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Reliability review…"
+    ],
+    "example": [
+      "Calendar",
+      "Reliability review this Friday on error budget."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "capacity review next sprint",
+    "type": "phrase",
+    "meaning": "Capacity-versus-demand meeting soon.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Capacity review…"
+    ],
+    "example": [
+      "Meeting",
+      "Capacity review next sprint before taking more scope."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cost review for infra",
+    "type": "phrase",
+    "meaning": "Spend trade-off discussion.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Cost review for infra…"
+    ],
+    "example": [
+      "Meeting",
+      "Cost review for infra after the scale-up."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "vendor review quarterly",
+    "type": "phrase",
+    "meaning": "Periodic vendor evaluation.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Vendor review quarterly…"
+    ],
+    "example": [
+      "Meeting",
+      "Vendor review quarterly against the SLA."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "contract review with the client",
+    "type": "phrase",
+    "meaning": "Review contractual terms together.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Contract review…"
+    ],
+    "example": [
+      "Meeting",
+      "Contract review with the client on support hours."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "renewal call scheduled",
+    "type": "phrase",
+    "meaning": "Meeting about renewing the contract.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Renewal call scheduled…"
+    ],
+    "example": [
+      "Calendar",
+      "Renewal call scheduled for next month."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "apology call prepared",
+    "type": "phrase",
+    "meaning": "Ready to apologize for impact.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Apology call prepared…"
+    ],
+    "example": [
+      "Meeting",
+      "Apology call prepared with facts and next steps."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "discovery call notes",
+    "type": "phrase",
+    "meaning": "Notes from learning requirements.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Discovery call notes…"
+    ],
+    "example": [
+      "Meeting",
+      "Discovery call notes clarify the acceptance criteria."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "requirements workshop booked",
+    "type": "phrase",
+    "meaning": "Working session to clarify requirements.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Requirements workshop booked…"
+    ],
+    "example": [
+      "Calendar",
+      "Requirements workshop booked for Thursday."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "acceptance meeting Friday",
+    "type": "phrase",
+    "meaning": "Meeting to accept delivered work.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Acceptance meeting Friday…"
+    ],
+    "example": [
+      "Calendar",
+      "Acceptance meeting Friday after UAT."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sign-off call at end of day",
+    "type": "phrase",
+    "meaning": "Call to obtain formal approval.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Sign-off call…"
+    ],
+    "example": [
+      "Meeting",
+      "Sign-off call at end of day if staging stays green."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "status call can be async",
+    "type": "phrase",
+    "meaning": "Prefer written status over a live call.",
+    "context": "Client",
+    "level": "A2",
+    "patterns": [
+      "Status call can be async…"
+    ],
+    "example": [
+      "Slack",
+      "Status call can be async if there are no decisions."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "thread summary from Slack",
+    "type": "phrase",
+    "meaning": "Condensed Slack discussion outcome.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Thread summary from Slack…"
+    ],
+    "example": [
+      "Meeting",
+      "Thread summary from Slack: flag stays off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "react with check if you agree",
+    "type": "phrase",
+    "meaning": "Emoji acknowledgment of agreement.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "React with check…"
+    ],
+    "example": [
+      "Slack",
+      "React with ✅ if you agree with the decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "post decision in channel",
+    "type": "phrase",
+    "meaning": "Share the outcome where the team sees it.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Post decision in channel…"
+    ],
+    "example": [
+      "Slack",
+      "Post decision in channel after the meeting."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision record filed",
+    "type": "phrase",
+    "meaning": "Written capture stored.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Decision record filed…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision record filed in the ADR folder."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rationale documented",
+    "type": "phrase",
+    "meaning": "Why behind the decision is written.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Rationale documented…"
+    ],
+    "example": [
+      "Meeting",
+      "Rationale documented: customer impact risk on Friday."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "consequences listed",
+    "type": "phrase",
+    "meaning": "Likely results of the choice noted.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Consequences listed…"
+    ],
+    "example": [
+      "Meeting",
+      "Consequences listed: one-day slip on the demo."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "option A preferred",
+    "type": "phrase",
+    "meaning": "First alternative is currently favored.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Option A preferred…"
+    ],
+    "example": [
+      "Meeting",
+      "Option A preferred: rollback now and re-canary tomorrow."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "option B as fallback",
+    "type": "phrase",
+    "meaning": "Second alternative is the backup.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Option B as fallback…"
+    ],
+    "example": [
+      "Meeting",
+      "Option B as fallback: forward-fix behind kill switch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "non-goal today",
+    "type": "phrase",
+    "meaning": "Explicitly out of scope for this meeting.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Non-goal today…"
+    ],
+    "example": [
+      "Meeting",
+      "Non-goal today: redesigning the whole API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "in scope for this call",
+    "type": "phrase",
+    "meaning": "Included in today’s discussion.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "In scope for this call…"
+    ],
+    "example": [
+      "Meeting",
+      "In scope for this call: canary criteria and owners."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "out of scope for this call",
+    "type": "phrase",
+    "meaning": "Excluded from today’s discussion.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Out of scope for this call…"
+    ],
+    "example": [
+      "Meeting",
+      "Out of scope for this call: rewriting billing."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "avoid the rabbit hole",
+    "type": "phrase",
+    "meaning": "Do not digress into excessive detail.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Avoid the rabbit hole…"
+    ],
+    "example": [
+      "Meeting",
+      "Avoid the rabbit hole on micro-optimizations."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "stop the bike-shedding",
+    "type": "phrase",
+    "meaning": "End over-debate of a trivial detail.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Stop the bike-shedding…"
+    ],
+    "example": [
+      "Meeting",
+      "Stop the bike-shedding; decide the abort threshold."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "no yak-shaving",
+    "type": "phrase",
+    "meaning": "Do not chain tangents before the real task.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "No yak-shaving…"
+    ],
+    "example": [
+      "Meeting",
+      "No yak-shaving the tooling during this timebox."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "take a sidebar later",
+    "type": "phrase",
+    "meaning": "Defer a side conversation.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Take a sidebar later…"
+    ],
+    "example": [
+      "Meeting",
+      "Take a sidebar later; do not derail go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "prealignment complete",
+    "type": "phrase",
+    "meaning": "Key people aligned before the larger meeting.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Prealignment complete…"
+    ],
+    "example": [
+      "Meeting",
+      "Prealignment complete with QA before the client call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "prebrief the DRI",
+    "type": "phrase",
+    "meaning": "Brief the owner before a bigger forum.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Prebrief the DRI…"
+    ],
+    "example": [
+      "Meeting",
+      "Prebrief the DRI before steering committee."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "debrief after the client call",
+    "type": "phrase",
+    "meaning": "Review how the client meeting went.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Debrief after…"
+    ],
+    "example": [
+      "Meeting",
+      "Debrief after the client call on the ETA commit."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "align offline and return",
+    "type": "phrase",
+    "meaning": "Sync outside then bring a proposal back.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Align offline and return…"
+    ],
+    "example": [
+      "Slack",
+      "Align offline and return with a proposal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Let's align on scope before we estimate.",
+    "type": "expression",
+    "meaning": "Agree what is in/out before sizing work.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Let's align on…"
+    ],
+    "example": [
+      "Meeting",
+      "Let's align on scope before we estimate the cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Let's capture an action item with an owner.",
+    "type": "expression",
+    "meaning": "Turn talk into a tracked follow-up.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Let's capture an action item…"
+    ],
+    "example": [
+      "Meeting",
+      "Let's capture an action item with an owner and due date."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Any objections to promoting the staging build?",
+    "type": "expression",
+    "meaning": "Ask for opposition before a release decision.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Any objections to…"
+    ],
+    "example": [
+      "Meeting",
+      "Any objections to promoting the staging build?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Hard stop at 11:00 for the deploy window.",
+    "type": "expression",
+    "meaning": "State a fixed end time tied to ops.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Hard stop at…"
+    ],
+    "example": [
+      "Meeting",
+      "Hard stop at 11:00 for the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Let's take it offline and bring a proposal.",
+    "type": "expression",
+    "meaning": "Continue outside and return with a recommendation.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Let's take it offline…"
+    ],
+    "example": [
+      "Meeting",
+      "Let's take it offline and bring a proposal next time."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Disagree and commit: we ship behind the flag.",
+    "type": "expression",
+    "meaning": "Support the decided path after dissent.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Disagree and commit…"
+    ],
+    "example": [
+      "Meeting",
+      "Disagree and commit: we ship behind the feature flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Decision owner is the service DRI.",
+    "type": "expression",
+    "meaning": "Name who is accountable for the call.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision owner is…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision owner is the service DRI for go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Capture the decision in the ADR before we leave.",
+    "type": "expression",
+    "meaning": "Require written decision capture.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Capture the decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Capture the decision in the ADR before we leave."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Pre-read required: RFC and rollback plan.",
+    "type": "expression",
+    "meaning": "Set expectation that materials were read.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Pre-read required…"
+    ],
+    "example": [
+      "Calendar",
+      "Pre-read required: RFC and rollback plan."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Timebox this discussion to ten minutes.",
+    "type": "expression",
+    "meaning": "Limit topic duration.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Timebox…"
+    ],
+    "example": [
+      "Meeting",
+      "Timebox this discussion to ten minutes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Round-robin updates, then blockers.",
+    "type": "expression",
+    "meaning": "State meeting order of operations.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Round-robin…"
+    ],
+    "example": [
+      "Meeting",
+      "Round-robin updates, then blockers."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Open the floor for deploy risks before we close.",
+    "type": "expression",
+    "meaning": "Invite last risk call-outs.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Open the floor…"
+    ],
+    "example": [
+      "Meeting",
+      "Open the floor for deploy risks before we close."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Move to a vote on the go/no-go.",
+    "type": "expression",
+    "meaning": "Switch from debate to decision.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Move to a vote…"
+    ],
+    "example": [
+      "Meeting",
+      "Move to a vote on the go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I raise an objection to shipping without QA.",
+    "type": "expression",
+    "meaning": "Formally challenge an unsafe path.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "I raise an objection…"
+    ],
+    "example": [
+      "Meeting",
+      "I raise an objection to shipping without QA sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Record the dissent on skipping dress rehearsal.",
+    "type": "expression",
+    "meaning": "Document disagreement for the record.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Record the dissent…"
+    ],
+    "example": [
+      "Meeting",
+      "Record the dissent on skipping the dress rehearsal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Confirm quorum before we decide on cutover.",
+    "type": "expression",
+    "meaning": "Ensure enough people to decide.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Confirm quorum…"
+    ],
+    "example": [
+      "Meeting",
+      "Confirm quorum before we decide on cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Assign an owner for the alert threshold change.",
+    "type": "expression",
+    "meaning": "Make follow-up ownership explicit.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Assign an owner…"
+    ],
+    "example": [
+      "Meeting",
+      "Assign an owner for the alert threshold change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Set a due date of Wednesday for the runbook.",
+    "type": "expression",
+    "meaning": "Attach a deadline to an action.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Set a due date…"
+    ],
+    "example": [
+      "Meeting",
+      "Set a due date of Wednesday for the runbook update."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Send the notes with owners and due dates.",
+    "type": "expression",
+    "meaning": "Require useful meeting notes distribution.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Send the notes…"
+    ],
+    "example": [
+      "Slack",
+      "Send the notes with owners and due dates."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Update the calendar to avoid the deploy window.",
+    "type": "expression",
+    "meaning": "Fix a scheduling conflict.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Update the calendar…"
+    ],
+    "example": [
+      "Calendar",
+      "Update the calendar to avoid the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Propose a new time after on-call handoff.",
+    "type": "expression",
+    "meaning": "Suggest a better slot.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Propose a new time…"
+    ],
+    "example": [
+      "Calendar",
+      "Propose a new time after on-call handoff."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Declining due to the production incident.",
+    "type": "expression",
+    "meaning": "Refuse invite for an active incident.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Declining due to…"
+    ],
+    "example": [
+      "Calendar",
+      "Declining due to the production incident."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Tentative while I am on-call this week.",
+    "type": "expression",
+    "meaning": "Mark uncertain attendance due to pager.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Tentative while…"
+    ],
+    "example": [
+      "Calendar",
+      "Tentative while I am on-call this week."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Protect maker time around the deploy window.",
+    "type": "expression",
+    "meaning": "Keep deep work free near a release.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Protect maker time…"
+    ],
+    "example": [
+      "Calendar",
+      "Protect maker time around the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Async first; meet only if a decision is blocked.",
+    "type": "expression",
+    "meaning": "Prefer written updates over meetings.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Async first…"
+    ],
+    "example": [
+      "Slack",
+      "Async first; meet only if a decision is blocked."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Decision required: rollback now or soak longer?",
+    "type": "expression",
+    "meaning": "Force a clear binary choice.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision required…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision required: rollback now or soak longer?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "FYI only; no decisions expected today.",
+    "type": "expression",
+    "meaning": "Set informational meeting expectations.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "FYI only…"
+    ],
+    "example": [
+      "Meeting",
+      "FYI only; no decisions expected today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Bring a proposal, not only open questions.",
+    "type": "expression",
+    "meaning": "Raise the quality of discussion inputs.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Bring a proposal…"
+    ],
+    "example": [
+      "Meeting",
+      "Bring a proposal, not only open questions."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Strong opinion, weakly held: delay the canary.",
+    "type": "expression",
+    "meaning": "State preference while staying open.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Strong opinion, weakly held…"
+    ],
+    "example": [
+      "Meeting",
+      "Strong opinion, weakly held: delay the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "This is a data-driven call using latency charts.",
+    "type": "expression",
+    "meaning": "Anchor decision in metrics.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Data-driven…"
+    ],
+    "example": [
+      "Meeting",
+      "This is a data-driven call using canary latency charts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Feature-flag default is a two-way door decision.",
+    "type": "expression",
+    "meaning": "Classify decision as reversible.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "… is a two-way door…"
+    ],
+    "example": [
+      "Meeting",
+      "Feature-flag default is a two-way door decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Dropping the old API path is a one-way door.",
+    "type": "expression",
+    "meaning": "Classify decision as hard to reverse.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "… is a one-way door."
+    ],
+    "example": [
+      "Meeting",
+      "Dropping the old API path is a one-way door."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Run a premortem before the Friday cutover.",
+    "type": "expression",
+    "meaning": "Proactively hunt failure modes.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Run a premortem…"
+    ],
+    "example": [
+      "Meeting",
+      "Run a premortem before the Friday cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Abort criteria: 5xx above one percent for five minutes.",
+    "type": "expression",
+    "meaning": "State concrete stop rules.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Abort criteria…"
+    ],
+    "example": [
+      "Meeting",
+      "Abort criteria: 5xx above one percent for five minutes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Promote criteria: healthy canary for one hour.",
+    "type": "expression",
+    "meaning": "State concrete advance rules.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Promote criteria…"
+    ],
+    "example": [
+      "Meeting",
+      "Promote criteria: healthy canary for one hour."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Rollback owner is primary on-call.",
+    "type": "expression",
+    "meaning": "Name who executes rollback.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Rollback owner is…"
+    ],
+    "example": [
+      "Meeting",
+      "Rollback owner is primary on-call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Comms owner will update Slack every thirty minutes.",
+    "type": "expression",
+    "meaning": "Name update cadence and owner.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Comms owner…"
+    ],
+    "example": [
+      "Meeting",
+      "Comms owner will update Slack every thirty minutes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "CAB approval is needed for the production cutover.",
+    "type": "expression",
+    "meaning": "Cite change-board requirement.",
+    "context": "Policy",
+    "level": "B2",
+    "patterns": [
+      "CAB approval…"
+    ],
+    "example": [
+      "Meeting",
+      "CAB approval is needed for the production cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Risk score is high without a dress rehearsal.",
+    "type": "expression",
+    "meaning": "Link risk rating to missing practice.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Risk score is high…"
+    ],
+    "example": [
+      "Meeting",
+      "Risk score is high without a dress rehearsal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Entry criteria unmet: QA has not signed off.",
+    "type": "expression",
+    "meaning": "Block phase start with a clear reason.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Entry criteria unmet…"
+    ],
+    "example": [
+      "Meeting",
+      "Entry criteria unmet: QA has not signed off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Exit criteria unmet for ending the soak.",
+    "type": "expression",
+    "meaning": "Block phase exit with a clear reason.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Exit criteria unmet…"
+    ],
+    "example": [
+      "Meeting",
+      "Exit criteria unmet for ending the soak."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Scope lock agreed until after the client demo.",
+    "type": "expression",
+    "meaning": "Freeze scope temporarily.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Scope lock agreed…"
+    ],
+    "example": [
+      "Meeting",
+      "Scope lock agreed until after the client demo."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Cut scope to protect the Friday deploy date.",
+    "type": "expression",
+    "meaning": "Reduce work to hit a deadline.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Cut scope…"
+    ],
+    "example": [
+      "Meeting",
+      "Cut scope to protect the Friday deploy date."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Critical path is blocked by the Auth dependency.",
+    "type": "expression",
+    "meaning": "Explain schedule risk source.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Critical path is blocked…"
+    ],
+    "example": [
+      "Meeting",
+      "Critical path is blocked by the Auth dependency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Capacity check failed for more work this sprint.",
+    "type": "expression",
+    "meaning": "Refuse overload based on capacity.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Capacity check failed…"
+    ],
+    "example": [
+      "Meeting",
+      "Capacity check failed for more work this sprint."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Bus factor of one on the deploy scripts is a risk.",
+    "type": "expression",
+    "meaning": "Call out single-person dependency.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Bus factor of one…"
+    ],
+    "example": [
+      "Meeting",
+      "Bus factor of one on the deploy scripts is a risk."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Temperature check: how confident are we to go?",
+    "type": "expression",
+    "meaning": "Poll confidence before deciding.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Temperature check…"
+    ],
+    "example": [
+      "Meeting",
+      "Temperature check: how confident are we to go?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Default to status quo: keep the feature flag off.",
+    "type": "expression",
+    "meaning": "State fallback if undecided.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Default to status quo…"
+    ],
+    "example": [
+      "Meeting",
+      "Default to status quo: keep the feature flag off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Pilot with an internal cohort before full rollout.",
+    "type": "expression",
+    "meaning": "Recommend a staged trial.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Pilot…"
+    ],
+    "example": [
+      "Meeting",
+      "Pilot with an internal cohort before full rollout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Phased rollout is preferred over a big-bang cutover.",
+    "type": "expression",
+    "meaning": "Choose staged shipping.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Phased rollout…"
+    ],
+    "example": [
+      "Meeting",
+      "Phased rollout is preferred over a big-bang cutover."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Dark launch first, then enable the flag.",
+    "type": "expression",
+    "meaning": "Sequence exposure safely.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Dark launch first…"
+    ],
+    "example": [
+      "Meeting",
+      "Dark launch first, then enable the flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Shadow traffic next before shifting real users.",
+    "type": "expression",
+    "meaning": "Validate with mirrored traffic.",
+    "context": "RFC",
+    "level": "B2",
+    "patterns": [
+      "Shadow traffic next…"
+    ],
+    "example": [
+      "Meeting",
+      "Shadow traffic next before shifting real users."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Status cadence is every fifteen minutes until mitigated.",
+    "type": "expression",
+    "meaning": "Set incident update frequency.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Status cadence…"
+    ],
+    "example": [
+      "Meeting",
+      "Status cadence is every fifteen minutes until mitigated."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Single source of truth is the incident ticket.",
+    "type": "expression",
+    "meaning": "Point everyone to one status location.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Single source of truth…"
+    ],
+    "example": [
+      "Meeting",
+      "Single source of truth is the incident ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Holding statement is ready for the status page.",
+    "type": "expression",
+    "meaning": "Confirm careful public wording is prepared.",
+    "context": "Client",
+    "level": "B2",
+    "patterns": [
+      "Holding statement…"
+    ],
+    "example": [
+      "Meeting",
+      "Holding statement is ready for the status page."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Escalation call with the client is at 15:00.",
+    "type": "expression",
+    "meaning": "Announce a serious client meeting.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Escalation call…"
+    ],
+    "example": [
+      "Meeting",
+      "Escalation call with the client is at 15:00."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Change order is needed for the extra migration work.",
+    "type": "expression",
+    "meaning": "Require formal scope change.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Change order is needed…"
+    ],
+    "example": [
+      "Meeting",
+      "Change order is needed for the extra migration work."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Build versus buy for the queue infrastructure?",
+    "type": "expression",
+    "meaning": "Frame a make/buy decision.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Build versus buy…"
+    ],
+    "example": [
+      "Meeting",
+      "Build versus buy for the queue infrastructure?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Avoid the sunk cost fallacy; judge the path forward.",
+    "type": "expression",
+    "meaning": "Warn against past-spend bias.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Avoid the sunk cost fallacy…"
+    ],
+    "example": [
+      "Meeting",
+      "Avoid the sunk cost fallacy; judge the path forward."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Exit plan is required before we choose the vendor.",
+    "type": "expression",
+    "meaning": "Demand an exit strategy.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Exit plan is required…"
+    ],
+    "example": [
+      "Meeting",
+      "Exit plan is required before we choose the vendor."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "North star is reliability this quarter.",
+    "type": "expression",
+    "meaning": "Reaffirm guiding goal.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "North star is…"
+    ],
+    "example": [
+      "Meeting",
+      "North star is reliability this quarter."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Guardrail metric breached: error rate above one percent.",
+    "type": "expression",
+    "meaning": "Report a must-not-degrade failure.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Guardrail metric breached…"
+    ],
+    "example": [
+      "Meeting",
+      "Guardrail metric breached: error rate above one percent."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Result is inconclusive; extend the canary soak.",
+    "type": "expression",
+    "meaning": "Refuse a weak evidence decision.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Result is inconclusive…"
+    ],
+    "example": [
+      "Meeting",
+      "Result is inconclusive; extend the canary soak."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Post the decision in Slack after this meeting.",
+    "type": "expression",
+    "meaning": "Require broadcasting the outcome.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Post the decision…"
+    ],
+    "example": [
+      "Slack",
+      "Post the decision in Slack after this meeting."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Non-goal today: redesigning the whole API.",
+    "type": "expression",
+    "meaning": "Explicitly exclude a topic.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Non-goal today…"
+    ],
+    "example": [
+      "Meeting",
+      "Non-goal today: redesigning the whole API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Stop the bike-shedding and decide the abort threshold.",
+    "type": "expression",
+    "meaning": "End trivial over-debate.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Stop the bike-shedding…"
+    ],
+    "example": [
+      "Meeting",
+      "Stop the bike-shedding and decide the abort threshold."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Speak up on rollback risk before we vote.",
+    "type": "expression",
+    "meaning": "Invite constructive challenge.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Speak up…"
+    ],
+    "example": [
+      "Meeting",
+      "Speak up on rollback risk before we vote."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Challenge the assumption that staging mirrors prod.",
+    "type": "expression",
+    "meaning": "Question a planning belief.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Challenge the assumption…"
+    ],
+    "example": [
+      "Meeting",
+      "Challenge the assumption that staging mirrors prod."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Summarize owners and due dates before we leave.",
+    "type": "expression",
+    "meaning": "Close with actionable clarity.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Summarize…"
+    ],
+    "example": [
+      "Meeting",
+      "Summarize owners and due dates before we leave."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "No-show from QA; we cannot sign off yet.",
+    "type": "expression",
+    "meaning": "Explain missing required attendee impact.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "No-show from QA…"
+    ],
+    "example": [
+      "Meeting",
+      "No-show from QA; we cannot sign off yet."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Screen share the dashboard for the go/no-go.",
+    "type": "expression",
+    "meaning": "Ask for visual evidence in the meeting.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Screen share…"
+    ],
+    "example": [
+      "Meeting",
+      "Screen share the dashboard for the go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Mute when not speaking on the bridge.",
+    "type": "expression",
+    "meaning": "Set war-room/bridge etiquette.",
+    "context": "War room",
+    "level": "A2",
+    "patterns": [
+      "Mute when not speaking…"
+    ],
+    "example": [
+      "Meeting",
+      "Mute when not speaking on the bridge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Cameras on for the client demo please.",
+    "type": "expression",
+    "meaning": "Set client-facing meeting norm.",
+    "context": "Client",
+    "level": "A2",
+    "patterns": [
+      "Cameras on…"
+    ],
+    "example": [
+      "Meeting",
+      "Cameras on for the client demo please."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Meeting fatigue is high; prefer async updates today.",
+    "type": "expression",
+    "meaning": "Recommend fewer meetings.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Meeting fatigue is high…"
+    ],
+    "example": [
+      "Meeting",
+      "Meeting fatigue is high; prefer async updates today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "No agenda, no meeting.",
+    "type": "expression",
+    "meaning": "Refuse meetings without structure.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "No agenda, no meeting."
+    ],
+    "example": [
+      "Meeting",
+      "No agenda, no meeting — send topics first."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Start with decisions, end with actions.",
+    "type": "expression",
+    "meaning": "State a high-signal meeting structure.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Start with decisions…"
+    ],
+    "example": [
+      "Meeting",
+      "Start with decisions, end with actions."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Check previous actions before new topics.",
+    "type": "expression",
+    "meaning": "Enforce follow-through discipline.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Check previous actions…"
+    ],
+    "example": [
+      "Meeting",
+      "Check previous actions before new topics."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Ownerless action found; assign before we leave.",
+    "type": "expression",
+    "meaning": "Fix missing ownership immediately.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Ownerless action found…"
+    ],
+    "example": [
+      "Meeting",
+      "Ownerless action found; assign before we leave."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Desired outcome: a go/no-go with named owners.",
+    "type": "expression",
+    "meaning": "State meeting success criteria.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Desired outcome…"
+    ],
+    "example": [
+      "Meeting",
+      "Desired outcome: a go/no-go with named owners."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Decision quality is low without canary data.",
+    "type": "expression",
+    "meaning": "Refuse deciding under weak evidence.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Decision quality is low…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision quality is low without canary data."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Decision deadline is today before the freeze.",
+    "type": "expression",
+    "meaning": "Make the decision timing explicit.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision deadline…"
+    ],
+    "example": [
+      "Meeting",
+      "Decision deadline is today before the freeze."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I second the motion to delay the canary.",
+    "type": "expression",
+    "meaning": "Support a formal proposal.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "I second the motion…"
+    ],
+    "example": [
+      "Meeting",
+      "I second the motion to delay the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Table the motion until we have canary data.",
+    "type": "expression",
+    "meaning": "Postpone a formal proposal.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Table the motion…"
+    ],
+    "example": [
+      "Meeting",
+      "Table the motion until we have canary data."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I move that we delay the canary until soak completes.",
+    "type": "expression",
+    "meaning": "Make a formal proposal.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "I move that…"
+    ],
+    "example": [
+      "Meeting",
+      "I move that we delay the canary until soak completes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Amendment: delay only if error rate stays above one percent.",
+    "type": "expression",
+    "meaning": "Modify a proposal with a condition.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Amendment…"
+    ],
+    "example": [
+      "Meeting",
+      "Amendment: delay only if error rate stays above one percent."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Proxy for the absent DRI on this go/no-go.",
+    "type": "expression",
+    "meaning": "Speak/vote for a missing owner.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Proxy for…"
+    ],
+    "example": [
+      "Meeting",
+      "Proxy for the absent DRI on this go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Delegate to secondary on-call if primary is in the war room.",
+    "type": "expression",
+    "meaning": "Assign backup coverage.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Delegate to…"
+    ],
+    "example": [
+      "Meeting",
+      "Delegate to secondary on-call if primary is in the war room."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Late join — need a recap of the flag decision.",
+    "type": "expression",
+    "meaning": "Ask for catch-up after joining late.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Late join…"
+    ],
+    "example": [
+      "Meeting",
+      "Late join — need a recap of the flag decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Early leave for a page; I will catch up via notes.",
+    "type": "expression",
+    "meaning": "Explain early exit due to on-call.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Early leave…"
+    ],
+    "example": [
+      "Meeting",
+      "Early leave for a page; I will catch up via notes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Quick poll: rollback now or soak another hour?",
+    "type": "expression",
+    "meaning": "Force a fast group choice.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Quick poll…"
+    ],
+    "example": [
+      "Meeting",
+      "Quick poll: rollback now or soak another hour?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "React with a check if you agree with the decision.",
+    "type": "expression",
+    "meaning": "Collect lightweight agreement in Slack.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "React with…"
+    ],
+    "example": [
+      "Slack",
+      "React with ✅ if you agree with the decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Thread summary from Slack: the flag stays off.",
+    "type": "expression",
+    "meaning": "Bring async consensus into the meeting.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Thread summary…"
+    ],
+    "example": [
+      "Meeting",
+      "Thread summary from Slack: the flag stays off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Rationale is customer impact risk on Friday.",
+    "type": "expression",
+    "meaning": "State why a decision was made.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Rationale is…"
+    ],
+    "example": [
+      "Meeting",
+      "Rationale is customer impact risk on Friday."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Consequence is a one-day slip on the client demo.",
+    "type": "expression",
+    "meaning": "State the cost of a choice.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Consequence is…"
+    ],
+    "example": [
+      "Meeting",
+      "Consequence is a one-day slip on the client demo."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Option A: rollback now and re-canary tomorrow.",
+    "type": "expression",
+    "meaning": "Present first alternative clearly.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Option A…"
+    ],
+    "example": [
+      "Meeting",
+      "Option A: rollback now and re-canary tomorrow."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Option B: forward-fix behind the kill switch.",
+    "type": "expression",
+    "meaning": "Present second alternative clearly.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Option B…"
+    ],
+    "example": [
+      "Meeting",
+      "Option B: forward-fix behind the kill switch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Option C: pause and gather another hour of metrics.",
+    "type": "expression",
+    "meaning": "Present third alternative clearly.",
+    "context": "Decision",
+    "level": "A2",
+    "patterns": [
+      "Option C…"
+    ],
+    "example": [
+      "Meeting",
+      "Option C: pause and gather another hour of metrics."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Preferred option is soak overnight then decide.",
+    "type": "expression",
+    "meaning": "State current favorite path.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Preferred option…"
+    ],
+    "example": [
+      "Meeting",
+      "Preferred option is soak overnight then decide."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Fallback option is an immediate rollback.",
+    "type": "expression",
+    "meaning": "Name the backup path.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Fallback option…"
+    ],
+    "example": [
+      "Meeting",
+      "Fallback option is an immediate rollback."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "In scope: canary criteria and rollback owner.",
+    "type": "expression",
+    "meaning": "State what this meeting covers.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "In scope…"
+    ],
+    "example": [
+      "Meeting",
+      "In scope: canary criteria and rollback owner."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Out of scope: rewriting the billing service.",
+    "type": "expression",
+    "meaning": "State what this meeting excludes.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Out of scope…"
+    ],
+    "example": [
+      "Meeting",
+      "Out of scope: rewriting the billing service."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Take a sidebar later; do not derail go/no-go.",
+    "type": "expression",
+    "meaning": "Protect the agenda from digression.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Take a sidebar later…"
+    ],
+    "example": [
+      "Meeting",
+      "Take a sidebar later; do not derail go/no-go."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Prealignment with QA is complete before the client call.",
+    "type": "expression",
+    "meaning": "Confirm pre-meeting alignment.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Prealignment…"
+    ],
+    "example": [
+      "Meeting",
+      "Prealignment with QA is complete before the client call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Prebrief the DRI before steering committee.",
+    "type": "expression",
+    "meaning": "Prepare the owner for a larger forum.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Prebrief…"
+    ],
+    "example": [
+      "Meeting",
+      "Prebrief the DRI before steering committee."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Debrief after the client call on the ETA commit.",
+    "type": "expression",
+    "meaning": "Plan a post-meeting review.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Debrief after…"
+    ],
+    "example": [
+      "Meeting",
+      "Debrief after the client call on the ETA commit."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Align offline and return with a proposal.",
+    "type": "expression",
+    "meaning": "Request offline work then return.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Align offline…"
+    ],
+    "example": [
+      "Slack",
+      "Align offline and return with a proposal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Tag this thread as decision needed.",
+    "type": "expression",
+    "meaning": "Label async work as requiring a choice.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Tag … as decision needed."
+    ],
+    "example": [
+      "Slack",
+      "Tag this thread as decision needed for go/no-go owners."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Working backwards from the client demo success criteria.",
+    "type": "expression",
+    "meaning": "Start from the customer outcome.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Working backwards…"
+    ],
+    "example": [
+      "Meeting",
+      "Working backwards from the client demo success criteria."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Bias for action: pick a mitigation and assign an owner.",
+    "type": "expression",
+    "meaning": "Push the group to decide and act.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Bias for action…"
+    ],
+    "example": [
+      "Meeting",
+      "Bias for action: pick a mitigation and assign an owner."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Pushback on shipping without QA sign-off.",
+    "type": "expression",
+    "meaning": "Respectfully challenge an unsafe proposal.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Pushback on…"
+    ],
+    "example": [
+      "Meeting",
+      "Pushback on shipping without QA sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Clarify the decision: is rollback the default mitigation?",
+    "type": "expression",
+    "meaning": "Make the choice precise.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Clarify the decision…"
+    ],
+    "example": [
+      "Meeting",
+      "Clarify the decision: is rollback the default mitigation?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Playback what I heard on cutover timing.",
+    "type": "expression",
+    "meaning": "Confirm shared understanding.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Playback what I heard…"
+    ],
+    "example": [
+      "Meeting",
+      "Playback what I heard on cutover timing."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "AOB: remind everyone about the change freeze.",
+    "type": "expression",
+    "meaning": "Use any-other-business for a reminder.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "AOB…"
+    ],
+    "example": [
+      "Meeting",
+      "AOB: remind everyone about the change freeze."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Motion to adjourn after actions are assigned.",
+    "type": "expression",
+    "meaning": "Formally end once follow-ups exist.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Motion to adjourn…"
+    ],
+    "example": [
+      "Meeting",
+      "Motion to adjourn after actions are assigned."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Call to order; we have a hard stop for deploy.",
+    "type": "expression",
+    "meaning": "Formally start with a time constraint.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Call to order…"
+    ],
+    "example": [
+      "Meeting",
+      "Call to order; we have a hard stop for deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Whiteboard the cutover steps before we vote.",
+    "type": "expression",
+    "meaning": "Visualize procedure before deciding.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Whiteboard…"
+    ],
+    "example": [
+      "Meeting",
+      "Whiteboard the cutover steps before we vote."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Unmute if you have an objection to the go decision.",
+    "type": "expression",
+    "meaning": "Invite objections explicitly.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Unmute if…"
+    ],
+    "example": [
+      "Meeting",
+      "Unmute if you have an objection to the go decision."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Host will admit people from the waiting room.",
+    "type": "expression",
+    "meaning": "Clarify entry control for a sensitive call.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Host will admit…"
+    ],
+    "example": [
+      "Meeting",
+      "Host will admit people from the waiting room."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Q and A at the end; park detailed RFC debates.",
+    "type": "expression",
+    "meaning": "Protect agenda from deep digressions.",
+    "context": "Meeting",
+    "level": "A2",
+    "patterns": [
+      "Q and A at the end…"
+    ],
+    "example": [
+      "Meeting",
+      "Q and A at the end; park detailed RFC debates."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Talking points are ready for the client ETA update.",
+    "type": "expression",
+    "meaning": "Confirm speaking prep.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Talking points…"
+    ],
+    "example": [
+      "Meeting",
+      "Talking points are ready for the client ETA update."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Use the approved script for customer impact wording.",
+    "type": "expression",
+    "meaning": "Stick to vetted sensitive language.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Use the approved script…"
+    ],
+    "example": [
+      "Meeting",
+      "Use the approved script for customer impact wording."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Message house: impact, fix, and prevention.",
+    "type": "expression",
+    "meaning": "Align narrative structure.",
+    "context": "Meeting",
+    "level": "B2",
+    "patterns": [
+      "Message house…"
+    ],
+    "example": [
+      "Meeting",
+      "Message house: impact, fix, and prevention."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Stakeholder updates hourly until mitigated.",
+    "type": "expression",
+    "meaning": "Set external/internal update cadence.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Stakeholder updates…"
+    ],
+    "example": [
+      "Meeting",
+      "Stakeholder updates hourly until mitigated."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Deep dive after go/no-go on the latency spike.",
+    "type": "expression",
+    "meaning": "Schedule technical follow-up after decision.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Deep dive after…"
+    ],
+    "example": [
+      "Meeting",
+      "Deep dive after go/no-go on the latency spike."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Platform sync to unblock staging credentials.",
+    "type": "expression",
+    "meaning": "Call a focused dependency meeting.",
+    "context": "Meeting",
+    "level": "B1",
+    "patterns": [
+      "Platform sync…"
+    ],
+    "example": [
+      "Meeting",
+      "Platform sync to unblock staging credentials."
+    ],
+    "alternatives": [],
+    "notes": []
+  }
+]

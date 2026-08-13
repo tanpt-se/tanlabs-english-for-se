@@ -40,10 +40,14 @@
     "grammar:score": "node scripts/score-grammar-topics.mjs",
     "vocabulary:audit": "node scripts/audit-vocabulary-packs.mjs",
     "vocabulary:audit:ship": "node scripts/audit-vocabulary-packs.mjs --ship",
+    "vocabulary:packs:generate": "node scripts/generate-vocabulary-packs.mjs",
+    "vocabulary:seed:sql": "node scripts/generate-vocabulary-seed-sql.mjs",
     "e2e:ios": "bash scripts/e2e-ios.sh",
     "e2e:android": "bash scripts/e2e-android.sh",
     "e2e:ios:grammar": "bash scripts/e2e-grammar-ios.sh",
-    "e2e:android:grammar": "bash scripts/e2e-grammar-android.sh"
+    "e2e:android:grammar": "bash scripts/e2e-grammar-android.sh",
+    "e2e:ios:vocabulary": "bash scripts/e2e-vocabulary-ios.sh",
+    "e2e:android:vocabulary": "bash scripts/e2e-vocabulary-android.sh"
   },
   "dependencies": {
     "@d11/react-native-fast-image": "^8.13.0",

@@ -28,7 +28,7 @@ const CORE_SLUGS = [
 ];
 
 const ITEM_TYPES = new Set(['word', 'phrase', 'expression']);
-const LEVELS = new Set(['A2', 'B1', 'B2']);
+const LEVELS = new Set(['A2', 'B1', 'B2', 'C1']);
 const EXERCISE_TYPES = new Set(['choose_expression', 'fill_blank', 'sentence_order']);
 
 const LIMITS = {
@@ -145,7 +145,7 @@ function main() {
         fail(`${itemLabel}: type must be word|phrase|expression`);
       }
       if (!LEVELS.has(item.level)) {
-        fail(`${itemLabel}: level must be A2|B1|B2`);
+        fail(`${itemLabel}: level must be A2|B1|B2|C1`);
       }
       if (!isNonEmptyString(item.term) || !isNonEmptyString(item.meaning)) {
         fail(`${itemLabel}: term and meaning are required`);
@@ -177,11 +177,15 @@ function main() {
         ...(item.patterns ?? []),
         ...(item.notes ?? []),
         ...(item.alternatives ?? []),
+        ...((item.examples ?? []).flat?.() ?? []),
       ]
         .join(' ')
         .toLowerCase();
       for (const bad of forbidden) {
-        if (bad && haystack.includes(bad)) {
+        if (!bad) continue;
+        const escaped = bad.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        const re = new RegExp(`(?:^|[^a-z0-9])${escaped}(?:$|[^a-z0-9])`, 'i');
+        if (re.test(` ${haystack} `)) {
           fail(`${itemLabel}: forbidden phrase "${bad}"`);
         }
       }
@@ -230,10 +234,65 @@ function main() {
         const exLabel = `${itemLabel}/exercise[${i}]`;
         if (!EXERCISE_TYPES.has(exercise?.type)) {
           fail(`${exLabel}: type must be choose_expression|fill_blank|sentence_order`);
+          continue;
         }
         if (!isNonEmptyString(exercise?.prompt)) {
           fail(`${exLabel}: prompt required`);
         }
+        if (!isNonEmptyString(exercise?.key)) {
+          fail(`${exLabel}: key required`);
+        }
+        const feedback = exercise?.feedback;
+        if (!feedback || typeof feedback !== 'object') {
+          fail(`${exLabel}: feedback object required`);
+        } else {
+          for (const field of ['expression', 'meaning', 'context', 'example', 'explanation']) {
+            if (!isNonEmptyString(feedback[field])) {
+              fail(`${exLabel}: feedback.${field} required`);
+            }
+          }
+        }
+        const payload = exercise?.payload;
+        if (!payload || typeof payload !== 'object') {
+          fail(`${exLabel}: payload object required`);
+          continue;
+        }
+        if (exercise.type === 'choose_expression') {
+          if (!Array.isArray(payload.options) || payload.options.length !== 4) {
+            fail(`${exLabel}: choose_expression needs exactly 4 options`);
+          } else {
+            const ids = new Set();
+            for (const option of payload.options) {
+              if (!isNonEmptyString(option?.id) || !isNonEmptyString(option?.text)) {
+                fail(`${exLabel}: option id/text required`);
+              }
+              ids.add(option.id);
+            }
+            if (!ids.has(payload.correctOptionId)) {
+              fail(`${exLabel}: correctOptionId must match an option`);
+            }
+          }
+        }
+        if (exercise.type === 'fill_blank') {
+          if (!String(exercise.prompt).includes('___')) {
+            fail(`${exLabel}: fill_blank prompt must include ___`);
+          }
+          if (!Array.isArray(payload.accepted) || payload.accepted.length < 1) {
+            fail(`${exLabel}: fill_blank accepted[] required`);
+          }
+        }
+        if (exercise.type === 'sentence_order') {
+          if (!Array.isArray(payload.tokens) || payload.tokens.length < 3) {
+            fail(`${exLabel}: sentence_order needs >=3 tokens`);
+          }
+          if (!Array.isArray(payload.correctOrder) || payload.correctOrder.length < 3) {
+            fail(`${exLabel}: sentence_order correctOrder required`);
+          }
+        }
+      }
+
+      if (enforceShipCount && (!item.exercises || item.exercises.length < 1)) {
+        fail(`${itemLabel}: ship gate requires >=1 exercise`);
       }
     }
   }

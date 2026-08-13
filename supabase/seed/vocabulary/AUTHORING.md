@@ -2,7 +2,7 @@
 
 SoT for [`packs.json`](./packs.json). Audit: `pnpm run vocabulary:audit` (structure + dedupe). Ship count gate: `pnpm run vocabulary:audit:ship` (unique items in **[2000, 3000]**).
 
-Do **not** apply generated SQL to a live database unless asked. Never hand-edit seed SQL — regenerate via the future `vocabulary:seed:sql` script after PH3-02.
+Do **not** apply generated SQL to a live database unless asked. Never hand-edit seed SQL — regenerate via `pnpm run vocabulary:seed:sql`.
 
 ## Volume (locked)
 
@@ -20,17 +20,19 @@ Do **not** apply generated SQL to a live database unless asked. Never hand-edit 
 situations[] → items[] → exercises[]
 ```
 
-| Field                                              | Notes                                                      |
-| -------------------------------------------------- | ---------------------------------------------------------- |
-| `contentSchemaVersion`                             | Integer; start at `1`                                      |
-| `situations[].slug`                                | Stable kebab-case; P0 core five listed below               |
-| `situations[].items[].key`                         | Stable within situation; used for exercise links           |
-| `type`                                             | `word` \| `phrase` \| `expression`                         |
-| `term`                                             | Surface form learners see (dedupe on normalized form)      |
-| `meaning`                                          | Short sense; not a dictionary essay (≤160)                 |
-| `context`                                          | Must be one of [`lexicon.json`](./lexicon.json) `contexts` |
-| `level`                                            | `A2` \| `B1` \| `B2` only (no C1 in Vocabulary P0)         |
-| `patterns` / `examples` / `alternatives` / `notes` | Bounded lists; no HTML                                     |
+| Field                                              | Notes                                                        |
+| -------------------------------------------------- | ------------------------------------------------------------ |
+| `contentSchemaVersion`                             | Integer; start at `1`                                        |
+| `situations[].slug`                                | Stable kebab-case; P0 core five listed below                 |
+| `situations[].items[].key`                         | Stable within situation; used for exercise links             |
+| `type`                                             | `word` \| `phrase` \| `expression`                           |
+| `term`                                             | Surface form learners see (dedupe on normalized form)        |
+| `meaning`                                          | Short sense; not a dictionary essay (≤160)                   |
+| `context`                                          | Must be one of [`lexicon.json`](./lexicon.json) `contexts`   |
+| `level`                                            | `A2` \| `B1` \| `B2` \| `C1` (Cambridge CEFR)                |
+| `pos`                                              | Optional short POS (`n`, `v`, `phr`, …); inferred if omitted |
+| `patterns` / `examples` / `alternatives` / `notes` | Bounded lists; no HTML                                       |
+| `exercises`                                        | Generated at pack time (do not hand-author at scale)         |
 
 ### P0 situation slugs (order)
 
@@ -69,7 +71,10 @@ P0 types only: `choose_expression`, `fill_blank`, `sentence_order`. Session mix 
 
 ## Workflow
 
-1. Author in `packs.json`.
-2. `pnpm run vocabulary:audit` (always).
-3. When inventory is ready to seed: `pnpm run vocabulary:audit:ship`.
-4. Generate SQL (PH3-02+) and apply to non-prod first.
+1. Author lemma rows in [`sources/`](./sources/) (not bulk hand-edits to generated packs).
+2. Generate: `pnpm run vocabulary:packs:generate` (default target **2500** unique; attaches **1 exercise/item**).
+3. Audit: `pnpm run vocabulary:audit` (always).
+4. When inventory is ready to seed: `pnpm run vocabulary:audit:ship`.
+5. Generate SQL: `pnpm run vocabulary:seed:sql` → `014_vocabulary_seed.sql`; apply with `pnpm run db:migrate` on non-prod first.
+
+Exercise payload contract (frozen draft): [`fixtures/exercise-contract.json`](./fixtures/exercise-contract.json).

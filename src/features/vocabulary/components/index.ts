@@ -1,4 +1,12 @@
+export { ChooseExpressionExerciseView } from './ChooseExpressionExerciseView';
 export { ExpressionCard } from './ExpressionCard';
+export { FillBlankExerciseView } from './FillBlankExerciseView';
 export { InsightPanel } from './InsightPanel';
+export { LevelSectionHeader } from './LevelSectionHeader';
+export { PosBadge } from './PosBadge';
+export { PracticeFeedback } from './PracticeFeedback';
+export { PracticeProgressBar } from './PracticeProgressBar';
 export { PromptCard } from './PromptCard';
+export { SentenceOrderExerciseView } from './SentenceOrderExerciseView';
 export { SituationCard } from './SituationCard';
+export { TermRow } from './TermRow';

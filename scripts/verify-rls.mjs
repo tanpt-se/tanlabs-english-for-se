@@ -438,6 +438,137 @@ async function main() {
       );
     }
 
+    // Vocabulary content + progress RLS (PH3)
+    {
+      const situations = await rest(
+        userA.token,
+        '/vocabulary_situations?select=id,slug&published=eq.true&limit=1',
+      );
+      assert(
+        situations.res.ok && Array.isArray(situations.body) && situations.body.length >= 1,
+        `A cannot read published vocabulary situations: ${JSON.stringify(situations.body)}`,
+      );
+      const situationId = situations.body[0].id;
+      const items = await rest(
+        userA.token,
+        `/vocabulary_items?situation_id=eq.${situationId}&published=eq.true&select=id&limit=1`,
+      );
+      assert(
+        items.res.ok && Array.isArray(items.body) && items.body.length >= 1,
+        `A cannot read published vocabulary items: ${JSON.stringify(items.body)}`,
+      );
+      const itemId = items.body[0].id;
+      const exercises = await rest(
+        userA.token,
+        `/vocabulary_exercises?situation_id=eq.${situationId}&published=eq.true&select=id&limit=1`,
+      );
+      assert(
+        exercises.res.ok && Array.isArray(exercises.body),
+        `A cannot read published vocabulary exercises: ${JSON.stringify(exercises.body)}`,
+      );
+
+      const insertSituation = await rest(userA.token, '/vocabulary_situations', {
+        method: 'POST',
+        body: JSON.stringify({
+          slug: `rls-vocab-${stamp}`,
+          title: 'probe',
+          description: 'probe',
+          sort_order: 9999,
+          published: true,
+        }),
+      });
+      assert(!insertSituation.res.ok, 'A must not insert vocabulary_situations');
+
+      const insertProgress = await rest(userA.token, '/user_vocabulary_progress', {
+        method: 'POST',
+        body: JSON.stringify({
+          user_id: userA.id,
+          situation_id: situationId,
+          item_id: itemId,
+          correct_count: 1,
+          incorrect_count: 0,
+          last_result: true,
+        }),
+      });
+      assert(!insertProgress.res.ok, 'A must not directly insert user_vocabulary_progress');
+
+      const insertAttempt = await rest(userA.token, '/vocabulary_attempts', {
+        method: 'POST',
+        body: JSON.stringify({
+          user_id: userA.id,
+          client_attempt_id: cryptoRandomUuid(),
+          situation_id: situationId,
+          content_revision: 1,
+          correct_count: 1,
+          total_count: 1,
+          score: 100,
+          item_results: [{ itemId, correct: true }],
+          started_at: new Date().toISOString(),
+          completed_at: new Date().toISOString(),
+        }),
+      });
+      assert(!insertAttempt.res.ok, 'A must not directly insert vocabulary_attempts');
+
+      const attemptId = cryptoRandomUuid();
+      const rpcOk = await rest(userA.token, '/rpc/complete_vocabulary_attempt', {
+        method: 'POST',
+        body: JSON.stringify({
+          p_client_attempt_id: attemptId,
+          p_situation_id: situationId,
+          p_content_revision: 1,
+          p_correct_count: 1,
+          p_total_count: 1,
+          p_score: 100,
+          p_item_results: [{ itemId, correct: true }],
+          p_started_at: new Date().toISOString(),
+          p_completed_at: new Date().toISOString(),
+        }),
+      });
+      assert(rpcOk.res.ok, `complete_vocabulary_attempt failed: ${JSON.stringify(rpcOk.body)}`);
+
+      const rpcDup = await rest(userA.token, '/rpc/complete_vocabulary_attempt', {
+        method: 'POST',
+        body: JSON.stringify({
+          p_client_attempt_id: attemptId,
+          p_situation_id: situationId,
+          p_content_revision: 1,
+          p_correct_count: 0,
+          p_total_count: 1,
+          p_score: 0,
+          p_item_results: [{ itemId, correct: false }],
+          p_started_at: new Date().toISOString(),
+          p_completed_at: new Date().toISOString(),
+        }),
+      });
+      assert(
+        rpcDup.res.ok,
+        `idempotent complete_vocabulary_attempt failed: ${JSON.stringify(rpcDup.body)}`,
+      );
+      assert(
+        rpcDup.body?.score === 100 || rpcDup.body?.[0]?.score === 100,
+        'idempotent vocabulary RPC must keep first score',
+      );
+
+      const ownProgress = await rest(
+        userA.token,
+        `/user_vocabulary_progress?user_id=eq.${userA.id}&select=item_id,correct_count`,
+      );
+      assert(
+        ownProgress.res.ok && Array.isArray(ownProgress.body) && ownProgress.body.length >= 1,
+        'A cannot read own vocabulary progress',
+      );
+      const crossProgress = await rest(
+        userB.token,
+        `/user_vocabulary_progress?user_id=eq.${userA.id}&select=item_id`,
+      );
+      assert(
+        crossProgress.res.ok &&
+          Array.isArray(crossProgress.body) &&
+          crossProgress.body.length === 0,
+        'B must not read A vocabulary progress',
+      );
+    }
+
     console.log('RLS verification PASSED');
   } finally {
     const cleanup = await Promise.allSettled([deleteUser(userA), deleteUser(userB)]);

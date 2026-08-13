@@ -1,0 +1,8373 @@
+[
+  {
+    "term": "operational load",
+    "type": "phrase",
+    "meaning": "Non-project work that consumes capacity (pages, interrupts, toil).",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "High operational load this week",
+      "Operational load is crowding roadmap work"
+    ],
+    "example": [
+      "Standup",
+      "High operational load this week."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "interrupt-driven",
+    "type": "word",
+    "meaning": "Work shaped by unplanned alerts and ad-hoc asks instead of a plan.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "We are interrupt-driven today"
+    ],
+    "example": [
+      "Standup",
+      "We are interrupt-driven today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "focus block",
+    "type": "phrase",
+    "meaning": "Protected calendar time reserved for deep engineering work.",
+    "context": "Calendar",
+    "level": "C1",
+    "patterns": [
+      "Protect a focus block before standup follow-ups"
+    ],
+    "example": [
+      "Calendar",
+      "Protect a focus block before standup follow-ups."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "capacity reserved for interrupts",
+    "type": "phrase",
+    "meaning": "Planned slack kept for pages and urgent asks.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "We reserved capacity for interrupts"
+    ],
+    "example": [
+      "Standup",
+      "We reserved capacity for interrupts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "unplanned work ratio",
+    "type": "phrase",
+    "meaning": "Share of time spent on work that was not on the sprint plan.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "Unplanned work ratio spiked after the outage"
+    ],
+    "example": [
+      "Standup",
+      "Unplanned work ratio spiked after the outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "page fatigue",
+    "type": "phrase",
+    "meaning": "Burnout risk from frequent overnight or noisy pages.",
+    "context": "On-call",
+    "level": "C1",
+    "patterns": [
+      "Page fatigue is rising on secondary"
+    ],
+    "example": [
+      "On-call",
+      "Page fatigue is rising on secondary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "handover debt",
+    "type": "phrase",
+    "meaning": "Missing context after a shift change that slows the next owner.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "Handover debt slowed morning triage"
+    ],
+    "example": [
+      "Standup",
+      "Handover debt slowed morning triage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "stand-down",
+    "type": "word",
+    "meaning": "End an incident response mode and return to normal work.",
+    "context": "Incident",
+    "level": "C1",
+    "patterns": [
+      "We can stand-down the war room"
+    ],
+    "example": [
+      "Incident",
+      "We can stand-down the war room."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "shadow on-call",
+    "type": "phrase",
+    "meaning": "Trainee observes paging without owning primary response yet.",
+    "context": "On-call",
+    "level": "C1",
+    "patterns": [
+      "I am shadow on-call this week"
+    ],
+    "example": [
+      "On-call",
+      "I am shadow on-call this week."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "follow-the-sun",
+    "type": "phrase",
+    "meaning": "Hand work across time zones so progress continues overnight.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "Use follow-the-sun for the migration watch"
+    ],
+    "example": [
+      "Standup",
+      "Use follow-the-sun for the migration watch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cognitive overload",
+    "type": "phrase",
+    "meaning": "Too many concurrent contexts reducing decision quality.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "Cognitive overload after three incidents"
+    ],
+    "example": [
+      "Standup",
+      "Cognitive overload after three incidents."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bus-factor risk",
+    "type": "phrase",
+    "meaning": "Risk that too few people understand a critical system.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "Bus-factor risk on the billing service"
+    ],
+    "example": [
+      "Standup",
+      "Bus-factor risk on the billing service."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "quiet hours breach",
+    "type": "phrase",
+    "meaning": "A page or deploy that violated agreed no-interrupt windows.",
+    "context": "On-call",
+    "level": "C1",
+    "patterns": [
+      "That deploy was a quiet hours breach"
+    ],
+    "example": [
+      "On-call",
+      "That deploy was a quiet hours breach."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "severity statement",
+    "type": "phrase",
+    "meaning": "Concise description of user-visible impact during an incident.",
+    "context": "Incident",
+    "level": "C1",
+    "patterns": [
+      "Need a clearer severity statement"
+    ],
+    "example": [
+      "Incident",
+      "Need a clearer severity statement."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "mitigation owner",
+    "type": "phrase",
+    "meaning": "Person accountable for the active mitigation action.",
+    "context": "Incident",
+    "level": "C1",
+    "patterns": [
+      "Name a mitigation owner in standup"
+    ],
+    "example": [
+      "Incident",
+      "Name a mitigation owner in standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "recovery verification",
+    "type": "phrase",
+    "meaning": "Checks proving the system is healthy after mitigation.",
+    "context": "Incident",
+    "level": "C1",
+    "patterns": [
+      "Recovery verification is still pending"
+    ],
+    "example": [
+      "Incident",
+      "Recovery verification is still pending."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "known-error record",
+    "type": "phrase",
+    "meaning": "Tracked residual issue accepted temporarily with a workaround.",
+    "context": "Ticket",
+    "level": "C1",
+    "patterns": [
+      "File a known-error record for the flake"
+    ],
+    "example": [
+      "Ticket",
+      "File a known-error record for the flake."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "operational readiness",
+    "type": "phrase",
+    "meaning": "Evidence the service can be run safely in production.",
+    "context": "Deploy",
+    "level": "C1",
+    "patterns": [
+      "Block launch until operational readiness is signed off"
+    ],
+    "example": [
+      "Deploy",
+      "Block launch until operational readiness is signed off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "runbook gap",
+    "type": "phrase",
+    "meaning": "Missing or outdated steps discovered during real response.",
+    "context": "On-call",
+    "level": "C1",
+    "patterns": [
+      "We found a runbook gap at 2am"
+    ],
+    "example": [
+      "On-call",
+      "We found a runbook gap at 2am."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "escalation latency",
+    "type": "phrase",
+    "meaning": "Time from first page until the right responder engages.",
+    "context": "On-call",
+    "level": "C1",
+    "patterns": [
+      "Escalation latency exceeded the policy"
+    ],
+    "example": [
+      "On-call",
+      "Escalation latency exceeded the policy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "blocker",
+    "type": "word",
+    "meaning": "Something that stops you from making progress on a task.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "I'm blocked by…"
+    ],
+    "example": [
+      "Standup",
+      "My blocker is the missing staging API credentials."
+    ],
+    "alternatives": [
+      "impediment"
+    ],
+    "notes": [
+      "Name the owner and next step."
+    ]
+  },
+  {
+    "term": "unblocked",
+    "type": "word",
+    "meaning": "Able to continue after a dependency or issue was cleared.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "I am unblocked…"
+    ],
+    "example": [
+      "Standup",
+      "I'm unblocked now that the PR review landed."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ETA",
+    "type": "word",
+    "meaning": "Expected time of completion or delivery.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "ETA is…"
+    ],
+    "example": [
+      "Standup",
+      "ETA for the hotfix deploy is end of day."
+    ],
+    "alternatives": [
+      "estimate"
+    ],
+    "notes": []
+  },
+  {
+    "term": "dependency",
+    "type": "word",
+    "meaning": "Work or team you must wait on before finishing.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I'm waiting on a dependency…"
+    ],
+    "example": [
+      "Standup",
+      "I'm blocked by a dependency on the Auth API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "spike",
+    "type": "word",
+    "meaning": "Time-boxed research to reduce uncertainty before building.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I ran a spike on…"
+    ],
+    "example": [
+      "Standup",
+      "I finished the spike on the webhook retry policy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "WIP",
+    "type": "word",
+    "meaning": "Work in progress; not ready to merge or ship.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "WIP PR…"
+    ],
+    "example": [
+      "Slack",
+      "Opened a WIP PR for the staging deploy scripts."
+    ],
+    "alternatives": [],
+    "notes": [
+      "Mark draft PRs clearly."
+    ]
+  },
+  {
+    "term": "handoff",
+    "type": "word",
+    "meaning": "Transfer of ownership or context to another person.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I will handoff…"
+    ],
+    "example": [
+      "Standup",
+      "Handoff of the on-call runbook is today at 17:00."
+    ],
+    "alternatives": [
+      "hand-off"
+    ],
+    "notes": []
+  },
+  {
+    "term": "capacity",
+    "type": "word",
+    "meaning": "How much work you can take in the sprint or day.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I have capacity for…"
+    ],
+    "example": [
+      "Standup",
+      "I don't have capacity for another ticket this sprint."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "priority",
+    "type": "word",
+    "meaning": "Relative importance used to order work.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Priority is…"
+    ],
+    "example": [
+      "Standup",
+      "Priority is the production incident mitigation first."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "follow-up",
+    "type": "word",
+    "meaning": "A later check or task after an update.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "I will follow up…"
+    ],
+    "example": [
+      "Slack",
+      "I'll follow up after the CI pipeline goes green."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "owner",
+    "type": "word",
+    "meaning": "Person accountable for a task or outcome.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Owner is…"
+    ],
+    "example": [
+      "Standup",
+      "Owner of the rollback ticket is on-call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ownership",
+    "type": "word",
+    "meaning": "Accountability for delivering or fixing something.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I take ownership of…"
+    ],
+    "example": [
+      "Standup",
+      "I take ownership of the flaky CI job."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "update",
+    "type": "word",
+    "meaning": "A short status share about progress.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Quick update…"
+    ],
+    "example": [
+      "Standup",
+      "Quick update: the API merge is in review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "status",
+    "type": "word",
+    "meaning": "Current state of a task or system.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Status is…"
+    ],
+    "example": [
+      "Standup",
+      "Status: staging deploy succeeded; prod is next."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "yesterday",
+    "type": "word",
+    "meaning": "Work completed in the previous workday.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Yesterday I…"
+    ],
+    "example": [
+      "Standup",
+      "Yesterday I merged the PR for the feature flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "today",
+    "type": "word",
+    "meaning": "Work planned for the current day.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Today I will…"
+    ],
+    "example": [
+      "Standup",
+      "Today I will finish the ticket for the rollback runbook."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "risk",
+    "type": "word",
+    "meaning": "Chance something will slip, fail, or regress.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Risk is…"
+    ],
+    "example": [
+      "Standup",
+      "Risk is a regression in the payment API latency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "mitigation",
+    "type": "word",
+    "meaning": "Temporary action that reduces impact while fixing root cause.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "Mitigation is…"
+    ],
+    "example": [
+      "Standup",
+      "Mitigation: we disabled the canary until the hotfix ships."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "regression",
+    "type": "word",
+    "meaning": "A bug that reappears after a change.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "We hit a regression…"
+    ],
+    "example": [
+      "Standup",
+      "We hit a regression in staging after the last deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "flake",
+    "type": "word",
+    "meaning": "An intermittent test or job failure.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "CI flake…"
+    ],
+    "example": [
+      "Standup",
+      "CI flake on the integration suite is blocking my PR."
+    ],
+    "alternatives": [
+      "flaky"
+    ],
+    "notes": []
+  },
+  {
+    "term": "flaky",
+    "type": "word",
+    "meaning": "Unreliable; fails intermittently without a clear cause.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "flaky test…"
+    ],
+    "example": [
+      "Standup",
+      "I'm blocked by a flaky pipeline job on main."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "repro",
+    "type": "word",
+    "meaning": "Steps or evidence that reproduce a bug.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "I have a repro…"
+    ],
+    "example": [
+      "Standup",
+      "I have a solid repro for the staging outage path."
+    ],
+    "alternatives": [
+      "reproduction"
+    ],
+    "notes": []
+  },
+  {
+    "term": "hotfix",
+    "type": "word",
+    "meaning": "Urgent fix shipped outside the normal release train.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Shipping a hotfix…"
+    ],
+    "example": [
+      "Standup",
+      "Today I will ship a hotfix for the prod alert."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rollback",
+    "type": "word",
+    "meaning": "Reverting a deploy to a previous known-good version.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "We need a rollback…"
+    ],
+    "example": [
+      "Standup",
+      "If canary fails, rollback is the first mitigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rollout",
+    "type": "word",
+    "meaning": "Gradual release of a change to users or environments.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Rollout starts…"
+    ],
+    "example": [
+      "Standup",
+      "Rollout of the feature flag starts after QA sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "canary",
+    "type": "word",
+    "meaning": "Limited release used to validate a change before full deploy.",
+    "context": "Deploy",
+    "level": "C1",
+    "patterns": [
+      "Canary looks…"
+    ],
+    "example": [
+      "Standup",
+      "Canary latency looks healthy; continuing the rollout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "staging",
+    "type": "word",
+    "meaning": "Pre-production environment for final validation.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "On staging…"
+    ],
+    "example": [
+      "Standup",
+      "Staging deploy is green; waiting on QA."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "production",
+    "type": "word",
+    "meaning": "Live environment serving real users.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "In production…"
+    ],
+    "example": [
+      "Standup",
+      "Production still shows the alert after the last deploy."
+    ],
+    "alternatives": [
+      "prod"
+    ],
+    "notes": []
+  },
+  {
+    "term": "prod",
+    "type": "word",
+    "meaning": "Short for production environment.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "In prod…"
+    ],
+    "example": [
+      "Slack",
+      "Prod error rate spiked after the merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pipeline",
+    "type": "word",
+    "meaning": "Automated CI/CD job chain for build, test, and deploy.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "Pipeline failed…"
+    ],
+    "example": [
+      "Standup",
+      "Pipeline failed on the API integration job."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "merge",
+    "type": "word",
+    "meaning": "Integrating a branch into the target branch.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "After merge…"
+    ],
+    "example": [
+      "Standup",
+      "After merge I will watch the staging deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "latency",
+    "type": "word",
+    "meaning": "Delay between request and response.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Latency spiked…"
+    ],
+    "example": [
+      "Standup",
+      "API latency spiked overnight; investigating today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "outage",
+    "type": "word",
+    "meaning": "Service unavailable for users.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "During the outage…"
+    ],
+    "example": [
+      "Standup",
+      "Yesterday I helped mitigate the checkout outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "escalation",
+    "type": "word",
+    "meaning": "Raising an issue to a higher severity or owner.",
+    "context": "Incident",
+    "level": "B2",
+    "patterns": [
+      "I escalated…"
+    ],
+    "example": [
+      "Standup",
+      "I escalated the alert to on-call after 15 minutes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "SLA",
+    "type": "word",
+    "meaning": "Agreed service level commitment to customers or partners.",
+    "context": "On-call",
+    "level": "B2",
+    "patterns": [
+      "SLA risk…"
+    ],
+    "example": [
+      "Standup",
+      "We are at risk of missing the SLA on ticket response."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "SLO",
+    "type": "word",
+    "meaning": "Internal reliability target for a service.",
+    "context": "On-call",
+    "level": "B2",
+    "patterns": [
+      "SLO burn…"
+    ],
+    "example": [
+      "Standup",
+      "SLO burn rate rose after the canary deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sync",
+    "type": "word",
+    "meaning": "Live conversation to align or unblock quickly.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Quick sync…"
+    ],
+    "example": [
+      "Slack",
+      "Need a quick sync on the blocker before standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "async",
+    "type": "word",
+    "meaning": "Communication or work without needing everyone live.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Async update…"
+    ],
+    "example": [
+      "Slack",
+      "Async update: PR is ready for review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "backlog",
+    "type": "word",
+    "meaning": "Ordered list of work not yet started.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "From the backlog…"
+    ],
+    "example": [
+      "Standup",
+      "I pulled a tech-debt ticket from the backlog."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sprint",
+    "type": "word",
+    "meaning": "Fixed timebox for delivering a set of tickets.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "This sprint…"
+    ],
+    "example": [
+      "Standup",
+      "This sprint I own the feature-flag rollout ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "scope",
+    "type": "word",
+    "meaning": "What is included or excluded from the work.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Scope change…"
+    ],
+    "example": [
+      "Standup",
+      "Scope grew after the client requirement change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cutover",
+    "type": "word",
+    "meaning": "Switch from old system/path to new during a release.",
+    "context": "Deploy",
+    "level": "C1",
+    "patterns": [
+      "Cutover at…"
+    ],
+    "example": [
+      "Standup",
+      "Cutover is scheduled after the staging dress rehearsal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "runbook",
+    "type": "word",
+    "meaning": "Step-by-step ops guide for an incident or deploy.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Per the runbook…"
+    ],
+    "example": [
+      "Standup",
+      "I updated the rollback runbook after yesterday."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "headsup",
+    "type": "word",
+    "meaning": "Advance notice that something may affect others.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Heads-up…"
+    ],
+    "example": [
+      "Slack",
+      "Heads-up: staging will be flaky during the deploy."
+    ],
+    "alternatives": [
+      "heads-up"
+    ],
+    "notes": []
+  },
+  {
+    "term": "bandwidth",
+    "type": "word",
+    "meaning": "Available time/attention to take more work.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I don't have bandwidth…"
+    ],
+    "example": [
+      "Standup",
+      "I don't have bandwidth for another PR review today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "throughput",
+    "type": "word",
+    "meaning": "Amount of work completed over a period.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "Throughput dropped…"
+    ],
+    "example": [
+      "Standup",
+      "Throughput dropped because of CI flakes this week."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "bottleneck",
+    "type": "word",
+    "meaning": "Constraint that slows the whole workflow.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Bottleneck is…"
+    ],
+    "example": [
+      "Standup",
+      "Bottleneck is PR review capacity on the API team."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "parking-lot",
+    "type": "word",
+    "meaning": "List of topics deferred out of the current discussion.",
+    "context": "Standup",
+    "level": "C1",
+    "patterns": [
+      "Park it…"
+    ],
+    "example": [
+      "Standup",
+      "I'll put the RFC debate in the parking lot until after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "takeaway",
+    "type": "word",
+    "meaning": "Key conclusion to remember after an update.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Takeaway is…"
+    ],
+    "example": [
+      "Standup",
+      "Takeaway: ship the mitigation today, root cause tomorrow."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "action",
+    "type": "word",
+    "meaning": "Concrete next step someone will do.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "My action…"
+    ],
+    "example": [
+      "Standup",
+      "My action is to reopen the ticket with a clear repro."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "deadline",
+    "type": "word",
+    "meaning": "Hard date when work must be done.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Deadline is…"
+    ],
+    "example": [
+      "Standup",
+      "Deadline for the client demo is Friday deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "estimate",
+    "type": "word",
+    "meaning": "Rough sizing of effort or time.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Estimate is…"
+    ],
+    "example": [
+      "Standup",
+      "Estimate is half a day after the spike lands."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reestimate",
+    "type": "word",
+    "meaning": "Update an estimate after new information.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I need to reestimate…"
+    ],
+    "example": [
+      "Standup",
+      "I need to reestimate after the API contract change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "unblock",
+    "type": "word",
+    "meaning": "Remove what is preventing progress.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Can you unblock…"
+    ],
+    "example": [
+      "Slack",
+      "Can you unblock me on the staging credentials?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ping",
+    "type": "word",
+    "meaning": "Short message to get attention or a reply.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Ping me…"
+    ],
+    "example": [
+      "Slack",
+      "Ping me when the pipeline is green."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "nudge",
+    "type": "word",
+    "meaning": "Gentle reminder to move a review or reply along.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Friendly nudge…"
+    ],
+    "example": [
+      "Slack",
+      "Friendly nudge on the PR review for the hotfix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "LGTM",
+    "type": "word",
+    "meaning": "Approval that a change looks good to merge.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "LGTM…"
+    ],
+    "example": [
+      "Slack",
+      "LGTM on the rollback script PR."
+    ],
+    "alternatives": [],
+    "notes": [
+      "Prefer a real review comment too."
+    ]
+  },
+  {
+    "term": "nit",
+    "type": "word",
+    "meaning": "Small non-blocking review comment.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Nit:…"
+    ],
+    "example": [
+      "PR",
+      "Nit: rename the helper before merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "draft",
+    "type": "word",
+    "meaning": "Not-final PR or document open for early feedback.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "Draft PR…"
+    ],
+    "example": [
+      "Standup",
+      "I opened a draft PR for the feature-flag change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rebase",
+    "type": "word",
+    "meaning": "Replay commits onto a newer base branch.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "I need to rebase…"
+    ],
+    "example": [
+      "Standup",
+      "I need to rebase onto main before the merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "conflict",
+    "type": "word",
+    "meaning": "Overlapping changes that must be resolved before merge.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Merge conflict…"
+    ],
+    "example": [
+      "Standup",
+      "I'm resolving a merge conflict on the deploy config."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cherry-pick",
+    "type": "word",
+    "meaning": "Apply a specific commit onto another branch.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Cherry-pick the…"
+    ],
+    "example": [
+      "Standup",
+      "I will cherry-pick the hotfix onto the release branch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "feature-flag",
+    "type": "word",
+    "meaning": "Toggle that controls whether a feature is on.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Behind a feature flag…"
+    ],
+    "example": [
+      "Standup",
+      "The change is behind a feature flag until QA signs off."
+    ],
+    "alternatives": [
+      "flag"
+    ],
+    "notes": []
+  },
+  {
+    "term": "toggle",
+    "type": "word",
+    "meaning": "Switch that enables or disables a behavior.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Toggle off…"
+    ],
+    "example": [
+      "Standup",
+      "We can toggle off the canary if latency spikes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "release",
+    "type": "word",
+    "meaning": "Versioned ship of software to an environment.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "For this release…"
+    ],
+    "example": [
+      "Standup",
+      "For this release I own the staging verification ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "deploy",
+    "type": "word",
+    "meaning": "Push a build into an environment.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "After deploy…"
+    ],
+    "example": [
+      "Standup",
+      "After deploy I will watch the alert dashboard."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "build",
+    "type": "word",
+    "meaning": "Compiled artifact or the CI job that produces it.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "Build failed…"
+    ],
+    "example": [
+      "Standup",
+      "Build failed on the API unit tests."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "artifact",
+    "type": "word",
+    "meaning": "Output file produced by a build or pipeline.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "Artifact ready…"
+    ],
+    "example": [
+      "Standup",
+      "Artifact is ready for the staging deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "credential",
+    "type": "word",
+    "meaning": "Secret used to authenticate to a system.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Missing credential…"
+    ],
+    "example": [
+      "Standup",
+      "I'm blocked waiting on staging credentials."
+    ],
+    "alternatives": [
+      "creds"
+    ],
+    "notes": []
+  },
+  {
+    "term": "creds",
+    "type": "word",
+    "meaning": "Informal short for credentials.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Need creds…"
+    ],
+    "example": [
+      "Slack",
+      "Need staging creds before I can finish the ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "access",
+    "type": "word",
+    "meaning": "Permission to use a system or environment.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Need access…"
+    ],
+    "example": [
+      "Standup",
+      "Need access to the on-call dashboards today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "permission",
+    "type": "word",
+    "meaning": "Granted right to perform an action in a system.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Permission denied…"
+    ],
+    "example": [
+      "Standup",
+      "Permission denied on the deploy role; raising a ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pairing",
+    "type": "word",
+    "meaning": "Two people working together on the same problem.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Pairing on…"
+    ],
+    "example": [
+      "Standup",
+      "Pairing on the root-cause spike this morning."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "mobbing",
+    "type": "word",
+    "meaning": "Group coding session with one driver.",
+    "context": "Standup",
+    "level": "B2",
+    "patterns": [
+      "Mobbing on…"
+    ],
+    "example": [
+      "Standup",
+      "Mobbing on the incident mitigation this afternoon."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "retro",
+    "type": "word",
+    "meaning": "Short for retrospective; review what to improve.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "In retro…"
+    ],
+    "example": [
+      "Standup",
+      "In retro we should discuss the CI flake trend."
+    ],
+    "alternatives": [
+      "retrospective"
+    ],
+    "notes": []
+  },
+  {
+    "term": "demo",
+    "type": "word",
+    "meaning": "Show of working software to stakeholders.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Demo ready…"
+    ],
+    "example": [
+      "Standup",
+      "Demo of the staging build is at 15:00."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "stakeholder",
+    "type": "word",
+    "meaning": "Person impacted by or interested in the outcome.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Stakeholder asked…"
+    ],
+    "example": [
+      "Standup",
+      "Stakeholder asked for an ETA on the client fix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "requirement",
+    "type": "word",
+    "meaning": "Needed capability or constraint from product/client.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "New requirement…"
+    ],
+    "example": [
+      "Standup",
+      "New requirement changed the acceptance criteria."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "acceptance",
+    "type": "word",
+    "meaning": "Criteria that define when work is done.",
+    "context": "QA",
+    "level": "B1",
+    "patterns": [
+      "Acceptance criteria…"
+    ],
+    "example": [
+      "Standup",
+      "Acceptance criteria for the ticket still need clarification."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "QA",
+    "type": "word",
+    "meaning": "Quality assurance validation before ship.",
+    "context": "QA",
+    "level": "A2",
+    "patterns": [
+      "In QA…"
+    ],
+    "example": [
+      "Standup",
+      "In QA today; waiting on the staging build."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sign-off",
+    "type": "word",
+    "meaning": "Formal approval to proceed or release.",
+    "context": "QA",
+    "level": "B1",
+    "patterns": [
+      "Waiting on sign-off…"
+    ],
+    "example": [
+      "Standup",
+      "Waiting on QA sign-off before the prod deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "smoke",
+    "type": "word",
+    "meaning": "Quick basic checks after a deploy.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Smoke test…"
+    ],
+    "example": [
+      "Standup",
+      "I will run smoke tests after the staging deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "soak",
+    "type": "word",
+    "meaning": "Leaving a change running to watch stability over time.",
+    "context": "Deploy",
+    "level": "C1",
+    "patterns": [
+      "Soak overnight…"
+    ],
+    "example": [
+      "Standup",
+      "Canary will soak overnight before full rollout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "blast-radius",
+    "type": "word",
+    "meaning": "How widely a failure or change can impact systems.",
+    "context": "Incident",
+    "level": "C1",
+    "patterns": [
+      "Limit blast radius…"
+    ],
+    "example": [
+      "Standup",
+      "We limited blast radius with the feature flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "fallback",
+    "type": "word",
+    "meaning": "Backup path when the primary path fails.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Fallback is…"
+    ],
+    "example": [
+      "Standup",
+      "Fallback is to disable the webhook and queue manually."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "workaround",
+    "type": "word",
+    "meaning": "Temporary way to keep going despite a bug.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Workaround is…"
+    ],
+    "example": [
+      "Standup",
+      "Workaround is documented in the ticket until the hotfix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "root-cause",
+    "type": "word",
+    "meaning": "Underlying reason a failure happened.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Root cause is…"
+    ],
+    "example": [
+      "Standup",
+      "Root cause looks like a race in the API retry logic."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "symptom",
+    "type": "word",
+    "meaning": "Observable effect of a problem, not the cause.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Symptom is…"
+    ],
+    "example": [
+      "Standup",
+      "Symptom is elevated latency; root cause still open."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "alert",
+    "type": "word",
+    "meaning": "Automated notification that something needs attention.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "Alert fired…"
+    ],
+    "example": [
+      "Standup",
+      "Alert fired on prod error rate after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "page",
+    "type": "word",
+    "meaning": "Urgent on-call notification that wakes someone.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "I got paged…"
+    ],
+    "example": [
+      "Standup",
+      "I got paged for the staging outage last night."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "on-call",
+    "type": "word",
+    "meaning": "Rotation responsibility for handling incidents.",
+    "context": "On-call",
+    "level": "A2",
+    "patterns": [
+      "I am on-call…"
+    ],
+    "example": [
+      "Standup",
+      "I'm on-call this week for the API services."
+    ],
+    "alternatives": [
+      "oncall"
+    ],
+    "notes": []
+  },
+  {
+    "term": "incident",
+    "type": "word",
+    "meaning": "Unplanned disruption needing coordinated response.",
+    "context": "Incident",
+    "level": "A2",
+    "patterns": [
+      "Incident open…"
+    ],
+    "example": [
+      "Standup",
+      "Incident is mitigated; postmortem notes are next."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "severity",
+    "type": "word",
+    "meaning": "How serious an incident or bug is.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Severity is…"
+    ],
+    "example": [
+      "Standup",
+      "Severity was SEV-2 until we rolled back."
+    ],
+    "alternatives": [
+      "sev"
+    ],
+    "notes": []
+  },
+  {
+    "term": "sev",
+    "type": "word",
+    "meaning": "Short label for incident severity level.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "SEV-1…"
+    ],
+    "example": [
+      "Standup",
+      "We declared SEV-2 for the payment outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "mitigate",
+    "type": "word",
+    "meaning": "Reduce impact of an incident quickly.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "We mitigated…"
+    ],
+    "example": [
+      "Standup",
+      "We mitigated by rolling back the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "recover",
+    "type": "word",
+    "meaning": "Return to normal service after an incident.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Service recovered…"
+    ],
+    "example": [
+      "Standup",
+      "Service recovered after the hotfix deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "postmortem",
+    "type": "word",
+    "meaning": "Blameless write-up after an incident.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Postmortem draft…"
+    ],
+    "example": [
+      "Standup",
+      "I will draft the postmortem after standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "timeline",
+    "type": "word",
+    "meaning": "Ordered record of what happened when.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Timeline shows…"
+    ],
+    "example": [
+      "Standup",
+      "Timeline for the outage is almost complete."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "action-item",
+    "type": "word",
+    "meaning": "Tracked follow-up with an owner (often hyphenated as a label).",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Action item…"
+    ],
+    "example": [
+      "Standup",
+      "Action-item: update the runbook before next on-call."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "parking",
+    "type": "word",
+    "meaning": "Deferring a topic without losing it.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Parking this…"
+    ],
+    "example": [
+      "Standup",
+      "Parking the RFC debate until after today's deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "carryover",
+    "type": "word",
+    "meaning": "Work that slipped into the next sprint.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Carryover from…"
+    ],
+    "example": [
+      "Standup",
+      "Carryover from last sprint is the CI flake ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "slip",
+    "type": "word",
+    "meaning": "Schedule delay versus the plan.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "We may slip…"
+    ],
+    "example": [
+      "Standup",
+      "We may slip the ETA if the dependency stays blocked."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "at-risk",
+    "type": "word",
+    "meaning": "Likely to miss a date or commitment.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "At risk…"
+    ],
+    "example": [
+      "Standup",
+      "The release is at risk without QA capacity."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "green",
+    "type": "word",
+    "meaning": "Healthy status; tests/pipeline passing.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "CI is green…"
+    ],
+    "example": [
+      "Standup",
+      "CI is green; ready to merge after review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "red",
+    "type": "word",
+    "meaning": "Failing status on tests, CI, or health checks.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "CI is red…"
+    ],
+    "example": [
+      "Standup",
+      "CI is red on main; investigating the flake."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "amber",
+    "type": "word",
+    "meaning": "Warning state; not fully healthy.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Status amber…"
+    ],
+    "example": [
+      "Standup",
+      "Latency is amber on the canary; watching closely."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "healthy",
+    "type": "word",
+    "meaning": "System behaving within expected bounds.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "Looks healthy…"
+    ],
+    "example": [
+      "Standup",
+      "Staging looks healthy after the deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "degraded",
+    "type": "word",
+    "meaning": "Partially working with reduced quality.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Service degraded…"
+    ],
+    "example": [
+      "Standup",
+      "API is degraded; mitigation is in progress."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "queue",
+    "type": "word",
+    "meaning": "Backlog of work waiting to be processed.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "In the queue…"
+    ],
+    "example": [
+      "Standup",
+      "The review queue is the current bottleneck."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "triage",
+    "type": "word",
+    "meaning": "Quickly classify and prioritize incoming issues.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "I will triage…"
+    ],
+    "example": [
+      "Standup",
+      "I will triage the overnight alerts after standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reproduce",
+    "type": "word",
+    "meaning": "Make a bug happen again to confirm it.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Cannot reproduce…"
+    ],
+    "example": [
+      "Standup",
+      "I still can't reproduce the staging bug locally."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "isolate",
+    "type": "word",
+    "meaning": "Narrow down where a fault lives.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Isolating…"
+    ],
+    "example": [
+      "Standup",
+      "Isolating whether the latency is API or database."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "verify",
+    "type": "word",
+    "meaning": "Confirm a fix or deploy behaves correctly.",
+    "context": "QA",
+    "level": "A2",
+    "patterns": [
+      "I will verify…"
+    ],
+    "example": [
+      "Standup",
+      "I will verify the fix on staging after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "validate",
+    "type": "word",
+    "meaning": "Check that requirements or assumptions hold.",
+    "context": "QA",
+    "level": "B1",
+    "patterns": [
+      "Need to validate…"
+    ],
+    "example": [
+      "Standup",
+      "Need to validate the acceptance criteria with product."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "monitor",
+    "type": "word",
+    "meaning": "Watch metrics/logs after a change.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "I will monitor…"
+    ],
+    "example": [
+      "Standup",
+      "I will monitor prod alerts for an hour after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "watch",
+    "type": "word",
+    "meaning": "Keep an eye on a system or PR.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Watching…"
+    ],
+    "example": [
+      "Slack",
+      "Watching the pipeline for the hotfix branch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "land",
+    "type": "word",
+    "meaning": "Get a change merged successfully.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "After it lands…"
+    ],
+    "example": [
+      "Standup",
+      "After the PR lands I will kick off staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ship",
+    "type": "word",
+    "meaning": "Deliver a change to users or an environment.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "Ready to ship…"
+    ],
+    "example": [
+      "Standup",
+      "Ready to ship once QA signs off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "hold",
+    "type": "word",
+    "meaning": "Pause a release or change intentionally.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "On hold…"
+    ],
+    "example": [
+      "Standup",
+      "Deploy is on hold until the alert clears."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "freeze",
+    "type": "word",
+    "meaning": "Period when production changes are restricted.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Code freeze…"
+    ],
+    "example": [
+      "Standup",
+      "Code freeze starts Friday; finish reviews today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "gate",
+    "type": "word",
+    "meaning": "Required check that must pass before proceeding.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "Blocked on gate…"
+    ],
+    "example": [
+      "Standup",
+      "Blocked on the coverage gate in CI."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "check",
+    "type": "word",
+    "meaning": "Automated verification step in CI.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "Check failed…"
+    ],
+    "example": [
+      "Standup",
+      "Lint check failed on my PR; fixing now."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "lint",
+    "type": "word",
+    "meaning": "Static style/quality check on code.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "Lint failed…"
+    ],
+    "example": [
+      "Standup",
+      "Lint failed; quick fix before re-running CI."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "coverage",
+    "type": "word",
+    "meaning": "How much code is exercised by tests.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "Coverage dropped…"
+    ],
+    "example": [
+      "Standup",
+      "Coverage dropped after the hotfix; adding tests today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "timeout",
+    "type": "word",
+    "meaning": "Operation aborted because it took too long.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "Hit a timeout…"
+    ],
+    "example": [
+      "Standup",
+      "CI hit a timeout on the integration suite."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "retry",
+    "type": "word",
+    "meaning": "Attempt an operation again after failure.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "I will retry…"
+    ],
+    "example": [
+      "Standup",
+      "I will retry the pipeline after the flake."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rerun",
+    "type": "word",
+    "meaning": "Run a job or suite again from scratch.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "Rerun CI…"
+    ],
+    "example": [
+      "Slack",
+      "Rerun CI on the PR please."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "flake-rate",
+    "type": "word",
+    "meaning": "How often intermittent failures occur.",
+    "context": "CI",
+    "level": "C1",
+    "patterns": [
+      "Flake rate…"
+    ],
+    "example": [
+      "Standup",
+      "Flake rate on the API suite is still too high."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "debt",
+    "type": "word",
+    "meaning": "Shortcuts that slow future work if unpaid.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Tech debt…"
+    ],
+    "example": [
+      "Standup",
+      "Tech debt in the deploy scripts is slowing us."
+    ],
+    "alternatives": [
+      "tech-debt"
+    ],
+    "notes": []
+  },
+  {
+    "term": "tech-debt",
+    "type": "word",
+    "meaning": "Accumulated shortcuts needing later cleanup.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Paying down tech debt…"
+    ],
+    "example": [
+      "Standup",
+      "Paying down tech debt in the CI config this sprint."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "chore",
+    "type": "word",
+    "meaning": "Maintenance work without user-facing features.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Chore ticket…"
+    ],
+    "example": [
+      "Standup",
+      "Chore: rotate the staging credentials today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "spike-time",
+    "type": "word",
+    "meaning": "Budgeted hours for investigative work.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Spike time left…"
+    ],
+    "example": [
+      "Standup",
+      "Spike time left: two hours on the webhook design."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "focus",
+    "type": "word",
+    "meaning": "Concentrated work block without interruptions.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Need focus time…"
+    ],
+    "example": [
+      "Standup",
+      "Need focus time this morning for the root-cause spike."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "context",
+    "type": "word",
+    "meaning": "Background needed to continue effectively.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Missing context…"
+    ],
+    "example": [
+      "Slack",
+      "Missing context on the ticket; can you paste the repro?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "handover",
+    "type": "word",
+    "meaning": "Passing responsibilities at shift or role change.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Handover notes…"
+    ],
+    "example": [
+      "Standup",
+      "Handover notes for on-call are in the runbook."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "standby",
+    "type": "word",
+    "meaning": "Ready to jump in if needed, not primary yet.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "On standby…"
+    ],
+    "example": [
+      "Standup",
+      "I'm on standby for the war room if severity rises."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "war-room",
+    "type": "word",
+    "meaning": "Focused incident response channel/meeting.",
+    "context": "War room",
+    "level": "B1",
+    "patterns": [
+      "Join war room…"
+    ],
+    "example": [
+      "Standup",
+      "If the alert worsens, join the war room channel."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "comms",
+    "type": "word",
+    "meaning": "Status communication during an incident or release.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Comms update…"
+    ],
+    "example": [
+      "Standup",
+      "I own incident comms until mitigation lands."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "IC",
+    "type": "word",
+    "meaning": "Incident commander coordinating response.",
+    "context": "War room",
+    "level": "B2",
+    "patterns": [
+      "IC is…"
+    ],
+    "example": [
+      "Standup",
+      "IC asked me to own the API mitigation path."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "DRI",
+    "type": "word",
+    "meaning": "Directly responsible individual for an outcome.",
+    "context": "Standup",
+    "level": "B2",
+    "patterns": [
+      "DRI is…"
+    ],
+    "example": [
+      "Standup",
+      "DRI for the rollback is on-call this week."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "RACI",
+    "type": "word",
+    "meaning": "Clarity map of who is Responsible/Accountable/Consulted/Informed.",
+    "context": "Docs",
+    "level": "B2",
+    "patterns": [
+      "Per RACI…"
+    ],
+    "example": [
+      "Standup",
+      "Per RACI I am Responsible for the deploy ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "DOD",
+    "type": "word",
+    "meaning": "Definition of Done for a ticket or story.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Per DoD…"
+    ],
+    "example": [
+      "Standup",
+      "Per DoD we still need QA sign-off on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "DOR",
+    "type": "word",
+    "meaning": "Definition of Ready before work starts.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Not DoR…"
+    ],
+    "example": [
+      "Standup",
+      "Ticket is not DoR until acceptance criteria are clear."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "AC",
+    "type": "word",
+    "meaning": "Acceptance criteria shorthand.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "AC unclear…"
+    ],
+    "example": [
+      "Standup",
+      "AC unclear on the ticket; clarifying with product."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "POC",
+    "type": "word",
+    "meaning": "Proof of concept to test feasibility.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "POC ready…"
+    ],
+    "example": [
+      "Standup",
+      "POC for the webhook retry is ready for review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "MVP",
+    "type": "word",
+    "meaning": "Smallest useful version to ship and learn.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "MVP scope…"
+    ],
+    "example": [
+      "Standup",
+      "MVP scope is the feature flag plus staging demo."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "RFC",
+    "type": "word",
+    "meaning": "Proposal document requesting comments before a decision.",
+    "context": "RFC",
+    "level": "B1",
+    "patterns": [
+      "RFC open…"
+    ],
+    "example": [
+      "Standup",
+      "RFC for the cutover plan is open for review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ADR",
+    "type": "word",
+    "meaning": "Architecture decision record capturing a choice.",
+    "context": "Docs",
+    "level": "B2",
+    "patterns": [
+      "ADR drafted…"
+    ],
+    "example": [
+      "Standup",
+      "ADR for the queue design is drafted in Docs."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "design-doc",
+    "type": "word",
+    "meaning": "Written proposal for a technical approach.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Design doc…"
+    ],
+    "example": [
+      "Standup",
+      "Design doc for the API versioning is in review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "run-through",
+    "type": "word",
+    "meaning": "Practice of a procedure before the real event.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Run-through today…"
+    ],
+    "example": [
+      "Standup",
+      "Deploy run-through on staging is this afternoon."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dress-rehearsal",
+    "type": "word",
+    "meaning": "Full practice of cutover or release steps.",
+    "context": "Deploy",
+    "level": "C1",
+    "patterns": [
+      "Dress rehearsal…"
+    ],
+    "example": [
+      "Standup",
+      "Dress rehearsal for cutover is tomorrow on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "go/no-go",
+    "type": "word",
+    "meaning": "Decision checkpoint whether to proceed with a release.",
+    "context": "Decision",
+    "level": "C1",
+    "patterns": [
+      "Go/no-go at…"
+    ],
+    "example": [
+      "Standup",
+      "Go/no-go for prod deploy is at 16:00."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "kickoff",
+    "type": "word",
+    "meaning": "Start of a project or workstream with shared goals.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Kickoff today…"
+    ],
+    "example": [
+      "Standup",
+      "Kickoff for the latency spike is after standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "wrap-up",
+    "type": "word",
+    "meaning": "Closing summary of remaining work for the day.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Wrap-up…"
+    ],
+    "example": [
+      "Standup",
+      "Wrap-up: PR in review, waiting on CI."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "parking-lot-note",
+    "type": "word",
+    "meaning": "Deferred item captured for later.",
+    "context": "Standup",
+    "level": "B2",
+    "patterns": [
+      "Captured…"
+    ],
+    "example": [
+      "Standup",
+      "Captured a parking-lot note about the RFC debate."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "blocker-list",
+    "type": "word",
+    "meaning": "Visible list of current blockers for the team.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "On the blocker list…"
+    ],
+    "example": [
+      "Standup",
+      "On the blocker list: staging creds and flaky CI."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "status-line",
+    "type": "word",
+    "meaning": "One-line summary of progress.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Status line…"
+    ],
+    "example": [
+      "Slack",
+      "Status line: on track, PR awaiting review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "progress",
+    "type": "word",
+    "meaning": "Movement toward completing the work.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Making progress…"
+    ],
+    "example": [
+      "Standup",
+      "Making progress on the rollback runbook ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "stalled",
+    "type": "word",
+    "meaning": "No forward movement due to a wait or issue.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Work stalled…"
+    ],
+    "example": [
+      "Standup",
+      "Work stalled on the dependency from Auth."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "idle",
+    "type": "word",
+    "meaning": "Not actively progressing; waiting.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Ticket idle…"
+    ],
+    "example": [
+      "Standup",
+      "Ticket is idle until the API contract lands."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "active",
+    "type": "word",
+    "meaning": "Currently being worked.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Actively working…"
+    ],
+    "example": [
+      "Standup",
+      "Actively working the prod alert triage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "paused",
+    "type": "word",
+    "meaning": "Intentionally stopped for now.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Paused until…"
+    ],
+    "example": [
+      "Standup",
+      "Paused the feature work until the incident clears."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "resumed",
+    "type": "word",
+    "meaning": "Started again after a pause.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Resumed…"
+    ],
+    "example": [
+      "Standup",
+      "Resumed the feature-flag ticket after mitigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "closed",
+    "type": "word",
+    "meaning": "Finished and no longer in progress.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Closed the…"
+    ],
+    "example": [
+      "Standup",
+      "Closed the ticket after QA verification on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reopened",
+    "type": "word",
+    "meaning": "Brought back after being closed.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Reopened…"
+    ],
+    "example": [
+      "Standup",
+      "Reopened the ticket after a staging regression."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "assigned",
+    "type": "word",
+    "meaning": "Ownership given to a person.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Assigned to…"
+    ],
+    "example": [
+      "Standup",
+      "Assigned to me: the CI flake investigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "reassigned",
+    "type": "word",
+    "meaning": "Ownership moved to someone else.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Reassigned…"
+    ],
+    "example": [
+      "Standup",
+      "Reassigned the ticket to on-call for faster mitigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "due",
+    "type": "word",
+    "meaning": "Expected by a date or time.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Due today…"
+    ],
+    "example": [
+      "Standup",
+      "Due today: staging verification before deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "overdue",
+    "type": "word",
+    "meaning": "Past the expected completion time.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Overdue…"
+    ],
+    "example": [
+      "Standup",
+      "Review is overdue on the hotfix PR."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "blocker-free",
+    "type": "word",
+    "meaning": "No current impediments.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Blocker-free…"
+    ],
+    "example": [
+      "Standup",
+      "I'm blocker-free and picking up the next ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "unblocking",
+    "type": "word",
+    "meaning": "Actively clearing a blocker for someone.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Unblocking you…"
+    ],
+    "example": [
+      "Slack",
+      "Unblocking you with staging access now."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pairing-slot",
+    "type": "word",
+    "meaning": "Scheduled time to pair on a problem.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Pairing slot…"
+    ],
+    "example": [
+      "Standup",
+      "Pairing slot at 11:00 on the latency spike."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "focus-block",
+    "type": "word",
+    "meaning": "Calendar block for deep work.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Focus block…"
+    ],
+    "example": [
+      "Standup",
+      "Focus block after standup for the root-cause write-up."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ooo",
+    "type": "word",
+    "meaning": "Out of office; unavailable for work.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "OOO tomorrow…"
+    ],
+    "example": [
+      "Slack",
+      "OOO tomorrow; DRI for the ticket is Alex."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "backfill",
+    "type": "word",
+    "meaning": "Catch-up coverage for missing capacity or data.",
+    "context": "Standup",
+    "level": "B2",
+    "patterns": [
+      "Backfill needed…"
+    ],
+    "example": [
+      "Standup",
+      "Backfill needed for on-call while I finish the hotfix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "coverage-plan",
+    "type": "word",
+    "meaning": "Who covers responsibilities when someone is away.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Coverage plan…"
+    ],
+    "example": [
+      "Standup",
+      "Coverage plan for on-call is posted in Slack."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "shadow",
+    "type": "word",
+    "meaning": "Observe a role before owning it fully.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Shadowing…"
+    ],
+    "example": [
+      "Standup",
+      "I'm shadowing on-call this week on the API rota."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "primary",
+    "type": "word",
+    "meaning": "Main on-call or owner for a period.",
+    "context": "On-call",
+    "level": "A2",
+    "patterns": [
+      "Primary on-call…"
+    ],
+    "example": [
+      "Standup",
+      "I'm primary on-call for the checkout services."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "secondary",
+    "type": "word",
+    "meaning": "Backup on-call if primary needs help.",
+    "context": "On-call",
+    "level": "A2",
+    "patterns": [
+      "Secondary on-call…"
+    ],
+    "example": [
+      "Standup",
+      "I'm secondary on-call if the war room needs help."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rota",
+    "type": "word",
+    "meaning": "Schedule of who is on-call when.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "On the rota…"
+    ],
+    "example": [
+      "Standup",
+      "I'm on the rota starting Monday for API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ack",
+    "type": "word",
+    "meaning": "Acknowledge receipt of an alert or request.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "Acked…"
+    ],
+    "example": [
+      "Slack",
+      "Acked the alert; investigating the API spike."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ack-time",
+    "type": "word",
+    "meaning": "How long until an alert is acknowledged.",
+    "context": "On-call",
+    "level": "B2",
+    "patterns": [
+      "Ack time…"
+    ],
+    "example": [
+      "Standup",
+      "Ack time was under two minutes on the SEV-2."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "MTTR",
+    "type": "word",
+    "meaning": "Mean time to recover from an incident.",
+    "context": "Postmortem",
+    "level": "C1",
+    "patterns": [
+      "MTTR improved…"
+    ],
+    "example": [
+      "Standup",
+      "MTTR improved after we updated the runbook."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "MTTD",
+    "type": "word",
+    "meaning": "Mean time to detect an issue.",
+    "context": "Postmortem",
+    "level": "C1",
+    "patterns": [
+      "MTTD rose…"
+    ],
+    "example": [
+      "Standup",
+      "MTTD rose because the alert threshold was too high."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "error-budget",
+    "type": "word",
+    "meaning": "Allowed reliability failure before slowing releases.",
+    "context": "On-call",
+    "level": "C1",
+    "patterns": [
+      "Error budget…"
+    ],
+    "example": [
+      "Standup",
+      "Error budget is burning fast after the outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "burn-rate",
+    "type": "word",
+    "meaning": "How quickly an SLO or error budget is consumed.",
+    "context": "Alert",
+    "level": "B2",
+    "patterns": [
+      "Burn rate…"
+    ],
+    "example": [
+      "Standup",
+      "Burn rate spiked; pausing the rollout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "threshold",
+    "type": "word",
+    "meaning": "Limit that triggers an alert or gate.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Above threshold…"
+    ],
+    "example": [
+      "Standup",
+      "Latency is above threshold on the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dashboard",
+    "type": "word",
+    "meaning": "View of key metrics for a service.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "On the dashboard…"
+    ],
+    "example": [
+      "Standup",
+      "Dashboard shows elevated API errors after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "log",
+    "type": "word",
+    "meaning": "Recorded event used for debugging.",
+    "context": "Incident",
+    "level": "A2",
+    "patterns": [
+      "Checking logs…"
+    ],
+    "example": [
+      "Standup",
+      "Checking logs for the staging timeout path."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "trace",
+    "type": "word",
+    "meaning": "End-to-end request path for debugging.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Tracing…"
+    ],
+    "example": [
+      "Standup",
+      "Tracing the request through the API gateway."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "span",
+    "type": "word",
+    "meaning": "Single unit in a distributed trace.",
+    "context": "Incident",
+    "level": "C1",
+    "patterns": [
+      "Slow span…"
+    ],
+    "example": [
+      "Standup",
+      "Slow span is the webhook handler under load."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "metric",
+    "type": "word",
+    "meaning": "Numeric measurement of system behavior.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "Metric spiked…"
+    ],
+    "example": [
+      "Standup",
+      "Metric spiked for 5xx after the merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "5xx",
+    "type": "word",
+    "meaning": "Server-side HTTP error responses.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "5xx rate…"
+    ],
+    "example": [
+      "Standup",
+      "5xx rate rose on prod after the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "4xx",
+    "type": "word",
+    "meaning": "Client-side HTTP error responses.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "4xx spike…"
+    ],
+    "example": [
+      "Standup",
+      "4xx spike looks like a client contract mismatch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "timeout-budget",
+    "type": "word",
+    "meaning": "Allowed time for an operation before abort.",
+    "context": "CI",
+    "level": "B2",
+    "patterns": [
+      "Timeout budget…"
+    ],
+    "example": [
+      "Standup",
+      "Timeout budget for the suite needs a bump carefully."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "quota",
+    "type": "word",
+    "meaning": "Usage limit for an API or resource.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Hit quota…"
+    ],
+    "example": [
+      "Standup",
+      "Hit API quota in staging; raising a ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rate-limit",
+    "type": "word",
+    "meaning": "Cap on request volume over time.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Rate-limited…"
+    ],
+    "example": [
+      "Standup",
+      "We got rate-limited by the upstream API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "throttle",
+    "type": "word",
+    "meaning": "Intentionally slow traffic to protect a system.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Throttling…"
+    ],
+    "example": [
+      "Standup",
+      "Throttling traffic while we mitigate the outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "backoff",
+    "type": "word",
+    "meaning": "Increasing wait between retries after failures.",
+    "context": "Incident",
+    "level": "C1",
+    "patterns": [
+      "Exponential backoff…"
+    ],
+    "example": [
+      "Standup",
+      "Adding exponential backoff to the webhook retries."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "idempotent",
+    "type": "word",
+    "meaning": "Safe to retry without double side effects.",
+    "context": "PR",
+    "level": "C1",
+    "patterns": [
+      "Make it idempotent…"
+    ],
+    "example": [
+      "Standup",
+      "Making the deploy script idempotent before merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "on track",
+    "type": "phrase",
+    "meaning": "Progressing as planned toward the goal.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "I'm on track to…"
+    ],
+    "example": [
+      "Standup",
+      "I'm on track to finish the API contract today."
+    ],
+    "alternatives": [
+      "on schedule"
+    ],
+    "notes": []
+  },
+  {
+    "term": "behind schedule",
+    "type": "phrase",
+    "meaning": "Later than the planned timeline.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "I'm behind schedule on…"
+    ],
+    "example": [
+      "Standup",
+      "I'm behind schedule on the staging verification."
+    ],
+    "alternatives": [
+      "running late"
+    ],
+    "notes": []
+  },
+  {
+    "term": "at risk",
+    "type": "phrase",
+    "meaning": "Likely to miss the ETA without help.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Delivery is at risk…"
+    ],
+    "example": [
+      "Standup",
+      "Delivery is at risk without the Auth dependency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "blocked on",
+    "type": "phrase",
+    "meaning": "Waiting specifically on a person or dependency.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "I'm blocked on…"
+    ],
+    "example": [
+      "Standup",
+      "I'm blocked on staging credentials from platform."
+    ],
+    "alternatives": [
+      "waiting on"
+    ],
+    "notes": []
+  },
+  {
+    "term": "waiting on",
+    "type": "phrase",
+    "meaning": "Progress paused until another party acts.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "I'm waiting on…"
+    ],
+    "example": [
+      "Standup",
+      "I'm waiting on PR review for the hotfix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "in progress",
+    "type": "phrase",
+    "meaning": "Actively being worked right now.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Still in progress…"
+    ],
+    "example": [
+      "Standup",
+      "Rollback runbook update is still in progress."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "almost done",
+    "type": "phrase",
+    "meaning": "Near completion; finishing touches remain.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Almost done with…"
+    ],
+    "example": [
+      "Standup",
+      "Almost done with the CI flake fix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ready for review",
+    "type": "phrase",
+    "meaning": "Change is prepared for peer feedback.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "PR ready for review…"
+    ],
+    "example": [
+      "Slack",
+      "PR ready for review: staging deploy scripts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "needs review",
+    "type": "phrase",
+    "meaning": "Blocked until someone reviews.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "Needs review…"
+    ],
+    "example": [
+      "Standup",
+      "Needs review on the feature-flag PR."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "left a comment",
+    "type": "phrase",
+    "meaning": "Posted feedback on a PR or ticket.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "I left a comment…"
+    ],
+    "example": [
+      "Slack",
+      "I left a comment on the RFC about cutover risk."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "pushed a fix",
+    "type": "phrase",
+    "meaning": "Committed and uploaded a corrective change.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "Pushed a fix…"
+    ],
+    "example": [
+      "Standup",
+      "Pushed a fix for the flaky pipeline job."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "green on CI",
+    "type": "phrase",
+    "meaning": "All required checks are passing.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "Green on CI…"
+    ],
+    "example": [
+      "Slack",
+      "Green on CI — okay to merge after LGTM."
+    ],
+    "alternatives": [
+      "CI is green"
+    ],
+    "notes": []
+  },
+  {
+    "term": "CI is red",
+    "type": "phrase",
+    "meaning": "Required pipeline checks are failing.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "CI is red on…"
+    ],
+    "example": [
+      "Standup",
+      "CI is red on main after the overnight merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "merge conflict",
+    "type": "phrase",
+    "meaning": "Overlapping changes blocking a clean merge.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Hit a merge conflict…"
+    ],
+    "example": [
+      "Standup",
+      "Hit a merge conflict on the deploy config."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rebase onto main",
+    "type": "phrase",
+    "meaning": "Replay branch commits on latest main.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Need to rebase onto main…"
+    ],
+    "example": [
+      "Standup",
+      "Need to rebase onto main before requesting review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "draft PR",
+    "type": "phrase",
+    "meaning": "Pull request marked unfinished for early eyes.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "Opened a draft PR…"
+    ],
+    "example": [
+      "Standup",
+      "Opened a draft PR for the webhook retries."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "feature flag off",
+    "type": "phrase",
+    "meaning": "Toggle disabled so users do not see the change.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Keeping the feature flag off…"
+    ],
+    "example": [
+      "Standup",
+      "Keeping the feature flag off until QA signs off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "feature flag on",
+    "type": "phrase",
+    "meaning": "Toggle enabled for the targeted cohort.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Flipping the feature flag on…"
+    ],
+    "example": [
+      "Standup",
+      "Flipping the feature flag on for the internal cohort."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "canary looks healthy",
+    "type": "phrase",
+    "meaning": "Limited rollout metrics are within bounds.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Canary looks healthy…"
+    ],
+    "example": [
+      "Standup",
+      "Canary looks healthy; continuing the rollout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ready to ship",
+    "type": "phrase",
+    "meaning": "Prepared for release after checks.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "Ready to ship…"
+    ],
+    "example": [
+      "Standup",
+      "Ready to ship once staging smoke passes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "hold the deploy",
+    "type": "phrase",
+    "meaning": "Do not proceed with the release yet.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Hold the deploy…"
+    ],
+    "example": [
+      "Slack",
+      "Hold the deploy — alert still firing on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "roll back now",
+    "type": "phrase",
+    "meaning": "Immediately revert to the previous version.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "We should roll back now…"
+    ],
+    "example": [
+      "Standup",
+      "We should roll back now if latency stays high."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "forward fix",
+    "type": "phrase",
+    "meaning": "Ship a corrective change instead of rolling back.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Prefer a forward fix…"
+    ],
+    "example": [
+      "Standup",
+      "Prefer a forward fix if rollback is riskier."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "root cause unknown",
+    "type": "phrase",
+    "meaning": "Underlying failure reason not identified yet.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Root cause unknown…"
+    ],
+    "example": [
+      "Standup",
+      "Root cause unknown; mitigation already in place."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "mitigation in place",
+    "type": "phrase",
+    "meaning": "Temporary protection is active.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Mitigation in place…"
+    ],
+    "example": [
+      "Standup",
+      "Mitigation in place via feature-flag kill switch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "no blockers",
+    "type": "phrase",
+    "meaning": "Nothing currently preventing progress.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "No blockers…"
+    ],
+    "example": [
+      "Standup",
+      "No blockers; continuing the staging verification."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "one blocker",
+    "type": "phrase",
+    "meaning": "A single impediment remains.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "One blocker…"
+    ],
+    "example": [
+      "Standup",
+      "One blocker: waiting on QA sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "need eyes on",
+    "type": "phrase",
+    "meaning": "Requesting review or attention.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Need eyes on…"
+    ],
+    "example": [
+      "Slack",
+      "Need eyes on the hotfix PR before EOD."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "quick sync",
+    "type": "phrase",
+    "meaning": "Short live conversation to unblock.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Quick sync after…"
+    ],
+    "example": [
+      "Slack",
+      "Quick sync after standup on the API dependency?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "async update",
+    "type": "phrase",
+    "meaning": "Status shared without a live meeting.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Async update:…"
+    ],
+    "example": [
+      "Slack",
+      "Async update: PR is green and ready to merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "heads up",
+    "type": "phrase",
+    "meaning": "Advance warning to affected people.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Heads up…"
+    ],
+    "example": [
+      "Slack",
+      "Heads up: staging restart during the deploy window."
+    ],
+    "alternatives": [
+      "heads-up"
+    ],
+    "notes": []
+  },
+  {
+    "term": "out of office",
+    "type": "phrase",
+    "meaning": "Unavailable for work for a period.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Out of office…"
+    ],
+    "example": [
+      "Slack",
+      "Out of office tomorrow; DRI is on the ticket."
+    ],
+    "alternatives": [
+      "OOO"
+    ],
+    "notes": []
+  },
+  {
+    "term": "pairing on",
+    "type": "phrase",
+    "meaning": "Working together live on a problem.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Pairing on…"
+    ],
+    "example": [
+      "Standup",
+      "Pairing on the latency spike this morning."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "taking ownership",
+    "type": "phrase",
+    "meaning": "Accepting accountability for an outcome.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Taking ownership of…"
+    ],
+    "example": [
+      "Standup",
+      "Taking ownership of the flaky CI investigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "handing off",
+    "type": "phrase",
+    "meaning": "Transferring ownership with context.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Handing off…"
+    ],
+    "example": [
+      "Standup",
+      "Handing off the on-call runbook at 17:00."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "picking up",
+    "type": "phrase",
+    "meaning": "Starting work on a ticket.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Picking up…"
+    ],
+    "example": [
+      "Standup",
+      "Picking up the next backlog ticket after this merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "wrapping up",
+    "type": "phrase",
+    "meaning": "Finishing the last pieces of a task.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Wrapping up…"
+    ],
+    "example": [
+      "Standup",
+      "Wrapping up the staging smoke tests."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "carrying over",
+    "type": "phrase",
+    "meaning": "Moving unfinished work into the next sprint.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Carrying over…"
+    ],
+    "example": [
+      "Standup",
+      "Carrying over the CI flake ticket into next sprint."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "scope creep",
+    "type": "phrase",
+    "meaning": "Unplanned growth of requirements.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Hit scope creep…"
+    ],
+    "example": [
+      "Standup",
+      "Hit scope creep after the client requirement change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cut scope",
+    "type": "phrase",
+    "meaning": "Reduce included work to protect the date.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "We should cut scope…"
+    ],
+    "example": [
+      "Standup",
+      "We should cut scope to protect the Friday deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "raise a ticket",
+    "type": "phrase",
+    "meaning": "Create a tracked work item.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "I will raise a ticket…"
+    ],
+    "example": [
+      "Standup",
+      "I will raise a ticket for the staging access issue."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "update the ticket",
+    "type": "phrase",
+    "meaning": "Refresh status/details on a work item.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Updating the ticket…"
+    ],
+    "example": [
+      "Standup",
+      "Updating the ticket with the latest repro steps."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "link the PR",
+    "type": "phrase",
+    "meaning": "Connect a pull request to a ticket.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Linked the PR…"
+    ],
+    "example": [
+      "Standup",
+      "Linked the PR to the incident ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "acceptance criteria unclear",
+    "type": "phrase",
+    "meaning": "Done definition is not clear enough to build.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "AC unclear…"
+    ],
+    "example": [
+      "Standup",
+      "Acceptance criteria unclear; clarifying with product."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "needs clarification",
+    "type": "phrase",
+    "meaning": "Missing details block correct implementation.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Needs clarification…"
+    ],
+    "example": [
+      "Standup",
+      "Needs clarification on the client requirement."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "repro steps",
+    "type": "phrase",
+    "meaning": "Exact steps that recreate a bug.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Added repro steps…"
+    ],
+    "example": [
+      "Standup",
+      "Added repro steps to the staging bug ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cannot reproduce",
+    "type": "phrase",
+    "meaning": "Unable to make the bug happen again.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Can't reproduce…"
+    ],
+    "example": [
+      "Standup",
+      "Can't reproduce locally; trying staging next."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "works on my machine",
+    "type": "phrase",
+    "meaning": "Local success that may not match shared envs.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Works on my machine…"
+    ],
+    "example": [
+      "Slack",
+      "Works on my machine — checking staging next."
+    ],
+    "alternatives": [],
+    "notes": [
+      "Avoid as a final answer."
+    ]
+  },
+  {
+    "term": "environment mismatch",
+    "type": "phrase",
+    "meaning": "Config/data differs across environments.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Looks like an environment mismatch…"
+    ],
+    "example": [
+      "Standup",
+      "Looks like an environment mismatch between staging and prod."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "data issue",
+    "type": "phrase",
+    "meaning": "Problem caused by unexpected data rather than code.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Suspect a data issue…"
+    ],
+    "example": [
+      "Standup",
+      "Suspect a data issue in the webhook payload."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "config drift",
+    "type": "phrase",
+    "meaning": "Environments diverged from expected config.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Seeing config drift…"
+    ],
+    "example": [
+      "Standup",
+      "Seeing config drift on staging feature flags."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "secret rotation",
+    "type": "phrase",
+    "meaning": "Replacing credentials on a schedule or after risk.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Blocked by secret rotation…"
+    ],
+    "example": [
+      "Standup",
+      "Blocked by secret rotation on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "access request",
+    "type": "phrase",
+    "meaning": "Ask for permissions to a system.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Filed an access request…"
+    ],
+    "example": [
+      "Standup",
+      "Filed an access request for the on-call dashboards."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "permission denied",
+    "type": "phrase",
+    "meaning": "System rejected an action due to access.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Got permission denied…"
+    ],
+    "example": [
+      "Standup",
+      "Got permission denied on the deploy role."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "rate limited",
+    "type": "phrase",
+    "meaning": "Upstream capped request volume.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "We got rate limited…"
+    ],
+    "example": [
+      "Standup",
+      "We got rate limited by the upstream API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "error budget burning",
+    "type": "phrase",
+    "meaning": "Reliability allowance is being consumed quickly.",
+    "context": "On-call",
+    "level": "B2",
+    "patterns": [
+      "Error budget burning…"
+    ],
+    "example": [
+      "Standup",
+      "Error budget burning; pausing non-critical rollouts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "SLO burn",
+    "type": "phrase",
+    "meaning": "SLO error budget consumption is elevated.",
+    "context": "Alert",
+    "level": "B2",
+    "patterns": [
+      "SLO burn is high…"
+    ],
+    "example": [
+      "Standup",
+      "SLO burn is high after the overnight outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "alert noise",
+    "type": "phrase",
+    "meaning": "Too many low-value alerts distracting responders.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Alert noise is high…"
+    ],
+    "example": [
+      "Standup",
+      "Alert noise is high; tuning thresholds today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "page volume",
+    "type": "phrase",
+    "meaning": "How many on-call pages are firing.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Page volume spiked…"
+    ],
+    "example": [
+      "Standup",
+      "Page volume spiked during the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "war room open",
+    "type": "phrase",
+    "meaning": "Incident bridge/channel is active.",
+    "context": "War room",
+    "level": "B1",
+    "patterns": [
+      "War room open…"
+    ],
+    "example": [
+      "Standup",
+      "War room open for the checkout outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "incident mitigated",
+    "type": "phrase",
+    "meaning": "Impact reduced; deeper fix may remain.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Incident mitigated…"
+    ],
+    "example": [
+      "Standup",
+      "Incident mitigated; writing the timeline next."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "postmortem draft",
+    "type": "phrase",
+    "meaning": "Early write-up of an incident review.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Postmortem draft ready…"
+    ],
+    "example": [
+      "Standup",
+      "Postmortem draft ready for comments."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "action items open",
+    "type": "phrase",
+    "meaning": "Follow-ups from an incident still incomplete.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Action items still open…"
+    ],
+    "example": [
+      "Standup",
+      "Action items still open from last week’s postmortem."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "runbook outdated",
+    "type": "phrase",
+    "meaning": "Ops guide no longer matches reality.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Runbook is outdated…"
+    ],
+    "example": [
+      "Standup",
+      "Runbook is outdated for the rollback steps."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dress rehearsal",
+    "type": "phrase",
+    "meaning": "Full practice of a release or cutover.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Dress rehearsal today…"
+    ],
+    "example": [
+      "Standup",
+      "Dress rehearsal for cutover is on staging today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "go / no-go",
+    "type": "phrase",
+    "meaning": "Decision gate for whether to proceed.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Go/no-go at…"
+    ],
+    "example": [
+      "Standup",
+      "Go/no-go for prod is scheduled at 16:00."
+    ],
+    "alternatives": [
+      "go/no-go"
+    ],
+    "notes": []
+  },
+  {
+    "term": "change freeze",
+    "type": "phrase",
+    "meaning": "Temporary ban on non-essential production changes.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Change freeze starts…"
+    ],
+    "example": [
+      "Standup",
+      "Change freeze starts Friday; finish reviews today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "quiet hours",
+    "type": "phrase",
+    "meaning": "Window avoiding non-urgent changes/pages.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "During quiet hours…"
+    ],
+    "example": [
+      "Standup",
+      "During quiet hours we only ship SEV hotfixes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "deploy window",
+    "type": "phrase",
+    "meaning": "Approved time range for production deploys.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "In the deploy window…"
+    ],
+    "example": [
+      "Standup",
+      "In the deploy window we can promote the build."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "smoke test",
+    "type": "phrase",
+    "meaning": "Quick critical-path verification after deploy.",
+    "context": "QA",
+    "level": "B1",
+    "patterns": [
+      "Running smoke tests…"
+    ],
+    "example": [
+      "Standup",
+      "Running smoke tests after the staging deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "QA in progress",
+    "type": "phrase",
+    "meaning": "Quality validation is currently underway.",
+    "context": "QA",
+    "level": "A2",
+    "patterns": [
+      "QA in progress…"
+    ],
+    "example": [
+      "Standup",
+      "QA in progress on the staging build."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "waiting on QA",
+    "type": "phrase",
+    "meaning": "Blocked until QA finishes validation.",
+    "context": "QA",
+    "level": "A2",
+    "patterns": [
+      "Waiting on QA…"
+    ],
+    "example": [
+      "Standup",
+      "Waiting on QA before the prod promote."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "signed off",
+    "type": "phrase",
+    "meaning": "Approved to proceed by the responsible party.",
+    "context": "QA",
+    "level": "B1",
+    "patterns": [
+      "QA signed off…"
+    ],
+    "example": [
+      "Standup",
+      "QA signed off on staging; ready to promote."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "customer impact",
+    "type": "phrase",
+    "meaning": "User-visible effect of an issue.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Customer impact is…"
+    ],
+    "example": [
+      "Standup",
+      "Customer impact is limited to checkout retries."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "blast radius limited",
+    "type": "phrase",
+    "meaning": "Impact contained to a smaller set.",
+    "context": "Incident",
+    "level": "B2",
+    "patterns": [
+      "Blast radius limited…"
+    ],
+    "example": [
+      "Standup",
+      "Blast radius limited by the feature flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "kill switch flipped",
+    "type": "phrase",
+    "meaning": "Emergency disable control was activated.",
+    "context": "Incident",
+    "level": "B2",
+    "patterns": [
+      "Kill switch flipped…"
+    ],
+    "example": [
+      "Standup",
+      "Kill switch flipped when 5xx spiked."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "traffic shifted",
+    "type": "phrase",
+    "meaning": "Request load moved between versions/envs.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Traffic shifted…"
+    ],
+    "example": [
+      "Standup",
+      "Traffic shifted to 10% on the canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "soak overnight",
+    "type": "phrase",
+    "meaning": "Leave a change running to watch stability.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Soaking overnight…"
+    ],
+    "example": [
+      "Standup",
+      "Soaking the canary overnight before full rollout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "promote to prod",
+    "type": "phrase",
+    "meaning": "Move a validated build into production.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Ready to promote to prod…"
+    ],
+    "example": [
+      "Standup",
+      "Ready to promote to prod after smoke tests."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "redeploy staging",
+    "type": "phrase",
+    "meaning": "Deploy again to the staging environment.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "Redeploying staging…"
+    ],
+    "example": [
+      "Standup",
+      "Redeploying staging with the hotfix artifact."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "cherry-pick the fix",
+    "type": "phrase",
+    "meaning": "Apply a specific fix commit onto another branch.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Cherry-picking the fix…"
+    ],
+    "example": [
+      "Standup",
+      "Cherry-picking the fix onto the release branch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "tag the release",
+    "type": "phrase",
+    "meaning": "Create a version tag for a ship candidate.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "Tagging the release…"
+    ],
+    "example": [
+      "Standup",
+      "Tagging the release after QA sign-off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "update changelog",
+    "type": "phrase",
+    "meaning": "Document notable changes for the release.",
+    "context": "Docs",
+    "level": "A2",
+    "patterns": [
+      "Updating the changelog…"
+    ],
+    "example": [
+      "Standup",
+      "Updating the changelog before prod deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "draft release notes",
+    "type": "phrase",
+    "meaning": "Write user-facing ship summary.",
+    "context": "Docs",
+    "level": "B1",
+    "patterns": [
+      "Drafting release notes…"
+    ],
+    "example": [
+      "Standup",
+      "Drafting release notes for the client-facing fix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "open an RFC",
+    "type": "phrase",
+    "meaning": "Start a formal proposal for comments.",
+    "context": "RFC",
+    "level": "B1",
+    "patterns": [
+      "Opening an RFC…"
+    ],
+    "example": [
+      "Standup",
+      "Opening an RFC for the cutover approach."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "comment on the RFC",
+    "type": "phrase",
+    "meaning": "Provide feedback on a proposal.",
+    "context": "RFC",
+    "level": "B1",
+    "patterns": [
+      "Commented on the RFC…"
+    ],
+    "example": [
+      "Standup",
+      "Commented on the RFC about rollback risk."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decision pending",
+    "type": "phrase",
+    "meaning": "Choice not yet made.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision pending…"
+    ],
+    "example": [
+      "Standup",
+      "Decision pending on feature-flag default."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "need a decision",
+    "type": "phrase",
+    "meaning": "Work blocked until a choice is made.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Need a decision on…"
+    ],
+    "example": [
+      "Standup",
+      "Need a decision on whether to rollback or forward-fix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "align offline",
+    "type": "phrase",
+    "meaning": "Sync outside the current forum.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Let’s align offline…"
+    ],
+    "example": [
+      "Slack",
+      "Let's align offline on the API contract."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "take it offline",
+    "type": "phrase",
+    "meaning": "Continue a discussion outside the current channel.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Let’s take it offline…"
+    ],
+    "example": [
+      "Standup",
+      "Let's take the RFC debate offline after standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "park that",
+    "type": "phrase",
+    "meaning": "Defer a topic for later.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Park that for…"
+    ],
+    "example": [
+      "Standup",
+      "Park that for the design review after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "capture an action",
+    "type": "phrase",
+    "meaning": "Record a concrete follow-up with an owner.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Capture an action…"
+    ],
+    "example": [
+      "Standup",
+      "Capture an action for updating the runbook."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "owner assigned",
+    "type": "phrase",
+    "meaning": "Someone is accountable for the item.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Owner assigned…"
+    ],
+    "example": [
+      "Standup",
+      "Owner assigned for the CI flake ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ETA slipped",
+    "type": "phrase",
+    "meaning": "Delivery time moved later than planned.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "ETA slipped…"
+    ],
+    "example": [
+      "Standup",
+      "ETA slipped due to the Auth dependency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "re-estimate needed",
+    "type": "phrase",
+    "meaning": "Sizing must be updated with new info.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Re-estimate needed…"
+    ],
+    "example": [
+      "Standup",
+      "Re-estimate needed after the contract change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "low confidence ETA",
+    "type": "phrase",
+    "meaning": "Delivery time is uncertain.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Low confidence ETA…"
+    ],
+    "example": [
+      "Standup",
+      "Low confidence ETA until the spike finishes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "high confidence",
+    "type": "phrase",
+    "meaning": "Fairly sure about the plan or timing.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "High confidence…"
+    ],
+    "example": [
+      "Standup",
+      "High confidence we ship the hotfix today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "capacity full",
+    "type": "phrase",
+    "meaning": "No room to take more work.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Capacity full…"
+    ],
+    "example": [
+      "Standup",
+      "Capacity full; cannot take another ticket today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "have bandwidth",
+    "type": "phrase",
+    "meaning": "Available to take additional work.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I have bandwidth…"
+    ],
+    "example": [
+      "Standup",
+      "I have bandwidth for a PR review after lunch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "no bandwidth",
+    "type": "phrase",
+    "meaning": "Unavailable for extra work right now.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I don't have bandwidth…"
+    ],
+    "example": [
+      "Standup",
+      "I don't have bandwidth for another review today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "focus time",
+    "type": "phrase",
+    "meaning": "Protected deep-work period.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Need focus time…"
+    ],
+    "example": [
+      "Standup",
+      "Need focus time for the root-cause write-up."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "calendar conflict",
+    "type": "phrase",
+    "meaning": "Overlapping meetings blocking focus.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Calendar conflict…"
+    ],
+    "example": [
+      "Standup",
+      "Calendar conflict; moving the pairing slot."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "move the meeting",
+    "type": "phrase",
+    "meaning": "Reschedule a calendar event.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Can we move the meeting…"
+    ],
+    "example": [
+      "Slack",
+      "Can we move the meeting so I can finish the deploy?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "decline the invite",
+    "type": "phrase",
+    "meaning": "Refuse a calendar invite.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Declining the invite…"
+    ],
+    "example": [
+      "Slack",
+      "Declining the invite to protect deploy focus time."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "tentative for",
+    "type": "phrase",
+    "meaning": "Maybe attending; not confirmed.",
+    "context": "Calendar",
+    "level": "B1",
+    "patterns": [
+      "Tentative for…"
+    ],
+    "example": [
+      "Slack",
+      "Tentative for the design review; on-call risk."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "will attend",
+    "type": "phrase",
+    "meaning": "Confirmed participation.",
+    "context": "Calendar",
+    "level": "A2",
+    "patterns": [
+      "Will attend…"
+    ],
+    "example": [
+      "Slack",
+      "Will attend the go/no-go for the deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "send a reminder",
+    "type": "phrase",
+    "meaning": "Nudge people about an upcoming event or task.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Sending a reminder…"
+    ],
+    "example": [
+      "Slack",
+      "Sending a reminder about the staging dress rehearsal."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "friendly nudge",
+    "type": "phrase",
+    "meaning": "Polite reminder to act on a review/request.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Friendly nudge on…"
+    ],
+    "example": [
+      "Slack",
+      "Friendly nudge on the hotfix PR review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "any update",
+    "type": "phrase",
+    "meaning": "Ask for the latest status.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Any update on…"
+    ],
+    "example": [
+      "Slack",
+      "Any update on the staging credentials?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "still blocked",
+    "type": "phrase",
+    "meaning": "Impediment has not cleared.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Still blocked…"
+    ],
+    "example": [
+      "Standup",
+      "Still blocked on the Auth API dependency."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "unblocked now",
+    "type": "phrase",
+    "meaning": "Can continue after a wait cleared.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Unblocked now…"
+    ],
+    "example": [
+      "Standup",
+      "Unblocked now; restarting the staging verification."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "thanks for the review",
+    "type": "phrase",
+    "meaning": "Appreciation after receiving PR feedback.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "Thanks for the review…"
+    ],
+    "example": [
+      "Slack",
+      "Thanks for the review — addressing comments now."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "addressed comments",
+    "type": "phrase",
+    "meaning": "Responded to review feedback with changes.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "Addressed the comments…"
+    ],
+    "example": [
+      "Standup",
+      "Addressed the comments; CI re-running."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "re-request review",
+    "type": "phrase",
+    "meaning": "Ask reviewers to look again after changes.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Re-requesting review…"
+    ],
+    "example": [
+      "Slack",
+      "Re-requesting review after the rebase."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "approved with nits",
+    "type": "phrase",
+    "meaning": "Approved despite minor non-blocking notes.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Approved with nits…"
+    ],
+    "example": [
+      "PR",
+      "Approved with nits — can merge after tiny renames."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "blocking comment",
+    "type": "phrase",
+    "meaning": "Review note that must be resolved before merge.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Blocking comment on…"
+    ],
+    "example": [
+      "Standup",
+      "Blocking comment on the rollback safety check."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "non-blocking",
+    "type": "phrase",
+    "meaning": "Feedback that should not stop merge.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Non-blocking feedback…"
+    ],
+    "example": [
+      "PR",
+      "Non-blocking feedback on naming; okay to merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "follow up later",
+    "type": "phrase",
+    "meaning": "Return to a topic after current priorities.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Follow up later…"
+    ],
+    "example": [
+      "Standup",
+      "Follow up later on the RFC after the deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "same as yesterday",
+    "type": "phrase",
+    "meaning": "Status unchanged from prior standup.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Same as yesterday…"
+    ],
+    "example": [
+      "Standup",
+      "Same as yesterday: still waiting on QA."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "no change",
+    "type": "phrase",
+    "meaning": "Nothing material updated since last report.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "No change on…"
+    ],
+    "example": [
+      "Standup",
+      "No change on the vendor credentials blocker."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "new risk",
+    "type": "phrase",
+    "meaning": "Newly identified threat to delivery.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "New risk…"
+    ],
+    "example": [
+      "Standup",
+      "New risk: flaky CI may slip the Friday ship."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "risk mitigated",
+    "type": "phrase",
+    "meaning": "Threat reduced by a concrete action.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Risk mitigated…"
+    ],
+    "example": [
+      "Standup",
+      "Risk mitigated by keeping the feature flag off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dependency landed",
+    "type": "phrase",
+    "meaning": "Blocking upstream work is now available.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Dependency landed…"
+    ],
+    "example": [
+      "Standup",
+      "Dependency landed; unblocked on the Auth API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "waiting on merge",
+    "type": "phrase",
+    "meaning": "Blocked until a PR lands.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "Waiting on merge…"
+    ],
+    "example": [
+      "Standup",
+      "Waiting on merge of the platform PR."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "after it lands",
+    "type": "phrase",
+    "meaning": "Next steps once a change merges.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "After it lands…"
+    ],
+    "example": [
+      "Standup",
+      "After it lands I will kick off staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "kick off staging",
+    "type": "phrase",
+    "meaning": "Start the staging deploy/verification.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Kicking off staging…"
+    ],
+    "example": [
+      "Standup",
+      "Kicking off staging after the merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "watch the dashboard",
+    "type": "phrase",
+    "meaning": "Monitor metrics after a change.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "Watching the dashboard…"
+    ],
+    "example": [
+      "Standup",
+      "Watching the dashboard for an hour after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "keep an eye on",
+    "type": "phrase",
+    "meaning": "Continue monitoring a risk.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Keep an eye on…"
+    ],
+    "example": [
+      "Slack",
+      "Keep an eye on API latency during canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "looks healthy",
+    "type": "phrase",
+    "meaning": "Metrics/behavior appear normal.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "Looks healthy…"
+    ],
+    "example": [
+      "Standup",
+      "Staging looks healthy after the redeploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "looks degraded",
+    "type": "phrase",
+    "meaning": "System partially impaired.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Looks degraded…"
+    ],
+    "example": [
+      "Standup",
+      "API looks degraded; investigating after standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "error rate up",
+    "type": "phrase",
+    "meaning": "Failures increased versus baseline.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Error rate up…"
+    ],
+    "example": [
+      "Standup",
+      "Error rate up after the last canary step."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "latency spiked",
+    "type": "phrase",
+    "meaning": "Response times rose sharply.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Latency spiked…"
+    ],
+    "example": [
+      "Standup",
+      "Latency spiked overnight on the checkout API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "timeouts increased",
+    "type": "phrase",
+    "meaning": "More operations aborted for taking too long.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Timeouts increased…"
+    ],
+    "example": [
+      "Standup",
+      "Timeouts increased in the webhook worker."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "queue backing up",
+    "type": "phrase",
+    "meaning": "Work accumulating faster than it drains.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Queue backing up…"
+    ],
+    "example": [
+      "Standup",
+      "Queue backing up; scaling workers next."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "scaling workers",
+    "type": "phrase",
+    "meaning": "Adding worker capacity to clear load.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Scaling workers…"
+    ],
+    "example": [
+      "Standup",
+      "Scaling workers to drain the queue."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "restart the service",
+    "type": "phrase",
+    "meaning": "Bounce a process to recover.",
+    "context": "Incident",
+    "level": "A2",
+    "patterns": [
+      "Restarting the service…"
+    ],
+    "example": [
+      "Standup",
+      "Restarting the service as temporary mitigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "clear the cache",
+    "type": "phrase",
+    "meaning": "Invalidate cached data that may be stale.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Clearing the cache…"
+    ],
+    "example": [
+      "Standup",
+      "Clearing the cache after the config change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "invalidate CDN",
+    "type": "phrase",
+    "meaning": "Purge edge-cached content.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Invalidating CDN…"
+    ],
+    "example": [
+      "Standup",
+      "Invalidating CDN after the static asset deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "dry run first",
+    "type": "phrase",
+    "meaning": "Simulate before applying a risky change.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Dry run first…"
+    ],
+    "example": [
+      "Standup",
+      "Dry run first on the cutover script."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "idempotent script",
+    "type": "phrase",
+    "meaning": "Script safe to re-run without double effects.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Making the script idempotent…"
+    ],
+    "example": [
+      "Standup",
+      "Making the deploy script idempotent before merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "protect main",
+    "type": "phrase",
+    "meaning": "Keep the primary branch healthy via gates.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Protecting main…"
+    ],
+    "example": [
+      "Standup",
+      "Protecting main with required checks after the flake."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "required checks",
+    "type": "phrase",
+    "meaning": "CI gates that must pass to merge.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "Blocked by required checks…"
+    ],
+    "example": [
+      "Standup",
+      "Blocked by required checks on coverage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "optional checks",
+    "type": "phrase",
+    "meaning": "Informational CI that does not block merge.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "Optional checks failing…"
+    ],
+    "example": [
+      "Standup",
+      "Optional checks failing; not blocking the merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "merge queue",
+    "type": "phrase",
+    "meaning": "Ordered automation that merges green PRs.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "In the merge queue…"
+    ],
+    "example": [
+      "Standup",
+      "In the merge queue waiting for the next slot."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "CODEOWNERS review",
+    "type": "phrase",
+    "meaning": "Required review from path owners.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Need CODEOWNERS review…"
+    ],
+    "example": [
+      "Standup",
+      "Need CODEOWNERS review on the deploy scripts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "two reviewers",
+    "type": "phrase",
+    "meaning": "Policy requiring a second approval.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Need two reviewers…"
+    ],
+    "example": [
+      "Standup",
+      "Need two reviewers for the prod hotfix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "security review",
+    "type": "phrase",
+    "meaning": "Specialized check for security impact.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Needs security review…"
+    ],
+    "example": [
+      "Standup",
+      "Needs security review for the auth change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "design review",
+    "type": "phrase",
+    "meaning": "Meeting/async review of a technical design.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Design review today…"
+    ],
+    "example": [
+      "Standup",
+      "Design review today for the webhook retry RFC."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "tech debt ticket",
+    "type": "phrase",
+    "meaning": "Tracked item to clean up shortcuts.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Opened a tech debt ticket…"
+    ],
+    "example": [
+      "Standup",
+      "Opened a tech debt ticket for the CI scripts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "paying down debt",
+    "type": "phrase",
+    "meaning": "Investing time to reduce tech debt.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Paying down debt…"
+    ],
+    "example": [
+      "Standup",
+      "Paying down debt in the deploy tooling this sprint."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "spike complete",
+    "type": "phrase",
+    "meaning": "Time-boxed research finished.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Spike complete…"
+    ],
+    "example": [
+      "Standup",
+      "Spike complete; recommending the feature-flag approach."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "spike findings",
+    "type": "phrase",
+    "meaning": "Results from investigative work.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Spike findings…"
+    ],
+    "example": [
+      "Standup",
+      "Spike findings point to connection-pool exhaustion."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "next action",
+    "type": "phrase",
+    "meaning": "Immediate follow-up step.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Next action…"
+    ],
+    "example": [
+      "Standup",
+      "Next action is to verify on staging after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "done for today",
+    "type": "phrase",
+    "meaning": "No further planned work this day.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Done for today…"
+    ],
+    "example": [
+      "Slack",
+      "Done for today; PR is in review and CI is green."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "picking this back up",
+    "type": "phrase",
+    "meaning": "Resuming paused work.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Picking this back up…"
+    ],
+    "example": [
+      "Standup",
+      "Picking this back up after the incident cleared."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "paused for incident",
+    "type": "phrase",
+    "meaning": "Feature work stopped due to an incident.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Paused for the incident…"
+    ],
+    "example": [
+      "Standup",
+      "Paused feature work for the incident mitigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "back to feature work",
+    "type": "phrase",
+    "meaning": "Resuming product delivery after ops work.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Back to feature work…"
+    ],
+    "example": [
+      "Standup",
+      "Back to feature work after the hotfix shipped."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "support rotation",
+    "type": "phrase",
+    "meaning": "Scheduled turn helping others or on-call.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "On support rotation…"
+    ],
+    "example": [
+      "Standup",
+      "On support rotation; capacity is reduced today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "shadowing on-call",
+    "type": "phrase",
+    "meaning": "Observing the on-call role before owning it.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Shadowing on-call…"
+    ],
+    "example": [
+      "Standup",
+      "Shadowing on-call this week on the API rota."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "primary on-call",
+    "type": "phrase",
+    "meaning": "Main pager owner for the period.",
+    "context": "On-call",
+    "level": "A2",
+    "patterns": [
+      "I'm primary on-call…"
+    ],
+    "example": [
+      "Standup",
+      "I'm primary on-call for checkout this week."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "secondary on-call",
+    "type": "phrase",
+    "meaning": "Backup pager owner for the period.",
+    "context": "On-call",
+    "level": "A2",
+    "patterns": [
+      "I'm secondary on-call…"
+    ],
+    "example": [
+      "Standup",
+      "I'm secondary on-call if the war room needs help."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "acked the alert",
+    "type": "phrase",
+    "meaning": "Acknowledged an alert notification.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "Acked the alert…"
+    ],
+    "example": [
+      "Slack",
+      "Acked the alert; digging into the API spike."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "silenced the alert",
+    "type": "phrase",
+    "meaning": "Temporarily muted an alert rule.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Silenced the alert…"
+    ],
+    "example": [
+      "Standup",
+      "Silenced the alert during the known deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "tuned the threshold",
+    "type": "phrase",
+    "meaning": "Adjusted alert sensitivity.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Tuning the threshold…"
+    ],
+    "example": [
+      "Standup",
+      "Tuning the threshold to cut false positives."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "false positive",
+    "type": "phrase",
+    "meaning": "Alert without a real actionable problem.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Looks like a false positive…"
+    ],
+    "example": [
+      "Standup",
+      "Looks like a false positive from the deploy probe."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "real signal",
+    "type": "phrase",
+    "meaning": "Alert that correctly indicates a problem.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "This is a real signal…"
+    ],
+    "example": [
+      "Standup",
+      "This is a real signal; error rate is truly up."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "customer reported",
+    "type": "phrase",
+    "meaning": "Issue came from a user report.",
+    "context": "Client",
+    "level": "A2",
+    "patterns": [
+      "Customer reported…"
+    ],
+    "example": [
+      "Standup",
+      "Customer reported checkout retries after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "internal report",
+    "type": "phrase",
+    "meaning": "Issue found by the team, not customers.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Internal report…"
+    ],
+    "example": [
+      "Standup",
+      "Internal report of a staging-only regression."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "sev declared",
+    "type": "phrase",
+    "meaning": "Formal severity assigned to an incident.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "SEV declared…"
+    ],
+    "example": [
+      "Standup",
+      "SEV-2 declared for the payment outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "severity raised",
+    "type": "phrase",
+    "meaning": "Incident made more severe.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Severity raised…"
+    ],
+    "example": [
+      "Standup",
+      "Severity raised after customer impact increased."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "severity lowered",
+    "type": "phrase",
+    "meaning": "Incident made less severe after improvement.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Severity lowered…"
+    ],
+    "example": [
+      "Standup",
+      "Severity lowered after the rollback."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "comms update sent",
+    "type": "phrase",
+    "meaning": "Status message shared to stakeholders.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Comms update sent…"
+    ],
+    "example": [
+      "Standup",
+      "Comms update sent to the client channel."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "timeline updated",
+    "type": "phrase",
+    "meaning": "Incident chronology refreshed.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Timeline updated…"
+    ],
+    "example": [
+      "Standup",
+      "Timeline updated with the canary timestamps."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "lessons learned",
+    "type": "phrase",
+    "meaning": "Improvements identified after an incident.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Lessons learned…"
+    ],
+    "example": [
+      "Standup",
+      "Lessons learned: need faster rollback ownership."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "preventive action",
+    "type": "phrase",
+    "meaning": "Change that reduces chance of recurrence.",
+    "context": "Postmortem",
+    "level": "B2",
+    "patterns": [
+      "Preventive action…"
+    ],
+    "example": [
+      "Standup",
+      "Preventive action: add a canary latency gate."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I'm blocked by the API dependency.",
+    "type": "expression",
+    "meaning": "Cannot continue until another service/team delivers an API piece.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I'm blocked by…"
+    ],
+    "example": [
+      "Standup",
+      "I'm blocked by the API dependency until Auth lands token refresh."
+    ],
+    "alternatives": [
+      "I'm waiting on the API dependency."
+    ],
+    "notes": []
+  },
+  {
+    "term": "I'm on track to finish today.",
+    "type": "expression",
+    "meaning": "Progress matches the plan for end-of-day completion.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "I'm on track…"
+    ],
+    "example": [
+      "Standup",
+      "I'm on track to finish the staging verification today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "No blockers on my side.",
+    "type": "expression",
+    "meaning": "Nothing is preventing your progress right now.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "No blockers…"
+    ],
+    "example": [
+      "Standup",
+      "No blockers on my side; continuing the PR."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I need a review on my PR.",
+    "type": "expression",
+    "meaning": "Asking someone to review your pull request.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "I need a review…"
+    ],
+    "example": [
+      "Slack",
+      "I need a review on my hotfix PR before deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Can someone unblock me on staging access?",
+    "type": "expression",
+    "meaning": "Request help clearing an access blocker.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Can someone unblock me…"
+    ],
+    "example": [
+      "Slack",
+      "Can someone unblock me on staging access for the deploy?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Yesterday I merged the feature-flag change.",
+    "type": "expression",
+    "meaning": "Report completed work from the prior day.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Yesterday I…"
+    ],
+    "example": [
+      "Standup",
+      "Yesterday I merged the feature-flag change for checkout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Today I will verify the fix on staging.",
+    "type": "expression",
+    "meaning": "State the plan for the current day.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Today I will…"
+    ],
+    "example": [
+      "Standup",
+      "Today I will verify the fix on staging after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "ETA is end of day if CI stays green.",
+    "type": "expression",
+    "meaning": "Give a conditional completion time.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "ETA is…"
+    ],
+    "example": [
+      "Standup",
+      "ETA is end of day if CI stays green on the PR."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "The release is at risk without QA capacity.",
+    "type": "expression",
+    "meaning": "Call out delivery risk tied to a dependency.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "… is at risk…"
+    ],
+    "example": [
+      "Standup",
+      "The release is at risk without QA capacity this afternoon."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I took ownership of the flaky CI job.",
+    "type": "expression",
+    "meaning": "Accept accountability for a problem area.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I took ownership of…"
+    ],
+    "example": [
+      "Standup",
+      "I took ownership of the flaky CI job on main."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Hold the deploy until the alert clears.",
+    "type": "expression",
+    "meaning": "Ask to pause release due to a live signal.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Hold the deploy…"
+    ],
+    "example": [
+      "Slack",
+      "Hold the deploy until the alert clears on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Canary looks healthy at five percent.",
+    "type": "expression",
+    "meaning": "Report limited-rollout health.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Canary looks healthy…"
+    ],
+    "example": [
+      "Standup",
+      "Canary looks healthy at five percent traffic."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "We should roll back if latency stays high.",
+    "type": "expression",
+    "meaning": "Recommend revert based on metrics.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "We should roll back…"
+    ],
+    "example": [
+      "Standup",
+      "We should roll back if latency stays high on canary."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Mitigation is in place via the kill switch.",
+    "type": "expression",
+    "meaning": "State that temporary protection is active.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Mitigation is in place…"
+    ],
+    "example": [
+      "Standup",
+      "Mitigation is in place via the kill switch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Root cause is still unknown.",
+    "type": "expression",
+    "meaning": "Admit the underlying reason is not found yet.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Root cause is…"
+    ],
+    "example": [
+      "Standup",
+      "Root cause is still unknown after the rollback."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I will draft the postmortem after standup.",
+    "type": "expression",
+    "meaning": "Commit to writing the incident review.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "I will draft…"
+    ],
+    "example": [
+      "Standup",
+      "I will draft the postmortem after standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Friendly nudge on the hotfix review.",
+    "type": "expression",
+    "meaning": "Politely remind reviewers about an urgent PR.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Friendly nudge…"
+    ],
+    "example": [
+      "Slack",
+      "Friendly nudge on the hotfix review before the deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "CI is red on main after the overnight merge.",
+    "type": "expression",
+    "meaning": "Report primary-branch pipeline failure.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "CI is red…"
+    ],
+    "example": [
+      "Standup",
+      "CI is red on main after the overnight merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I rebased onto main and re-requested review.",
+    "type": "expression",
+    "meaning": "Explain rebase + review refresh.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "I rebased…"
+    ],
+    "example": [
+      "Standup",
+      "I rebased onto main and re-requested review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Acceptance criteria are still unclear.",
+    "type": "expression",
+    "meaning": "Flag missing done definition.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "… are still unclear."
+    ],
+    "example": [
+      "Standup",
+      "Acceptance criteria are still unclear on the client ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I don't have bandwidth for another ticket today.",
+    "type": "expression",
+    "meaning": "Decline extra work due to capacity.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I don't have bandwidth…"
+    ],
+    "example": [
+      "Standup",
+      "I don't have bandwidth for another ticket today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Let’s take the RFC debate offline.",
+    "type": "expression",
+    "meaning": "Defer a deep discussion out of standup.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Let's take … offline."
+    ],
+    "example": [
+      "Standup",
+      "Let's take the RFC debate offline after standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I need focus time this morning for the spike.",
+    "type": "expression",
+    "meaning": "Ask for protected deep-work time.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "I need focus time…"
+    ],
+    "example": [
+      "Standup",
+      "I need focus time this morning for the latency spike."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Pairing on the root cause after this.",
+    "type": "expression",
+    "meaning": "Announce collaborative debugging plans.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Pairing on…"
+    ],
+    "example": [
+      "Standup",
+      "Pairing on the root cause after this standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I’m primary on-call this week for API.",
+    "type": "expression",
+    "meaning": "State on-call responsibility.",
+    "context": "On-call",
+    "level": "A2",
+    "patterns": [
+      "I'm primary on-call…"
+    ],
+    "example": [
+      "Standup",
+      "I'm primary on-call this week for the API services."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I got paged for the staging outage last night.",
+    "type": "expression",
+    "meaning": "Report overnight incident involvement.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "I got paged…"
+    ],
+    "example": [
+      "Standup",
+      "I got paged for the staging outage last night."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Acked the alert and started investigating.",
+    "type": "expression",
+    "meaning": "Confirm alert handling began.",
+    "context": "Alert",
+    "level": "A2",
+    "patterns": [
+      "Acked the alert…"
+    ],
+    "example": [
+      "Slack",
+      "Acked the alert and started investigating the API spike."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Error budget is burning; pause non-critical rollouts.",
+    "type": "expression",
+    "meaning": "Link reliability spend to release policy.",
+    "context": "On-call",
+    "level": "B2",
+    "patterns": [
+      "Error budget is burning…"
+    ],
+    "example": [
+      "Standup",
+      "Error budget is burning; pause non-critical rollouts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Customer impact looks limited to checkout retries.",
+    "type": "expression",
+    "meaning": "Summarize user-visible blast radius.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Customer impact…"
+    ],
+    "example": [
+      "Standup",
+      "Customer impact looks limited to checkout retries."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "War room is open in the incident channel.",
+    "type": "expression",
+    "meaning": "Point people to the active response space.",
+    "context": "War room",
+    "level": "B1",
+    "patterns": [
+      "War room is open…"
+    ],
+    "example": [
+      "Slack",
+      "War room is open in the incident channel."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I updated the rollback runbook yesterday.",
+    "type": "expression",
+    "meaning": "Report documentation/ops improvement done.",
+    "context": "Docs",
+    "level": "A2",
+    "patterns": [
+      "I updated…"
+    ],
+    "example": [
+      "Standup",
+      "I updated the rollback runbook yesterday."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Dress rehearsal for cutover is this afternoon.",
+    "type": "expression",
+    "meaning": "Announce practice of a release switch.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Dress rehearsal…"
+    ],
+    "example": [
+      "Standup",
+      "Dress rehearsal for cutover is this afternoon on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Go/no-go for prod is at 16:00.",
+    "type": "expression",
+    "meaning": "State the release decision checkpoint time.",
+    "context": "Decision",
+    "level": "B2",
+    "patterns": [
+      "Go/no-go…"
+    ],
+    "example": [
+      "Standup",
+      "Go/no-go for prod is at 16:00."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Change freeze starts Friday.",
+    "type": "expression",
+    "meaning": "Remind the team of a release blackout.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Change freeze starts…"
+    ],
+    "example": [
+      "Standup",
+      "Change freeze starts Friday; finish reviews today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "QA signed off on staging.",
+    "type": "expression",
+    "meaning": "Report quality approval for promote.",
+    "context": "QA",
+    "level": "A2",
+    "patterns": [
+      "QA signed off…"
+    ],
+    "example": [
+      "Standup",
+      "QA signed off on staging; ready to promote."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I’m waiting on QA before promoting to prod.",
+    "type": "expression",
+    "meaning": "State a QA-gated release dependency.",
+    "context": "QA",
+    "level": "A2",
+    "patterns": [
+      "I'm waiting on QA…"
+    ],
+    "example": [
+      "Standup",
+      "I'm waiting on QA before promoting to prod."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I opened a draft PR for early feedback.",
+    "type": "expression",
+    "meaning": "Invite early review on unfinished work.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "I opened a draft PR…"
+    ],
+    "example": [
+      "Standup",
+      "I opened a draft PR for early feedback on retries."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "LGTM — feel free to merge after CI.",
+    "type": "expression",
+    "meaning": "Approve a PR with a CI condition.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "LGTM…"
+    ],
+    "example": [
+      "Slack",
+      "LGTM — feel free to merge after CI is green."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Blocking comment: add a rollback check.",
+    "type": "expression",
+    "meaning": "Mark required review feedback.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "Blocking comment…"
+    ],
+    "example": [
+      "PR",
+      "Blocking comment: add a rollback check before merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Addressed review comments; CI is re-running.",
+    "type": "expression",
+    "meaning": "Report that feedback was handled.",
+    "context": "PR",
+    "level": "A2",
+    "patterns": [
+      "Addressed…"
+    ],
+    "example": [
+      "Slack",
+      "Addressed review comments; CI is re-running."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I hit a merge conflict on the deploy config.",
+    "type": "expression",
+    "meaning": "Report a git conflict blocking progress.",
+    "context": "PR",
+    "level": "B1",
+    "patterns": [
+      "I hit a merge conflict…"
+    ],
+    "example": [
+      "Standup",
+      "I hit a merge conflict on the deploy config."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Cherry-picking the hotfix onto the release branch.",
+    "type": "expression",
+    "meaning": "State applying a fix to a release line.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Cherry-picking…"
+    ],
+    "example": [
+      "Standup",
+      "Cherry-picking the hotfix onto the release branch."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Keeping the feature flag off until QA signs off.",
+    "type": "expression",
+    "meaning": "Explain gated exposure of a change.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Keeping the feature flag…"
+    ],
+    "example": [
+      "Standup",
+      "Keeping the feature flag off until QA signs off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Flipping the flag for the internal cohort first.",
+    "type": "expression",
+    "meaning": "Describe staged exposure plan.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Flipping the flag…"
+    ],
+    "example": [
+      "Standup",
+      "Flipping the flag for the internal cohort first."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Soaking the canary overnight before full rollout.",
+    "type": "expression",
+    "meaning": "Plan overnight limited exposure.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Soaking the canary…"
+    ],
+    "example": [
+      "Standup",
+      "Soaking the canary overnight before full rollout."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I cleared the CI cache to unblock the flake.",
+    "type": "expression",
+    "meaning": "Report a concrete CI mitigation.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "I cleared…"
+    ],
+    "example": [
+      "Standup",
+      "I cleared the CI cache to unblock the flake."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Quarantining the flaky test so main stays green.",
+    "type": "expression",
+    "meaning": "Isolate an intermittent test from the gate.",
+    "context": "CI",
+    "level": "B2",
+    "patterns": [
+      "Quarantining…"
+    ],
+    "example": [
+      "Standup",
+      "Quarantining the flaky test so main stays green."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Coverage gate failed; adding tests today.",
+    "type": "expression",
+    "meaning": "Explain a coverage-block and plan.",
+    "context": "CI",
+    "level": "B1",
+    "patterns": [
+      "Coverage gate failed…"
+    ],
+    "example": [
+      "Standup",
+      "Coverage gate failed; adding tests today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Nightly failed on the integration suite.",
+    "type": "expression",
+    "meaning": "Report overnight CI failure.",
+    "context": "CI",
+    "level": "A2",
+    "patterns": [
+      "Nightly failed…"
+    ],
+    "example": [
+      "Standup",
+      "Nightly failed on the integration suite."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I will triage overnight alerts after standup.",
+    "type": "expression",
+    "meaning": "Commit to alert triage next.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "I will triage…"
+    ],
+    "example": [
+      "Standup",
+      "I will triage overnight alerts after standup."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Looks like a false positive from the deploy probe.",
+    "type": "expression",
+    "meaning": "Judge an alert as non-actionable.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Looks like a false positive…"
+    ],
+    "example": [
+      "Standup",
+      "Looks like a false positive from the deploy probe."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "This is a real signal; error rate is truly up.",
+    "type": "expression",
+    "meaning": "Confirm an alert is actionable.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "This is a real signal…"
+    ],
+    "example": [
+      "Standup",
+      "This is a real signal; error rate is truly up."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Silenced the alert during the known deploy window.",
+    "type": "expression",
+    "meaning": "Explain temporary mute of noise.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Silenced the alert…"
+    ],
+    "example": [
+      "Standup",
+      "Silenced the alert during the known deploy window."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Tuning thresholds to cut alert noise.",
+    "type": "expression",
+    "meaning": "Plan to reduce noisy alerts.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Tuning thresholds…"
+    ],
+    "example": [
+      "Standup",
+      "Tuning thresholds to cut alert noise."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "SEV-2 declared for the payment outage.",
+    "type": "expression",
+    "meaning": "Announce formal incident severity.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "SEV-2 declared…"
+    ],
+    "example": [
+      "Standup",
+      "SEV-2 declared for the payment outage."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Severity lowered after the rollback.",
+    "type": "expression",
+    "meaning": "Report severity reduction post-mitigation.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Severity lowered…"
+    ],
+    "example": [
+      "Standup",
+      "Severity lowered after the rollback."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Comms update sent to the client channel.",
+    "type": "expression",
+    "meaning": "Confirm stakeholder communication.",
+    "context": "Client",
+    "level": "B1",
+    "patterns": [
+      "Comms update sent…"
+    ],
+    "example": [
+      "Standup",
+      "Comms update sent to the client channel."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Timeline for the outage is almost complete.",
+    "type": "expression",
+    "meaning": "Status the incident chronology.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Timeline…"
+    ],
+    "example": [
+      "Standup",
+      "Timeline for the outage is almost complete."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Action items from the postmortem are still open.",
+    "type": "expression",
+    "meaning": "Flag unfinished incident follow-ups.",
+    "context": "Postmortem",
+    "level": "B1",
+    "patterns": [
+      "Action items…"
+    ],
+    "example": [
+      "Standup",
+      "Action items from the postmortem are still open."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Preventive action: add a canary latency gate.",
+    "type": "expression",
+    "meaning": "Propose a recurrence-prevention change.",
+    "context": "Postmortem",
+    "level": "B2",
+    "patterns": [
+      "Preventive action…"
+    ],
+    "example": [
+      "Standup",
+      "Preventive action: add a canary latency gate."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "I filed an access request for the dashboards.",
+    "type": "expression",
+    "meaning": "Report requesting needed permissions.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "I filed…"
+    ],
+    "example": [
+      "Standup",
+      "I filed an access request for the on-call dashboards."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Permission denied on the deploy role.",
+    "type": "expression",
+    "meaning": "Report an access failure blocker.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Permission denied…"
+    ],
+    "example": [
+      "Standup",
+      "Permission denied on the deploy role; raising a ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Blocked by secret rotation on staging.",
+    "type": "expression",
+    "meaning": "Explain a credentials rotation blocker.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Blocked by…"
+    ],
+    "example": [
+      "Standup",
+      "Blocked by secret rotation on staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Vendor delay on credentials is my only blocker.",
+    "type": "expression",
+    "meaning": "Attribute wait to an external vendor.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "… is my only blocker."
+    ],
+    "example": [
+      "Standup",
+      "Vendor delay on credentials is my only blocker."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "We got rate limited by the upstream API.",
+    "type": "expression",
+    "meaning": "Report upstream throttling impact.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "We got rate limited…"
+    ],
+    "example": [
+      "Standup",
+      "We got rate limited by the upstream API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Applying backpressure until the API recovers.",
+    "type": "expression",
+    "meaning": "Describe load-shedding mitigation.",
+    "context": "Incident",
+    "level": "B2",
+    "patterns": [
+      "Applying backpressure…"
+    ],
+    "example": [
+      "Standup",
+      "Applying backpressure until the API recovers."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Scaling workers to drain the queue.",
+    "type": "expression",
+    "meaning": "Explain capacity increase to clear backlog.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Scaling workers…"
+    ],
+    "example": [
+      "Standup",
+      "Scaling workers to drain the queue."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Restarting the worker as a short-term mitigation.",
+    "type": "expression",
+    "meaning": "Announce temporary process bounce.",
+    "context": "Incident",
+    "level": "A2",
+    "patterns": [
+      "Restarting…"
+    ],
+    "example": [
+      "Standup",
+      "Restarting the worker as a short-term mitigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Suspect connection-pool exhaustion under load.",
+    "type": "expression",
+    "meaning": "Share a leading hypothesis.",
+    "context": "Standup",
+    "level": "B2",
+    "patterns": [
+      "Suspect…"
+    ],
+    "example": [
+      "Standup",
+      "Suspect connection-pool exhaustion under load."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Cannot reproduce locally; trying staging next.",
+    "type": "expression",
+    "meaning": "Report repro status and next env.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Cannot reproduce…"
+    ],
+    "example": [
+      "Standup",
+      "Cannot reproduce locally; trying staging next."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Added repro steps to the bug ticket.",
+    "type": "expression",
+    "meaning": "Confirm documentation of reproduction.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Added repro steps…"
+    ],
+    "example": [
+      "Standup",
+      "Added repro steps to the bug ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Linked the PR to the incident ticket.",
+    "type": "expression",
+    "meaning": "Confirm traceability between change and incident.",
+    "context": "Ticket",
+    "level": "A2",
+    "patterns": [
+      "Linked the PR…"
+    ],
+    "example": [
+      "Standup",
+      "Linked the PR to the incident ticket."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Scope grew after the client requirement change.",
+    "type": "expression",
+    "meaning": "Explain schedule pressure from scope.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Scope grew…"
+    ],
+    "example": [
+      "Standup",
+      "Scope grew after the client requirement change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "We should cut scope to protect Friday’s deploy.",
+    "type": "expression",
+    "meaning": "Recommend reducing work to hit a date.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "We should cut scope…"
+    ],
+    "example": [
+      "Standup",
+      "We should cut scope to protect Friday's deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Carrying the CI flake ticket into next sprint.",
+    "type": "expression",
+    "meaning": "Announce carryover explicitly.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Carrying…"
+    ],
+    "example": [
+      "Standup",
+      "Carrying the CI flake ticket into next sprint."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Picking up the next backlog ticket after merge.",
+    "type": "expression",
+    "meaning": "State what you will pull next.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Picking up…"
+    ],
+    "example": [
+      "Standup",
+      "Picking up the next backlog ticket after merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Wrapping up staging smoke tests now.",
+    "type": "expression",
+    "meaning": "Report near-completion of verification.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Wrapping up…"
+    ],
+    "example": [
+      "Standup",
+      "Wrapping up staging smoke tests now."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Handing off the on-call runbook at 17:00.",
+    "type": "expression",
+    "meaning": "Announce a timed ownership transfer.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Handing off…"
+    ],
+    "example": [
+      "Standup",
+      "Handing off the on-call runbook at 17:00."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Shadowing on-call this week on the API rota.",
+    "type": "expression",
+    "meaning": "State learning coverage of on-call.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Shadowing on-call…"
+    ],
+    "example": [
+      "Standup",
+      "Shadowing on-call this week on the API rota."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Coverage plan for on-call is posted in Slack.",
+    "type": "expression",
+    "meaning": "Point to published coverage details.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "Coverage plan…"
+    ],
+    "example": [
+      "Standup",
+      "Coverage plan for on-call is posted in Slack."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "OOO tomorrow; DRI for the ticket is Alex.",
+    "type": "expression",
+    "meaning": "Announce absence and replacement owner.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "OOO…"
+    ],
+    "example": [
+      "Slack",
+      "OOO tomorrow; DRI for the ticket is Alex."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Async update: PR is green and ready to merge.",
+    "type": "expression",
+    "meaning": "Share status without a live meeting.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Async update…"
+    ],
+    "example": [
+      "Slack",
+      "Async update: PR is green and ready to merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Quick sync after standup on the dependency?",
+    "type": "expression",
+    "meaning": "Propose a short follow-up conversation.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Quick sync…"
+    ],
+    "example": [
+      "Slack",
+      "Quick sync after standup on the API dependency?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Heads up: staging will restart during deploy.",
+    "type": "expression",
+    "meaning": "Warn about upcoming disruption.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Heads up…"
+    ],
+    "example": [
+      "Slack",
+      "Heads up: staging will restart during deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "FYI: production error rate spiked after merge.",
+    "type": "expression",
+    "meaning": "Inform without necessarily asking action.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "FYI…"
+    ],
+    "example": [
+      "Slack",
+      "FYI: production error rate spiked after merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "TL;DR: mitigated, root cause still open.",
+    "type": "expression",
+    "meaning": "Give a compressed incident status.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "TL;DR…"
+    ],
+    "example": [
+      "Slack",
+      "TL;DR: mitigated, root cause still open."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Any update on the staging credentials?",
+    "type": "expression",
+    "meaning": "Ask for status on a blocker.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Any update on…"
+    ],
+    "example": [
+      "Slack",
+      "Any update on the staging credentials?"
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Looping you in on the deploy blocker.",
+    "type": "expression",
+    "meaning": "Bring someone into a thread for help.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Looping you in…"
+    ],
+    "example": [
+      "Slack",
+      "Looping you in on the deploy blocker."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Moving this discussion to a thread.",
+    "type": "expression",
+    "meaning": "Reduce channel noise by threading.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Moving this…"
+    ],
+    "example": [
+      "Slack",
+      "Moving this discussion to a thread."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Closing the loop: access is granted now.",
+    "type": "expression",
+    "meaning": "Confirm a prior ask is resolved.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Closing the loop…"
+    ],
+    "example": [
+      "Slack",
+      "Closing the loop: access is granted now."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Done for today; waiting on review.",
+    "type": "expression",
+    "meaning": "End-of-day status closeout.",
+    "context": "Slack",
+    "level": "A2",
+    "patterns": [
+      "Done for today…"
+    ],
+    "example": [
+      "Slack",
+      "Done for today; waiting on review."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Will circle back with an ETA by noon.",
+    "type": "expression",
+    "meaning": "Promise a timed follow-up.",
+    "context": "Slack",
+    "level": "B1",
+    "patterns": [
+      "Will circle back…"
+    ],
+    "example": [
+      "Slack",
+      "Will circle back with an ETA by noon."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Park that topic until after the deploy.",
+    "type": "expression",
+    "meaning": "Defer discussion politely.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Park that…"
+    ],
+    "example": [
+      "Standup",
+      "Park that topic until after the deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Capture an action to update the runbook.",
+    "type": "expression",
+    "meaning": "Turn discussion into a tracked follow-up.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Capture an action…"
+    ],
+    "example": [
+      "Standup",
+      "Capture an action to update the runbook."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Decision needed on feature-flag default.",
+    "type": "expression",
+    "meaning": "Escalate a blocking product/tech choice.",
+    "context": "Decision",
+    "level": "B1",
+    "patterns": [
+      "Decision needed…"
+    ],
+    "example": [
+      "Standup",
+      "Decision needed on feature-flag default before deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Low confidence on the ETA until the spike finishes.",
+    "type": "expression",
+    "meaning": "Qualify uncertainty honestly.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Low confidence…"
+    ],
+    "example": [
+      "Standup",
+      "Low confidence on the ETA until the spike finishes."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "High confidence we can ship the hotfix today.",
+    "type": "expression",
+    "meaning": "Express strong delivery confidence.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "High confidence…"
+    ],
+    "example": [
+      "Standup",
+      "High confidence we can ship the hotfix today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Same as yesterday: still waiting on QA.",
+    "type": "expression",
+    "meaning": "Report unchanged status briefly.",
+    "context": "Standup",
+    "level": "A2",
+    "patterns": [
+      "Same as yesterday…"
+    ],
+    "example": [
+      "Standup",
+      "Same as yesterday: still waiting on QA."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "New risk: flaky CI may slip the Friday ship.",
+    "type": "expression",
+    "meaning": "Call out a newly identified risk.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "New risk…"
+    ],
+    "example": [
+      "Standup",
+      "New risk: flaky CI may slip the Friday ship."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Risk mitigated by keeping the flag off.",
+    "type": "expression",
+    "meaning": "Explain how risk was reduced.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Risk mitigated…"
+    ],
+    "example": [
+      "Standup",
+      "Risk mitigated by keeping the feature flag off."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Dependency landed; I am unblocked now.",
+    "type": "expression",
+    "meaning": "Announce clearing of an upstream wait.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Dependency landed…"
+    ],
+    "example": [
+      "Standup",
+      "Dependency landed; I am unblocked now."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "After the PR lands I will kick off staging.",
+    "type": "expression",
+    "meaning": "Sequence next env work after merge.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "After the PR lands…"
+    ],
+    "example": [
+      "Standup",
+      "After the PR lands I will kick off staging."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Watching the dashboard for an hour after deploy.",
+    "type": "expression",
+    "meaning": "Commit to post-deploy monitoring.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "Watching the dashboard…"
+    ],
+    "example": [
+      "Standup",
+      "Watching the dashboard for an hour after deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Staging looks healthy after the redeploy.",
+    "type": "expression",
+    "meaning": "Report healthy post-deploy status.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "… looks healthy…"
+    ],
+    "example": [
+      "Standup",
+      "Staging looks healthy after the redeploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "API looks degraded; investigating next.",
+    "type": "expression",
+    "meaning": "Report partial impairment and plan.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "… looks degraded…"
+    ],
+    "example": [
+      "Standup",
+      "API looks degraded; investigating next."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Error rate is up after the last canary step.",
+    "type": "expression",
+    "meaning": "Attribute metric change to rollout step.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Error rate is up…"
+    ],
+    "example": [
+      "Standup",
+      "Error rate is up after the last canary step."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Latency spiked overnight on checkout.",
+    "type": "expression",
+    "meaning": "Report a latency incident signal.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Latency spiked…"
+    ],
+    "example": [
+      "Standup",
+      "Latency spiked overnight on the checkout API."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Timeouts increased in the webhook worker.",
+    "type": "expression",
+    "meaning": "Report timeout trend on a component.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Timeouts increased…"
+    ],
+    "example": [
+      "Standup",
+      "Timeouts increased in the webhook worker."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Queue is backing up; scaling next.",
+    "type": "expression",
+    "meaning": "Connect queue depth to remediation.",
+    "context": "Alert",
+    "level": "B1",
+    "patterns": [
+      "Queue is backing up…"
+    ],
+    "example": [
+      "Standup",
+      "Queue is backing up; scaling workers next."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Dry-running the cutover script on staging first.",
+    "type": "expression",
+    "meaning": "Emphasize safe practice before real cutover.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Dry-running…"
+    ],
+    "example": [
+      "Standup",
+      "Dry-running the cutover script on staging first."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Making the deploy script idempotent before merge.",
+    "type": "expression",
+    "meaning": "State a safety improvement on automation.",
+    "context": "Deploy",
+    "level": "B2",
+    "patterns": [
+      "Making … idempotent…"
+    ],
+    "example": [
+      "Standup",
+      "Making the deploy script idempotent before merge."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Need two reviewers for the prod hotfix.",
+    "type": "expression",
+    "meaning": "Cite policy for elevated review.",
+    "context": "Policy",
+    "level": "B1",
+    "patterns": [
+      "Need two reviewers…"
+    ],
+    "example": [
+      "Standup",
+      "Need two reviewers for the prod hotfix."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Needs security review for the auth change.",
+    "type": "expression",
+    "meaning": "Route a sensitive change correctly.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Needs security review…"
+    ],
+    "example": [
+      "Standup",
+      "Needs security review for the auth change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Design review today for the retry RFC.",
+    "type": "expression",
+    "meaning": "Announce a design discussion.",
+    "context": "Review",
+    "level": "B1",
+    "patterns": [
+      "Design review today…"
+    ],
+    "example": [
+      "Standup",
+      "Design review today for the webhook retry RFC."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Opened a tech-debt ticket for the CI scripts.",
+    "type": "expression",
+    "meaning": "Track cleanup work explicitly.",
+    "context": "Ticket",
+    "level": "B1",
+    "patterns": [
+      "Opened a tech-debt ticket…"
+    ],
+    "example": [
+      "Standup",
+      "Opened a tech-debt ticket for the CI scripts."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Paying down deploy tooling debt this sprint.",
+    "type": "expression",
+    "meaning": "State intentional tech-debt investment.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Paying down…"
+    ],
+    "example": [
+      "Standup",
+      "Paying down deploy tooling debt this sprint."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Spike complete; recommending a feature flag.",
+    "type": "expression",
+    "meaning": "Share research outcome and recommendation.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Spike complete…"
+    ],
+    "example": [
+      "Standup",
+      "Spike complete; recommending a feature flag."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Spike findings point to pool exhaustion.",
+    "type": "expression",
+    "meaning": "Summarize investigative conclusion.",
+    "context": "Standup",
+    "level": "B2",
+    "patterns": [
+      "Spike findings…"
+    ],
+    "example": [
+      "Standup",
+      "Spike findings point to connection-pool exhaustion."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Paused feature work for incident mitigation.",
+    "type": "expression",
+    "meaning": "Explain priority shift to ops.",
+    "context": "Incident",
+    "level": "B1",
+    "patterns": [
+      "Paused feature work…"
+    ],
+    "example": [
+      "Standup",
+      "Paused feature work for incident mitigation."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Back to feature work after the hotfix shipped.",
+    "type": "expression",
+    "meaning": "Announce return to product delivery.",
+    "context": "Standup",
+    "level": "B1",
+    "patterns": [
+      "Back to feature work…"
+    ],
+    "example": [
+      "Standup",
+      "Back to feature work after the hotfix shipped."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "On support rotation; capacity is reduced today.",
+    "type": "expression",
+    "meaning": "Explain reduced delivery capacity.",
+    "context": "On-call",
+    "level": "B1",
+    "patterns": [
+      "On support rotation…"
+    ],
+    "example": [
+      "Standup",
+      "On support rotation; capacity is reduced today."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Invalidating CDN after the static asset deploy.",
+    "type": "expression",
+    "meaning": "Report edge cache purge step.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Invalidating CDN…"
+    ],
+    "example": [
+      "Standup",
+      "Invalidating CDN after the static asset deploy."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Clearing cache after the config change.",
+    "type": "expression",
+    "meaning": "Report cache invalidation as follow-up.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Clearing cache…"
+    ],
+    "example": [
+      "Standup",
+      "Clearing cache after the config change."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Promote to prod after smoke tests pass.",
+    "type": "expression",
+    "meaning": "State promote gate clearly.",
+    "context": "Deploy",
+    "level": "B1",
+    "patterns": [
+      "Promote to prod…"
+    ],
+    "example": [
+      "Standup",
+      "Promote to prod after smoke tests pass."
+    ],
+    "alternatives": [],
+    "notes": []
+  },
+  {
+    "term": "Redeploying staging with the hotfix artifact.",
+    "type": "expression",
+    "meaning": "Announce a staging redeploy.",
+    "context": "Deploy",
+    "level": "A2",
+    "patterns": [
+      "Redeploying staging…"
+    ],
+    "example": [
+      "Standup",
+      "Redeploying staging with the hotfix artifact."
+    ],
+    "alternatives": [],
+    "notes": []
+  }
+]

@@ -378,6 +378,274 @@ export type Database = {
           },
         ];
       };
+      vocabulary_situations: {
+        Row: {
+          created_at: string;
+          description: string;
+          id: string;
+          published: boolean;
+          slug: string;
+          sort_order: number;
+          title: string;
+          updated_at: string;
+        };
+        Insert: {
+          created_at?: string;
+          description: string;
+          id?: string;
+          published?: boolean;
+          slug: string;
+          sort_order: number;
+          title: string;
+          updated_at?: string;
+        };
+        Update: {
+          created_at?: string;
+          description?: string;
+          id?: string;
+          published?: boolean;
+          slug?: string;
+          sort_order?: number;
+          title?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      vocabulary_items: {
+        Row: {
+          content: Json;
+          content_revision: number;
+          content_schema_version: number;
+          context: string;
+          created_at: string;
+          id: string;
+          item_key: string;
+          level: string;
+          meaning: string;
+          pos: string | null;
+          published: boolean;
+          situation_id: string;
+          sort_order: number;
+          term: string;
+          type: string;
+          updated_at: string;
+        };
+        Insert: {
+          content?: Json;
+          content_revision: number;
+          content_schema_version: number;
+          context: string;
+          created_at?: string;
+          id?: string;
+          item_key: string;
+          level: string;
+          meaning: string;
+          pos?: string | null;
+          published?: boolean;
+          situation_id: string;
+          sort_order: number;
+          term: string;
+          type: string;
+          updated_at?: string;
+        };
+        Update: {
+          content?: Json;
+          content_revision?: number;
+          content_schema_version?: number;
+          context?: string;
+          created_at?: string;
+          id?: string;
+          item_key?: string;
+          level?: string;
+          meaning?: string;
+          pos?: string | null;
+          published?: boolean;
+          situation_id?: string;
+          sort_order?: number;
+          term?: string;
+          type?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vocabulary_items_situation_id_fkey';
+            columns: ['situation_id'];
+            isOneToOne: false;
+            referencedRelation: 'vocabulary_situations';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      vocabulary_exercises: {
+        Row: {
+          content_schema_version: number;
+          created_at: string;
+          exercise_key: string;
+          feedback: Json;
+          id: string;
+          item_id: string | null;
+          payload: Json;
+          prompt: string;
+          published: boolean;
+          situation_id: string;
+          sort_order: number;
+          type: string;
+          updated_at: string;
+        };
+        Insert: {
+          content_schema_version: number;
+          created_at?: string;
+          exercise_key: string;
+          feedback: Json;
+          id?: string;
+          item_id?: string | null;
+          payload: Json;
+          prompt: string;
+          published?: boolean;
+          situation_id: string;
+          sort_order: number;
+          type: string;
+          updated_at?: string;
+        };
+        Update: {
+          content_schema_version?: number;
+          created_at?: string;
+          exercise_key?: string;
+          feedback?: Json;
+          id?: string;
+          item_id?: string | null;
+          payload?: Json;
+          prompt?: string;
+          published?: boolean;
+          situation_id?: string;
+          sort_order?: number;
+          type?: string;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vocabulary_exercises_item_id_fkey';
+            columns: ['item_id'];
+            isOneToOne: false;
+            referencedRelation: 'vocabulary_items';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'vocabulary_exercises_situation_id_fkey';
+            columns: ['situation_id'];
+            isOneToOne: false;
+            referencedRelation: 'vocabulary_situations';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      user_vocabulary_progress: {
+        Row: {
+          correct_count: number;
+          created_at: string;
+          id: string;
+          incorrect_count: number;
+          item_id: string;
+          last_result: boolean | null;
+          last_seen_at: string | null;
+          situation_id: string;
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          correct_count?: number;
+          created_at?: string;
+          id?: string;
+          incorrect_count?: number;
+          item_id: string;
+          last_result?: boolean | null;
+          last_seen_at?: string | null;
+          situation_id: string;
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          correct_count?: number;
+          created_at?: string;
+          id?: string;
+          incorrect_count?: number;
+          item_id?: string;
+          last_result?: boolean | null;
+          last_seen_at?: string | null;
+          situation_id?: string;
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'user_vocabulary_progress_item_id_fkey';
+            columns: ['item_id'];
+            isOneToOne: false;
+            referencedRelation: 'vocabulary_items';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'user_vocabulary_progress_situation_id_fkey';
+            columns: ['situation_id'];
+            isOneToOne: false;
+            referencedRelation: 'vocabulary_situations';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      vocabulary_attempts: {
+        Row: {
+          client_attempt_id: string;
+          completed_at: string;
+          content_revision: number;
+          correct_count: number;
+          created_at: string;
+          id: string;
+          item_results: Json;
+          score: number;
+          situation_id: string;
+          started_at: string;
+          total_count: number;
+          user_id: string;
+        };
+        Insert: {
+          client_attempt_id: string;
+          completed_at: string;
+          content_revision: number;
+          correct_count: number;
+          created_at?: string;
+          id?: string;
+          item_results: Json;
+          score: number;
+          situation_id: string;
+          started_at: string;
+          total_count: number;
+          user_id: string;
+        };
+        Update: {
+          client_attempt_id?: string;
+          completed_at?: string;
+          content_revision?: number;
+          correct_count?: number;
+          created_at?: string;
+          id?: string;
+          item_results?: Json;
+          score?: number;
+          situation_id?: string;
+          started_at?: string;
+          total_count?: number;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'vocabulary_attempts_situation_id_fkey';
+            columns: ['situation_id'];
+            isOneToOne: false;
+            referencedRelation: 'vocabulary_situations';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -418,6 +686,39 @@ export type Database = {
         SetofOptions: {
           from: '*';
           to: 'grammar_attempts';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      complete_vocabulary_attempt: {
+        Args: {
+          p_client_attempt_id: string;
+          p_completed_at: string;
+          p_content_revision: number;
+          p_correct_count: number;
+          p_item_results: Json;
+          p_score: number;
+          p_situation_id: string;
+          p_started_at: string;
+          p_total_count: number;
+        };
+        Returns: {
+          client_attempt_id: string;
+          completed_at: string;
+          content_revision: number;
+          correct_count: number;
+          created_at: string;
+          id: string;
+          item_results: Json;
+          score: number;
+          situation_id: string;
+          started_at: string;
+          total_count: number;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'vocabulary_attempts';
           isOneToOne: true;
           isSetofReturn: false;
         };

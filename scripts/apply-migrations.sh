@@ -35,6 +35,8 @@ for f in \
   supabase/migrations/010_grammar_level_on_lessons.sql \
   supabase/migrations/011_grammar_lesson_title_description.sql \
   supabase/migrations/012_grammar_score_validation.sql \
+  supabase/migrations/013_vocabulary_schema.sql \
+  supabase/migrations/014_vocabulary_seed.sql \
   supabase/seed.sql
 do
   echo "→ $f"
