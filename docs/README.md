@@ -29,6 +29,7 @@ Business Analysis and Solution Architecture documentation for **TanLabs English 
 | [Data and security](./sa/data-and-security.md)                         | Logical data model, RLS, secrets model      |
 | [Integrations and environments](./sa/integrations-and-environments.md) | Supabase, Firebase, env mapping             |
 | [Non-functional requirements](./sa/non-functional-requirements.md)     | Quality attributes and acceptance envelopes |
+| [Figma ↔ code component map](./sa/figma-code-connect.md)               | Design System V2 component ↔ source paths   |
 
 ## Document control
 

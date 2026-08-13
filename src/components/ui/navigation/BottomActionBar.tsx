@@ -9,12 +9,19 @@ import type { PressableProps } from 'react-native';
 type BottomActionBarProps = {
   disabled?: boolean;
   label: string;
+  loading?: boolean;
   onPress?: PressableProps['onPress'];
   testID?: string;
 };
 
 /** Sticky bottom action area for focused learning flows. */
-export function BottomActionBar({ disabled, label, onPress, testID }: BottomActionBarProps) {
+export function BottomActionBar({
+  disabled,
+  label,
+  loading,
+  onPress,
+  testID,
+}: BottomActionBarProps) {
   const colors = useAppColors();
   const insets = useSafeAreaInsets();
 
@@ -34,10 +41,11 @@ export function BottomActionBar({ disabled, label, onPress, testID }: BottomActi
         accessibilityRole="button"
         disabled={disabled}
         label={label}
+        loading={loading}
         onPress={onPress}
         style={styles.button}
         testID={testID}
-        variant="solid"
+        variant="primary"
       />
     </View>
   );

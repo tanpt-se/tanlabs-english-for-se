@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native';
 
+import { AppText } from '@/components/ui/typography';
 import { themeTokens, useAppColors } from '@/theme';
 
 type ProfileSummaryCardProps = {
@@ -20,7 +21,7 @@ function initialsFromName(name: string): string {
   return `${parts[0][0] ?? ''}${parts[1][0] ?? ''}`.toUpperCase();
 }
 
-/** Avatar + identity summary with optional edit affordance. */
+/** Avatar + identity summary — Figma Pattern/Avatar + ProfileCard. */
 export function ProfileSummaryCard({
   displayName,
   email,
@@ -31,16 +32,20 @@ export function ProfileSummaryCard({
   const initials = initialsFromName(displayName);
 
   return (
-    <View
-      style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
-    >
-      <View style={[styles.avatar, { backgroundColor: colors.primarySoft }]}>
-        <Text style={[styles.initials, { color: colors.primary }]}>{initials}</Text>
+    <View style={[styles.card, { backgroundColor: colors.surfaceCard }]}>
+      <View style={[styles.avatar, { backgroundColor: colors.primary }]}>
+        <Text style={[styles.initials, { color: colors.onPrimary }]}>{initials}</Text>
       </View>
       <View style={styles.copy}>
-        <Text style={[styles.name, { color: colors.text }]}>{displayName}</Text>
-        {email ? <Text style={[styles.meta, { color: colors.textMuted }]}>{email}</Text> : null}
-        <Text style={[styles.level, { color: colors.primary }]}>{levelLabel}</Text>
+        <AppText variant="h3">{displayName}</AppText>
+        {email ? (
+          <AppText color={colors.textSecondary} variant="caption">
+            {email}
+          </AppText>
+        ) : null}
+        <AppText color={colors.primary} variant="caption">
+          {levelLabel}
+        </AppText>
       </View>
       {onEditPress ? (
         <Text
@@ -59,20 +64,18 @@ export function ProfileSummaryCard({
 const styles = StyleSheet.create({
   avatar: {
     alignItems: 'center',
-    borderRadius: 24,
+    borderRadius: themeTokens.radius.lg,
     height: 48,
     justifyContent: 'center',
     width: 48,
   },
   card: {
     alignItems: 'center',
-    borderRadius: themeTokens.radius.xl,
-    borderWidth: 1,
+    borderRadius: themeTokens.radius.lg,
     flexDirection: 'row',
     gap: themeTokens.spacing['12'],
-    minHeight: 112,
-    paddingHorizontal: themeTokens.spacing.md,
-    paddingVertical: themeTokens.spacing.md,
+    padding: themeTokens.spacing.md,
+    width: '100%',
   },
   copy: {
     flex: 1,
@@ -80,29 +83,14 @@ const styles = StyleSheet.create({
     gap: themeTokens.spacing['3'],
   },
   edit: {
-    fontSize: 14,
+    fontSize: themeTokens.typography.size.label,
     fontWeight: '500',
-    lineHeight: 18,
+    lineHeight: themeTokens.typography.lineHeight.label,
     minHeight: 44,
     paddingVertical: 12,
   },
   initials: {
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  level: {
-    fontSize: 12,
+    fontSize: themeTokens.typography.size.caption,
     fontWeight: '500',
-    lineHeight: 16,
-  },
-  meta: {
-    fontSize: 12,
-    fontWeight: '400',
-    lineHeight: 16,
-  },
-  name: {
-    fontSize: 16,
-    fontWeight: '600',
-    lineHeight: 20,
   },
 });

@@ -8,16 +8,33 @@ import type { PropsWithChildren, ReactNode } from 'react';
 type ScreenScrollProps = PropsWithChildren<{
   /** Vertically center content when it fits (auth forms). */
   centered?: boolean;
+  /** Cap content width (Figma mobile column 342). */
+  contentMaxWidth?: number;
   /** Fixed chrome above the scroll area (typically TopAppHeader / AuthHeader). */
   header?: ReactNode;
   /** Sticky footer (e.g. bottom tab bar). */
   footer?: ReactNode;
+  /** Horizontal inset for scroll content; Foundation auth uses 24. */
+  horizontalPadding?: number;
 }>;
 
-export function ScreenScroll({ children, centered = false, header, footer }: ScreenScrollProps) {
+export function ScreenScroll({
+  children,
+  centered = false,
+  contentMaxWidth,
+  footer,
+  header,
+  horizontalPadding = 16,
+}: ScreenScrollProps) {
   const insets = useSafeAreaInsets();
   const colors = useAppColors();
   const topInset = Math.max(insets.top, 16);
+  const scrollContentStyle = [
+    styles.content,
+    centered ? styles.centered : undefined,
+    header ? styles.contentBelowHeader : { paddingTop: topInset },
+    footer ? styles.contentWithFooter : { paddingBottom: Math.max(insets.bottom, 24) },
+  ];
 
   return (
     <KeyboardAvoidingView
@@ -26,17 +43,25 @@ export function ScreenScroll({ children, centered = false, header, footer }: Scr
       keyboardVerticalOffset={Platform.OS === 'ios' ? insets.top : 0}
     >
       <View style={[styles.flex, { backgroundColor: colors.background }]}>
-        {header ? <View style={[styles.header, { paddingTop: topInset }]}>{header}</View> : null}
-        <ScrollView
-          keyboardShouldPersistTaps="handled"
-          contentContainerStyle={[
-            styles.content,
-            centered ? styles.centered : undefined,
-            header ? styles.contentBelowHeader : { paddingTop: topInset },
-            footer ? styles.contentWithFooter : { paddingBottom: Math.max(insets.bottom, 24) },
-          ]}
-        >
-          <View style={styles.horizontalPadding}>{children}</View>
+        {header ? (
+          <View
+            style={[styles.header, { paddingHorizontal: horizontalPadding, paddingTop: topInset }]}
+          >
+            {header}
+          </View>
+        ) : null}
+        <ScrollView keyboardShouldPersistTaps="handled" contentContainerStyle={scrollContentStyle}>
+          <View style={[styles.contentInset, { paddingHorizontal: horizontalPadding }]}>
+            <View
+              style={
+                contentMaxWidth
+                  ? [styles.contentColumn, { maxWidth: contentMaxWidth }]
+                  : styles.contentColumn
+              }
+            >
+              {children}
+            </View>
+          </View>
         </ScrollView>
         {footer ? <View style={styles.footer}>{footer}</View> : null}
       </View>
@@ -54,6 +79,13 @@ const styles = StyleSheet.create({
   contentBelowHeader: {
     paddingTop: 16,
   },
+  contentColumn: {
+    alignSelf: 'center',
+    width: '100%',
+  },
+  contentInset: {
+    width: '100%',
+  },
   contentWithFooter: {
     paddingBottom: 24,
   },
@@ -64,10 +96,6 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   header: {
-    paddingHorizontal: 16,
     width: '100%',
-  },
-  horizontalPadding: {
-    paddingHorizontal: 16,
   },
 });

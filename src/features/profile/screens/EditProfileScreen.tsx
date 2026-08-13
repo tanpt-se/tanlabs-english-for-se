@@ -124,9 +124,9 @@ export function EditProfileScreen() {
         <AppButton
           accessibilityLabel="Save profile"
           accessibilityRole="button"
-          disabled={loading}
           fullWidth
-          label={loading ? 'Saving…' : 'Save profile'}
+          label="Save profile"
+          loading={loading}
           onPress={onSubmit}
         />
       </View>

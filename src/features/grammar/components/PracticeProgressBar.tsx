@@ -61,12 +61,12 @@ export function PracticeProgressBar({
           />
         </Pressable>
 
-        <View style={[styles.track, { backgroundColor: TRACK }]}>
+        <View style={[styles.track, { backgroundColor: colors.borderSubtle }]}>
           <View
             style={[
               styles.fill,
               {
-                backgroundColor: brand.coral500,
+                backgroundColor: colors.primaryHover,
                 width: `${Math.max(ratio * 100, current > 0 ? 4 : 0)}%`,
               },
             ]}
@@ -104,8 +104,6 @@ export function PracticeProgressBar({
     </View>
   );
 }
-
-const TRACK = '#E5E8ED';
 
 const styles = StyleSheet.create({
   fill: {

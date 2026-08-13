@@ -24,9 +24,10 @@ const styles = StyleSheet.create({
   input: {
     borderRadius: themeTokens.radius.sm,
     borderWidth: 1,
-    fontSize: 16,
+    fontSize: themeTokens.typography.size.body,
+    lineHeight: themeTokens.typography.lineHeight.body,
     minHeight: 48,
-    paddingHorizontal: themeTokens.spacing['14'],
-    paddingVertical: themeTokens.spacing['10'],
+    paddingHorizontal: themeTokens.spacing.md,
+    paddingVertical: themeTokens.spacing['12'],
   },
 });

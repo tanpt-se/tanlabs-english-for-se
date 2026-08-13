@@ -172,9 +172,6 @@ export function GrammarPracticeScreen() {
   };
 
   const onSkip = () => {
-    if (state.phase !== 'answering') {
-      return;
-    }
     withActionLock(() => {
       const next = applyAction({ type: 'skip' });
       goReviewIfNeeded(next.phase);
@@ -182,14 +179,6 @@ export function GrammarPracticeScreen() {
   };
 
   const onProgressBack = () => {
-    if (
-      !(
-        state.phase === 'checked' ||
-        (state.phase === 'answering' && (state.checked.length > 0 || state.resumeReviewOnBack))
-      )
-    ) {
-      return;
-    }
     withActionLock(() => {
       const next = applyAction({ type: 'back' });
       goReviewIfNeeded(next.phase);

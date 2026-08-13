@@ -38,6 +38,17 @@ export function GrammarLessonRow({
     : active
     ? 'Continue'
     : 'Start';
+  const rowBackground = completed
+    ? colors.successSoft
+    : active
+    ? colors.surface
+    : colors.background;
+  const badgeBackground = completed
+    ? colors.success
+    : active
+    ? colors.primary
+    : colors.surfaceSecondary;
+  const badgeText = completed || active ? colors.textInverse : colors.textMuted;
 
   return (
     <Pressable
@@ -48,7 +59,9 @@ export function GrammarLessonRow({
       style={({ pressed }) => [
         styles.row,
         {
-          backgroundColor: active ? colors.surface : colors.background,
+          backgroundColor: rowBackground,
+          borderColor: completed ? colors.success : 'transparent',
+          borderWidth: completed ? 1 : 0,
           opacity: pressed ? 0.88 : 1,
         },
       ]}
@@ -57,17 +70,19 @@ export function GrammarLessonRow({
         style={[
           styles.indexBadge,
           {
-            backgroundColor: active ? colors.primary : colors.surfaceSecondary,
+            backgroundColor: badgeBackground,
           },
         ]}
       >
-        <Text style={[styles.indexText, { color: active ? colors.textInverse : colors.textMuted }]}>
-          {index + 1}
-        </Text>
+        <Text style={[styles.indexText, { color: badgeText }]}>{index + 1}</Text>
       </View>
       <View style={styles.copy}>
         <Text
-          style={[styles.title, active ? styles.titleActive : null, { color: titleColor }]}
+          style={[
+            styles.title,
+            active || completed ? styles.titleActive : null,
+            { color: titleColor },
+          ]}
           numberOfLines={1}
         >
           {lesson.title}
@@ -78,7 +93,7 @@ export function GrammarLessonRow({
       </View>
       {trailing ? (
         <Text
-          style={[styles.trailing, { color: completed ? colors.primary : colors.textSecondary }]}
+          style={[styles.trailing, { color: completed ? colors.success : colors.textSecondary }]}
         >
           {trailing}
         </Text>

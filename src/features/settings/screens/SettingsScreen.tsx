@@ -73,7 +73,7 @@ export function SettingsScreen() {
               accessibilityLabel="Retry loading profile"
               accessibilityRole="button"
               fullWidth
-              variant="outline"
+              variant="ghost"
               onPress={() => refetch()}
               disabled={isFetching}
               label={isFetching ? 'Retrying…' : 'Retry'}
@@ -82,7 +82,7 @@ export function SettingsScreen() {
         ) : null}
 
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>Notifications</Text>
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>NOTIFICATIONS</Text>
           <SettingRow
             label="Enable notifications"
             switchValue={preferenceEnabled}
@@ -93,17 +93,19 @@ export function SettingsScreen() {
         </View>
 
         <View style={styles.section}>
-          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>App preferences</Text>
-          <SettingRow label="Appearance" value="System" />
-          <SettingRow label="Language" value="English" />
+          <Text style={[styles.sectionTitle, { color: colors.textMuted }]}>APP PREFERENCES</Text>
+          <View style={styles.sectionItems}>
+            <SettingRow label="Appearance" showChevron value="System" />
+            <SettingRow label="Language" showChevron value="English" />
+          </View>
         </View>
 
         <AppButton
           testID="settings-sign-out"
           accessibilityLabel="Sign out"
-          accessibilityRole="button"
           disabled={busy}
           fullWidth
+          variant="primary"
           onPress={() => setSignOutVisible(true)}
           label="Sign out"
         />
@@ -133,17 +135,22 @@ const styles = StyleSheet.create({
     gap: themeTokens.spacing.sm,
   },
   section: {
-    gap: themeTokens.spacing.xs,
+    gap: themeTokens.spacing['12'],
+    width: '100%',
+  },
+  sectionItems: {
+    gap: themeTokens.spacing['12'],
     width: '100%',
   },
   sectionTitle: {
-    fontSize: 12,
-    fontWeight: '500',
+    fontSize: themeTokens.typography.size.caption,
+    fontWeight: '400',
     letterSpacing: 0.6,
+    lineHeight: themeTokens.typography.lineHeight.caption,
     textTransform: 'uppercase',
   },
   stack: {
-    gap: themeTokens.spacing.md,
+    gap: themeTokens.spacing.lg,
     width: '100%',
   },
 });

@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 
 import { AppButton } from '@/components/ui/button';
 import { AppFormError } from '@/components/ui/feedback';
 import { FieldTextInput } from '@/components/ui/input';
 import { ScreenScroll } from '@/components/ui/layout';
 import { TopAppHeader } from '@/components/ui/navigation';
+import { AppText } from '@/components/ui/typography';
 import { trackEvent } from '@/core/analytics/events';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { upsertProfile } from '@/core/profile/service';
@@ -46,13 +47,15 @@ export function CompleteProfileScreen() {
   return (
     <ScreenScroll header={<TopAppHeader title="Complete your profile" />}>
       <View style={styles.stack}>
-        <Text style={[styles.step, { color: colors.primary }]}>Final step</Text>
+        <AppText color={colors.primary} variant="caption" weight="500">
+          Final step
+        </AppText>
         <View style={[styles.progressTrack, { backgroundColor: colors.borderSubtle }]}>
           <View style={[styles.progressFill, { backgroundColor: colors.primary }]} />
         </View>
-        <Text accessibilityRole="header" style={[styles.headline, { color: colors.text }]}>
+        <AppText accessibilityRole="header" variant="h2">
           Personalise your learning path
-        </Text>
+        </AppText>
         <FieldTextInput
           accessibilityLabel="Display name"
           aria-describedby={error ? 'complete-profile-form-error' : undefined}
@@ -62,15 +65,17 @@ export function CompleteProfileScreen() {
           value={displayName}
           onChangeText={setDisplayName}
         />
-        <Text style={[styles.sectionLabel, { color: colors.text }]}>English level</Text>
+        <AppText variant="bodySmall" weight="500">
+          English level
+        </AppText>
         <EnglishLevelPicker value={englishLevel} onChange={setEnglishLevel} />
         {error ? <AppFormError nativeID="complete-profile-form-error" message={error} /> : null}
         <AppButton
           accessibilityLabel="Continue"
-          accessibilityRole="button"
-          disabled={loading}
           fullWidth
-          label={loading ? 'Saving…' : 'Continue'}
+          label="Continue"
+          loading={loading}
+          variant="primary"
           onPress={onSubmit}
         />
       </View>
@@ -79,11 +84,6 @@ export function CompleteProfileScreen() {
 }
 
 const styles = StyleSheet.create({
-  headline: {
-    fontSize: 22,
-    fontWeight: '600',
-    lineHeight: 30,
-  },
   progressFill: {
     borderRadius: 3,
     height: 6,
@@ -95,18 +95,8 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     width: '100%',
   },
-  sectionLabel: {
-    fontSize: 13,
-    fontWeight: '500',
-    lineHeight: 18,
-  },
   stack: {
-    gap: themeTokens.spacing['14'],
+    gap: themeTokens.spacing.md,
     width: '100%',
-  },
-  step: {
-    fontSize: 12,
-    fontWeight: '500',
-    lineHeight: 16,
   },
 });

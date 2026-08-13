@@ -1,85 +1,153 @@
-import { Pressable, StyleSheet, Text } from 'react-native';
+import { ActivityIndicator, Pressable, StyleSheet, Text } from 'react-native';
 
 import { themeTokens, useAppColors } from '@/theme';
 
 import type { PressableProps } from 'react-native';
 
+export type AppButtonSize = 'small' | 'medium' | 'large';
+export type AppButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'ghost'
+  | 'destructive'
+  /** @deprecated Use `primary`. */
+  | 'solid'
+  /** @deprecated Use `ghost`. */
+  | 'outline';
+
 type AppButtonProps = Omit<PressableProps, 'children'> & {
   fullWidth?: boolean;
   label: string;
-  /** Defaults to `medium` (Figma Button/AppButton Size=Medium). */
-  size?: 'medium' | 'large';
+  loading?: boolean;
+  /** Figma Size: Small | Normal(medium) | Large. Default medium (44px). */
+  size?: AppButtonSize;
+  /**
+   * @deprecated Prefer `variant="destructive"`.
+   * When set with primary/solid, uses danger colors.
+   */
   tone?: 'default' | 'danger';
-  variant?: 'solid' | 'outline' | 'secondary';
+  /** Figma Style: Primary | Secondary | Ghost | Destructive. */
+  variant?: AppButtonVariant;
 };
 
+function resolveVariant(
+  variant: AppButtonVariant,
+  tone: 'default' | 'danger',
+): 'primary' | 'secondary' | 'ghost' | 'destructive' {
+  if (variant === 'solid') {
+    return tone === 'danger' ? 'destructive' : 'primary';
+  }
+  if (variant === 'outline') {
+    return 'ghost';
+  }
+  if (tone === 'danger' && variant === 'primary') {
+    return 'destructive';
+  }
+  return variant;
+}
+
+/**
+ * Figma `Button/AppButton` — Size × Style × State(Loading).
+ * Default size Medium (44px height). Prefer Medium; use Large only when a screen calls for it.
+ */
 export function AppButton({
   disabled,
   fullWidth = false,
   label,
+  loading = false,
   size = 'medium',
   style,
   tone = 'default',
-  variant = 'solid',
+  variant = 'primary',
   ...props
 }: AppButtonProps) {
   const colors = useAppColors();
-  const accent = tone === 'danger' ? colors.danger : colors.primary;
-  const onAccent = tone === 'danger' ? colors.onDanger : colors.onPrimary;
-  const isLarge = size === 'large';
-  const isSecondary = variant === 'secondary';
-  const isSolid = variant === 'solid';
-  const labelColor = isSolid ? onAccent : isSecondary ? colors.text : accent;
-  const labelStyle = {
-    color: disabled && !isSolid ? colors.textMuted : labelColor,
-    fontSize: isLarge ? themeTokens.typography.size.md : themeTokens.typography.size.sm,
-    fontWeight: isLarge ? ('600' as const) : ('500' as const),
-    lineHeight: isLarge ? 22 : 20,
-  };
+  const resolved = resolveVariant(variant, tone);
+  const isDisabled = Boolean(disabled || loading);
+  const { accessibilityLabel: accessibilityLabelProp, ...pressableProps } = props;
+  const resolvedAccessibilityLabel = loading
+    ? `${accessibilityLabelProp ?? label}, loading`
+    : accessibilityLabelProp ?? label;
+
+  const sizeStyle =
+    size === 'large'
+      ? styles.buttonLarge
+      : size === 'small'
+      ? styles.buttonSmall
+      : styles.buttonMedium;
+
+  const fontSize =
+    size === 'large'
+      ? themeTokens.typography.size.body
+      : size === 'small'
+      ? themeTokens.typography.size.caption
+      : themeTokens.typography.size.body;
+  const lineHeight = size === 'small' ? themeTokens.typography.lineHeight.caption : 20;
+  const fontWeight = size === 'large' ? ('600' as const) : ('500' as const);
+
+  const isFilled = resolved === 'primary' || resolved === 'destructive';
+  const accent = resolved === 'destructive' ? colors.danger : colors.primary;
+  const onAccent = resolved === 'destructive' ? colors.onDanger : colors.onPrimary;
+  const labelColor = isFilled
+    ? onAccent
+    : resolved === 'secondary'
+    ? isDisabled && !loading
+      ? colors.textMuted
+      : colors.text
+    : isDisabled && !loading
+    ? colors.textMuted
+    : colors.primary;
+  const spinnerColor = isFilled ? onAccent : colors.primary;
 
   return (
     <Pressable
-      {...props}
-      disabled={disabled}
-      style={(state) => [
-        styles.button,
-        isLarge ? styles.buttonLarge : styles.buttonMedium,
-        fullWidth ? styles.buttonFullWidth : null,
-        {
-          backgroundColor: isSolid
-            ? disabled
+      {...pressableProps}
+      accessibilityLabel={resolvedAccessibilityLabel}
+      accessibilityState={{ busy: loading, disabled: isDisabled }}
+      disabled={isDisabled}
+      style={(state) => {
+        const pressed = state.pressed;
+        let backgroundColor = 'transparent';
+        let borderColor = 'transparent';
+        let opacity = 1;
+
+        if (isFilled) {
+          backgroundColor =
+            isDisabled && !loading
               ? colors.surfaceSecondary
-              : state.pressed
+              : pressed
               ? colors.primaryPressed
-              : accent
-            : isSecondary
-            ? state.pressed
-              ? colors.primarySoft
-              : colors.surface
-            : 'transparent',
-          borderColor: isSolid
-            ? disabled
-              ? colors.surfaceSecondary
-              : state.pressed
-              ? colors.primaryPressed
-              : accent
-            : isSecondary
-            ? disabled
-              ? colors.borderSubtle
-              : colors.border
-            : accent,
-          opacity: disabled
-            ? isSolid
-              ? 1
-              : 0.5
-            : !isSolid && !isSecondary && state.pressed
-            ? 0.75
-            : 1,
-        },
-        typeof style === 'function' ? style(state) : style,
-      ]}
+              : accent;
+          borderColor = backgroundColor;
+        } else if (resolved === 'secondary') {
+          backgroundColor = pressed ? colors.primarySoft : colors.surface;
+          borderColor = isDisabled && !loading ? colors.borderSubtle : colors.border;
+          if (isDisabled && !loading) {
+            opacity = 0.5;
+          }
+        } else {
+          borderColor = 'transparent';
+          if (pressed && !isDisabled) {
+            opacity = 0.75;
+          } else if (isDisabled && !loading) {
+            opacity = 0.5;
+          }
+        }
+
+        return [
+          styles.button,
+          sizeStyle,
+          fullWidth ? styles.buttonFullWidth : null,
+          { backgroundColor, borderColor, opacity },
+          typeof style === 'function' ? style(state) : style,
+        ];
+      }}
     >
-      <Text style={[styles.buttonLabel, labelStyle]}>{label}</Text>
+      {loading ? (
+        <ActivityIndicator color={spinnerColor} />
+      ) : (
+        <Text style={{ color: labelColor, fontSize, fontWeight, lineHeight }}>{label}</Text>
+      )}
     </Pressable>
   );
 }
@@ -90,7 +158,6 @@ const styles = StyleSheet.create({
     borderRadius: themeTokens.radius.sm,
     borderWidth: 1,
     justifyContent: 'center',
-    minHeight: 44,
     minWidth: 160,
   },
   buttonFullWidth: {
@@ -98,13 +165,20 @@ const styles = StyleSheet.create({
     minWidth: 0,
     width: '100%',
   },
-  buttonLabel: {},
   buttonLarge: {
+    minHeight: 52,
     paddingHorizontal: themeTokens.spacing.lg,
     paddingVertical: themeTokens.spacing.md,
   },
   buttonMedium: {
-    paddingHorizontal: themeTokens.spacing.md,
+    minHeight: 44,
+    paddingHorizontal: themeTokens.spacing.lg,
     paddingVertical: themeTokens.spacing['12'],
+  },
+  buttonSmall: {
+    minHeight: 36,
+    minWidth: 120,
+    paddingHorizontal: themeTokens.spacing.md,
+    paddingVertical: themeTokens.spacing.sm,
   },
 });

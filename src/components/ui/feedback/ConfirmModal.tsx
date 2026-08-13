@@ -84,7 +84,7 @@ export function ConfirmModal({
             fullWidth
             label={busy ? `${confirmLabel}…` : confirmLabel}
             testID="confirm-modal-confirm"
-            tone={confirmTone}
+            variant={confirmTone === 'danger' ? 'destructive' : 'primary'}
             onPress={onConfirm}
           />
         </View>

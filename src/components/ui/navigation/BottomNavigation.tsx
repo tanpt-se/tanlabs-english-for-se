@@ -83,8 +83,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     minHeight: 76,
-    paddingHorizontal: themeTokens.spacing['14'],
-    paddingTop: themeTokens.spacing['10'],
+    paddingHorizontal: themeTokens.spacing.md,
+    paddingTop: themeTokens.spacing['12'],
   },
   item: {
     alignItems: 'center',
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 10,
     fontWeight: '400',
+    lineHeight: 12,
   },
   labelActive: {
     fontWeight: '500',

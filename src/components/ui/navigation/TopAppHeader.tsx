@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
   },
   title: {
     flexShrink: 1,
-    fontSize: themeTokens.typography.size.lg,
+    fontSize: themeTokens.typography.size.h3,
     fontWeight: '600',
+    lineHeight: themeTokens.typography.lineHeight.h3,
   },
 });

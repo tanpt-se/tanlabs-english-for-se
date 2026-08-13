@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
   card: {
     borderRadius: themeTokens.radius.lg,
     gap: themeTokens.spacing['10'],
-    padding: themeTokens.spacing['18'],
+    padding: themeTokens.spacing.md,
     width: '100%',
   },
   fill: {
