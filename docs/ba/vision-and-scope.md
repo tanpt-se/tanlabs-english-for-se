@@ -20,12 +20,12 @@ Engineers often know technical English passively but struggle to use tense and s
 
 ## Current delivery posture
 
-| Phase   | Business intent                                                                         | System status                                                                                                     |
-| ------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| PH1     | Accounts, profile, secure backend, remote flags, notifications lifecycle, quality gates | **Delivered** (foundation baseline)                                                                               |
-| PH2     | Grammar learn → practise → save progress loop (13 topics incl. PH2.1)                   | **Delivered (code + seed template)** — production exposure gated by `feature_grammar`                             |
-| PH3     | Vocabulary / Expressions (situation-first; **2000–3000** unique IT terms)               | **In progress (Sprint 1)** — packs+exercises+schema IMPLEMENTED; engine/UI/persist TODO; `feature_vocabulary` OFF |
-| PH4–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                                                                        |
+| Phase   | Business intent                                                                         | System status                                                                                                |
+| ------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| PH1     | Accounts, profile, secure backend, remote flags, notifications lifecycle, quality gates | **Delivered** (foundation baseline)                                                                          |
+| PH2     | Grammar learn → practise → save progress loop (13 topics incl. PH2.1)                   | **Delivered (code + seed template)** — production exposure gated by `feature_grammar`                        |
+| PH3     | Vocabulary / Expressions (situation-first; **2000–3000** unique IT terms)               | **VERIFIED** (2026-08-13) — SHA `c37e013`; CI + Maestro iOS/Android green; `feature_vocabulary` prod **OFF** |
+| PH4–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                                                                   |
 
 ## In scope (system today + locked next)
 
@@ -78,7 +78,7 @@ Content volume (core + PH2.1 template): **13 topics** × **4 lessons** × **18 e
 
 - AI correction, generative content, chat tutors
 - Speech / STT / TTS / listening exams
-- Vocabulary and Interview **product loops** (PH3 Vocabulary is in progress; Interview remains later)
+- Vocabulary and Interview **product loops** (PH3 Vocabulary is VERIFIED with prod flag OFF; Interview remains later)
 - Full CEFR curriculum, spaced repetition, XP/coins/leaderboards
 - Further grammar families beyond the thirteen seeded topics (e.g. phrasal verbs as a dedicated grammar track, relative clauses as a full topic)
 - High-security exam anti-cheat

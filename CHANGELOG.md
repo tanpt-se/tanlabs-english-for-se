@@ -17,6 +17,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
+- PH3 Vocabulary verification candidate: frozen SHA with hosted CI green; Maestro vocabulary smoke on iOS Simulator + Android Emulator; production `feature_vocabulary` remains OFF
 - Auth foundation: `AppButton` loading spinner (replaces label, keeps colors, disables press); signup confirm screen (6-digit OTP via Supabase `verifyOtp`) with `OtpPinInput` (6 PIN boxes); forgot-password flow with `tanlabs://auth/reset` deeplink → set-new-password screen
 - Supabase Auth wrappers: `verifySignupOtp`, `resendSignupOtp`, `requestPasswordReset`, `verifyRecoveryFromUrl`, `updatePassword`; iOS/Android URL scheme + `AuthProvider` recovery deeplink handler
 - Figma PH1 Foundation: screens **10 Confirm signup** (6-box OTP PIN), **11 Forgot password**, **12 Set new password**, **02b Sign in · Loading**; `Button/AppButton` **State=Loading** variant; Sign in aligned with app (no social row)
