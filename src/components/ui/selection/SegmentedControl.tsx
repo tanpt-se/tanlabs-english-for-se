@@ -15,8 +15,8 @@ type SegmentedControlProps<T extends string> = {
 };
 
 /**
- * Full-width equal-height segmented control (iOS-style).
- * Each option fills available width; active segment uses primary soft fill.
+ * Full-width segmented control (Figma Selection/SegmentedControl).
+ * Active segment is elevated with accent label on a peach track.
  */
 export function SegmentedControl<T extends string>({
   options,
@@ -29,13 +29,7 @@ export function SegmentedControl<T extends string>({
   return (
     <View
       accessibilityRole="tablist"
-      style={[
-        styles.track,
-        {
-          backgroundColor: colors.surfaceSecondary,
-          borderColor: colors.borderSubtle,
-        },
-      ]}
+      style={[styles.track, { backgroundColor: colors.surfaceSecondary }]}
       testID={testID}
     >
       {options.map((option) => {
@@ -49,8 +43,7 @@ export function SegmentedControl<T extends string>({
             style={({ pressed }) => [
               styles.segment,
               {
-                backgroundColor: active ? colors.surface : 'transparent',
-                borderColor: active ? colors.border : 'transparent',
+                backgroundColor: active ? colors.backgroundElevated : 'transparent',
                 opacity: pressed ? 0.88 : 1,
               },
             ]}
@@ -61,7 +54,7 @@ export function SegmentedControl<T extends string>({
               style={[
                 styles.label,
                 active ? styles.labelActive : styles.labelIdle,
-                { color: active ? colors.text : colors.textMuted },
+                { color: active ? colors.primary : colors.textMuted },
               ]}
             >
               {option.label}
@@ -75,33 +68,31 @@ export function SegmentedControl<T extends string>({
 
 const styles = StyleSheet.create({
   label: {
-    fontSize: 13,
+    fontSize: 14,
     lineHeight: 18,
     textAlign: 'center',
   },
   labelActive: {
-    fontWeight: '700',
+    fontWeight: '600',
   },
   labelIdle: {
-    fontWeight: '600',
+    fontWeight: '500',
   },
   segment: {
     alignItems: 'center',
-    borderRadius: themeTokens.radius.md - 2,
-    borderWidth: 1,
+    borderRadius: themeTokens.radius.xs,
     flex: 1,
     justifyContent: 'center',
-    minHeight: 36,
-    paddingHorizontal: 6,
-    paddingVertical: 8,
+    minHeight: 32,
+    paddingHorizontal: themeTokens.spacing['12'],
+    paddingVertical: themeTokens.spacing.sm,
   },
   track: {
     alignItems: 'stretch',
     borderRadius: themeTokens.radius.md,
-    borderWidth: 1,
     flexDirection: 'row',
-    gap: 4,
-    padding: 4,
+    overflow: 'hidden',
+    padding: themeTokens.spacing.xs,
     width: '100%',
   },
 });

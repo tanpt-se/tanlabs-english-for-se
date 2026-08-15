@@ -5,6 +5,9 @@ export {
   useVocabularyExercises,
   useVocabularyResultSession,
   useVocabularySituation,
+  useVocabularySituationItems,
   useVocabularySituations,
+  useVocabularyTerm,
+  useVocabularyWeakExercises,
   useVocabularyWeakProgress,
 } from '@/features/vocabulary/hooks/useVocabularyQueries';

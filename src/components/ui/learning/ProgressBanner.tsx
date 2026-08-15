@@ -6,7 +6,7 @@ type ProgressBannerProps = {
   progress?: number;
   subtitle: string;
   title: string;
-  /** `navy` = Grammar overview; `soft` = Vocabulary peach banner (Figma accent/muted). */
+  /** `navy` = Grammar + Vocabulary overview (Figma navy/900); `soft` = peach banner. */
   tone?: 'navy' | 'soft';
 };
 
@@ -41,7 +41,7 @@ export function ProgressBanner({ progress, subtitle, title, tone = 'navy' }: Pro
       </Text>
       {ratio === null ? null : (
         <View
-          style={[styles.track, { backgroundColor: soft ? colors.borderSubtle : brand.navy700 }]}
+          style={[styles.track, soft ? { backgroundColor: colors.borderSubtle } : styles.trackNavy]}
         >
           <View
             style={[
@@ -60,20 +60,20 @@ export function ProgressBanner({ progress, subtitle, title, tone = 'navy' }: Pro
 
 const styles = StyleSheet.create({
   banner: {
-    gap: themeTokens.spacing['10'],
+    gap: themeTokens.spacing.sm,
     padding: themeTokens.spacing['20'],
     width: '100%',
   },
   fill: {
-    borderRadius: 3,
-    height: 7,
+    borderRadius: themeTokens.radius.pill,
+    height: 6,
   },
   subtitle: {
     fontSize: themeTokens.typography.size.label,
     lineHeight: themeTokens.typography.lineHeight.label,
   },
   subtitleNavy: {
-    fontWeight: '500',
+    fontWeight: '400',
   },
   subtitleSoft: {
     fontWeight: '400',
@@ -84,9 +84,12 @@ const styles = StyleSheet.create({
     lineHeight: themeTokens.typography.lineHeight.h3,
   },
   track: {
-    borderRadius: 3,
-    height: 7,
+    borderRadius: themeTokens.radius.pill,
+    height: 6,
     overflow: 'hidden',
     width: '100%',
+  },
+  trackNavy: {
+    backgroundColor: 'rgba(255,255,255,0.15)',
   },
 });

@@ -6,12 +6,20 @@ import { useAppColors } from '@/theme';
 import type { PropsWithChildren, ReactNode } from 'react';
 
 type LearningScreenProps = PropsWithChildren<{
+  /** Gap between stacked children. Default 14 (Grammar). Callers override (Vocabulary 16–24). */
+  contentGap?: number;
   header?: ReactNode;
   footer?: ReactNode;
   testID?: string;
 }>;
 
-export function LearningScreen({ children, header, footer, testID }: LearningScreenProps) {
+export function LearningScreen({
+  children,
+  contentGap = 14,
+  header,
+  footer,
+  testID,
+}: LearningScreenProps) {
   const colors = useAppColors();
   const insets = useSafeAreaInsets();
   const topInset = Math.max(insets.top, 16);
@@ -27,7 +35,7 @@ export function LearningScreen({ children, header, footer, testID }: LearningScr
         ]}
         keyboardShouldPersistTaps="handled"
       >
-        <View style={styles.pad}>{children}</View>
+        <View style={[styles.pad, { gap: contentGap }]}>{children}</View>
       </ScrollView>
       {footer ? <View style={styles.footer}>{footer}</View> : null}
     </View>
@@ -53,7 +61,6 @@ const styles = StyleSheet.create({
   },
   pad: {
     flexGrow: 1,
-    gap: 14,
     paddingHorizontal: 24,
   },
   root: {

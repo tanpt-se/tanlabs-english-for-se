@@ -11,17 +11,24 @@ export type AuthRouteInput = {
   hasSession: boolean;
   passwordRecovery: boolean;
   profileCompleteness: ProfileCompleteness;
+  /** Invalid/expired reset link — force auth shell so Login can show the message. */
+  recoveryLinkError?: boolean;
 };
 
 /**
  * Resolves the next navigation destination from session + profile completeness.
  */
 export function resolveAuthRoute(input: AuthRouteInput): RouteDestination {
-  if (!input.hasSession) {
-    return 'auth';
-  }
+  // Active recovery wins over a stale/failed reset-link error so cold starts
+  // still force Set New Password when a recovery session is pending.
   if (input.passwordRecovery) {
     return 'setPassword';
+  }
+  if (input.recoveryLinkError) {
+    return 'auth';
+  }
+  if (!input.hasSession) {
+    return 'auth';
   }
   if (input.profileCompleteness === 'incomplete') {
     return 'completeProfile';

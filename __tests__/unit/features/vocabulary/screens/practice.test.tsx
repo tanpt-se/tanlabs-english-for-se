@@ -71,6 +71,7 @@ jest.mock('@/features/vocabulary/hooks', () => {
     useVocabularySituation: jest.fn(),
     useVocabularyExercises: jest.fn(),
     useVocabularyWeakProgress: jest.fn(),
+    useVocabularyWeakExercises: jest.fn(),
   };
 });
 
@@ -88,6 +89,7 @@ const hooks = jest.requireMock('@/features/vocabulary/hooks') as {
   useVocabularySituation: jest.Mock;
   useVocabularyExercises: jest.Mock;
   useVocabularyWeakProgress: jest.Mock;
+  useVocabularyWeakExercises: jest.Mock;
 };
 const session = jest.requireMock('@/features/vocabulary/session') as {
   usePracticeSession: jest.Mock;
@@ -169,6 +171,14 @@ describe('Vocabulary PracticeScreen', () => {
       isLoading: false,
       isError: false,
       data: [{ itemId: 'task-progress:blocker', incorrectCount: 2, correctCount: 0 }],
+      error: null,
+      refetch: jest.fn(async () => undefined),
+    });
+    hooks.useVocabularyWeakExercises.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      data: FIXTURE_EXERCISES,
       error: null,
       refetch: jest.fn(async () => undefined),
     });

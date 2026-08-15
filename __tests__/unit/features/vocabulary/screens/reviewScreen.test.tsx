@@ -255,4 +255,39 @@ describe('Vocabulary ReviewScreen', () => {
       situationId: 'task-progress',
     });
   });
+
+  it('reopens and backs into weak practice with mode=weak', async () => {
+    applyAction.mockReturnValue({ phase: 'answering' });
+    session.usePracticeSession.mockReturnValue({
+      state: {
+        ...baseState,
+        situationId: 'weak',
+        situationSlug: 'weak',
+      },
+      applyAction,
+      commitCompletedSession,
+      clearActiveSession,
+    });
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<ReviewScreen />);
+    });
+    await act(() => {
+      root.root.findByProps({ testID: 'vocabulary-review-row-0' }).props.onPress();
+    });
+    expect(mockNavigate).toHaveBeenCalledWith('VocabularyPractice', {
+      situationId: 'weak',
+      mode: 'weak',
+    });
+
+    mockNavigate.mockClear();
+    mockCanGoBack.mockReturnValueOnce(false);
+    await act(() => {
+      root.root.findByProps({ title: 'Review answers' }).props.onBackPress();
+    });
+    expect(mockNavigate).toHaveBeenCalledWith('VocabularyPractice', {
+      situationId: 'weak',
+      mode: 'weak',
+    });
+  });
 });

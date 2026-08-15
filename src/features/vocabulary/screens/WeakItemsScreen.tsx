@@ -8,8 +8,8 @@ import { LearningScreen } from '@/components/ui/learning';
 import { BottomActionBar, TopAppHeader } from '@/components/ui/navigation';
 import { trackEvent } from '@/core/analytics/events';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
-import { resolveLocalItemLabel } from '@/features/vocabulary/data/localPackCatalog';
-import { useVocabularySituations, useVocabularyWeakProgress } from '@/features/vocabulary/hooks';
+import { useVocabularyWeakProgress } from '@/features/vocabulary/hooks';
+import { SESSION_TARGET } from '@/features/vocabulary/utils/composeSession';
 import { themeTokens, useAppColors } from '@/theme';
 
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -20,12 +20,7 @@ export function WeakItemsScreen() {
   const colors = useAppColors();
   const vocabularyEnabled = flags.data?.vocabulary === true;
   const weakQuery = useVocabularyWeakProgress();
-  const situationsQuery = useVocabularySituations();
   const weak = weakQuery.data ?? [];
-  const firstSituationId =
-    weak[0]?.itemId.split(':')[0] ??
-    situationsQuery.data?.[0]?.slug ??
-    situationsQuery.data?.[0]?.id;
 
   useEffect(() => {
     if (!vocabularyEnabled) {
@@ -44,29 +39,34 @@ export function WeakItemsScreen() {
   }
 
   const onPractice = () => {
-    if (!firstSituationId) {
+    if (weak.length === 0) {
       return;
     }
     navigation.navigate('VocabularyPracticeFlow', {
       screen: 'VocabularyPractice',
-      params: { situationId: firstSituationId, mode: 'weak' },
+      params: { situationId: 'weak', mode: 'weak' },
     });
   };
 
   return (
     <LearningScreen
       testID="vocabulary-weak"
+      contentGap={16}
       header={<TopAppHeader showBack title="Weak items" onBackPress={() => navigation.goBack()} />}
       footer={
         weak.length > 0 ? (
           <BottomActionBar
-            label={`Practice weak (${Math.min(weak.length, 10)})`}
+            label={`Practice weak (${Math.min(weak.length, SESSION_TARGET)})`}
             testID="vocabulary-weak-practice"
             onPress={onPractice}
           />
         ) : null
       }
     >
+      <Text style={[styles.body, { color: colors.textSecondary }]}>
+        Review expressions that were unclear or easy to confuse.
+      </Text>
+
       {weakQuery.isLoading ? (
         <BrandLoading fill size="md" testID="vocabulary-weak-loading" />
       ) : null}
@@ -95,13 +95,19 @@ export function WeakItemsScreen() {
 
       <View style={styles.list}>
         {weak.map((row) => {
-          const label = resolveLocalItemLabel(row.itemId);
+          const label = row.term?.trim() || row.itemId;
           return (
             <View
               key={row.itemId}
               accessible
               accessibilityLabel={`${label}, ${row.incorrectCount} incorrect, ${row.correctCount} correct`}
-              style={[styles.row, { backgroundColor: colors.surface }]}
+              style={[
+                styles.row,
+                {
+                  backgroundColor: colors.surfaceCard,
+                  borderColor: colors.borderSubtle,
+                },
+              ]}
               testID={`vocabulary-weak-row-${row.itemId}`}
             >
               <Text style={[styles.term, { color: colors.text }]}>{label}</Text>
@@ -118,15 +124,15 @@ export function WeakItemsScreen() {
 
 const styles = StyleSheet.create({
   body: {
-    fontSize: 14,
-    lineHeight: 20,
+    fontSize: themeTokens.typography.size.label,
+    lineHeight: themeTokens.typography.lineHeight.label,
   },
   list: {
-    gap: themeTokens.spacing.sm,
+    gap: themeTokens.spacing['12'],
   },
   meta: {
-    fontSize: 13,
-    lineHeight: 18,
+    fontSize: themeTokens.typography.size.label,
+    lineHeight: themeTokens.typography.lineHeight.label,
   },
   retry: {
     fontSize: 15,
@@ -136,18 +142,19 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   row: {
-    borderRadius: themeTokens.radius.card,
+    borderRadius: themeTokens.radius.sm,
+    borderWidth: 1,
     gap: 4,
     minHeight: 44,
-    paddingHorizontal: themeTokens.spacing['14'],
+    paddingHorizontal: themeTokens.spacing.md,
     paddingVertical: themeTokens.spacing['12'],
   },
   state: {
     gap: themeTokens.spacing.sm,
   },
   term: {
-    fontSize: 16,
-    fontWeight: '600',
-    lineHeight: 22,
+    fontSize: themeTokens.typography.size.label,
+    fontWeight: '500',
+    lineHeight: themeTokens.typography.lineHeight.label,
   },
 });

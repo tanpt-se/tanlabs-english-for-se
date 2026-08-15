@@ -32,13 +32,8 @@ jest.mock('@react-navigation/native', () => {
   };
 });
 
-jest.mock('@/features/vocabulary/data/localPackCatalog', () => ({
-  resolveLocalItemLabel: jest.fn((id: string) => `label:${id}`),
-}));
-
 jest.mock('@/features/vocabulary/hooks', () => ({
   useVocabularyWeakProgress: jest.fn(),
-  useVocabularySituations: jest.fn(),
 }));
 
 const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFlags') as {
@@ -46,16 +41,12 @@ const { useFeatureFlags } = jest.requireMock('@/core/remote-config/useFeatureFla
 };
 const hooks = jest.requireMock('@/features/vocabulary/hooks') as {
   useVocabularyWeakProgress: jest.Mock;
-  useVocabularySituations: jest.Mock;
 };
 
 describe('WeakItemsScreen', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     useFeatureFlags.mockReturnValue({ data: { vocabulary: true } });
-    hooks.useVocabularySituations.mockReturnValue({
-      data: [{ id: 'task-progress', slug: 'task-progress', title: 'Task', total: 10 }],
-    });
     hooks.useVocabularyWeakProgress.mockReturnValue({
       isLoading: false,
       isError: false,
@@ -82,7 +73,7 @@ describe('WeakItemsScreen', () => {
     expect(
       root.root
         .findAllByType(Text)
-        .some((node) => String(node.props.children).includes('label:task-progress:blocker')),
+        .some((node) => String(node.props.children).includes('task-progress:blocker')),
     ).toBe(true);
 
     await act(() => {
@@ -90,8 +81,34 @@ describe('WeakItemsScreen', () => {
     });
     expect(mockNavigate).toHaveBeenCalledWith('VocabularyPracticeFlow', {
       screen: 'VocabularyPractice',
-      params: { situationId: 'task-progress', mode: 'weak' },
+      params: { situationId: 'weak', mode: 'weak' },
     });
+  });
+
+  it('prefers remote term labels over local pack resolution', async () => {
+    hooks.useVocabularyWeakProgress.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      data: [
+        {
+          itemId: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
+          incorrectCount: 2,
+          correctCount: 0,
+          lastResult: false,
+          lastSeenAt: 'x',
+          sortOrder: 0,
+          term: 'blast radius',
+        },
+      ],
+      refetch: jest.fn(),
+    });
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<WeakItemsScreen />);
+    });
+    expect(
+      root.root.findAllByType(Text).some((node) => String(node.props.children) === 'blast radius'),
+    ).toBe(true);
   });
 
   it('handles loading, error, empty, and disabled flag', async () => {

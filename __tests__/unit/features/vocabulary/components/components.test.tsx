@@ -99,15 +99,7 @@ describe('vocabulary exercise views + chrome', () => {
     await act(() => {
       root = ReactTestRenderer.create(
         <>
-          <PracticeFeedback
-            correct
-            explanation="Because"
-            correctAnswerLabel="blocker"
-            expression="blocker"
-            meaning="m"
-            context="c"
-            example="e"
-          />
+          <PracticeFeedback correct explanation="Because" correctAnswerLabel="blocker" />
           <PracticeProgressBar
             canGoBack
             canSkip
@@ -118,6 +110,7 @@ describe('vocabulary exercise views + chrome', () => {
           />
           <LevelSectionHeader collapsed={false} count={3} level="A2" onToggle={jest.fn()} />
           <PosBadge pos="n" />
+          <PosBadge pos="v" tone="muted" />
           <TermRow
             known={false}
             level="A2"

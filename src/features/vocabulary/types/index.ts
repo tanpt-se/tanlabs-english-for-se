@@ -1,4 +1,8 @@
 export type {
+  VocabularyExpression,
+  VocabularyTermDetail,
+} from '@/features/vocabulary/types/catalog';
+export type {
   ChooseExpressionExercise,
   ChooseOption,
   CompletedVocabularySession,

@@ -8,6 +8,7 @@ import {
   VocabularyDomainError,
 } from '@/features/vocabulary/services/errors';
 import { createClientAttemptId } from '@/features/vocabulary/session/createClientAttemptId';
+import { mapCatalogExpression, mapCatalogTerm } from '@/features/vocabulary/utils/mapCatalogItem';
 import { assertVocabularyExercise, assertVocabularyLevel } from '@/features/vocabulary/validation';
 
 import { FIXTURE_CHOOSE } from '../../../../helpers/vocabularyFixtures';
@@ -107,9 +108,62 @@ describe('vocabulary session helpers + errors + validation', () => {
 
     expect(vocabularyKeys.situations()[0]).toBe('vocabulary');
     expect(vocabularyKeys.situation('s')).toContain('s');
+    expect(vocabularyKeys.situationItems('s')).toContain('situation-items');
+    expect(vocabularyKeys.term('s', 'i')).toEqual(
+      expect.arrayContaining(['vocabulary', 'term', 's', 'i']),
+    );
     expect(vocabularyKeys.exercises('s')).toContain('exercises');
+    expect(vocabularyKeys.weakExercises('a\0b')).toContain('weak-exercises');
     expect(vocabularyKeys.weak('u')).toContain('u');
     expect(vocabularyKeys.attempt('u', 'a')).toContain('a');
     expect(vocabularyKeys.completedSession('a')).toContain('completed-session');
+  });
+
+  it('maps catalog item rows including sparse content and example shapes', () => {
+    const base = {
+      id: 'item-1',
+      item_key: 'ship',
+      type: 'word',
+      term: 'ship',
+      meaning: 'release',
+      context: 'deploy',
+      level: 'B1',
+      pos: 'v',
+      content: {
+        patterns: ['ship it'],
+        examples: [
+          ['standup', 'We ship today.'],
+          { label: 'pr', sentence: 'Ship the fix.' },
+          { sentence: 'Just ship.' },
+          ['bad'],
+          null,
+        ],
+        alternatives: ['release'],
+        notes: ['verb'],
+      },
+    };
+    expect(mapCatalogExpression(base)).toMatchObject({
+      id: 'item-1',
+      text: 'ship',
+      tag: 'word · B1',
+      needsPractice: false,
+    });
+    expect(mapCatalogExpression({ ...base, type: 'phrase', pos: null })).toMatchObject({
+      tag: 'phrase · B1',
+    });
+    expect(
+      mapCatalogExpression({ ...base, type: 'expression', content: ['nope'] }).needsPractice,
+    ).toBe(true);
+
+    const term = mapCatalogTerm('task-progress', {
+      ...base,
+      type: 'expression',
+      pos: null,
+      content: { pos: 'expr', examples: [{ label: 1, sentence: 2 }] },
+    });
+    expect(term.situationId).toBe('task-progress');
+    expect(term.examples).toEqual([]);
+    expect(term.patterns).toEqual([]);
+    expect(mapCatalogTerm('s', { ...base, content: null }).alternatives).toEqual([]);
   });
 });

@@ -48,6 +48,6 @@ export function ChooseExpressionExerciseView({
 
 const styles = StyleSheet.create({
   options: {
-    gap: themeTokens.spacing['14'],
+    gap: themeTokens.spacing['12'],
   },
 });

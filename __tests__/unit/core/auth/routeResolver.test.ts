@@ -50,4 +50,26 @@ describe('resolveAuthRoute', () => {
       }),
     ).toBe('app');
   });
+
+  it('routes to auth when recovery link failed so Login can show the error', () => {
+    expect(
+      resolveAuthRoute({
+        hasSession: true,
+        passwordRecovery: false,
+        profileCompleteness: 'complete',
+        recoveryLinkError: true,
+      }),
+    ).toBe('auth');
+  });
+
+  it('keeps setPassword when recovery is pending even if a reset link error exists', () => {
+    expect(
+      resolveAuthRoute({
+        hasSession: true,
+        passwordRecovery: true,
+        profileCompleteness: 'complete',
+        recoveryLinkError: true,
+      }),
+    ).toBe('setPassword');
+  });
 });

@@ -72,6 +72,7 @@ jest.mock('@/features/vocabulary/hooks', () => {
     useVocabularySituation: jest.fn(),
     useVocabularyExercises: jest.fn(),
     useVocabularyWeakProgress: jest.fn(),
+    useVocabularyWeakExercises: jest.fn(),
   };
 });
 
@@ -89,6 +90,7 @@ const hooks = jest.requireMock('@/features/vocabulary/hooks') as {
   useVocabularySituation: jest.Mock;
   useVocabularyExercises: jest.Mock;
   useVocabularyWeakProgress: jest.Mock;
+  useVocabularyWeakExercises: jest.Mock;
 };
 const session = jest.requireMock('@/features/vocabulary/session') as {
   usePracticeSession: jest.Mock;
@@ -128,6 +130,13 @@ describe('PracticeScreen defensive handler branches', () => {
     hooks.useVocabularyWeakProgress.mockReturnValue({
       isLoading: false,
       isError: false,
+      data: [],
+      refetch: jest.fn(),
+    });
+    hooks.useVocabularyWeakExercises.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
       data: [],
       refetch: jest.fn(),
     });

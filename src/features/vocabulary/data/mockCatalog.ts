@@ -1,15 +1,15 @@
 import { VOCABULARY_FORCE_LOCAL_SEED } from '@/app/config/env';
+import { VOCABULARY_PREVIEW_LIST_LIMIT } from '@/features/vocabulary/data/catalogConstants';
 import {
-  getLocalExpressionTotal,
   getLocalExpressions,
+  getLocalExpressionTotal,
   getLocalLevelTotals,
   getLocalPracticeQuestions,
   getLocalSituation,
   getLocalSituations,
   getLocalTerm,
-  VOCABULARY_PREVIEW_LIST_LIMIT,
-  type VocabularyTermDetail,
 } from '@/features/vocabulary/data/localPackCatalog';
+import type { VocabularyTermDetail } from '@/features/vocabulary/types/catalog';
 import { normalizeCefrLevel, type CefrLevel } from '@/features/vocabulary/utils/levels';
 import { resolvePos, type VocabularyPos } from '@/features/vocabulary/utils/pos';
 

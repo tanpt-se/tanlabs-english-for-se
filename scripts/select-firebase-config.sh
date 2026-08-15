@@ -9,6 +9,21 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 cd "$ROOT_DIR"
 
+NODE_BINARY="${NODE_BINARY:-}"
+if [[ -f "$ROOT_DIR/ios/.xcode.env" ]]; then
+  source "$ROOT_DIR/ios/.xcode.env"
+fi
+if [[ -f "$ROOT_DIR/ios/.xcode.env.local" ]]; then
+  source "$ROOT_DIR/ios/.xcode.env.local"
+fi
+if [[ -z "$NODE_BINARY" || ! -x "$NODE_BINARY" ]]; then
+  NODE_BINARY="$(command -v node || true)"
+fi
+if [[ -z "$NODE_BINARY" || ! -x "$NODE_BINARY" ]]; then
+  echo "Node executable not found. Configure NODE_BINARY in ios/.xcode.env.local."
+  exit 1
+fi
+
 read_app_env_from_file() {
   local env_file="$1"
   if [[ ! -f "$env_file" ]]; then
@@ -67,10 +82,10 @@ if [[ ! -f "$IOS_SRC" ]]; then
 fi
 
 android_package="$(
-  node -e "const g=require(process.argv[1]); process.stdout.write(g.client?.[0]?.client_info?.android_client_info?.package_name||'')" "$ANDROID_SRC"
+  "$NODE_BINARY" -e "const g=require(process.argv[1]); process.stdout.write(g.client?.[0]?.client_info?.android_client_info?.package_name||'')" "$ANDROID_SRC"
 )"
 ios_bundle="$(
-  node -e "
+  "$NODE_BINARY" -e "
 const fs=require('fs');
 const text=fs.readFileSync(process.argv[1],'utf8');
 const m=text.match(/<key>BUNDLE_ID<\\/key>\\s*<string>([^<]+)<\\/string>/);

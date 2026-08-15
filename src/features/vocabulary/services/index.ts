@@ -1,10 +1,15 @@
 export {
   completeVocabularyAttempt,
+  deriveWeakClientAttemptId,
+  getExercisesForItemIds,
   getSituation,
   getSituationExercises,
+  getSituationItems,
   getSituations,
+  getVocabularyTerm,
   getWeakProgress,
   type CompleteVocabularyAttemptInput,
+  type VocabularySituationItems,
   type VocabularySituationSummary,
 } from '@/features/vocabulary/services/contentService';
 export {

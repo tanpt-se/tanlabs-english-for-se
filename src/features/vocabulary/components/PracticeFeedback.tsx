@@ -6,20 +6,13 @@ type PracticeFeedbackProps = {
   correct: boolean;
   explanation: string;
   correctAnswerLabel: string;
-  expression?: string;
-  meaning?: string;
-  context?: string;
-  example?: string;
 };
 
+/** Immediate-check card — Figma `15 · Immediate feedback` (title + explanation). */
 export function PracticeFeedback({
   correct,
   explanation,
   correctAnswerLabel,
-  expression,
-  meaning,
-  context,
-  example,
 }: PracticeFeedbackProps) {
   const colors = useAppColors();
   const title = correct ? 'Correct' : 'Incorrect';
@@ -28,26 +21,12 @@ export function PracticeFeedback({
 
   return (
     <View
+      accessibilityLabel={`${title}. ${explanation}. Answer: ${correctAnswerLabel}`}
       accessibilityLiveRegion="polite"
       style={[styles.panel, { backgroundColor: soft }]}
       testID="vocabulary-practice-feedback"
     >
-      <Text style={[styles.title, { color: tone }]}>
-        {correct ? '✓' : '✕'} {title}
-      </Text>
-      <Text style={[styles.body, { color: colors.text }]}>Answer: {correctAnswerLabel}</Text>
-      {expression ? (
-        <Text style={[styles.body, { color: colors.text }]}>Expression: {expression}</Text>
-      ) : null}
-      {meaning ? (
-        <Text style={[styles.body, { color: colors.textSecondary }]}>{meaning}</Text>
-      ) : null}
-      {context ? (
-        <Text style={[styles.body, { color: colors.textSecondary }]}>Context: {context}</Text>
-      ) : null}
-      {example ? (
-        <Text style={[styles.body, { color: colors.textSecondary }]}>Example: {example}</Text>
-      ) : null}
+      <Text style={[styles.title, { color: tone }]}>{title}</Text>
       <Text style={[styles.body, { color: colors.textSecondary }]}>{explanation}</Text>
     </View>
   );
@@ -60,12 +39,12 @@ const styles = StyleSheet.create({
   },
   panel: {
     borderRadius: themeTokens.radius.lg,
-    gap: themeTokens.spacing['6'],
-    padding: themeTokens.spacing['18'],
+    gap: themeTokens.spacing.sm,
+    padding: themeTokens.spacing['20'],
   },
   title: {
-    fontSize: 16,
+    fontSize: themeTokens.typography.size.h3,
     fontWeight: '600',
-    lineHeight: 22,
+    lineHeight: themeTokens.typography.lineHeight.h3,
   },
 });

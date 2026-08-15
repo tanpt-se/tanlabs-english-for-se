@@ -1,9 +1,20 @@
+import {
+  VOCABULARY_PRACTICE_QUESTION_COUNT,
+  VOCABULARY_PREVIEW_LIST_LIMIT,
+} from '@/features/vocabulary/data/catalogConstants';
+import type {
+  VocabularyExpression,
+  VocabularyTermDetail,
+} from '@/features/vocabulary/types/catalog';
 import type { VocabularyExercise } from '@/features/vocabulary/types/content';
 import { normalizeCefrLevel, type CefrLevel } from '@/features/vocabulary/utils/levels';
 import { mapPackExercise } from '@/features/vocabulary/utils/mapPackExercise';
-import { resolvePos, type VocabularyPos } from '@/features/vocabulary/utils/pos';
+import { resolvePos } from '@/features/vocabulary/utils/pos';
 
 import packsJson from '../../../../supabase/seed/vocabulary/packs.json';
+
+export type { VocabularyExpression, VocabularyTermDetail };
+export { VOCABULARY_PRACTICE_QUESTION_COUNT, VOCABULARY_PREVIEW_LIST_LIMIT };
 
 type VocabularySituation = {
   id: string;
@@ -11,32 +22,6 @@ type VocabularySituation = {
   description: string;
   learned: number;
   total: number;
-};
-
-export type VocabularyExpression = {
-  id: string;
-  text: string;
-  tag: string;
-  intent?: string;
-  needsPractice?: boolean;
-  level: CefrLevel;
-  pos: VocabularyPos;
-  context?: string;
-};
-
-export type VocabularyTermDetail = {
-  id: string;
-  situationId: string;
-  term: string;
-  type: 'word' | 'phrase' | 'expression';
-  pos: VocabularyPos;
-  level: CefrLevel;
-  meaning: string;
-  context: string;
-  patterns: string[];
-  examples: Array<{ label: string; sentence: string }>;
-  alternatives: string[];
-  notes: string[];
 };
 
 type PracticeQuestion = {
@@ -93,10 +78,6 @@ type PacksRoot = {
   contentSchemaVersion: number;
   situations: PackSituation[];
 };
-
-/** Cap list rendering so ScrollView stays usable while browsing 500-item packs. */
-export const VOCABULARY_PREVIEW_LIST_LIMIT = 120;
-export const VOCABULARY_PRACTICE_QUESTION_COUNT = 20;
 
 const packs = packsJson as unknown as PacksRoot;
 

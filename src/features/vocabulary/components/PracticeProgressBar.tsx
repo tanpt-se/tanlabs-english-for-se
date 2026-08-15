@@ -1,7 +1,7 @@
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { AppIcon } from '@/components/ui/brand';
-import { brand, themeTokens, useAppColors } from '@/theme';
+import { themeTokens, useAppColors } from '@/theme';
 
 type PracticeProgressBarProps = {
   index: number;
@@ -11,6 +11,41 @@ type PracticeProgressBarProps = {
   onBack?: () => void;
   onSkip?: () => void;
 };
+
+function StepHit({
+  accessibilityLabel,
+  disabled,
+  flip,
+  onPress,
+  testID,
+}: {
+  accessibilityLabel: string;
+  disabled: boolean;
+  flip?: boolean;
+  onPress?: () => void;
+  testID: string;
+}) {
+  const colors = useAppColors();
+
+  return (
+    <Pressable
+      accessibilityLabel={accessibilityLabel}
+      accessibilityRole="button"
+      disabled={disabled}
+      hitSlop={6}
+      style={[styles.iconHit, disabled && styles.iconDisabled]}
+      testID={testID}
+      onPress={onPress}
+    >
+      <AppIcon
+        color={disabled ? colors.textMuted : colors.text}
+        name="arrowLeft"
+        size={16}
+        style={flip ? styles.flip : undefined}
+      />
+    </Pressable>
+  );
+}
 
 export function PracticeProgressBar({
   index,
@@ -34,72 +69,30 @@ export function PracticeProgressBar({
       testID="vocabulary-practice-progress"
     >
       <View style={styles.trackRow}>
-        <Pressable
+        <StepHit
           accessibilityLabel="Previous question"
-          accessibilityRole="button"
           disabled={backDisabled}
-          hitSlop={6}
-          style={[
-            styles.iconHit,
-            {
-              backgroundColor: colors.surface,
-              borderColor: brand.borderDefault,
-            },
-            backDisabled && styles.iconDisabled,
-          ]}
           testID="vocabulary-practice-back"
-          onPress={() => {
-            if (!backDisabled) {
-              onBack?.();
-            }
-          }}
-        >
-          <AppIcon
-            color={backDisabled ? colors.textMuted : colors.text}
-            name="arrowLeft"
-            size={16}
-          />
-        </Pressable>
-
-        <View style={[styles.track, { backgroundColor: colors.borderSubtle }]}>
+          onPress={onBack}
+        />
+        <View style={[styles.track, { backgroundColor: colors.border }]}>
           <View
             style={[
               styles.fill,
               {
-                backgroundColor: colors.primaryHover,
+                backgroundColor: colors.primary,
                 width: `${Math.max(ratio * 100, current > 0 ? 4 : 0)}%`,
               },
             ]}
           />
         </View>
-
-        <Pressable
+        <StepHit
           accessibilityLabel="Skip question"
-          accessibilityRole="button"
           disabled={skipDisabled}
-          hitSlop={6}
-          style={[
-            styles.iconHit,
-            {
-              backgroundColor: colors.surface,
-              borderColor: brand.borderDefault,
-            },
-            skipDisabled && styles.iconDisabled,
-          ]}
+          flip
           testID="vocabulary-practice-skip"
-          onPress={() => {
-            if (!skipDisabled) {
-              onSkip?.();
-            }
-          }}
-        >
-          <AppIcon
-            color={skipDisabled ? colors.textMuted : colors.text}
-            name="arrowLeft"
-            size={16}
-            style={styles.flip}
-          />
-        </Pressable>
+          onPress={onSkip}
+        />
       </View>
     </View>
   );
@@ -115,8 +108,6 @@ const styles = StyleSheet.create({
   },
   iconHit: {
     alignItems: 'center',
-    borderRadius: 14,
-    borderWidth: 1,
     height: 28,
     justifyContent: 'center',
     width: 28,
@@ -135,6 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     gap: themeTokens.spacing.sm,
+    height: 28,
     width: '100%',
   },
   wrap: {

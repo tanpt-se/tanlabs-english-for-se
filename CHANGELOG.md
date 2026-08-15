@@ -22,8 +22,14 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 - Supabase Auth wrappers: `verifySignupOtp`, `resendSignupOtp`, `requestPasswordReset`, `verifyRecoveryFromUrl`, `updatePassword`; iOS/Android URL scheme + `AuthProvider` recovery deeplink handler
 - Figma PH1 Foundation: screens **10 Confirm signup** (6-box OTP PIN), **11 Forgot password**, **12 Set new password**, **02b Sign in · Loading**; `Button/AppButton` **State=Loading** variant; Sign in aligned with app (no social row)
 
+### Changed
+
+- Vocabulary catalog: app reads hosted Supabase (`013`/`014` — 5 situations, 2500 items, 2500 exercises); `packs.json` is authoring-only and dynamic-imported only when `VOCABULARY_FORCE_LOCAL_SEED=1`
+
 ### Fixed
 
+- Vocabulary remote catalog: look up situations by slug or uuid (not `.or()` on a uuid column); page item queries past PostgREST `max_rows`; list the full situation instead of a 120-row preview
+- Auth recovery: ignore `PASSWORD_RECOVERY` without a session; skip duplicate recovery deeplinks; do not mark recovery pending when verify returns no session
 - Auth recovery: await initial deeplink verification before bootstrap completes; surface invalid/expired reset links on Sign in (`recoveryLinkError`) instead of swallowing failures
 - Auth analytics: allow `register_confirmed`; tighten OTP vs generic token error mapping; `AppButton` loading accessibility label; OTP PIN forwards `aria-*` props; Set new password only in recovery navigator (not auth stack)
 - Foundation auth screens aligned with Figma PH1: 30px titles, 15px subtitles, 14px form rhythm, 342×24 column, `AuthFormScreen` / `AuthLink` / `AuthNote`; Welcome medium CTA; Register password note; Confirm resend secondary button
@@ -64,6 +70,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Changed
 
+- Vocabulary browse / Weak / Practice chrome aligned with Figma `06 — Vocabulary`: navy banner, Weak items card + chevron, TermRow + muted POS, LevelSectionHeader, choose-expression context card + 22px stem
 - Grammar: Result labels this attempt (not “best”); Review can reopen Wrong as well as Skipped; save-fail returns to Review
 - Grammar: topic cards show **0%** and an empty progress bar until the first lesson is started (no min-width fill artifact)
 - Grammar: Continue Learning on Home picks the most recently active incomplete lesson (`last_activity_at`), else first not-started; topic Continue uses the same rule

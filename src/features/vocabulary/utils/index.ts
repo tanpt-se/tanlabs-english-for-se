@@ -27,7 +27,7 @@ export {
   type PracticeState,
 } from '@/features/vocabulary/utils/practiceReducer';
 export { formatCorrectAnswer, splitExercisePrompt } from '@/features/vocabulary/utils/prompt';
-export { countKnownInSituation } from '@/features/vocabulary/utils/progress';
+export { countKnownInSituation, formatProgress } from '@/features/vocabulary/utils/progress';
 export { shuffleArray } from '@/features/vocabulary/utils/shuffle';
 export { shufflePracticeExercises } from '@/features/vocabulary/utils/shufflePracticeExercises';
 export {

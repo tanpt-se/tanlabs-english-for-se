@@ -19,19 +19,26 @@ export type ComposeSessionResult =
 
 /**
  * Compose 8–12 exercises for one situation, preferring 5/3/2 for a 10-question session.
+ * Weak practice may pass a lower `minExercises` when the weak pool is smaller.
  */
 export function composeSituationSession(
   pool: readonly VocabularyExercise[],
-  options?: { preferItemIds?: string[]; targetTotal?: number; random?: () => number },
+  options?: {
+    preferItemIds?: string[];
+    targetTotal?: number;
+    minExercises?: number;
+    random?: () => number;
+  },
 ): ComposeSessionResult {
   const random = options?.random ?? Math.random;
+  const minExercises = Math.max(1, Math.min(SESSION_MIN, options?.minExercises ?? SESSION_MIN));
   const target = Math.max(
-    SESSION_MIN,
+    minExercises,
     Math.min(SESSION_MAX, options?.targetTotal ?? SESSION_TARGET),
   );
   const prefer = new Set(options?.preferItemIds ?? []);
   const published = pool.filter((exercise) => Boolean(exercise.id));
-  if (published.length < SESSION_MIN) {
+  if (published.length < minExercises) {
     return { ok: false, reason: 'insufficient_content', available: published.length };
   }
 
@@ -74,7 +81,7 @@ export function composeSituationSession(
     }
   }
 
-  if (selected.length < SESSION_MIN) {
+  if (selected.length < minExercises) {
     return { ok: false, reason: 'insufficient_content', available: selected.length };
   }
 
@@ -91,5 +98,14 @@ export function composeWeakSession(
 ): ComposeSessionResult {
   const allowed = new Set(weakItemIds);
   const filtered = pool.filter((exercise) => exercise.itemId && allowed.has(exercise.itemId));
-  return composeSituationSession(filtered, options);
+  if (filtered.length === 0) {
+    return { ok: false, reason: 'insufficient_content', available: 0 };
+  }
+  const available = filtered.length;
+  return composeSituationSession(filtered, {
+    ...options,
+    preferItemIds: weakItemIds,
+    minExercises: Math.min(SESSION_MIN, available),
+    targetTotal: Math.min(options?.targetTotal ?? SESSION_TARGET, available),
+  });
 }

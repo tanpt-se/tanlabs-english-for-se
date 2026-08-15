@@ -60,15 +60,7 @@ describe('vocabulary coverage boost', () => {
       root = ReactTestRenderer.create(
         <>
           <PracticeFeedback correct={false} explanation="nope" correctAnswerLabel="a" />
-          <PracticeFeedback
-            correct
-            explanation="yes"
-            correctAnswerLabel="a"
-            expression="e"
-            meaning="m"
-            context="c"
-            example="ex"
-          />
+          <PracticeFeedback correct explanation="yes" correctAnswerLabel="a" />
           <PracticeProgressBar index={0} total={0} />
           <PracticeProgressBar
             index={2}
@@ -159,7 +151,8 @@ describe('vocabulary coverage boost', () => {
     expect(
       composeSituationSession(pool, { preferItemIds: ['task-progress:i1'], random: () => 0 }).ok,
     ).toBe(true);
-    expect(composeWeakSession(pool, ['task-progress:i1'], { random: () => 0 }).ok).toBe(false);
+    expect(composeWeakSession(pool, ['task-progress:i1'], { random: () => 0 }).ok).toBe(true);
+    expect(composeWeakSession(pool, ['missing'], { random: () => 0 }).ok).toBe(false);
 
     expect(
       sortWeakItems([

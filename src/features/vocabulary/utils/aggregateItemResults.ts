@@ -13,7 +13,7 @@ export function aggregateItemResults(
   answers: readonly PrivacyBoundedAnswerRecord[],
 ): VocabularyItemOutcome[] {
   const byExercise = new Map(answers.map((row) => [row.exerciseId, row]));
-  const itemBuckets = new Map<string, boolean[]>();
+  const itemBuckets = new Map<string, { results: boolean[]; situationId: string }>();
 
   for (const exercise of exercises) {
     if (!exercise.itemId) {
@@ -23,13 +23,20 @@ export function aggregateItemResults(
     if (!answer) {
       continue;
     }
-    const list = itemBuckets.get(exercise.itemId) ?? [];
-    list.push(answer.correct && !answer.skipped);
-    itemBuckets.set(exercise.itemId, list);
+    const existing = itemBuckets.get(exercise.itemId);
+    if (existing) {
+      existing.results.push(answer.correct && !answer.skipped);
+      continue;
+    }
+    itemBuckets.set(exercise.itemId, {
+      results: [answer.correct && !answer.skipped],
+      situationId: exercise.situationId,
+    });
   }
 
-  return [...itemBuckets.entries()].map(([itemId, results]) => ({
+  return [...itemBuckets.entries()].map(([itemId, bucket]) => ({
     itemId,
-    correct: results.every(Boolean),
+    correct: bucket.results.every(Boolean),
+    situationId: bucket.situationId,
   }));
 }

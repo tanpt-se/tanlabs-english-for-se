@@ -11,12 +11,14 @@ import { ChooseExpressionExerciseView } from '@/features/vocabulary/components/C
 import { FillBlankExerciseView } from '@/features/vocabulary/components/FillBlankExerciseView';
 import { PracticeFeedback } from '@/features/vocabulary/components/PracticeFeedback';
 import { PracticeProgressBar } from '@/features/vocabulary/components/PracticeProgressBar';
+import { PromptCard } from '@/features/vocabulary/components/PromptCard';
 import { SentenceOrderExerciseView } from '@/features/vocabulary/components/SentenceOrderExerciseView';
 import { loadKnownItemIds } from '@/features/vocabulary/data/knownItemsStore';
 import {
   vocabularyErrorMessage,
   useVocabularyExercises,
   useVocabularySituation,
+  useVocabularyWeakExercises,
   useVocabularyWeakProgress,
 } from '@/features/vocabulary/hooks';
 import { usePracticeSession } from '@/features/vocabulary/session';
@@ -24,6 +26,7 @@ import {
   composeSituationSession,
   composeWeakSession,
   formatCorrectAnswer,
+  SESSION_TARGET,
   splitExercisePrompt,
 } from '@/features/vocabulary/utils';
 import { themeTokens, useAppColors } from '@/theme';
@@ -39,10 +42,21 @@ export function PracticeScreen() {
   const route = useRoute<RouteProp<VocabularyPracticeStackParamList, 'VocabularyPractice'>>();
   const colors = useAppColors();
   const { situationId, mode = 'situation' } = route.params;
+  const isWeakMode = mode === 'weak';
 
-  const situationQuery = useVocabularySituation(situationId);
-  const exercisesQuery = useVocabularyExercises(situationId);
+  const situationQuery = useVocabularySituation(isWeakMode ? undefined : situationId);
+  const exercisesQuery = useVocabularyExercises(isWeakMode ? undefined : situationId);
   const weakQuery = useVocabularyWeakProgress();
+  const weakItemIds = isWeakMode
+    ? (weakQuery.data ?? []).slice(0, SESSION_TARGET).map((row) => row.itemId)
+    : [];
+  // Stabilize ids so refetch/focus does not recompose mid-session.
+  const weakItemIdsKey = weakItemIds.join('\0');
+  const stableWeakItemIds = useMemo(
+    () => (weakItemIdsKey.length > 0 ? weakItemIdsKey.split('\0') : ([] as string[])),
+    [weakItemIdsKey],
+  );
+  const weakExercisesQuery = useVocabularyWeakExercises(stableWeakItemIds);
   const { state, dispatch, applyAction, startSession, clearActiveSession, getActiveState } =
     usePracticeSession();
 
@@ -68,13 +82,16 @@ export function PracticeScreen() {
   }, []);
 
   const composed = useMemo(() => {
+    if (isWeakMode) {
+      const pool = weakExercisesQuery.data ?? [];
+      if (pool.length === 0) {
+        return null;
+      }
+      return composeWeakSession(pool, stableWeakItemIds);
+    }
     const pool = exercisesQuery.data ?? [];
     if (pool.length === 0) {
       return null;
-    }
-    if (mode === 'weak') {
-      const weakItemIds = (weakQuery.data ?? []).map((row) => row.itemId);
-      return composeWeakSession(pool, weakItemIds);
     }
     const preferItemIds =
       knownIds === null
@@ -83,12 +100,30 @@ export function PracticeScreen() {
             .filter((exercise) => exercise.itemId && !knownIds.has(exercise.itemId))
             .map((exercise) => exercise.itemId as string);
     return composeSituationSession(pool, { preferItemIds });
-  }, [exercisesQuery.data, knownIds, mode, weakQuery.data]);
+  }, [exercisesQuery.data, isWeakMode, knownIds, stableWeakItemIds, weakExercisesQuery.data]);
 
   useEffect(() => {
     // Wait for knownIds so preferItemIds is stable — otherwise startSession key
     // changes mid-flow and wipes checked answers while Review is open.
-    if (knownIds === null || !composed?.ok || !situationQuery.data) {
+    if (knownIds === null || !composed?.ok) {
+      return;
+    }
+    if (isWeakMode) {
+      startSession({
+        exercises: composed.exercises,
+        situationId: 'weak',
+        situationSlug: 'weak',
+        contentRevision: 1,
+      });
+      if (!startedTrackedRef.current) {
+        startedTrackedRef.current = true;
+        trackEvent('vocabulary_practice_started', {
+          situation_slug: 'weak',
+        }).catch(() => undefined);
+      }
+      return;
+    }
+    if (!situationQuery.data) {
       return;
     }
     startSession({
@@ -103,7 +138,7 @@ export function PracticeScreen() {
         situation_slug: situationQuery.data.slug,
       }).catch(() => undefined);
     }
-  }, [composed, knownIds, situationQuery.data, startSession]);
+  }, [composed, isWeakMode, knownIds, situationQuery.data, startSession]);
 
   useEffect(() => {
     startedTrackedRef.current = false;
@@ -241,21 +276,24 @@ export function PracticeScreen() {
   };
 
   const loading =
-    situationQuery.isLoading ||
-    exercisesQuery.isLoading ||
-    (mode === 'weak' && weakQuery.isLoading) ||
+    (!isWeakMode && (situationQuery.isLoading || exercisesQuery.isLoading)) ||
+    (isWeakMode && (weakQuery.isLoading || weakExercisesQuery.isLoading)) ||
     knownIds === null;
-  const loadError = situationQuery.isError || exercisesQuery.isError || weakQuery.isError;
+  const loadError =
+    (!isWeakMode && (situationQuery.isError || exercisesQuery.isError)) ||
+    (isWeakMode && (weakQuery.isError || weakExercisesQuery.isError));
   const insufficient =
     composed !== null && !composed.ok && composed.reason === 'insufficient_content';
-  const emptyReady = exercisesQuery.isSuccess && (exercisesQuery.data?.length ?? 0) === 0;
+  const emptyReady = isWeakMode
+    ? weakExercisesQuery.isSuccess && (weakExercisesQuery.data?.length ?? 0) === 0
+    : exercisesQuery.isSuccess && (exercisesQuery.data?.length ?? 0) === 0;
 
   return (
     <ScreenScroll
       header={
         <TopAppHeader
           showBack
-          title={situationQuery.data?.title ?? 'Practice'}
+          title={isWeakMode ? 'Weak items' : situationQuery.data?.title ?? 'Practice'}
           onBackPress={onHeaderBack}
         />
       }
@@ -279,7 +317,9 @@ export function PracticeScreen() {
           <View style={styles.stateBlock}>
             <Text style={[styles.body, { color: colors.danger }]}>
               {vocabularyErrorMessage(
-                exercisesQuery.error ?? situationQuery.error ?? weakQuery.error,
+                isWeakMode
+                  ? weakExercisesQuery.error ?? weakQuery.error
+                  : exercisesQuery.error ?? situationQuery.error,
                 'Couldn’t load exercises. Check your connection and try again.',
               )}
             </Text>
@@ -287,11 +327,13 @@ export function PracticeScreen() {
               accessibilityRole="button"
               testID="vocabulary-practice-retry"
               onPress={() => {
+                if (isWeakMode) {
+                  weakQuery.refetch().catch(() => undefined);
+                  weakExercisesQuery.refetch().catch(() => undefined);
+                  return;
+                }
                 situationQuery.refetch().catch(() => undefined);
                 exercisesQuery.refetch().catch(() => undefined);
-                if (mode === 'weak') {
-                  weakQuery.refetch().catch(() => undefined);
-                }
               }}
             >
               <Text style={[styles.retry, { color: colors.primary }]}>Retry</Text>
@@ -335,19 +377,20 @@ export function PracticeScreen() {
 
             <View style={styles.promptBlock}>
               <View style={styles.instructionRow}>
-                <Text style={[styles.instruction, { color: colors.primary }]}>
+                <Text style={[styles.instruction, { color: colors.text }]}>
                   {promptParts.instruction}
                 </Text>
                 <Text
-                  style={[styles.questionCount, { color: colors.text }]}
+                  style={[styles.questionCount, { color: colors.textSecondary }]}
                   testID="vocabulary-practice-count"
                 >
                   {state.index + 1} / {total}
                 </Text>
               </View>
-              <Text style={[styles.stem, { color: colors.text }]} testID="vocabulary-practice-stem">
-                {promptParts.stem}
-              </Text>
+              <PromptCard testID="vocabulary-practice-stem" text={promptParts.stem} />
+              {exercise.type === 'choose_expression' ? (
+                <Text style={[styles.ask, { color: colors.text }]}>What would you say?</Text>
+              ) : null}
             </View>
 
             {exercise.type === 'choose_expression' ? (
@@ -398,10 +441,6 @@ export function PracticeScreen() {
                 correct={state.lastCorrect}
                 explanation={state.lastExplanation}
                 correctAnswerLabel={formatCorrectAnswer(exercise)}
-                expression={exercise.feedback.expression}
-                meaning={exercise.feedback.meaning}
-                context={exercise.feedback.context}
-                example={exercise.feedback.example}
               />
             ) : null}
           </>
@@ -436,15 +475,20 @@ export function PracticeScreen() {
 }
 
 const styles = StyleSheet.create({
+  ask: {
+    fontSize: 22,
+    fontWeight: '600',
+    lineHeight: 28,
+  },
   body: {
     fontSize: 14,
     lineHeight: 20,
   },
   instruction: {
     flex: 1,
-    fontSize: 13,
+    fontSize: themeTokens.typography.size.label,
     fontWeight: '500',
-    lineHeight: 18,
+    lineHeight: themeTokens.typography.lineHeight.label,
     minWidth: 0,
   },
   instructionRow: {
@@ -454,13 +498,13 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   promptBlock: {
-    gap: themeTokens.spacing['6'],
+    gap: themeTokens.spacing.sm,
     width: '100%',
   },
   questionCount: {
-    fontSize: 13,
-    fontWeight: '600',
-    lineHeight: 18,
+    fontSize: themeTokens.typography.size.label,
+    fontWeight: '500',
+    lineHeight: themeTokens.typography.lineHeight.label,
   },
   retry: {
     fontSize: 15,
@@ -475,10 +519,5 @@ const styles = StyleSheet.create({
   },
   stateBlock: {
     gap: themeTokens.spacing.sm,
-  },
-  stem: {
-    fontSize: 22,
-    fontWeight: '600',
-    lineHeight: 30,
   },
 });

@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
   row: {
     alignItems: 'flex-start',
     borderRadius: themeTokens.radius.sm,
-    borderWidth: 1,
+    borderWidth: 2,
     flexDirection: 'row',
     gap: themeTokens.spacing['12'],
     minHeight: 56,

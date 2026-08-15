@@ -8,9 +8,12 @@ import {
   type VocabularyCompletionMutationInput,
 } from '@/features/vocabulary/mutations';
 import {
+  getExercisesForItemIds,
   getSituation,
   getSituationExercises,
+  getSituationItems,
   getSituations,
+  getVocabularyTerm,
   getWeakProgress,
 } from '@/features/vocabulary/services';
 import { usePracticeSession } from '@/features/vocabulary/session';
@@ -40,6 +43,34 @@ export function useVocabularyExercises(situationId: string | undefined) {
     queryKey: vocabularyKeys.exercises(situationId ?? ''),
     enabled: Boolean(situationId),
     queryFn: () => getSituationExercises(situationId as string),
+    staleTime: CONTENT_STALE_MS,
+  });
+}
+
+export function useVocabularySituationItems(situationId: string | undefined) {
+  return useQuery({
+    queryKey: vocabularyKeys.situationItems(situationId ?? ''),
+    enabled: Boolean(situationId),
+    queryFn: () => getSituationItems(situationId as string),
+    staleTime: CONTENT_STALE_MS,
+  });
+}
+
+export function useVocabularyTerm(situationId: string | undefined, itemId: string | undefined) {
+  return useQuery({
+    queryKey: vocabularyKeys.term(situationId ?? '', itemId ?? ''),
+    enabled: Boolean(situationId && itemId),
+    queryFn: () => getVocabularyTerm(situationId as string, itemId as string),
+    staleTime: CONTENT_STALE_MS,
+  });
+}
+
+export function useVocabularyWeakExercises(itemIds: readonly string[]) {
+  const itemIdsKey = itemIds.join('\0');
+  return useQuery({
+    queryKey: vocabularyKeys.weakExercises(itemIdsKey),
+    enabled: itemIds.length > 0,
+    queryFn: () => getExercisesForItemIds(itemIds),
     staleTime: CONTENT_STALE_MS,
   });
 }

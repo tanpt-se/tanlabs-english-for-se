@@ -40,7 +40,7 @@ export function SetNewPasswordScreen() {
     setError(null);
     try {
       await updatePassword(password);
-      clearPasswordRecovery();
+      await clearPasswordRecovery();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not update password');
     } finally {

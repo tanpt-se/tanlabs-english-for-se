@@ -32,13 +32,13 @@ const styles = StyleSheet.create({
   },
   situation: {
     fontSize: 12,
-    letterSpacing: 0.4,
+    letterSpacing: 0.2,
     lineHeight: 16,
     textTransform: 'uppercase',
   },
   title: {
     fontSize: 28,
     fontWeight: '700',
-    lineHeight: 34,
+    lineHeight: 36,
   },
 });

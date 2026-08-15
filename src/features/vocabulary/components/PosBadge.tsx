@@ -1,21 +1,36 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 import { getPosMeta, POS_BADGE_COLORS, type VocabularyPos } from '@/features/vocabulary/utils/pos';
+import { themeTokens, useAppColors } from '@/theme';
 
 type PosBadgeProps = {
   pos: VocabularyPos;
   size?: 'sm' | 'md';
+  /** `muted` = Figma TermRow peach chip; `color` = Cambridge dictionary chip. */
+  tone?: 'color' | 'muted';
 };
 
-/** Fixed widths so list rows stay aligned across `(n)` … `(phr v)`. */
 const BADGE_WIDTH = {
   sm: 54,
   md: 62,
 } as const;
 
-/** Colored short POS badge, e.g. `(n)` for nouns. */
-export function PosBadge({ pos, size = 'sm' }: PosBadgeProps) {
+/** POS chip: muted list code (`n`) or colored dictionary label (`(n)`). */
+export function PosBadge({ pos, size = 'sm', tone = 'color' }: PosBadgeProps) {
   const meta = getPosMeta(pos);
+  const appColors = useAppColors();
+
+  if (tone === 'muted') {
+    return (
+      <View
+        accessibilityLabel={meta.name}
+        style={[styles.muted, { backgroundColor: appColors.surfaceSecondary }]}
+      >
+        <Text style={[styles.mutedLabel, { color: appColors.textMuted }]}>{meta.code}</Text>
+      </View>
+    );
+  }
+
   const colors = POS_BADGE_COLORS[pos];
   const compact = size === 'sm';
 
@@ -23,8 +38,8 @@ export function PosBadge({ pos, size = 'sm' }: PosBadgeProps) {
     <View
       accessibilityLabel={meta.name}
       style={[
-        styles.badge,
-        compact ? styles.badgeSm : styles.badgeMd,
+        styles.color,
+        compact ? styles.colorSm : styles.colorMd,
         {
           backgroundColor: colors.bg,
           minWidth: BADGE_WIDTH[size],
@@ -34,7 +49,11 @@ export function PosBadge({ pos, size = 'sm' }: PosBadgeProps) {
     >
       <Text
         numberOfLines={1}
-        style={[styles.label, compact ? styles.labelSm : styles.labelMd, { color: colors.text }]}
+        style={[
+          styles.colorLabel,
+          compact ? styles.colorLabelSm : styles.colorLabelMd,
+          { color: colors.text },
+        ]}
       >
         {meta.label}
       </Text>
@@ -43,32 +62,46 @@ export function PosBadge({ pos, size = 'sm' }: PosBadgeProps) {
 }
 
 const styles = StyleSheet.create({
-  badge: {
+  color: {
     alignItems: 'center',
     alignSelf: 'flex-start',
     borderRadius: 6,
     flexShrink: 0,
     justifyContent: 'center',
   },
-  badgeMd: {
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-  },
-  badgeSm: {
-    paddingHorizontal: 4,
-    paddingVertical: 2,
-  },
-  label: {
+  colorLabel: {
     fontWeight: '700',
     textAlign: 'center',
     width: '100%',
   },
-  labelMd: {
+  colorLabelMd: {
     fontSize: 12,
     lineHeight: 16,
   },
-  labelSm: {
+  colorLabelSm: {
     fontSize: 11,
     lineHeight: 14,
+  },
+  colorMd: {
+    paddingHorizontal: 6,
+    paddingVertical: 4,
+  },
+  colorSm: {
+    paddingHorizontal: 4,
+    paddingVertical: 2,
+  },
+  muted: {
+    alignItems: 'center',
+    alignSelf: 'flex-start',
+    borderRadius: themeTokens.radius.xs,
+    flexShrink: 0,
+    justifyContent: 'center',
+    paddingHorizontal: themeTokens.spacing.sm,
+    paddingVertical: 2,
+  },
+  mutedLabel: {
+    fontSize: 12,
+    fontWeight: '500',
+    lineHeight: 16,
   },
 });

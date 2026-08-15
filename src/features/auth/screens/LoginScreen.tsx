@@ -17,7 +17,7 @@ import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function LoginScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<AuthStackParamList>>();
-  const { clearRecoveryLinkError, recoveryLinkError } = useAuth();
+  const { clearPasswordRecovery, clearRecoveryLinkError, recoveryLinkError } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -35,14 +35,15 @@ export function LoginScreen() {
     const validationError = validateAuthCredentials(email, password);
     if (validationError) {
       setError(validationError);
-      clearRecoveryLinkError();
       return;
     }
     setLoading(true);
     setError(null);
-    clearRecoveryLinkError();
     try {
       await signIn(email, password);
+      // Successful password login leaves recovery mode / reset-link errors behind.
+      await clearPasswordRecovery();
+      clearRecoveryLinkError();
       await trackEvent('login_success');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Login failed');

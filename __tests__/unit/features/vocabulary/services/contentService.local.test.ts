@@ -43,6 +43,39 @@ jest.mock('@/features/vocabulary/data/localPackCatalog', () => ({
         }
       : undefined,
   ),
+  getLocalExpressions: jest.fn((slug: string) =>
+    slug === 'task-progress'
+      ? [
+          {
+            id: 'task-progress:blocker',
+            text: 'blocker',
+            tag: 'expression · A2',
+            level: 'A2',
+            pos: 'expr',
+          },
+        ]
+      : [],
+  ),
+  getLocalExpressionTotal: jest.fn((slug: string) => (slug === 'task-progress' ? 10 : 0)),
+  getLocalLevelTotals: jest.fn(() => ({ A2: 10 })),
+  getLocalTerm: jest.fn((_situation: string, itemId: string) =>
+    itemId === 'task-progress:blocker'
+      ? {
+          id: 'task-progress:blocker',
+          situationId: 'task-progress',
+          term: 'blocker',
+          type: 'expression',
+          pos: 'expr',
+          level: 'A2',
+          meaning: 'm',
+          context: 'c',
+          patterns: [],
+          examples: [],
+          alternatives: [],
+          notes: [],
+        }
+      : undefined,
+  ),
   getLocalSituationExercises: jest.fn((slug: string) =>
     slug === 'task-progress'
       ? [
@@ -74,6 +107,15 @@ jest.mock('@/features/vocabulary/data/localPackCatalog', () => ({
   ),
 }));
 
+jest.mock('@/features/vocabulary/data/localSeedLoader', () => ({
+  loadLocalPackCatalog: () =>
+    Promise.resolve(
+      jest.requireMock(
+        '@/features/vocabulary/data/localPackCatalog',
+      ) as typeof import('@/features/vocabulary/data/localPackCatalog'),
+    ),
+}));
+
 jest.mock('@/features/vocabulary/data/weakProgressStore', () => ({
   loadWeakProgress: jest.fn(async () => {
     const map = new Map();
@@ -92,9 +134,12 @@ jest.mock('@/features/vocabulary/data/weakProgressStore', () => ({
 
 import {
   completeVocabularyAttempt,
+  getExercisesForItemIds,
   getSituation,
   getSituationExercises,
+  getSituationItems,
   getSituations,
+  getVocabularyTerm,
   getWeakProgress,
 } from '@/features/vocabulary/services/contentService';
 
@@ -122,6 +167,15 @@ describe('vocabulary contentService (local seed)', () => {
       code: 'not_found',
     });
 
+    const catalog = await getSituationItems('task-progress');
+    expect(catalog?.items).toHaveLength(1);
+    expect(catalog?.capped).toBe(true);
+    await expect(getSituationItems('missing')).resolves.toBeNull();
+    await expect(
+      getVocabularyTerm('task-progress', 'task-progress:blocker'),
+    ).resolves.toMatchObject({ term: 'blocker' });
+    await expect(getVocabularyTerm('task-progress', 'missing')).resolves.toBeNull();
+
     const weak = await getWeakProgress('user-1');
     expect(weak[0]?.itemId).toBe('task-progress:blocker');
     await expect(getWeakProgress('')).rejects.toMatchObject({ code: 'unauthorized' });
@@ -142,5 +196,16 @@ describe('vocabulary contentService (local seed)', () => {
     ) as { updateWeakProgress: jest.Mock };
     expect(updateWeakProgress).toHaveBeenCalled();
     expect(mockFrom).not.toHaveBeenCalled();
+  });
+
+  it('loads local weak exercises across situation slugs from composite item ids', async () => {
+    await expect(getExercisesForItemIds([])).resolves.toEqual([]);
+    const exercises = await getExercisesForItemIds([
+      'task-progress:blocker',
+      'task-progress:blocker',
+      'missing:item',
+    ]);
+    expect(exercises).toHaveLength(1);
+    expect(exercises[0]?.itemId).toBe('task-progress:blocker');
   });
 });

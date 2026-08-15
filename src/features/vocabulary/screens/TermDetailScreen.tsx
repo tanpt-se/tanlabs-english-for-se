@@ -1,13 +1,14 @@
 import { useFocusEffect, useNavigation, useRoute } from '@react-navigation/native';
 import { useCallback, useMemo, useState, type ReactNode } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { VocabularyStackParamList } from '@/app/navigation/types';
+import { BrandLoading } from '@/components/ui/feedback';
 import { LearningScreen } from '@/components/ui/learning';
 import { BottomActionBar, TopAppHeader } from '@/components/ui/navigation';
 import { PosBadge } from '@/features/vocabulary/components';
 import { loadKnownItemIds, toggleItemKnown } from '@/features/vocabulary/data/knownItemsStore';
-import { getSituation, getTerm } from '@/features/vocabulary/data/mockCatalog';
+import { vocabularyErrorMessage, useVocabularyTerm } from '@/features/vocabulary/hooks';
 import { getPosMeta } from '@/features/vocabulary/utils/pos';
 import { themeTokens, useAppColors } from '@/theme';
 import type { AppColors } from '@/theme';
@@ -23,8 +24,8 @@ export function TermDetailScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<VocabularyStackParamList>>();
   const route = useRoute<RouteProp<VocabularyStackParamList, 'VocabularyTerm'>>();
   const colors = useAppColors();
-  const situation = getSituation(route.params.situationId);
-  const term = getTerm(route.params.situationId, route.params.itemId);
+  const termQuery = useVocabularyTerm(route.params.situationId, route.params.itemId);
+  const term = termQuery.data ?? null;
   const [known, setKnown] = useState(false);
 
   const refreshKnown = useCallback(async () => {
@@ -51,10 +52,46 @@ export function TermDetailScreen() {
 
   const posMeta = useMemo(() => (term ? getPosMeta(term.pos) : null), [term]);
 
+  if (termQuery.isLoading) {
+    return (
+      <LearningScreen
+        testID="vocabulary-term-loading"
+        contentGap={16}
+        header={<TopAppHeader showBack title="Term" onBackPress={() => navigation.goBack()} />}
+      >
+        <BrandLoading fill size="md" testID="vocabulary-term-loading-indicator" />
+      </LearningScreen>
+    );
+  }
+
+  if (termQuery.isError) {
+    return (
+      <LearningScreen
+        testID="vocabulary-term-error"
+        contentGap={16}
+        header={<TopAppHeader showBack title="Term" onBackPress={() => navigation.goBack()} />}
+      >
+        <Text style={[styles.body, { color: colors.danger }]}>
+          {vocabularyErrorMessage(termQuery.error, 'Couldn’t load this term.')}
+        </Text>
+        <Pressable
+          accessibilityRole="button"
+          testID="vocabulary-term-retry"
+          onPress={() => {
+            termQuery.refetch().catch(() => undefined);
+          }}
+        >
+          <Text style={[styles.retry, { color: colors.primary }]}>Retry</Text>
+        </Pressable>
+      </LearningScreen>
+    );
+  }
+
   if (!term) {
     return (
       <LearningScreen
         testID="vocabulary-term-missing"
+        contentGap={16}
         header={<TopAppHeader showBack title="Term" onBackPress={() => navigation.goBack()} />}
       >
         <Text style={[styles.body, { color: colors.textMuted }]}>
@@ -67,6 +104,7 @@ export function TermDetailScreen() {
   return (
     <LearningScreen
       testID="vocabulary-term"
+      contentGap={16}
       header={<TopAppHeader showBack title={term.term} onBackPress={() => navigation.goBack()} />}
       footer={
         <BottomActionBar
@@ -87,7 +125,7 @@ export function TermDetailScreen() {
           </View>
           <Text style={[styles.metaMuted, { color: colors.textMuted }]}>
             {posMeta?.name}
-            {situation ? ` · ${situation.title}` : ''}
+            {term.situationId ? ` · ${term.situationId}` : ''}
           </Text>
         </View>
         <Text style={[styles.context, { color: colors.textSecondary }]}>
@@ -232,6 +270,13 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
     marginTop: 8,
+  },
+  retry: {
+    fontSize: 15,
+    fontWeight: '600',
+    minHeight: 44,
+    marginTop: themeTokens.spacing.sm,
+    paddingVertical: 12,
   },
   section: {
     gap: 8,

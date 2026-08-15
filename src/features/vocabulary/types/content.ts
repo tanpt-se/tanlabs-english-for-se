@@ -89,6 +89,8 @@ export type PrivacyBoundedAnswerRecord = {
 export type VocabularyItemOutcome = {
   itemId: string;
   correct: boolean;
+  /** Owning situation id/slug — required when saving cross-situation weak practice. */
+  situationId?: string;
 };
 
 export type CompletedVocabularySession = {

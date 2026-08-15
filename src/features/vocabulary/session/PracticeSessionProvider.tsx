@@ -83,14 +83,9 @@ export function PracticeSessionProvider({ children }: { children: ReactNode }) {
     if (startedKeyRef.current === key && current.exercises.length > 0) {
       return;
     }
-    // Never wipe an in-flight or finished attempt if composition inputs change mid-flow.
-    if (
-      current.exercises.length > 0 &&
-      (current.phase === 'reviewing' ||
-        current.phase === 'completed' ||
-        current.phase === 'checked' ||
-        current.checked.length > 0)
-    ) {
+    // Protect in-flight attempts when composition inputs change mid-flow.
+    // Completed sessions may stay mounted under Result; allow a different situation/weak start.
+    if (current.exercises.length > 0 && current.phase !== 'completed') {
       return;
     }
     startedKeyRef.current = key;

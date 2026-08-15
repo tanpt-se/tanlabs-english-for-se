@@ -126,7 +126,9 @@ describe('vocabulary engine', () => {
       { exerciseId: 'a', correct: true },
       { exerciseId: 'ce-a2', correct: false },
     ]);
-    expect(outcomes).toEqual([{ itemId: exercises[0]!.itemId, correct: false }]);
+    expect(outcomes).toEqual([
+      { itemId: exercises[0]!.itemId, correct: false, situationId: exercises[0]!.situationId },
+    ]);
   });
 
   it('applies weak predicate and order', () => {

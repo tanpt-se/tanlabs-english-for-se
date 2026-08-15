@@ -2,48 +2,55 @@ import { useFocusEffect } from '@react-navigation/native';
 import { useCallback, useMemo, useState } from 'react';
 
 import { loadKnownItemIds } from '@/features/vocabulary/data/knownItemsStore';
-import {
-  formatProgress,
-  VOCABULARY_SITUATIONS,
-  type VocabularySituation,
-} from '@/features/vocabulary/data/mockCatalog';
-import { countKnownInSituation } from '@/features/vocabulary/utils/progress';
+import { useVocabularySituations } from '@/features/vocabulary/hooks/useVocabularyQueries';
+import { countKnownInSituation, formatProgress } from '@/features/vocabulary/utils/progress';
 
-export type VocabularySituationProgress = VocabularySituation & {
+export type VocabularySituationProgress = {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  learned: number;
+  total: number;
   progressLabel: string;
   /** Known / total in 0..1 for progress bars. */
   progressRatio: number;
 };
 
 export function useVocabularyProgress() {
+  const situationsQuery = useVocabularySituations();
   const [knownIds, setKnownIds] = useState<Set<string>>(new Set());
-  const [ready, setReady] = useState(false);
+  const [knownReady, setKnownReady] = useState(false);
 
-  const refresh = useCallback(async () => {
+  const refreshKnown = useCallback(async () => {
     const ids = await loadKnownItemIds();
     setKnownIds(ids);
-    setReady(true);
+    setKnownReady(true);
   }, []);
 
   useFocusEffect(
     useCallback(() => {
-      refresh().catch(() => undefined);
-    }, [refresh]),
+      refreshKnown().catch(() => undefined);
+    }, [refreshKnown]),
   );
 
   const situations = useMemo<VocabularySituationProgress[]>(
     () =>
-      VOCABULARY_SITUATIONS.map((situation) => {
-        const learned = countKnownInSituation(situation.id, knownIds);
+      (situationsQuery.data ?? []).map((situation) => {
+        const learned = countKnownInSituation(situation.slug, knownIds, situation.itemIds);
         const total = Math.max(0, situation.total);
         return {
-          ...situation,
+          id: situation.id,
+          slug: situation.slug,
+          title: situation.title,
+          description: situation.description,
           learned,
+          total,
           progressLabel: formatProgress(learned, situation.total),
           progressRatio: total === 0 ? 0 : Math.min(1, learned / total),
         };
       }),
-    [knownIds],
+    [knownIds, situationsQuery.data],
   );
 
   const totalKnown = useMemo(
@@ -55,11 +62,16 @@ export function useVocabularyProgress() {
     [situations],
   );
   const overallRatio = totalTerms === 0 ? 0 : Math.min(1, totalKnown / totalTerms);
+  const ready = knownReady && !situationsQuery.isLoading;
 
   return {
     knownIds,
     ready,
-    refresh,
+    refresh: async () => {
+      await refreshKnown();
+      await situationsQuery.refetch();
+    },
+    isError: situationsQuery.isError,
     situations,
     totalKnown,
     totalTerms,

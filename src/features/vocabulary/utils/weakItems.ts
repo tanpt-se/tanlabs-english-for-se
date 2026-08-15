@@ -5,6 +5,8 @@ export type WeakProgressRow = {
   correctCount: number;
   lastSeenAt: string | null;
   sortOrder: number;
+  /** Display term when available (remote catalog); local packs resolve separately. */
+  term?: string | null;
 };
 
 /** Frozen PH3-01 predicate: last_result = false OR incorrect_count > correct_count. */

@@ -52,8 +52,16 @@ jest.mock('@/features/vocabulary/data/knownItemsStore', () => ({
   toggleItemKnown: jest.fn(async () => true),
 }));
 
-jest.mock('@/features/vocabulary/data/mockCatalog', () => {
-  const expressions = [
+const SITUATION_ITEMS = {
+  situation: {
+    id: 'task-progress',
+    slug: 'task-progress',
+    title: 'Task & Progress',
+    description: 'Status talk',
+    total: 2,
+    itemIds: ['task-progress:tp-2', 'task-progress:ship'],
+  },
+  items: [
     {
       id: 'task-progress:tp-2',
       text: 'blocker',
@@ -70,39 +78,30 @@ jest.mock('@/features/vocabulary/data/mockCatalog', () => {
       pos: 'v',
       needsPractice: false,
     },
-  ];
-  return {
-    formatProgress: (known: number, total: number) => `${known} / ${total}`,
-    getExpressionListMeta: jest.fn(() => ({ shown: 2, total: 2, capped: false })),
-    getExpressions: jest.fn(() => expressions),
-    getLevelTotals: jest.fn(() => ({ A2: 1, B1: 1, B2: 0, C1: 0 })),
-    getSituation: jest.fn(() => ({
-      id: 'task-progress',
-      title: 'Task & Progress',
-      description: 'Status talk',
-      learned: 1,
-      total: 2,
-    })),
-    getTerm: jest.fn(() => ({
-      id: 'task-progress:tp-2',
-      situationId: 'task-progress',
-      term: 'blocker',
-      type: 'expression',
-      pos: 'expr',
-      level: 'A2',
-      meaning: 'Something that stops progress',
-      context: 'Standup',
-      patterns: ['be blocked by'],
-      examples: [
-        { label: 'standup', sentence: 'I am blocked.' },
-        { label: '', sentence: 'Still blocked.' },
-      ],
-      alternatives: ['stuck'],
-      notes: ['Use in standup'],
-    })),
-    isVocabularyLocalPackPreview: jest.fn(() => true),
-  };
-});
+  ],
+  shown: 2,
+  total: 2,
+  capped: false,
+  levelTotals: { A2: 1, B1: 1, B2: 0, C1: 0 },
+};
+
+const TERM_DETAIL = {
+  id: 'task-progress:tp-2',
+  situationId: 'task-progress',
+  term: 'blocker',
+  type: 'expression',
+  pos: 'expr',
+  level: 'A2',
+  meaning: 'Something that stops progress',
+  context: 'Standup',
+  patterns: ['be blocked by'],
+  examples: [
+    { label: 'standup', sentence: 'I am blocked.' },
+    { label: '', sentence: 'Still blocked.' },
+  ],
+  alternatives: ['stuck'],
+  notes: ['Use in standup'],
+};
 
 jest.mock('@/features/vocabulary/hooks/useVocabularyQueries', () => {
   const actual = jest.requireActual(
@@ -116,6 +115,20 @@ jest.mock('@/features/vocabulary/hooks/useVocabularyQueries', () => {
       isError: false,
       refetch: jest.fn(async () => undefined),
     })),
+    useVocabularySituationItems: jest.fn(() => ({
+      data: null,
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      refetch: jest.fn(async () => undefined),
+    })),
+    useVocabularyTerm: jest.fn(() => ({
+      data: null,
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      refetch: jest.fn(async () => undefined),
+    })),
   };
 });
 
@@ -124,6 +137,7 @@ jest.mock('@/features/vocabulary/hooks/useVocabularyProgress', () => ({
     situations: [
       {
         id: 'task-progress',
+        slug: 'task-progress',
         title: 'Task & Progress',
         description: 'x',
         learned: 1,
@@ -137,6 +151,7 @@ jest.mock('@/features/vocabulary/hooks/useVocabularyProgress', () => ({
     overallLabel: '1 / 10',
     overallRatio: 0.1,
     ready: true,
+    isError: false,
     refresh: jest.fn(async () => undefined),
   })),
 }));
@@ -150,12 +165,12 @@ const { loadKnownItemIds, toggleItemKnown } = jest.requireMock(
 const { useVocabularyProgress } = jest.requireMock(
   '@/features/vocabulary/hooks/useVocabularyProgress',
 ) as { useVocabularyProgress: jest.Mock };
-const catalog = jest.requireMock('@/features/vocabulary/data/mockCatalog') as {
-  getExpressionListMeta: jest.Mock;
-  getExpressions: jest.Mock;
-  getSituation: jest.Mock;
-  getTerm: jest.Mock;
-};
+const { useVocabularySituationItems, useVocabularyTerm, useVocabularyWeakProgress } =
+  jest.requireMock('@/features/vocabulary/hooks/useVocabularyQueries') as {
+    useVocabularySituationItems: jest.Mock;
+    useVocabularyTerm: jest.Mock;
+    useVocabularyWeakProgress: jest.Mock;
+  };
 
 describe('vocabulary detail/home branch coverage', () => {
   beforeEach(() => {
@@ -164,30 +179,21 @@ describe('vocabulary detail/home branch coverage', () => {
     routeParams.itemId = 'task-progress:tp-2';
     loadKnownItemIds.mockResolvedValue(new Set(['task-progress:tp-2']));
     toggleItemKnown.mockResolvedValue(true);
-    catalog.getSituation.mockReturnValue({
-      id: 'task-progress',
-      title: 'Task & Progress',
-      description: 'Status talk',
-      learned: 1,
-      total: 2,
+    useVocabularySituationItems.mockReturnValue({
+      data: SITUATION_ITEMS,
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      error: null,
+      refetch: jest.fn(async () => undefined),
     });
-    catalog.getExpressionListMeta.mockReturnValue({ shown: 2, total: 2, capped: false });
-    catalog.getTerm.mockReturnValue({
-      id: 'task-progress:tp-2',
-      situationId: 'task-progress',
-      term: 'blocker',
-      type: 'expression',
-      pos: 'expr',
-      level: 'A2',
-      meaning: 'Something that stops progress',
-      context: 'Standup',
-      patterns: ['be blocked by'],
-      examples: [
-        { label: 'standup', sentence: 'I am blocked.' },
-        { label: '', sentence: 'Still blocked.' },
-      ],
-      alternatives: ['stuck'],
-      notes: ['Use in standup'],
+    useVocabularyTerm.mockReturnValue({
+      data: TERM_DETAIL,
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      error: null,
+      refetch: jest.fn(async () => undefined),
     });
   });
 
@@ -258,17 +264,28 @@ describe('vocabulary detail/home branch coverage', () => {
 
   it('shows empty known filter, capped meta, and situation fallbacks', async () => {
     loadKnownItemIds.mockResolvedValue(new Set());
-    catalog.getSituation.mockReturnValue(undefined);
-    catalog.getExpressionListMeta.mockReturnValue({ shown: 2, total: 40, capped: true });
-    catalog.getExpressions.mockReturnValue([
-      {
-        id: 'task-progress:tp-2',
-        text: 'blocker',
-        tag: 'A2',
-        level: 'A2',
-        pos: 'expr',
+    useVocabularySituationItems.mockReturnValue({
+      data: {
+        situation: undefined,
+        items: [
+          {
+            id: 'task-progress:tp-2',
+            text: 'blocker',
+            tag: 'A2',
+            level: 'A2',
+            pos: 'expr',
+          },
+        ],
+        shown: 2,
+        total: 40,
+        capped: true,
+        levelTotals: { A2: 1 },
       },
-    ]);
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      refetch: jest.fn(async () => undefined),
+    });
 
     let root!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
@@ -313,20 +330,25 @@ describe('vocabulary detail/home branch coverage', () => {
       /Marked known|Mark as known/,
     );
 
-    catalog.getSituation.mockReturnValue(undefined);
-    catalog.getTerm.mockReturnValue({
-      id: 'task-progress:sparse',
-      situationId: 'task-progress',
-      term: 'sparse',
-      type: 'word',
-      pos: 'n',
-      level: 'B1',
-      meaning: 'Thin entry',
-      context: 'Docs',
-      patterns: [],
-      examples: [],
-      alternatives: [],
-      notes: [],
+    useVocabularyTerm.mockReturnValue({
+      data: {
+        id: 'task-progress:sparse',
+        situationId: 'task-progress',
+        term: 'sparse',
+        type: 'word',
+        pos: 'n',
+        level: 'B1',
+        meaning: 'Thin entry',
+        context: 'Docs',
+        patterns: [],
+        examples: [],
+        alternatives: [],
+        notes: [],
+      },
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      refetch: jest.fn(async () => undefined),
     });
     await act(() => {
       root.update(<TermDetailScreen />);
@@ -335,7 +357,13 @@ describe('vocabulary detail/home branch coverage', () => {
     expect(root.root.findByProps({ testID: 'vocabulary-term' })).toBeTruthy();
 
     routeParams.itemId = 'missing';
-    catalog.getTerm.mockReturnValue(undefined);
+    useVocabularyTerm.mockReturnValue({
+      data: null,
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      refetch: jest.fn(async () => undefined),
+    });
     await act(() => {
       root.update(<TermDetailScreen />);
     });
@@ -364,6 +392,7 @@ describe('vocabulary detail/home branch coverage', () => {
       overallLabel: '0 / 0',
       overallRatio: 0,
       ready: true,
+      isError: false,
       refresh,
     });
     await act(() => {
@@ -378,5 +407,98 @@ describe('vocabulary detail/home branch coverage', () => {
       root.root.findByProps({ testID: 'vocabulary-home-retry' }).props.onPress();
     });
     expect(refresh).toHaveBeenCalled();
+  });
+
+  it('covers catalog loading, error retry, and home error retry', async () => {
+    const refetchItems = jest.fn(async () => undefined);
+    useVocabularySituationItems.mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      isError: false,
+      isSuccess: false,
+      refetch: refetchItems,
+    });
+    let situationRoot!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      situationRoot = ReactTestRenderer.create(<SituationDetailScreen />);
+      await Promise.resolve();
+    });
+    expect(situationRoot.root.findByProps({ testID: 'vocabulary-situation-loading' })).toBeTruthy();
+
+    useVocabularySituationItems.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isError: true,
+      isSuccess: false,
+      error: new Error('down'),
+      refetch: refetchItems,
+    });
+    await act(() => {
+      situationRoot.update(<SituationDetailScreen />);
+    });
+    await act(() => {
+      situationRoot.root.findByProps({ testID: 'vocabulary-situation-retry' }).props.onPress();
+    });
+    expect(refetchItems).toHaveBeenCalled();
+
+    const refetchTerm = jest.fn(async () => undefined);
+    useVocabularyTerm.mockReturnValue({
+      data: undefined,
+      isLoading: true,
+      isError: false,
+      isSuccess: false,
+      refetch: refetchTerm,
+    });
+    let termRoot!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      termRoot = ReactTestRenderer.create(<TermDetailScreen />);
+      await Promise.resolve();
+    });
+    expect(termRoot.root.findByProps({ testID: 'vocabulary-term-loading' })).toBeTruthy();
+
+    useVocabularyTerm.mockReturnValue({
+      data: undefined,
+      isLoading: false,
+      isError: true,
+      isSuccess: false,
+      error: new Error('down'),
+      refetch: refetchTerm,
+    });
+    await act(() => {
+      termRoot.update(<TermDetailScreen />);
+    });
+    await act(() => {
+      termRoot.root.findByProps({ testID: 'vocabulary-term-retry' }).props.onPress();
+    });
+    expect(refetchTerm).toHaveBeenCalled();
+
+    const refresh = jest.fn(async () => undefined);
+    const refetchWeak = jest.fn(async () => undefined);
+    useVocabularyWeakProgress.mockReturnValue({
+      data: [],
+      isLoading: false,
+      isError: false,
+      refetch: refetchWeak,
+    });
+    useVocabularyProgress.mockReturnValue({
+      situations: [],
+      totalKnown: 0,
+      totalTerms: 0,
+      overallLabel: '0 / 0',
+      overallRatio: 0,
+      ready: true,
+      isError: true,
+      refresh,
+    });
+    let homeRoot!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      homeRoot = ReactTestRenderer.create(<VocabularyHomeScreen />);
+      await Promise.resolve();
+    });
+    await act(() => {
+      homeRoot.root.findByProps({ testID: 'vocabulary-home-retry' }).props.onPress();
+    });
+    expect(refresh).toHaveBeenCalled();
+    expect(refetchWeak).toHaveBeenCalled();
   });
 });

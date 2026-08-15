@@ -10,6 +10,10 @@ import {
 import { Linking } from 'react-native';
 
 import { isAuthResetDeepLink } from '@/core/auth/deepLink';
+import {
+  readPasswordRecoveryPending,
+  writePasswordRecoveryPending,
+} from '@/core/auth/passwordRecoveryStore';
 import { resolveAuthRoute } from '@/core/auth/routeResolver';
 import type { ProfileCompleteness, RouteDestination } from '@/core/auth/routeResolver';
 import { getSession, signOut as authSignOut, verifyRecoveryFromUrl } from '@/core/auth/service';
@@ -27,7 +31,7 @@ import type { PropsWithChildren } from 'react';
 
 type AuthContextValue = {
   bootstrapped: boolean;
-  clearPasswordRecovery: () => void;
+  clearPasswordRecovery: () => Promise<void>;
   clearRecoveryLinkError: () => void;
   /** False only while resolving profile after an account change (avoids CompleteProfile flash). */
   profileSettled: boolean;
@@ -52,28 +56,21 @@ export function AuthProvider({ children }: PropsWithChildren) {
   const [recoveryLinkError, setRecoveryLinkError] = useState<string | null>(null);
   const profileRequestId = useRef(0);
   const loadedUserId = useRef<string | undefined>(undefined);
+  const recoveryUrlInFlight = useRef<string | null>(null);
+  const consumedRecoveryUrls = useRef(new Set<string>());
 
-  const clearPasswordRecovery = useCallback(() => {
+  const clearPasswordRecovery = useCallback(async () => {
     setPasswordRecovery(false);
+    await writePasswordRecoveryPending(false);
+  }, []);
+
+  const markPasswordRecovery = useCallback(async (pending: boolean, userId?: string | null) => {
+    setPasswordRecovery(pending);
+    await writePasswordRecoveryPending(pending, userId);
   }, []);
 
   const clearRecoveryLinkError = useCallback(() => {
     setRecoveryLinkError(null);
-  }, []);
-
-  const consumeRecoveryUrl = useCallback(async (url: string | null) => {
-    if (!url || !isAuthResetDeepLink(url)) {
-      return;
-    }
-    try {
-      await verifyRecoveryFromUrl(url);
-      setRecoveryLinkError(null);
-      setPasswordRecovery(true);
-    } catch (err) {
-      const message = err instanceof Error ? err.message : 'Invalid or expired reset link.';
-      setRecoveryLinkError(message);
-      await recordError(err instanceof Error ? err : new Error(message));
-    }
   }, []);
 
   const loadProfile = useCallback(async (userId: string | undefined) => {
@@ -137,6 +134,50 @@ export function AuthProvider({ children }: PropsWithChildren) {
     }
   }, []);
 
+  const consumeRecoveryUrl = useCallback(
+    async (url: string | null) => {
+      if (!url || !isAuthResetDeepLink(url)) {
+        return;
+      }
+      if (consumedRecoveryUrls.current.has(url) || recoveryUrlInFlight.current === url) {
+        return;
+      }
+      recoveryUrlInFlight.current = url;
+      try {
+        const data = await verifyRecoveryFromUrl(url);
+        const nextSession = data.session ?? (await getSession());
+        if (!nextSession) {
+          setRecoveryLinkError('Invalid or expired reset link.');
+          await markPasswordRecovery(false);
+          return;
+        }
+        consumedRecoveryUrls.current.add(url);
+        setSession(nextSession);
+        await loadProfile(nextSession.user.id);
+        setRecoveryLinkError(null);
+        await markPasswordRecovery(true, nextSession.user.id);
+      } catch (err) {
+        const message = err instanceof Error ? err.message : 'Invalid or expired reset link.';
+        setRecoveryLinkError(message);
+        const current = await getSession();
+        const pending = current?.user.id
+          ? await readPasswordRecoveryPending(current.user.id)
+          : false;
+        if (pending) {
+          setPasswordRecovery(true);
+        } else {
+          await markPasswordRecovery(false);
+        }
+        await recordError(err instanceof Error ? err : new Error(message));
+      } finally {
+        if (recoveryUrlInFlight.current === url) {
+          recoveryUrlInFlight.current = null;
+        }
+      }
+    },
+    [loadProfile, markPasswordRecovery],
+  );
+
   const refreshProfile = useCallback(async () => {
     await loadProfile(session?.user.id);
   }, [loadProfile, session?.user.id]);
@@ -169,6 +210,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
     setPasswordRecovery(false);
     setRecoveryLinkError(null);
     loadedUserId.current = undefined;
+    await writePasswordRecoveryPending(false);
   }, [session?.user.id]);
 
   useEffect(() => {
@@ -182,6 +224,15 @@ export function AuthProvider({ children }: PropsWithChildren) {
         }
         setSession(current);
         await loadProfile(current?.user.id);
+        if (!current) {
+          // No session ⇒ recovery cannot be active; drop any leftover flag.
+          await writePasswordRecoveryPending(false);
+        } else {
+          const pendingRecovery = await readPasswordRecoveryPending(current.user.id);
+          if (mounted && pendingRecovery) {
+            setPasswordRecovery(true);
+          }
+        }
         await consumeRecoveryUrl(await Linking.getInitialURL());
       } finally {
         if (mounted) {
@@ -199,12 +250,16 @@ export function AuthProvider({ children }: PropsWithChildren) {
     const { data: subscription } = supabase.auth.onAuthStateChange((event, nextSession) => {
       setSession(nextSession);
       if (event === 'PASSWORD_RECOVERY') {
-        setPasswordRecovery(true);
-        setRecoveryLinkError(null);
-      }
-      if (event === 'SIGNED_OUT') {
+        if (nextSession?.user.id) {
+          markPasswordRecovery(true, nextSession.user.id).catch(() => undefined);
+          setRecoveryLinkError(null);
+        } else {
+          setRecoveryLinkError('Invalid or expired reset link.');
+          markPasswordRecovery(false).catch(() => undefined);
+        }
+      } else if (event === 'SIGNED_OUT') {
         loadedUserId.current = undefined;
-        setPasswordRecovery(false);
+        markPasswordRecovery(false).catch(() => undefined);
         setRecoveryLinkError(null);
       }
       loadProfile(nextSession?.user.id).catch(() => undefined);
@@ -218,7 +273,7 @@ export function AuthProvider({ children }: PropsWithChildren) {
       linkingSubscription.remove();
       subscription.subscription.unsubscribe();
     };
-  }, [consumeRecoveryUrl, loadProfile]);
+  }, [consumeRecoveryUrl, loadProfile, markPasswordRecovery]);
 
   const destination = useMemo(
     () =>
@@ -226,8 +281,9 @@ export function AuthProvider({ children }: PropsWithChildren) {
         hasSession: Boolean(session),
         passwordRecovery,
         profileCompleteness,
+        recoveryLinkError: Boolean(recoveryLinkError),
       }),
-    [passwordRecovery, profileCompleteness, session],
+    [passwordRecovery, profileCompleteness, recoveryLinkError, session],
   );
 
   const value = useMemo<AuthContextValue>(

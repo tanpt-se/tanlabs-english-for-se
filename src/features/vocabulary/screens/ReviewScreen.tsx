@@ -31,6 +31,14 @@ export function ReviewScreen() {
   const byId = new Map(state.checked.map((row) => [row.exerciseId, row]));
   const submitting = completeAttempt.isPending && !completeAttempt.isPaused;
 
+  const practiceRouteParams = () => {
+    const situationId = state.situationSlug || state.situationId;
+    if (situationId === 'weak') {
+      return { situationId: 'weak' as const, mode: 'weak' as const };
+    }
+    return { situationId };
+  };
+
   const goToResult = (clientAttemptId: string) => {
     navigation.dispatch(
       CommonActions.reset({
@@ -83,9 +91,7 @@ export function ReviewScreen() {
     if (next.phase !== 'answering') {
       return;
     }
-    navigation.navigate('VocabularyPractice', {
-      situationId: state.situationSlug || state.situationId,
-    });
+    navigation.navigate('VocabularyPractice', practiceRouteParams());
   };
 
   const onBack = () => {
@@ -98,9 +104,7 @@ export function ReviewScreen() {
       navigation.goBack();
       return;
     }
-    navigation.navigate('VocabularyPractice', {
-      situationId: state.situationSlug || state.situationId,
-    });
+    navigation.navigate('VocabularyPractice', practiceRouteParams());
   };
 
   if (state.exercises.length === 0) {

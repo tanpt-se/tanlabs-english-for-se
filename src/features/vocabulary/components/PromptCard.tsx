@@ -3,31 +3,29 @@ import { StyleSheet, Text, View } from 'react-native';
 import { themeTokens, useAppColors } from '@/theme';
 
 type PromptCardProps = {
+  testID?: string;
   text: string;
 };
 
-/** Scenario prompt card above answer options (Figma PH3 choose-expression). */
-export function PromptCard({ text }: PromptCardProps) {
+/** Scenario context card — Figma choose-expression ContextCard. */
+export function PromptCard({ testID, text }: PromptCardProps) {
   const colors = useAppColors();
 
   return (
-    <View
-      style={[styles.card, { backgroundColor: colors.surface, borderColor: colors.borderSubtle }]}
-    >
-      <Text style={[styles.text, { color: colors.text }]}>{text}</Text>
+    <View testID={testID} style={[styles.card, { backgroundColor: colors.surfaceCard }]}>
+      <Text style={[styles.text, { color: colors.textSecondary }]}>{text}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: themeTokens.radius.lg,
-    borderWidth: 1,
-    paddingHorizontal: 18,
-    paddingVertical: themeTokens.spacing['20'],
+    borderRadius: themeTokens.radius.xl,
+    padding: themeTokens.spacing['20'],
+    width: '100%',
   },
   text: {
-    fontSize: 15,
-    lineHeight: 21,
+    fontSize: 14,
+    lineHeight: 20,
   },
 });

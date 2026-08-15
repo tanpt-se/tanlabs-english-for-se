@@ -117,15 +117,11 @@ describe('WP-03 architecture and dependency policy', () => {
     );
   });
 
-  it('keeps Vocabulary seed packs out of screens/hooks (catalog bridge only)', () => {
-    const allowed = new Set([
-      'src/features/vocabulary/data/localPackCatalog.ts',
-      'src/features/vocabulary/data/mockCatalog.ts',
-    ]);
+  it('keeps Vocabulary seed packs out of the mobile source graph', () => {
     const srcFiles = walk(resolve(ROOT, 'src'));
     for (const file of srcFiles) {
       const rel = relative(ROOT, file).replace(/\\/g, '/');
-      if (allowed.has(rel)) {
+      if (rel === 'src/features/vocabulary/data/localPackCatalog.ts') {
         continue;
       }
       const text = readFileSync(file, 'utf8');
@@ -137,6 +133,17 @@ describe('WP-03 architecture and dependency policy', () => {
     expect(existsSync(resolve(ROOT, 'supabase/seed/vocabulary/packs.json'))).toBe(true);
     expect(existsSync(resolve(ROOT, 'src/features/vocabulary/data/localPackCatalog.ts'))).toBe(
       true,
+    );
+    expect(existsSync(resolve(ROOT, 'src/features/vocabulary/data/localSeedLoader.ts'))).toBe(true);
+  });
+
+  it('loads local Vocabulary seed only via dynamic import when force-local is on', () => {
+    const contentService = read('src/features/vocabulary/services/contentService.ts');
+    const loader = read('src/features/vocabulary/data/localSeedLoader.ts');
+    expect(contentService).not.toMatch(/from\s+['"][^'"]*localPackCatalog['"]/);
+    expect(contentService).toMatch(/loadLocalPackCatalog/);
+    expect(loader).toMatch(
+      /import\s*\(\s*['"]@\/features\/vocabulary\/data\/localPackCatalog['"]\s*\)/,
     );
   });
 

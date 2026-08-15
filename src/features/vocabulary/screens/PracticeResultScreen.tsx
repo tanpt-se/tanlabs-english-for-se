@@ -30,7 +30,9 @@ export function PracticeResultScreen() {
   const { clearActiveSession } = usePracticeSession();
   const saveMutation = useCompleteVocabularyAttempt();
   const { session, isLoading } = useVocabularyResultSession(route.params.clientAttemptId);
-  const situationQuery = useVocabularySituation(session?.situationId);
+  const situationQuery = useVocabularySituation(
+    session?.situationSlug === 'weak' ? undefined : session?.situationId,
+  );
   const needsPractice = session ? Math.max(session.totalCount - session.correctCount, 0) : 0;
   const retryTracked = useRef(false);
 
@@ -82,7 +84,10 @@ export function PracticeResultScreen() {
         routes: [
           {
             name: 'VocabularyPractice',
-            params: { situationId: session.situationId },
+            params:
+              session.situationSlug === 'weak'
+                ? { situationId: 'weak', mode: 'weak' as const }
+                : { situationId: session.situationId },
           },
         ],
       }),
@@ -143,6 +148,7 @@ export function PracticeResultScreen() {
   return (
     <LearningScreen
       testID="vocabulary-result"
+      contentGap={16}
       header={<TopAppHeader showBack title="Practice result" onBackPress={goHome} />}
       footer={
         session ? (
@@ -166,7 +172,11 @@ export function PracticeResultScreen() {
       {session ? (
         <>
           <CompletionHero
-            situation={(situationQuery.data?.title ?? 'Vocabulary').toUpperCase()}
+            situation={
+              session.situationSlug === 'weak'
+                ? 'WEAK ITEMS'
+                : (situationQuery.data?.title ?? 'Vocabulary').toUpperCase()
+            }
             title={session.completed ? 'Practice complete' : 'Keep practicing'}
             message={
               session.completed

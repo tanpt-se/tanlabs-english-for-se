@@ -155,6 +155,7 @@ describe('PH1 screens', () => {
     jest.clearAllMocks();
     jest.mocked(useNavigation).mockReturnValue({ navigate, replace, goBack } as never);
     useAuth.mockReturnValue({
+      clearPasswordRecovery: jest.fn(),
       clearRecoveryLinkError: jest.fn(),
       recoveryLinkError: null,
       user: { id: 'user-1' },

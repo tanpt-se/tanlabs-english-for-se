@@ -83,8 +83,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     gap: themeTokens.spacing.sm,
     overflow: 'hidden',
-    paddingHorizontal: themeTokens.spacing.md,
-    paddingVertical: themeTokens.spacing['14'],
+    padding: themeTokens.spacing.md,
   },
   copy: {
     flex: 1,
@@ -96,7 +95,7 @@ const styles = StyleSheet.create({
     lineHeight: themeTokens.typography.lineHeight.caption,
   },
   fill: {
-    borderRadius: 3,
+    borderRadius: themeTokens.radius.pill,
     height: 6,
   },
   progress: {
@@ -115,7 +114,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
   },
   track: {
-    borderRadius: 3,
+    borderRadius: themeTokens.radius.pill,
     height: 6,
     overflow: 'hidden',
     width: '100%',

@@ -144,6 +144,9 @@ describe('PH1/PH3 coverage boost', () => {
           <LearningScreen header={<Text>Sticky</Text>}>
             <Text>No footer</Text>
           </LearningScreen>
+          <LearningScreen contentGap={16} header={<Text>Vocab gap</Text>}>
+            <Text>Sixteen</Text>
+          </LearningScreen>
         </>,
       );
     });
@@ -192,6 +195,7 @@ describe('PH1/PH3 coverage boost', () => {
             onPress={() => undefined}
           />
           <ProgressBanner title="Progress" subtitle="Dark banner" progress={0} />
+          <ProgressBanner title="Soft" subtitle="Peach banner" progress={0.4} tone="soft" />
           <StreakCard
             badge="Sprint"
             days={['complete', 'complete', 'today', 'upcoming', 'upcoming', 'upcoming', 'upcoming']}

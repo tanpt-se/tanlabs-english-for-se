@@ -180,6 +180,19 @@ describe('vocabulary practice session', () => {
     });
     expect(api.getActiveState().clientAttemptId).toBe(api.state.clientAttemptId);
 
+    // Answering with zero checked must still refuse a different composition.
+    const freshAttempt = api.state.clientAttemptId;
+    await act(() => {
+      api.startSession({
+        exercises: [other],
+        situationId: 'meetings',
+        situationSlug: 'meetings',
+        contentRevision: 1,
+      });
+    });
+    expect(api.state.clientAttemptId).toBe(freshAttempt);
+    expect(api.getActiveState().exercises[0]?.id).toBe(mc.id);
+
     await act(() => {
       api.dispatch({ type: 'skip' });
     });
@@ -201,17 +214,30 @@ describe('vocabulary practice session', () => {
       api.applyAction({ type: 'submit' });
     });
     expect(api.getActiveState().phase).toBe('completed');
-    // completed sessions keep the same attempt until clearActiveSession
+    // Same composition key stays completed until clearActiveSession.
     await act(() => {
       api.startSession({
-        exercises: [other],
+        exercises: [mc],
         situationId: 'task-progress',
         situationSlug: 'task-progress',
-        contentRevision: 2,
+        contentRevision: 1,
       });
     });
     expect(api.getActiveState().phase).toBe('completed');
     expect(api.getActiveState().clientAttemptId).toBe(attemptId);
+
+    // Different situation/weak entry may start after a completed attempt without clear.
+    await act(() => {
+      api.startSession({
+        exercises: [other],
+        situationId: 'weak',
+        situationSlug: 'weak',
+        contentRevision: 1,
+      });
+    });
+    expect(api.getActiveState().phase).toBe('answering');
+    expect(api.getActiveState().situationSlug).toBe('weak');
+    expect(api.getActiveState().clientAttemptId).not.toBe(attemptId);
 
     await act(() => {
       api.clearActiveSession();

@@ -1,6 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import { AppIcon } from '@/components/ui/brand';
 import { CEFR_LEVEL_LABELS, type CefrLevel } from '@/features/vocabulary/utils/levels';
 import { themeTokens, useAppColors } from '@/theme';
 
@@ -30,8 +29,8 @@ function levelTone(
 }
 
 /**
- * Collapsible CEFR band header — matches HomeFeatureRow / SituationCard chrome
- * (bordered surface, soft icon tile, count chip, tinted chevron).
+ * Collapsible CEFR band header — Figma Pattern/LevelSectionHeader:
+ * level + band chip + Cambridge CEFR meta + count chip (no icon / chevron).
  */
 export function LevelSectionHeader({ collapsed, count, level, onToggle }: LevelSectionHeaderProps) {
   const colors = useAppColors();
@@ -57,14 +56,11 @@ export function LevelSectionHeader({ collapsed, count, level, onToggle }: LevelS
       ]}
       testID={`level-section-${level}`}
     >
-      <View style={[styles.iconWrap, { backgroundColor: tone.soft }]}>
-        <AppIcon color={tone.accent} name="book" size={20} />
-      </View>
       <View style={styles.copy}>
         <View style={styles.titleRow}>
           <Text style={[styles.levelCode, { color: colors.text }]}>{level}</Text>
           <View style={[styles.bandChip, { backgroundColor: tone.soft }]}>
-            <Text style={[styles.bandChipText, { color: colors.text }]}>{band}</Text>
+            <Text style={[styles.bandChipText, { color: colors.textSecondary }]}>{band}</Text>
           </View>
         </View>
         <Text style={[styles.meta, { color: colors.textMuted }]}>
@@ -73,18 +69,6 @@ export function LevelSectionHeader({ collapsed, count, level, onToggle }: LevelS
       </View>
       <View style={[styles.countChip, { backgroundColor: tone.soft }]}>
         <Text style={[styles.countText, { color: colors.text }]}>{count}</Text>
-      </View>
-      <View
-        style={[
-          styles.chevronWrap,
-          {
-            backgroundColor: colors.surfaceSecondary,
-            borderColor: colors.borderSubtle,
-            transform: [{ rotate: collapsed ? '-90deg' : '90deg' }],
-          },
-        ]}
-      >
-        <AppIcon color={colors.textMuted} name="arrowLeft" size={16} />
       </View>
     </Pressable>
   );
@@ -97,17 +81,9 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
   },
   bandChipText: {
-    fontSize: 11,
-    fontWeight: '600',
-    lineHeight: 14,
-  },
-  chevronWrap: {
-    alignItems: 'center',
-    borderRadius: 999,
-    borderWidth: 1,
-    height: 28,
-    justifyContent: 'center',
-    width: 28,
+    fontSize: 12,
+    fontWeight: '400',
+    lineHeight: 16,
   },
   copy: {
     flex: 1,
@@ -124,19 +100,12 @@ const styles = StyleSheet.create({
   },
   countText: {
     fontSize: 12,
-    fontWeight: '700',
+    fontWeight: '400',
     lineHeight: 16,
-  },
-  iconWrap: {
-    alignItems: 'center',
-    borderRadius: themeTokens.radius.sm,
-    height: 40,
-    justifyContent: 'center',
-    width: 40,
   },
   levelCode: {
     fontSize: 16,
-    fontWeight: '700',
+    fontWeight: '400',
     lineHeight: 22,
   },
   meta: {
@@ -150,7 +119,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: themeTokens.spacing['12'],
     minHeight: 64,
-    paddingHorizontal: themeTokens.spacing['14'],
+    paddingHorizontal: themeTokens.spacing.md,
     paddingVertical: themeTokens.spacing['12'],
   },
   titleRow: {
