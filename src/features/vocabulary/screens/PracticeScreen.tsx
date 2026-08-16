@@ -92,28 +92,32 @@ export function PracticeScreen() {
       return composeWeakSession(pool, stableWeakItemIds);
     }
     const pool = exercisesQuery.data ?? [];
+    if (!situationQuery.isSuccess || !exercisesQuery.isSuccess) {
+      return null;
+    }
+    const coreItemIds = situationQuery.data?.coreItemIds ?? [];
+    if (coreItemIds.length === 0) {
+      return { ok: false, reason: 'insufficient_content', available: 0 };
+    }
     if (pool.length === 0) {
       return null;
     }
     const preferItemIds =
-      knownIds === null
-        ? situationQuery.data?.coreItemIds
-        : (situationQuery.data?.coreItemIds ?? []).filter((id) => !knownIds.has(id));
-    const coreIds = new Set(situationQuery.data?.coreItemIds ?? []);
-    const corePool =
-      coreIds.size > 0
-        ? pool.filter((exercise) => exercise.itemId && coreIds.has(exercise.itemId))
-        : pool;
+      knownIds === null ? coreItemIds : coreItemIds.filter((id) => !knownIds.has(id));
+    const coreIds = new Set(coreItemIds);
+    const corePool = pool.filter((exercise) => exercise.itemId && coreIds.has(exercise.itemId));
     return composeSituationSession(corePool, {
-      preferItemIds: preferItemIds?.length ? preferItemIds : situationQuery.data?.coreItemIds,
+      preferItemIds: preferItemIds.length ? preferItemIds : coreItemIds,
       minExercises: CORE_SESSION_MIN,
       targetTotal: CORE_SESSION_TARGET,
     });
   }, [
     exercisesQuery.data,
+    exercisesQuery.isSuccess,
     isWeakMode,
     knownIds,
     situationQuery.data,
+    situationQuery.isSuccess,
     stableWeakItemIds,
     weakExercisesQuery.data,
   ]);

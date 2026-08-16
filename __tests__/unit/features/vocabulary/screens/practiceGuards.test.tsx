@@ -117,6 +117,8 @@ describe('PracticeScreen defensive handler branches', () => {
         title: 'Task & Progress',
         description: 'x',
         total: 10,
+        coreItemIds: Array.from({ length: 8 }, (_, index) => `task-progress:extra-${index}`),
+        itemIds: Array.from({ length: 8 }, (_, index) => `task-progress:extra-${index}`),
       },
       refetch: jest.fn(),
     });

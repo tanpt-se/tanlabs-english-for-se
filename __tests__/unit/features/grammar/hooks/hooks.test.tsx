@@ -266,6 +266,56 @@ describe('grammar query hooks', () => {
     });
   });
 
+  it('does not mark continue learning ready until progress has loaded', async () => {
+    let resolveProgress: (value: unknown[]) => void = () => undefined;
+    services.getProgressForUser.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          resolveProgress = resolve;
+        }),
+    );
+
+    let continueApi: ReturnType<typeof useGrammarContinueLearning> | undefined;
+
+    function Probe() {
+      continueApi = useGrammarContinueLearning();
+      return null;
+    }
+
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      root = ReactTestRenderer.create(
+        <QueryClientProvider client={createClient()}>
+          <Probe />
+        </QueryClientProvider>,
+      );
+    });
+
+    await waitFor(
+      () => Boolean(continueApi) && services.getAllPublishedLessons.mock.calls.length > 0,
+      'topics and lessons',
+    );
+    expect(continueApi?.isReady).toBe(false);
+    expect(continueApi?.target).toBeNull();
+
+    await act(async () => {
+      resolveProgress([
+        {
+          topicId: 't1',
+          lessonId: 'l1',
+          status: 'in_progress',
+          lastActivityAt: '2026-08-12T00:00:00Z',
+        },
+      ]);
+    });
+    await waitFor(() => continueApi?.isReady === true, 'progress-ready continue learning');
+    expect(continueApi?.target).toEqual({ topicId: 't1', lessonId: 'l1' });
+
+    act(() => {
+      root.unmount();
+    });
+  });
+
   it('prefers in-memory result session over cache and server', async () => {
     const session = {
       clientAttemptId: 'attempt-1',

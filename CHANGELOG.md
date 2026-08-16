@@ -34,6 +34,8 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 - Grammar category and topic hide Continue when every item is completed; rows stay tappable
 - Vocabulary Weak items card uses known/library ratio instead of a fake empty bar
+- Home Continue Learning waits for grammar progress before picking a lesson
+- Situation practice stays on the core list and does not fall back to the full library
 
 ### Added
 

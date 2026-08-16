@@ -312,6 +312,61 @@ describe('Vocabulary PracticeScreen', () => {
     expect(startSession).not.toHaveBeenCalled();
   });
 
+  it('does not fall back to the full library when core ids are missing', async () => {
+    hooks.useVocabularySituation.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      data: {
+        id: 'task-progress',
+        slug: 'task-progress',
+        title: 'Task & Progress',
+        description: 'x',
+        total: 10,
+        coreItemIds: [],
+        itemIds: Array.from({ length: 8 }, (_, index) => `task-progress:extra-${index}`),
+      },
+      error: null,
+      refetch: jest.fn(async () => undefined),
+    });
+    hooks.useVocabularyExercises.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      data: FIXTURE_EXERCISES.concat(
+        Array.from({ length: 8 }, (_, index) => ({
+          ...FIXTURE_CHOOSE,
+          id: `library-${index}`,
+          itemId: `task-progress:extra-${index}`,
+        })),
+      ),
+      refetch: jest.fn(),
+    });
+    session.usePracticeSession.mockReturnValue({
+      state: makeSessionState({ exercises: [] }),
+      dispatch,
+      applyAction,
+      startSession,
+      clearActiveSession,
+      getActiveState: jest.fn(() => session.usePracticeSession.mock.results.at(-1)?.value.state),
+    });
+    startSession.mockClear();
+
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      root = ReactTestRenderer.create(<PracticeScreen />);
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('enough published')),
+    ).toBe(true);
+    expect(startSession).not.toHaveBeenCalled();
+  });
+
   it('handles primary check/continue, skip, header back, and leave modal', async () => {
     const state = makeSessionState({
       response: { type: 'choose_expression', optionId: 'opt_a' },

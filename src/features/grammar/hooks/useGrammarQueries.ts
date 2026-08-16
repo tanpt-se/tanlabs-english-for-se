@@ -79,6 +79,7 @@ export function useGrammarProgress() {
 }
 
 export function useGrammarContinueLearning() {
+  const { user } = useAuth();
   const topicsQuery = useGrammarTopics();
   const progressQuery = useGrammarProgress();
   const allLessonsQuery = useQuery({
@@ -89,9 +90,10 @@ export function useGrammarContinueLearning() {
   });
 
   const topics = useMemo(() => topicsQuery.data ?? [], [topicsQuery.data]);
+  const progressReady = !user?.id || progressQuery.isFetched;
 
   const target = useMemo(() => {
-    if (!topicsQuery.isSuccess || !allLessonsQuery.isSuccess) {
+    if (!topicsQuery.isSuccess || !allLessonsQuery.isSuccess || !progressReady) {
       return null;
     }
     const lessonsByTopicId = new Map<string, Array<{ id: string; sortOrder: number }>>();
@@ -122,6 +124,7 @@ export function useGrammarContinueLearning() {
     allLessonsQuery.data,
     allLessonsQuery.isSuccess,
     progressQuery.data,
+    progressReady,
     topics,
     topicsQuery.isSuccess,
   ]);
@@ -155,8 +158,11 @@ export function useGrammarContinueLearning() {
     topicTitle: target ? topicTitleById.get(target.topicId) : undefined,
     lessonTitle: target ? lessonTitleById.get(target.lessonId) : undefined,
     lessonPosition,
-    isLoading: topicsQuery.isLoading || allLessonsQuery.isLoading,
-    isReady: topicsQuery.isSuccess && allLessonsQuery.isSuccess,
+    isLoading:
+      topicsQuery.isLoading ||
+      allLessonsQuery.isLoading ||
+      Boolean(user?.id && progressQuery.isLoading),
+    isReady: topicsQuery.isSuccess && allLessonsQuery.isSuccess && progressReady,
   };
 }
 
