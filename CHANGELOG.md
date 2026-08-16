@@ -17,6 +17,26 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 ### Added
 
+- Lean Grammar v2: 4 categories / 12 topics / 36 lessons (3 per topic, max 8 exercises); optional Timeline topics; migrations `015`–`016`
+- Vocabulary core + Library: 10 core expressions per situation, 50-phrase overlay, search/filter Library screen; migrations `017`–`019`
+
+### Changed
+
+- Grammar Continue skips optional Timeline topics until required ones are done, and no longer locks a sequential path
+- Vocabulary practice uses 5–8 core questions only; Library ranks cores then high-quality phrases first
+- Local Grammar preview reads `packs-v2.json` and stores progress at `@tanlabs/grammar_local_progress_v2` so v1 attempts stay isolated
+- Home Dashboard aligned with Figma V2: Continue Learning card, streak week card, path rows with progress bars, and Review needed reminder
+- Grammar catalog is category-first (4 path cards → topic list → 3 numbered lessons) per Figma Screen & Flow; upcoming rows stay tappable and there is no topic checkpoint
+- Vocabulary Home uses situation status cards plus a Library CTA; Situation Detail lists numbered cores with Continue; Term Detail follows Figma 03 (countability, pronunciation, Mark as known). Lean inventory is unchanged
+- Core vocabulary pronunciations are English respelling (not fake IPA slashes); countability is `na` on phrases; Grammar Home/Vocab banners derive path counts from catalog; Library card uses real known/total
+
+### Fixed
+
+- Grammar category and topic hide Continue when every item is completed; rows stay tappable
+- Vocabulary Weak items card uses known/library ratio instead of a fake empty bar
+
+### Added
+
 - PH3 Vocabulary verification candidate: frozen SHA with hosted CI green; Maestro vocabulary smoke on iOS Simulator + Android Emulator; production `feature_vocabulary` remains OFF
 - Auth foundation: `AppButton` loading spinner (replaces label, keeps colors, disables press); signup confirm screen (6-digit OTP via Supabase `verifyOtp`) with `OtpPinInput` (6 PIN boxes); forgot-password flow with `tanlabs://auth/reset` deeplink → set-new-password screen
 - Supabase Auth wrappers: `verifySignupOtp`, `resendSignupOtp`, `requestPasswordReset`, `verifyRecoveryFromUrl`, `updatePassword`; iOS/Android URL scheme + `AuthProvider` recovery deeplink handler

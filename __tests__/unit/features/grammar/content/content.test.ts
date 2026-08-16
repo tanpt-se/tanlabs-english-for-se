@@ -13,9 +13,9 @@ import {
 import { FIXTURE_EXERCISES, FIXTURE_LESSON } from '../../../../helpers/grammarFixtures';
 
 describe('grammar content contract', () => {
-  it('defines 13 shared topic slugs; levels live on lessons', () => {
+  it('defines 12 lean v2 topic slugs; levels live on lessons', () => {
     expect(GRAMMAR_TOPIC_SLUGS).toEqual(GRAMMAR_TENSE_SLUGS);
-    expect(GRAMMAR_TOPIC_SLUGS).toHaveLength(13);
+    expect(GRAMMAR_TOPIC_SLUGS).toHaveLength(12);
     expect(GRAMMAR_LEVELS).toEqual(['A2', 'B1', 'B2', 'C1']);
     expect(GRAMMAR_TOPICS).toEqual([]);
     expect(GRAMMAR_LESSONS).toEqual([]);
@@ -29,6 +29,9 @@ describe('grammar content contract', () => {
         title: 'Present Simple',
         description: 'Habits and facts for software teams in standups and docs.',
         sortOrder: 1,
+        categorySlug: 'core-tenses',
+        curriculumVersion: 2,
+        isOptional: false,
       }),
     ).toEqual({ ok: true });
     expect(validateLessonDefinition(FIXTURE_LESSON)).toEqual({ ok: true });

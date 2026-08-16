@@ -5,6 +5,10 @@ jest.mock('../../../../../supabase/seed/vocabulary/packs.json', () => {
   return TINY_VOCABULARY_PACKS;
 });
 
+jest.mock('../../../../../supabase/seed/vocabulary/core-expressions.json', () => ({
+  situations: [],
+}));
+
 import {
   getLocalExpressionTotal,
   getLocalExpressions,
@@ -14,7 +18,10 @@ import {
   getLocalSituationExercises,
   getLocalSituations,
   getLocalTerm,
+  getLocalCoreExpressions,
+  getLocalCoreItemIds,
   resolveLocalItemLabel,
+  searchLocalLibrary,
   VOCABULARY_PRACTICE_QUESTION_COUNT,
   VOCABULARY_PREVIEW_LIST_LIMIT,
 } from '@/features/vocabulary/data/localPackCatalog';
@@ -90,5 +97,26 @@ describe('localPackCatalog (tiny packs mock)', () => {
 
     // Prefer empty + default count
     expect(getLocalPracticeQuestions('task-progress').length).toBeGreaterThan(0);
+  });
+
+  it('returns empty cores without overlay and searches the library', () => {
+    expect(getLocalCoreExpressions('task-progress')).toEqual([]);
+    expect(getLocalCoreItemIds('task-progress')).toEqual([]);
+    const page = searchLocalLibrary({ query: 'block', limit: 10 });
+    expect(page.total).toBeGreaterThan(0);
+    expect(page.items.some((item) => item.text.toLowerCase().includes('block'))).toBe(true);
+    const meaningHits = searchLocalLibrary({
+      query: 'Something that stops',
+      offset: 0,
+      limit: 10,
+    });
+    expect(meaningHits.total).toBeGreaterThan(0);
+    expect(searchLocalLibrary({ situationSlug: 'missing' }).total).toBe(0);
+    const a2 = searchLocalLibrary({ level: 'A2' });
+    const all = searchLocalLibrary({});
+    expect(a2.total).toBeGreaterThan(0);
+    expect(a2.total).toBeLessThan(all.total);
+    expect(all.items[0]?.text.toLowerCase()).toContain('block');
+    expect(getLocalLevelTotals('daily-standup').A2).toBe(2);
   });
 });

@@ -9,8 +9,8 @@
 | **Coming soon**           | Home presentation when a feature flag is off                                                                 |
 | **Profile complete**      | Authenticated user has required `display_name` and `english_level`                                           |
 | **English level**         | One of A1, A2, B1, B2, C1 (product profile field; not a full CEFR curriculum claim)                          |
-| **Topic**                 | One of the thirteen grammar topics (10 PH2 core + 3 PH2.1)                                                   |
-| **Lesson**                | One CEFR band under a topic (A2–C1): short theory (When/Form/Cue/Don't) then 18 graded exercises             |
+| **Topic**                 | One of the twelve lean grammar topics in four categories (Timeline optional)                                 |
+| **Lesson**                | One of three lessons per topic (Form / Use / Apply), with ≤8 exercises                                       |
 | **Exercise**              | Graded practice item (MC, fill blank, or sentence order)                                                     |
 | **Attempt**               | Immutable record of a completed practice session for a user/lesson                                           |
 | **client_attempt_id**     | Client-generated UUID used for idempotent attempt persistence                                                |

@@ -5,6 +5,7 @@ import { VocabularyPracticeFlowNavigator } from '@/features/vocabulary/navigatio
 import { SituationDetailScreen } from '@/features/vocabulary/screens/SituationDetailScreen';
 import { TermDetailScreen } from '@/features/vocabulary/screens/TermDetailScreen';
 import { VocabularyHomeScreen } from '@/features/vocabulary/screens/VocabularyHomeScreen';
+import { VocabularyLibraryScreen } from '@/features/vocabulary/screens/VocabularyLibraryScreen';
 import { WeakItemsScreen } from '@/features/vocabulary/screens/WeakItemsScreen';
 
 const VocabularyStack = createNativeStackNavigator<VocabularyStackParamList>();
@@ -15,6 +16,7 @@ export function VocabularyNavigator() {
       <VocabularyStack.Screen name="VocabularyHome" component={VocabularyHomeScreen} />
       <VocabularyStack.Screen name="VocabularySituation" component={SituationDetailScreen} />
       <VocabularyStack.Screen name="VocabularyTerm" component={TermDetailScreen} />
+      <VocabularyStack.Screen name="VocabularyLibrary" component={VocabularyLibraryScreen} />
       <VocabularyStack.Screen name="VocabularyWeak" component={WeakItemsScreen} />
       <VocabularyStack.Screen
         name="VocabularyPracticeFlow"

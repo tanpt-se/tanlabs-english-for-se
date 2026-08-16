@@ -22,7 +22,10 @@ describe('grammar UI components', () => {
       title: 'Present Simple',
       description: 'Habits',
       sortOrder: 1,
-      lessonCount: 4,
+      lessonCount: 3,
+      categorySlug: 'core-tenses',
+      curriculumVersion: 2,
+      isOptional: false,
     };
 
     const cases: Array<{
@@ -52,8 +55,8 @@ describe('grammar UI components', () => {
         true,
       );
       const pressable = root.root.findByProps({ testID: `grammar-topic-${topic.slug}` });
-      expect(pressable.props.style({ pressed: true })).toEqual(expect.any(Array));
-      expect(pressable.props.style({ pressed: false })).toEqual(expect.any(Array));
+      expect(pressable.props.onPress).toEqual(expect.any(Function));
+      expect(pressable.props.accessibilityState?.disabled).not.toBe(true);
       act(() => {
         root.unmount();
       });
@@ -67,7 +70,10 @@ describe('grammar UI components', () => {
       title: 'Present Simple',
       description: 'Habits',
       sortOrder: 1,
-      lessonCount: 4,
+      lessonCount: 3,
+      categorySlug: 'core-tenses',
+      curriculumVersion: 2,
+      isOptional: false,
     };
 
     let root!: ReactTestRenderer.ReactTestRenderer;
@@ -84,7 +90,7 @@ describe('grammar UI components', () => {
     });
 
     const track = root.root.findByProps({ accessibilityLabel: '0 percent complete' });
-    expect(track.props.children).toBeNull();
+    expect(track.props.children).toBeTruthy();
   });
 
   it('shows Correct and Incorrect practice feedback', async () => {

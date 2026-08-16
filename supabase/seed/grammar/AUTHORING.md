@@ -1,8 +1,10 @@
 # Grammar packs authoring
 
-SoT for [`packs.json`](./packs.json). Audit: `pnpm run grammar:audit` (fail-closed).
+v2 SoT: [`packs-v2.json`](./packs-v2.json). Audit: `pnpm run grammar:audit`. Generate: `pnpm run grammar:v2:packs` then `pnpm run grammar:v2:seed:sql` → `016`. Do **not** edit `008_grammar_seed.sql`.
 
-Do **not** apply generated SQL to a live database unless asked. Preview locally with `GRAMMAR_FORCE_LOCAL_SEED=1` + native rebuild. Never edit `008_grammar_seed.sql` by hand — run `pnpm run grammar:seed:sql` when regenerating the file.
+This file documents the **historical v1** [`packs.json`](./packs.json) shape (`pnpm run grammar:audit:v1`).
+
+Do **not** apply generated SQL to a live database unless asked. Preview locally with `GRAMMAR_FORCE_LOCAL_SEED=1` + native rebuild (v2 packs).
 
 ## Shape
 

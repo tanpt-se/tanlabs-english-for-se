@@ -108,6 +108,8 @@ describe('WP-03 architecture and dependency policy', () => {
       expect(`${rel}:${text}`).not.toMatch(/from\s+['"][^'"]*generate-grammar-seed-sql[^'"]*['"]/);
     }
     expect(existsSync(resolve(ROOT, 'supabase/seed/grammar/packs.json'))).toBe(true);
+    expect(existsSync(resolve(ROOT, 'supabase/seed/grammar/packs-v2.json'))).toBe(true);
+    expect(existsSync(resolve(ROOT, 'scripts/generate-grammar-v2-packs.mjs'))).toBe(true);
     expect(existsSync(resolve(ROOT, 'scripts/generate-grammar-seed-sql.mjs'))).toBe(true);
     expect(existsSync(resolve(ROOT, 'src/features/grammar/services/localSeedCatalog.ts'))).toBe(
       true,
@@ -130,6 +132,7 @@ describe('WP-03 architecture and dependency policy', () => {
         /from\s+['"][^'"]*generate-vocabulary-seed-sql[^'"]*['"]/,
       );
     }
+    expect(existsSync(resolve(ROOT, 'supabase/seed/vocabulary/core-expressions.json'))).toBe(true);
     expect(existsSync(resolve(ROOT, 'supabase/seed/vocabulary/packs.json'))).toBe(true);
     expect(existsSync(resolve(ROOT, 'src/features/vocabulary/data/localPackCatalog.ts'))).toBe(
       true,

@@ -23,8 +23,11 @@ describe('grammar content parsers', () => {
         description: 'Habits',
         sort_order: 1,
         published: true,
+        category_slug: 'core-tenses',
+        curriculum_version: 2,
+        is_optional: false,
       }),
-    ).toMatchObject({ slug: 'present-simple', sortOrder: 1, lessonCount: 4 });
+    ).toMatchObject({ slug: 'present-simple', sortOrder: 1, lessonCount: 3 });
 
     expect(
       parsePublishedTopic({
@@ -35,6 +38,9 @@ describe('grammar content parsers', () => {
         sort_order: 1,
         lesson_count: 3,
         published: true,
+        category_slug: 'core-tenses',
+        curriculum_version: 2,
+        is_optional: false,
       }),
     ).toMatchObject({ lessonCount: 3 });
 
@@ -48,6 +54,34 @@ describe('grammar content parsers', () => {
         published: false,
       }),
     ).toThrow(GrammarDomainError);
+
+    expect(() =>
+      parsePublishedTopic({
+        id: 't1',
+        slug: 'present-simple',
+        title: 'Present Simple',
+        description: 'Habits',
+        sort_order: 1,
+        published: true,
+        category_slug: 'core-tenses',
+        curriculum_version: 1,
+        is_optional: false,
+      }),
+    ).toThrow(/curriculum version/i);
+
+    expect(() =>
+      parsePublishedTopic({
+        id: 't1',
+        slug: 'present-simple',
+        title: 'Present Simple',
+        description: 'Habits',
+        sort_order: 1,
+        published: true,
+        category_slug: 'core-tenses',
+        curriculum_version: 2,
+        is_optional: true,
+      }),
+    ).toThrow(/optional/i);
   });
 
   it('parses lesson JSON and exercise payloads from inventory shapes', () => {
@@ -260,6 +294,9 @@ describe('grammar content parsers', () => {
         description: 'Habits',
         sort_order: 1.5,
         published: true,
+        category_slug: 'core-tenses',
+        curriculum_version: 2,
+        is_optional: false,
       }),
     ).toThrow(/sort_order/);
 
@@ -271,6 +308,9 @@ describe('grammar content parsers', () => {
         description: 'Habits',
         sort_order: 1,
         published: true,
+        category_slug: 'core-tenses',
+        curriculum_version: 2,
+        is_optional: false,
       }),
     ).toThrow(/topic.id/);
 

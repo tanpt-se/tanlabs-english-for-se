@@ -1,31 +1,20 @@
 # Grammar seed templates (Supabase bootstrap)
 
-## Recommended flow
+## Current runtime (v2)
 
-1. **Author** starter packs in [`packs.json`](./packs.json) (repo template only).
-2. **Generate** SQL: `pnpm run grammar:seed:sql` → writes `supabase/migrations/008_grammar_seed.sql`.
-3. **Apply** to your Supabase project (non-prod first): migrations `008`–`012` via `pnpm run db:migrate` or `psql` (see `scripts/apply-migrations.sh`).
-4. **Run the app** against Supabase (do not set `GRAMMAR_FORCE_LOCAL_SEED` in `.env`). Rebuild native after env changes.
+Lean Grammar v2 is **4 categories / 12 topics / 3 lessons / ≤8 exercises**.
 
-## Pack shape (`packs.json`)
+1. **Author** in [`packs-v2.json`](./packs-v2.json) via `pnpm run grammar:v2:packs` (curriculum modules under `scripts/lib/grammar-v2-*.mjs`).
+2. **Audit:** `pnpm run grammar:audit` (v2). Historical v1: `pnpm run grammar:audit:v1`.
+3. **Generate SQL:** `pnpm run grammar:v2:seed:sql` → `supabase/migrations/016_grammar_v2_seed.sql`.
+4. **Apply** forward migrations `015`–`016` (do **not** edit `008_grammar_seed.sql`).
+5. Local preview: `GRAMMAR_FORCE_LOCAL_SEED=1` loads **`packs-v2.json`**, not `packs.json`.
 
-Topics are **shared per tense**. CEFR level lives on each **lesson**.
+v1 catalog rows stay in the database unpublished (`*-v1` slugs) so old progress/attempts remain. The app only reads published curriculum version 2. Timeline & Planning topics are optional and are not required for Continue Learning.
 
-| Field         | Notes                                                      |
-| ------------- | ---------------------------------------------------------- |
-| `slug`        | Grammar-family contract slug, e.g. `present-simple`        |
-| `lessons[]`   | `key`, **`level`**, **`title`**, **`description`**, forms… |
-| `exercises[]` | MC / fill_blank / sentence_order linked by `lessonKey`     |
+## Historical v1 (`packs.json` / `008`)
 
-Lesson keys are CEFR only (`a2`, `b1`, `b2`, `c1`). Title is a skill line (`A2 · Habits`). Description is When + cue. Every lesson has theory + **18** exercises. The generator expands `exampleSentences` into lesson `content` JSONB and assigns stable UUIDs.
-
-## Current starter
-
-**13 shared topics** × **4 lessons** (A2–C1) · **18 exercises / lesson** (**936** total).
-
-Ten PH2 core families plus PH2.1: Present Perfect Continuous, Verb Patterns, Connectors. A2 = form. B1 = pick the tense/pattern. B2 = register. C1 = incident. Higher levels are original items, not A2 clones. Accuracy + deny-list: [`AUTHORING.md`](./AUTHORING.md). Audit: `pnpm run grammar:audit`. Job-fit: `pnpm run grammar:audit:quality`. Scorecard: `pnpm run grammar:score`.
-
-Prefer editing live rows on Supabase for day-to-day content work so you do not wipe production edits with a blind regen.
+Frozen 13-topic × 4-lesson × 18-exercise template. Do **not** regenerate or hand-edit `008_grammar_seed.sql`. `pnpm run grammar:seed:sql` is kept only for that historical file.
 
 ## Related
 

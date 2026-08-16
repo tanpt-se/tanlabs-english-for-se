@@ -105,7 +105,11 @@ export function useGrammarContinueLearning() {
       lessonsByTopicId.set(topicId, rows);
     }
     return pickGlobalContinueLearning(
-      topics.map((topic) => ({ id: topic.id, sortOrder: topic.sortOrder })),
+      topics.map((topic) => ({
+        id: topic.id,
+        sortOrder: topic.sortOrder,
+        isOptional: topic.isOptional,
+      })),
       lessonsByTopicId,
       (progressQuery.data ?? []).map((row) => ({
         topicId: row.topicId,
@@ -132,10 +136,25 @@ export function useGrammarContinueLearning() {
     [topics],
   );
 
+  const lessonPosition = useMemo(() => {
+    if (!target) {
+      return null;
+    }
+    const lessons = (allLessonsQuery.data ?? [])
+      .filter((lesson) => lesson.topicId === target.topicId)
+      .sort((a, b) => a.sortOrder - b.sortOrder);
+    const index = lessons.findIndex((lesson) => lesson.id === target.lessonId);
+    return {
+      current: index >= 0 ? index + 1 : 1,
+      total: Math.max(lessons.length, 1),
+    };
+  }, [allLessonsQuery.data, target]);
+
   return {
     target,
     topicTitle: target ? topicTitleById.get(target.topicId) : undefined,
     lessonTitle: target ? lessonTitleById.get(target.lessonId) : undefined,
+    lessonPosition,
     isLoading: topicsQuery.isLoading || allLessonsQuery.isLoading,
     isReady: topicsQuery.isSuccess && allLessonsQuery.isSuccess,
   };

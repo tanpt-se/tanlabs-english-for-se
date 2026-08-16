@@ -4,10 +4,69 @@ export const EXERCISE_CONTENT_SCHEMA_VERSION = 1;
 
 export const GRAMMAR_COMPLETION_THRESHOLD = 70;
 
+export const GRAMMAR_CURRICULUM_VERSION = 2;
+
 export const GRAMMAR_LEVELS = ['A2', 'B1', 'B2', 'C1'] as const;
 export type GrammarLevel = (typeof GRAMMAR_LEVELS)[number];
 
+export const GRAMMAR_CATEGORY_SLUGS = [
+  'core-tenses',
+  'timeline-planning',
+  'sentence-structure',
+  'workplace-communication',
+] as const;
+export type GrammarCategorySlug = (typeof GRAMMAR_CATEGORY_SLUGS)[number];
+
+export const GRAMMAR_CATEGORY_TITLES: Record<GrammarCategorySlug, string> = {
+  'core-tenses': 'Core Tenses',
+  'timeline-planning': 'Timeline & Planning',
+  'sentence-structure': 'Sentence Structure',
+  'workplace-communication': 'Workplace Communication',
+};
+
+export const GRAMMAR_CATEGORY_BLURBS: Record<GrammarCategorySlug, string> = {
+  'core-tenses': 'Daily essentials',
+  'timeline-planning': 'Optional path',
+  'sentence-structure': 'Clear writing',
+  'workplace-communication': 'Requests and tone',
+};
+
 export const GRAMMAR_TOPIC_SLUGS = [
+  'present-simple',
+  'present-continuous',
+  'past-simple',
+  'past-continuous',
+  'present-perfect',
+  'future-forms',
+  'progress-earlier-past',
+  'future-milestones',
+  'clear-sentence-building',
+  'passive-relative',
+  'requests-questions-modals',
+  'conditions-reporting-tone',
+] as const;
+export type GrammarTopicSlug = (typeof GRAMMAR_TOPIC_SLUGS)[number];
+
+export const GRAMMAR_OPTIONAL_TOPIC_SLUGS = ['progress-earlier-past', 'future-milestones'] as const;
+export type GrammarOptionalTopicSlug = (typeof GRAMMAR_OPTIONAL_TOPIC_SLUGS)[number];
+
+export const GRAMMAR_TOPIC_CATEGORY: Record<GrammarTopicSlug, GrammarCategorySlug> = {
+  'present-simple': 'core-tenses',
+  'present-continuous': 'core-tenses',
+  'past-simple': 'core-tenses',
+  'past-continuous': 'core-tenses',
+  'present-perfect': 'core-tenses',
+  'future-forms': 'core-tenses',
+  'progress-earlier-past': 'timeline-planning',
+  'future-milestones': 'timeline-planning',
+  'clear-sentence-building': 'sentence-structure',
+  'passive-relative': 'sentence-structure',
+  'requests-questions-modals': 'workplace-communication',
+  'conditions-reporting-tone': 'workplace-communication',
+};
+
+/** Unpublished v1 slugs (progress/attempts may still reference those rows). */
+export const GRAMMAR_V1_TOPIC_SLUGS = [
   'present-simple',
   'present-continuous',
   'past-simple',
@@ -22,7 +81,6 @@ export const GRAMMAR_TOPIC_SLUGS = [
   'verb-patterns',
   'connectors',
 ] as const;
-export type GrammarTopicSlug = (typeof GRAMMAR_TOPIC_SLUGS)[number];
 
 /** @deprecated Use GRAMMAR_TOPIC_SLUGS — kept as alias for the topic slug list. */
 export const GRAMMAR_TENSE_SLUGS = GRAMMAR_TOPIC_SLUGS;
@@ -33,6 +91,9 @@ export type GrammarTopicDefinition = {
   title: string;
   description: string;
   sortOrder: number;
+  categorySlug: GrammarCategorySlug;
+  curriculumVersion: number;
+  isOptional: boolean;
 };
 
 export type LessonExample = {

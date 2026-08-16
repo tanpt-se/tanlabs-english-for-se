@@ -14,7 +14,10 @@ import {
   type PublishedLesson,
   type PublishedTopic,
 } from '@/features/grammar/services/parsers';
-import type { CompletedPracticeSession } from '@/features/grammar/types/content';
+import {
+  GRAMMAR_CURRICULUM_VERSION,
+  type CompletedPracticeSession,
+} from '@/features/grammar/types/content';
 import type { Json } from '@/types/database';
 
 async function noteInvalid(error: unknown, context: string): Promise<void> {
@@ -31,8 +34,11 @@ export async function getTopics(): Promise<PublishedTopic[]> {
   try {
     const { data, error } = await supabase
       .from('grammar_topics')
-      .select('id, slug, title, description, sort_order, published')
+      .select(
+        'id, slug, title, description, sort_order, published, category_slug, curriculum_version, is_optional',
+      )
       .eq('published', true)
+      .eq('curriculum_version', GRAMMAR_CURRICULUM_VERSION)
       .order('sort_order', { ascending: true });
 
     if (error) {
@@ -82,9 +88,12 @@ export async function getTopic(topicId: string): Promise<PublishedTopic> {
   try {
     const { data, error } = await supabase
       .from('grammar_topics')
-      .select('id, slug, title, description, sort_order, published')
+      .select(
+        'id, slug, title, description, sort_order, published, category_slug, curriculum_version, is_optional',
+      )
       .eq('id', topicId)
       .eq('published', true)
+      .eq('curriculum_version', GRAMMAR_CURRICULUM_VERSION)
       .maybeSingle();
 
     if (error) {

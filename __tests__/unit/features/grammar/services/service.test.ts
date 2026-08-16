@@ -41,6 +41,9 @@ const topicRow = {
   description: 'Habits',
   sort_order: 1,
   published: true,
+  category_slug: 'core-tenses',
+  curriculum_version: 2,
+  is_optional: false,
 };
 
 function lessonRow() {
@@ -91,23 +94,31 @@ const progressRow = {
 };
 
 function orderedQuery(result: { data: unknown; error: unknown }) {
+  const maybeSingle = async () => ({
+    data: Array.isArray(result.data) ? result.data[0] ?? null : result.data,
+    error: result.error,
+  });
+  const ordered = {
+    order: async () => result,
+    maybeSingle,
+    eq: () => ordered,
+  };
   return {
     select: () => ({
-      eq: () => ({
-        order: async () => result,
-        eq: () => ({
-          order: async () => result,
-          maybeSingle: async () => ({
-            data: Array.isArray(result.data) ? result.data[0] ?? null : result.data,
-            error: result.error,
-          }),
-        }),
-        maybeSingle: async () => ({
-          data: Array.isArray(result.data) ? result.data[0] ?? null : result.data,
-          error: result.error,
-        }),
-      }),
+      eq: () => ordered,
     }),
+  };
+}
+
+function eqChain(leaf: Record<string, unknown>) {
+  const node: Record<string, unknown> = {
+    ...leaf,
+    eq() {
+      return node;
+    },
+  };
+  return {
+    select: () => node,
   };
 }
 
@@ -160,15 +171,11 @@ describe('grammar contentService', () => {
   });
 
   it('maps missing topic to not_found and network errors to unavailable', async () => {
-    mockFrom.mockReturnValue({
-      select: () => ({
-        eq: () => ({
-          eq: () => ({
-            maybeSingle: async () => ({ data: null, error: null }),
-          }),
-        }),
+    mockFrom.mockReturnValue(
+      eqChain({
+        maybeSingle: async () => ({ data: null, error: null }),
       }),
-    });
+    );
     await expect(getTopic('missing')).rejects.toMatchObject({ code: 'not_found' });
 
     mockFrom.mockReturnValue(
@@ -183,15 +190,9 @@ describe('grammar contentService', () => {
   it('handles topic lesson-count head query success and failure', async () => {
     mockFrom.mockImplementation((table: string) => {
       if (table === 'grammar_topics') {
-        return {
-          select: () => ({
-            eq: () => ({
-              eq: () => ({
-                maybeSingle: async () => ({ data: topicRow, error: null }),
-              }),
-            }),
-          }),
-        };
+        return eqChain({
+          maybeSingle: async () => ({ data: topicRow, error: null }),
+        });
       }
       return {
         select: () => ({
@@ -206,15 +207,9 @@ describe('grammar contentService', () => {
 
     mockFrom.mockImplementation((table: string) => {
       if (table === 'grammar_topics') {
-        return {
-          select: () => ({
-            eq: () => ({
-              eq: () => ({
-                maybeSingle: async () => ({ data: topicRow, error: null }),
-              }),
-            }),
-          }),
-        };
+        return eqChain({
+          maybeSingle: async () => ({ data: topicRow, error: null }),
+        });
       }
       return {
         select: () => ({
@@ -357,15 +352,11 @@ describe('grammar contentService', () => {
     });
     await expect(getLesson('missing')).rejects.toMatchObject({ code: 'not_found' });
 
-    mockFrom.mockReturnValue({
-      select: () => ({
-        eq: () => ({
-          eq: () => ({
-            maybeSingle: async () => ({ data: topicRow, error: null }),
-          }),
-        }),
+    mockFrom.mockReturnValue(
+      eqChain({
+        maybeSingle: async () => ({ data: topicRow, error: null }),
       }),
-    });
+    );
     expect((await getTopic('t1')).slug).toBe('present-simple');
   });
 
@@ -543,15 +534,11 @@ describe('grammar contentService', () => {
   });
 
   it('covers getTopic query errors and attempt auth mismatches', async () => {
-    mockFrom.mockReturnValue({
-      select: () => ({
-        eq: () => ({
-          eq: () => ({
-            maybeSingle: async () => ({ data: null, error: { message: 'boom' } }),
-          }),
-        }),
+    mockFrom.mockReturnValue(
+      eqChain({
+        maybeSingle: async () => ({ data: null, error: { message: 'boom' } }),
       }),
-    });
+    );
     await expect(getTopic('t1')).rejects.toMatchObject({ code: 'unavailable' });
 
     mockFrom.mockReturnValue({

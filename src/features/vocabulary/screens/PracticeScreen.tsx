@@ -25,6 +25,8 @@ import { usePracticeSession } from '@/features/vocabulary/session';
 import {
   composeSituationSession,
   composeWeakSession,
+  CORE_SESSION_MIN,
+  CORE_SESSION_TARGET,
   formatCorrectAnswer,
   SESSION_TARGET,
   splitExercisePrompt,
@@ -95,12 +97,26 @@ export function PracticeScreen() {
     }
     const preferItemIds =
       knownIds === null
-        ? undefined
-        : pool
-            .filter((exercise) => exercise.itemId && !knownIds.has(exercise.itemId))
-            .map((exercise) => exercise.itemId as string);
-    return composeSituationSession(pool, { preferItemIds });
-  }, [exercisesQuery.data, isWeakMode, knownIds, stableWeakItemIds, weakExercisesQuery.data]);
+        ? situationQuery.data?.coreItemIds
+        : (situationQuery.data?.coreItemIds ?? []).filter((id) => !knownIds.has(id));
+    const coreIds = new Set(situationQuery.data?.coreItemIds ?? []);
+    const corePool =
+      coreIds.size > 0
+        ? pool.filter((exercise) => exercise.itemId && coreIds.has(exercise.itemId))
+        : pool;
+    return composeSituationSession(corePool, {
+      preferItemIds: preferItemIds?.length ? preferItemIds : situationQuery.data?.coreItemIds,
+      minExercises: CORE_SESSION_MIN,
+      targetTotal: CORE_SESSION_TARGET,
+    });
+  }, [
+    exercisesQuery.data,
+    isWeakMode,
+    knownIds,
+    situationQuery.data,
+    stableWeakItemIds,
+    weakExercisesQuery.data,
+  ]);
 
   useEffect(() => {
     // Wait for knownIds so preferItemIds is stable — otherwise startSession key

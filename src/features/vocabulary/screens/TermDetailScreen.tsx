@@ -9,16 +9,31 @@ import { BottomActionBar, TopAppHeader } from '@/components/ui/navigation';
 import { PosBadge } from '@/features/vocabulary/components';
 import { loadKnownItemIds, toggleItemKnown } from '@/features/vocabulary/data/knownItemsStore';
 import { vocabularyErrorMessage, useVocabularyTerm } from '@/features/vocabulary/hooks';
+import type { VocabularyCountability } from '@/features/vocabulary/types/catalog';
 import { getPosMeta } from '@/features/vocabulary/utils/pos';
+import { displayPronunciation } from '@/features/vocabulary/utils/pronunciation';
 import { themeTokens, useAppColors } from '@/theme';
 import type { AppColors } from '@/theme';
 
 import type { RouteProp } from '@react-navigation/native';
 import type { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
+function countabilityChip(value: VocabularyCountability | null | undefined): string | null {
+  if (value === 'countable') {
+    return '[ C ]';
+  }
+  if (value === 'uncountable') {
+    return '[ U ]';
+  }
+  if (value === 'both') {
+    return '[ C/U ]';
+  }
+  return null;
+}
+
 /**
- * Dictionary-style term detail inspired by Cambridge Essential entries:
- * headword, POS, CEFR level, definition, examples, patterns, alternatives.
+ * Dictionary-style term detail (Figma Vocabulary 03):
+ * POS, countability, pronunciation, examples, Mark as known.
  */
 export function TermDetailScreen() {
   const navigation = useNavigation<NativeStackNavigationProp<VocabularyStackParamList>>();
@@ -51,6 +66,8 @@ export function TermDetailScreen() {
   }, [term]);
 
   const posMeta = useMemo(() => (term ? getPosMeta(term.pos) : null), [term]);
+  const countability = term ? countabilityChip(term.countability) : null;
+  const pronunciation = term ? displayPronunciation(term.pronunciation) : null;
 
   if (termQuery.isLoading) {
     return (
@@ -110,16 +127,20 @@ export function TermDetailScreen() {
         <BottomActionBar
           label={known ? 'Marked known' : 'Mark as known'}
           testID="term-known-cta"
-          onPress={() => {
-            onToggleKnown().catch(() => undefined);
-          }}
+          onPress={() => onToggleKnown().catch(() => undefined)}
         />
       }
     >
+      <Text style={[styles.eyebrow, { color: colors.primary }]}>WORKPLACE ENGLISH</Text>
       <View style={styles.hero}>
         <Text style={[styles.headword, { color: colors.text }]}>{term.term}</Text>
         <View style={styles.metaRow}>
           <PosBadge pos={term.pos} size="md" />
+          {countability ? (
+            <View style={[styles.levelChip, { backgroundColor: colors.surfaceSecondary }]}>
+              <Text style={[styles.levelChipText, { color: colors.text }]}>{countability}</Text>
+            </View>
+          ) : null}
           <View style={[styles.levelChip, { backgroundColor: colors.surfaceSecondary }]}>
             <Text style={[styles.levelChipText, { color: colors.text }]}>{term.level}</Text>
           </View>
@@ -128,6 +149,11 @@ export function TermDetailScreen() {
             {term.situationId ? ` · ${term.situationId}` : ''}
           </Text>
         </View>
+        {pronunciation ? (
+          <Text style={[styles.pronunciation, { color: colors.textSecondary }]}>
+            {pronunciation}
+          </Text>
+        ) : null}
         <Text style={[styles.context, { color: colors.textSecondary }]}>
           {term.type} · {term.context}
         </Text>
@@ -240,6 +266,12 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     lineHeight: 22,
   },
+  eyebrow: {
+    fontSize: 11,
+    fontWeight: '600',
+    letterSpacing: 0.66,
+    lineHeight: 15,
+  },
   headword: {
     fontSize: 28,
     fontWeight: '700',
@@ -270,6 +302,12 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
     marginTop: 8,
+  },
+  pronunciation: {
+    fontSize: 15,
+    fontStyle: 'italic',
+    lineHeight: 21,
+    marginTop: 4,
   },
   retry: {
     fontSize: 15,

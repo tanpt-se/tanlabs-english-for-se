@@ -1,6 +1,8 @@
 import type { CefrLevel } from '@/features/vocabulary/utils/levels';
 import type { VocabularyPos } from '@/features/vocabulary/utils/pos';
 
+export type VocabularyCountability = 'countable' | 'uncountable' | 'both' | 'na';
+
 export type VocabularyExpression = {
   id: string;
   text: string;
@@ -10,6 +12,12 @@ export type VocabularyExpression = {
   level: CefrLevel;
   pos: VocabularyPos;
   context?: string;
+  isCore?: boolean;
+  coreOrder?: number | null;
+  situationSlug?: string;
+  situationTitle?: string;
+  pronunciation?: string | null;
+  countability?: VocabularyCountability | null;
 };
 
 export type VocabularyTermDetail = {
@@ -25,4 +33,6 @@ export type VocabularyTermDetail = {
   examples: Array<{ label: string; sentence: string }>;
   alternatives: string[];
   notes: string[];
+  pronunciation?: string | null;
+  countability?: VocabularyCountability | null;
 };

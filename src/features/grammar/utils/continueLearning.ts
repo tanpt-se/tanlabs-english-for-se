@@ -8,6 +8,7 @@ export type ContinueLearningProgressRow = {
 export type ContinueLearningTopic = {
   id: string;
   sortOrder: number;
+  isOptional?: boolean;
 };
 
 export type ContinueLearningLesson = {
@@ -80,6 +81,19 @@ export function pickContinueLessonForTopic(
 }
 
 export function pickGlobalContinueLearning(
+  topics: ReadonlyArray<ContinueLearningTopic>,
+  lessonsByTopicId: ReadonlyMap<string, ReadonlyArray<ContinueLearningLesson>>,
+  progress: ReadonlyArray<ContinueLearningProgressRow>,
+): ContinueLearningTarget | null {
+  const required = topics.filter((topic) => topic.isOptional !== true);
+  const optional = topics.filter((topic) => topic.isOptional === true);
+  return (
+    pickContinueFromTopics(required, lessonsByTopicId, progress) ??
+    pickContinueFromTopics(optional, lessonsByTopicId, progress)
+  );
+}
+
+function pickContinueFromTopics(
   topics: ReadonlyArray<ContinueLearningTopic>,
   lessonsByTopicId: ReadonlyMap<string, ReadonlyArray<ContinueLearningLesson>>,
   progress: ReadonlyArray<ContinueLearningProgressRow>,

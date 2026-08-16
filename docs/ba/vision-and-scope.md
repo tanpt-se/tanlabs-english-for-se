@@ -23,7 +23,7 @@ Engineers often know technical English passively but struggle to use tense and s
 | Phase   | Business intent                                                                         | System status                                                                                                |
 | ------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
 | PH1     | Accounts, profile, secure backend, remote flags, notifications lifecycle, quality gates | **Delivered** (foundation baseline)                                                                          |
-| PH2     | Grammar learn → practise → save progress loop (13 topics incl. PH2.1)                   | **Delivered (code + seed template)** — production exposure gated by `feature_grammar`                        |
+| PH2     | Grammar learn → practise → save progress loop (12 lean topics in 4 categories)          | **Delivered (code + v2 seed)** — production exposure gated by `feature_grammar`                              |
 | PH3     | Vocabulary / Expressions (situation-first; **2000–3000** unique IT terms)               | **VERIFIED** (2026-08-13) — SHA `ef80ae0`; CI + Maestro iOS/Android green; `feature_vocabulary` prod **OFF** |
 | PH4–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                                                                   |
 
@@ -51,36 +51,48 @@ Choose topic → Learn rule → See IT examples → Practice
 → Deterministic feedback → Save progress → Continue later
 ```
 
-Topics (ten workplace families for PH2 core; CEFR on lessons):
+Topics (lean v2 — 4 categories, 3 lessons each, no sequential lock):
+
+**Core Tenses (required)**
 
 1. Present Simple
 2. Present Continuous
 3. Past Simple
-4. Present Perfect
-5. Future Forms (`will`, `be going to`)
-6. Modals (`can`, `could`, `should`, `must`, `might`)
-7. Conditionals (0/1 + `unless`)
-8. Passives
-9. Articles (`a` / `the` / ∅)
-10. Reported Speech
+4. Past Continuous
+5. Present Perfect
+6. Future Forms (`will`, `be going to`)
 
-### PH2.1 — Grammar expansions (seeded in packs template)
+**Timeline & Planning (optional)**
 
-Additional families for workplace transfer (same lesson shape A2–C1 × 18):
+7. Progress & Earlier Past
+8. Future Milestones
 
-11. Present Perfect Continuous (`have been + V-ing` — open investigations)
-12. Verb Patterns (`need to` / `avoid -ing` / `keep -ing`)
-13. Connectors (`because` / `so` / `however` / `which means`)
+**Sentence Structure**
 
-Content volume (core + PH2.1 template): **13 topics** × **4 lessons** × **18 exercises**. Exercise types unchanged. Completion threshold: **70%**.
+9. Clear Sentence Building
+10. Passive & Relative
+
+**Workplace Communication**
+
+11. Requests, Questions & Modals
+12. Conditions, Reporting & Tone
+
+Content volume (lean v2): **12 topics** in **4 categories** × **3 lessons** × **≤8 exercises**. Timeline & Planning is optional. Completion threshold: **70%** (does not lock other topics). Historical v1 (13×4×18) stays unpublished.
+
+### PH3 — Vocabulary (delivered in code; prod flag OFF)
+
+- **5 workplace situations**, each with **10 core expressions** (50 total)
+- Situation practice uses **5–8** questions from the core list only
+- Reference **Library** (~2000–3000 terms) with search / situation / CEFR filters; cores rank first
+- Term detail: POS, countability (words only), respelling pronunciation (not invented IPA)
 
 ## Explicitly out of scope (near term)
 
 - AI correction, generative content, chat tutors
 - Speech / STT / TTS / listening exams
-- Vocabulary and Interview **product loops** (PH3 Vocabulary is VERIFIED with prod flag OFF; Interview remains later)
+- Vocabulary and Interview **product loops** in production until flags are on (PH3 Vocabulary is VERIFIED with prod flag OFF; Interview remains later)
 - Full CEFR curriculum, spaced repetition, XP/coins/leaderboards
-- Further grammar families beyond the thirteen seeded topics (e.g. phrasal verbs as a dedicated grammar track, relative clauses as a full topic)
+- Further grammar families beyond the twelve lean topics (advanced tenses live in optional Timeline & Planning)
 - High-security exam anti-cheat
 - A generic cross-feature “learning platform” framework before a second feature proves reuse
 - Store///Ops deep automation as a product requirement (platform concern)

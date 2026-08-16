@@ -1,6 +1,9 @@
 import { VOCABULARY_FORCE_LOCAL_SEED } from '@/app/config/env';
 import { supabase } from '@/core/supabase/client';
-import { VOCABULARY_REMOTE_PAGE_SIZE } from '@/features/vocabulary/data/catalogConstants';
+import {
+  VOCABULARY_LIBRARY_PAGE_SIZE,
+  VOCABULARY_REMOTE_PAGE_SIZE,
+} from '@/features/vocabulary/data/catalogConstants';
 import { loadLocalPackCatalog } from '@/features/vocabulary/data/localSeedLoader';
 import { loadWeakProgress, updateWeakProgress } from '@/features/vocabulary/data/weakProgressStore';
 import {
@@ -29,11 +32,13 @@ export type VocabularySituationSummary = {
   description: string;
   total: number;
   itemIds: string[];
+  coreItemIds: string[];
 };
 
 export type VocabularySituationItems = {
   situation: VocabularySituationSummary;
   items: VocabularyExpression[];
+  coreItems: VocabularyExpression[];
   shown: number;
   total: number;
   capped: boolean;
@@ -44,6 +49,13 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 
 function looksLikeUuid(value: string): boolean {
   return UUID_RE.test(value);
+}
+
+function sanitizeIlikeFragment(value: string): string {
+  return value
+    .replace(/[%_,()]/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 async function fetchAllRows<T>(
@@ -86,6 +98,7 @@ export async function getSituations(): Promise<VocabularySituationSummary[]> {
       itemIds: local
         .getLocalExpressions(situation.id, Number.MAX_SAFE_INTEGER)
         .map((item) => item.id),
+      coreItemIds: local.getLocalCoreItemIds(situation.id),
     }));
   }
   try {
@@ -96,19 +109,26 @@ export async function getSituations(): Promise<VocabularySituationSummary[]> {
       .order('sort_order', { ascending: true });
     if (error) throw error;
     const rows = data ?? [];
-    const itemRows = await fetchAllRows<{ id: string; situation_id: string }>((from, to) =>
-      supabase
-        .from('vocabulary_items')
-        .select('id, situation_id')
-        .eq('published', true)
-        .order('id', { ascending: true })
-        .range(from, to),
+    const itemRows = await fetchAllRows<{ id: string; situation_id: string; is_core: boolean }>(
+      (from, to) =>
+        supabase
+          .from('vocabulary_items')
+          .select('id, situation_id, is_core')
+          .eq('published', true)
+          .order('id', { ascending: true })
+          .range(from, to),
     );
     const idsBySituation = new Map<string, string[]>();
+    const coreIdsBySituation = new Map<string, string[]>();
     for (const item of itemRows ?? []) {
       const list = idsBySituation.get(item.situation_id) ?? [];
       list.push(item.id);
       idsBySituation.set(item.situation_id, list);
+      if (item.is_core) {
+        const core = coreIdsBySituation.get(item.situation_id) ?? [];
+        core.push(item.id);
+        coreIdsBySituation.set(item.situation_id, core);
+      }
     }
     return rows.map((row) => {
       const itemIds = idsBySituation.get(row.id) ?? [];
@@ -119,6 +139,7 @@ export async function getSituations(): Promise<VocabularySituationSummary[]> {
         description: row.description,
         total: itemIds.length,
         itemIds,
+        coreItemIds: coreIdsBySituation.get(row.id) ?? [],
       };
     });
   } catch (error) {
@@ -142,6 +163,7 @@ export async function getSituation(
       itemIds: local
         .getLocalExpressions(situation.id, Number.MAX_SAFE_INTEGER)
         .map((item) => item.id),
+      coreItemIds: local.getLocalCoreItemIds(situation.id),
     };
   }
   try {
@@ -155,12 +177,13 @@ export async function getSituation(
     const { data, error } = await query.maybeSingle();
     if (error) throw error;
     if (!data) return null;
-    const itemRows = await fetchAllRows<{ id: string }>((from, to) =>
+    const itemRows = await fetchAllRows<{ id: string; is_core: boolean }>((from, to) =>
       supabase
         .from('vocabulary_items')
-        .select('id')
+        .select('id, is_core')
         .eq('situation_id', data.id)
         .eq('published', true)
+        .order('core_order', { ascending: true, nullsFirst: false })
         .order('id', { ascending: true })
         .range(from, to),
     );
@@ -171,6 +194,7 @@ export async function getSituation(
       description: data.description,
       total: itemRows.length,
       itemIds: itemRows.map((row) => row.id),
+      coreItemIds: itemRows.filter((row) => row.is_core).map((row) => row.id),
     };
   } catch (error) {
     throw toVocabularyDomainError(error);
@@ -218,11 +242,13 @@ export async function getSituationItems(
       return null;
     }
     const local = await loadLocalPackCatalog();
-    const items = local.getLocalExpressions(situation.slug);
+    const items = local.getLocalExpressions(situation.slug, Number.MAX_SAFE_INTEGER);
+    const coreItems = local.getLocalCoreExpressions(situation.slug);
     const total = local.getLocalExpressionTotal(situation.slug);
     return {
       situation: { ...situation, total },
       items,
+      coreItems,
       shown: items.length,
       total,
       capped: total > items.length,
@@ -245,12 +271,20 @@ export async function getSituationItems(
       pos: string | null;
       content: unknown;
       sort_order: number;
+      is_core: boolean;
+      core_order: number | null;
+      pronunciation: string | null;
+      countability: string | null;
     }>((from, to) =>
       supabase
         .from('vocabulary_items')
-        .select('id, item_key, type, term, meaning, context, level, pos, content, sort_order')
+        .select(
+          'id, item_key, type, term, meaning, context, level, pos, content, sort_order, is_core, core_order, pronunciation, countability',
+        )
         .eq('situation_id', situation.id)
         .eq('published', true)
+        .order('is_core', { ascending: false })
+        .order('core_order', { ascending: true, nullsFirst: false })
         .order('sort_order', { ascending: true })
         .range(from, to),
     );
@@ -265,8 +299,15 @@ export async function getSituationItems(
         level: row.level,
         pos: row.pos,
         content: row.content,
+        is_core: row.is_core,
+        core_order: row.core_order,
+        pronunciation: row.pronunciation,
+        countability: row.countability,
       }),
     );
+    const coreItems = items
+      .filter((item) => item.isCore)
+      .sort((a, b) => (a.coreOrder ?? 99) - (b.coreOrder ?? 99));
     const levelTotals = data.reduce<Partial<Record<CefrLevel, number>>>((totals, row) => {
       const level = normalizeCefrLevel(row.level);
       totals[level] = (totals[level] ?? 0) + 1;
@@ -275,6 +316,7 @@ export async function getSituationItems(
     return {
       situation,
       items,
+      coreItems,
       shown: items.length,
       total: situation.total,
       capped: situation.total > items.length,
@@ -302,7 +344,9 @@ export async function getVocabularyTerm(
     const itemKey = itemId.includes(':') ? itemId.slice(itemId.indexOf(':') + 1) : itemId;
     let query = supabase
       .from('vocabulary_items')
-      .select('id, item_key, type, term, meaning, context, level, pos, content')
+      .select(
+        'id, item_key, type, term, meaning, context, level, pos, content, pronunciation, countability, is_core, core_order',
+      )
       .eq('situation_id', situation.id)
       .eq('published', true);
     query = itemLooksLikeUuid ? query.eq('id', itemId) : query.eq('item_key', itemKey);
@@ -321,7 +365,108 @@ export async function getVocabularyTerm(
       level: data.level,
       pos: data.pos,
       content: data.content,
+      pronunciation: (data as { pronunciation?: string | null }).pronunciation ?? null,
+      countability: (data as { countability?: string | null }).countability ?? null,
+      is_core: (data as { is_core?: boolean }).is_core,
+      core_order: (data as { core_order?: number | null }).core_order ?? null,
     });
+  } catch (error) {
+    throw toVocabularyDomainError(error);
+  }
+}
+
+export { VOCABULARY_LIBRARY_PAGE_SIZE } from '@/features/vocabulary/data/catalogConstants';
+
+export type VocabularyLibraryQuery = {
+  query?: string;
+  situationSlug?: string;
+  level?: CefrLevel | 'all';
+  offset?: number;
+  limit?: number;
+};
+
+export type VocabularyLibraryPage = {
+  items: VocabularyExpression[];
+  total: number;
+  offset: number;
+  limit: number;
+};
+
+export async function searchVocabularyLibrary(
+  input: VocabularyLibraryQuery = {},
+): Promise<VocabularyLibraryPage> {
+  const offset = Math.max(0, input.offset ?? 0);
+  const limit = Math.max(1, Math.min(100, input.limit ?? VOCABULARY_LIBRARY_PAGE_SIZE));
+  const query = (input.query ?? '').trim();
+  const situationSlug =
+    input.situationSlug && input.situationSlug !== 'all' ? input.situationSlug : undefined;
+  const level = input.level && input.level !== 'all' ? input.level : undefined;
+
+  if (VOCABULARY_FORCE_LOCAL_SEED) {
+    const local = await loadLocalPackCatalog();
+    const page = local.searchLocalLibrary({
+      query,
+      situationSlug,
+      level,
+      offset,
+      limit,
+    });
+    return { ...page, offset, limit };
+  }
+
+  try {
+    let situationId: string | undefined;
+    if (situationSlug) {
+      const situation = await getSituation(situationSlug);
+      if (!situation) {
+        return { items: [], total: 0, offset, limit };
+      }
+      situationId = situation.id;
+    }
+
+    let request = supabase
+      .from('vocabulary_items')
+      .select(
+        'id, item_key, type, term, meaning, context, level, pos, content, is_core, core_order, pronunciation, countability, sort_order, vocabulary_situations!inner(slug, title)',
+        { count: 'exact' },
+      )
+      .eq('published', true)
+      .order('is_core', { ascending: false })
+      .order('library_rank', { ascending: true })
+      .order('core_order', { ascending: true, nullsFirst: false })
+      .order('sort_order', { ascending: true })
+      .range(offset, offset + limit - 1);
+    if (situationId) {
+      request = request.eq('situation_id', situationId);
+    }
+    if (query) {
+      const fragment = sanitizeIlikeFragment(query);
+      if (fragment) {
+        request = request.or(`term.ilike.%${fragment}%,meaning.ilike.%${fragment}%`);
+      }
+    }
+    if (level) {
+      request = request.eq('level', level);
+    }
+    const { data, error, count } = await request;
+    if (error) throw error;
+    const items = (data ?? []).map((row) => {
+      const nested = (
+        row as {
+          vocabulary_situations?:
+            | { slug?: string; title?: string }
+            | Array<{ slug?: string; title?: string }>;
+        }
+      ).vocabulary_situations;
+      const situation = Array.isArray(nested) ? nested[0] : nested;
+      const mapped = mapCatalogExpression(row as never);
+      return {
+        ...mapped,
+        situationSlug: situation?.slug,
+        situationTitle: situation?.title,
+      };
+    });
+    return { items, total: count ?? items.length, offset, limit };
   } catch (error) {
     throw toVocabularyDomainError(error);
   }

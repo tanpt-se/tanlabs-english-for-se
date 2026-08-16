@@ -3,7 +3,7 @@ import { resolve } from 'node:path';
 
 describe('grammar packs authoring audit', () => {
   it('passes the fail-closed packs audit', () => {
-    const result = spawnSync('node', [resolve(process.cwd(), 'scripts/audit-grammar-packs.mjs')], {
+    const result = spawnSync('node', [resolve(process.cwd(), 'scripts/audit-grammar-v2.mjs')], {
       encoding: 'utf8',
       cwd: process.cwd(),
     });
@@ -25,6 +25,22 @@ describe('grammar packs authoring audit', () => {
     );
     if (result.status !== 0) {
       throw new Error(result.stderr || result.stdout || `quality audit exited ${result.status}`);
+    }
+    expect(result.status).toBe(0);
+    expect(result.stdout).toMatch(/^OK /);
+  });
+
+  it('passes the vocabulary core audit', () => {
+    const result = spawnSync(
+      'node',
+      [resolve(process.cwd(), 'scripts/audit-vocabulary-core.mjs')],
+      {
+        encoding: 'utf8',
+        cwd: process.cwd(),
+      },
+    );
+    if (result.status !== 0) {
+      throw new Error(result.stderr || result.stdout || `core audit exited ${result.status}`);
     }
     expect(result.status).toBe(0);
     expect(result.stdout).toMatch(/^OK /);

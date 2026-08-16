@@ -4,18 +4,22 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { GrammarStackParamList, MainTabParamList } from '@/app/navigation/types';
 import { BrandLoading } from '@/components/ui/feedback';
-import { LearningScreen, ProgressBanner } from '@/components/ui/learning';
+import { LearningScreen, PathStatusCard, ProgressBanner } from '@/components/ui/learning';
 import { TopAppHeader } from '@/components/ui/navigation';
 import { trackEvent } from '@/core/analytics/events';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
-import { GrammarTopicRow } from '@/features/grammar/components/GrammarTopicRow';
 import {
   grammarErrorMessage,
-  useGrammarContinueLearning,
   useGrammarProgress,
   useGrammarTopics,
 } from '@/features/grammar/hooks';
-import { countCompletedGrammarTopics } from '@/features/grammar/utils';
+import { GRAMMAR_CATEGORY_TITLES } from '@/features/grammar/types/content';
+import {
+  categoryLearningStatus,
+  formatCategorySubtitle,
+  groupTopicsByCategory,
+  GRAMMAR_LESSONS_PER_TOPIC,
+} from '@/features/grammar/utils';
 import { themeTokens, useAppColors } from '@/theme';
 
 import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
@@ -34,7 +38,6 @@ export function GrammarHomeScreen() {
   const grammarEnabled = flags.data?.grammar === true;
   const topicsQuery = useGrammarTopics();
   const progressQuery = useGrammarProgress();
-  const continueLearning = useGrammarContinueLearning();
   const openedTracked = useRef(false);
 
   useEffect(() => {
@@ -48,22 +51,31 @@ export function GrammarHomeScreen() {
     }
   }, [grammarEnabled, navigation]);
 
-  const completedTopicCount = useMemo(() => {
-    const topics = topicsQuery.data ?? [];
-    const progress = progressQuery.data ?? [];
-    const lessonsPerTopicById = new Map(topics.map((topic) => [topic.id, topic.lessonCount]));
-    return countCompletedGrammarTopics(
-      topics.map((topic) => topic.id),
-      progress,
-      lessonsPerTopicById,
-    );
-  }, [topicsQuery.data, progressQuery.data]);
+  const groups = useMemo(() => groupTopicsByCategory(topicsQuery.data ?? []), [topicsQuery.data]);
+
+  const overall = useMemo(
+    () =>
+      categoryLearningStatus(
+        (topicsQuery.data ?? []).map((topic) => ({
+          id: topic.id,
+          lessonCount: topic.lessonCount,
+        })),
+        progressQuery.data ?? [],
+      ),
+    [topicsQuery.data, progressQuery.data],
+  );
 
   if (!grammarEnabled) {
     return null;
   }
 
   const topicTotal = topicsQuery.data?.length ?? 0;
+  const pathCount = groups.length;
+  const lessonsEach =
+    topicsQuery.data?.reduce(
+      (min, topic) => Math.min(min, topic.lessonCount || GRAMMAR_LESSONS_PER_TOPIC),
+      GRAMMAR_LESSONS_PER_TOPIC,
+    ) ?? GRAMMAR_LESSONS_PER_TOPIC;
   const errorMessage = grammarErrorMessage(
     topicsQuery.error,
     'Couldn’t load topics. Check your connection and try again.',
@@ -71,10 +83,6 @@ export function GrammarHomeScreen() {
 
   return (
     <LearningScreen testID="grammar-home" header={<TopAppHeader title="Grammar" />}>
-      <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-        Master tenses through use
-      </Text>
-
       {topicsQuery.isLoading ? <BrandLoading fill size="md" testID="grammar-home-loading" /> : null}
 
       {topicsQuery.isError ? (
@@ -96,40 +104,16 @@ export function GrammarHomeScreen() {
 
       {topicsQuery.isSuccess ? (
         <ProgressBanner
-          title={`${completedTopicCount} of ${topicTotal} topics completed`}
-          subtitle="Five tenses · A2 to C1"
-          progress={topicTotal === 0 ? 0 : completedTopicCount / topicTotal}
-        />
-      ) : null}
-
-      {continueLearning.isReady && continueLearning.target ? (
-        <Pressable
-          accessibilityLabel="Continue learning"
-          accessibilityRole="button"
-          testID="grammar-home-continue"
-          onPress={() =>
-            navigation.navigate('GrammarLesson', {
-              topicId: continueLearning.target!.topicId,
-              lessonId: continueLearning.target!.lessonId,
-            })
+          title={`${overall.completed} of ${topicTotal} topics completed`}
+          subtitle={
+            pathCount > 0
+              ? `${pathCount} learning path${
+                  pathCount === 1 ? '' : 's'
+                } · ${lessonsEach} lessons each`
+              : `${lessonsEach} lessons each`
           }
-          style={({ pressed }) => [
-            styles.continueCard,
-            {
-              backgroundColor: colors.primarySoft,
-              borderColor: colors.primary,
-              opacity: pressed ? 0.92 : 1,
-            },
-          ]}
-        >
-          <Text style={[styles.continueEyebrow, { color: colors.primary }]}>Continue learning</Text>
-          <Text style={[styles.continueTitle, { color: colors.text }]}>
-            {continueLearning.topicTitle ?? 'Grammar topic'}
-          </Text>
-          <Text style={[styles.continueMeta, { color: colors.textSecondary }]}>
-            {continueLearning.lessonTitle ?? 'Next lesson'}
-          </Text>
-        </Pressable>
+          progress={overall.ratio}
+        />
       ) : null}
 
       {topicsQuery.isSuccess && topicsQuery.data.length === 0 ? (
@@ -138,48 +122,38 @@ export function GrammarHomeScreen() {
         </Text>
       ) : null}
 
-      {topicsQuery.data && topicsQuery.data.length > 0 ? (
-        <>
-          <Text style={[styles.section, { color: colors.text }]}>Grammar topics</Text>
-          <View style={styles.list}>
-            {topicsQuery.data.map((topic) => (
-              <GrammarTopicRow
-                key={topic.id}
-                topic={topic}
-                onPress={() => navigation.navigate('GrammarTopic', { topicId: topic.id })}
+      {groups.length > 0 ? (
+        <View style={styles.list}>
+          <Text style={[styles.section, { color: colors.text }]}>Grammar categories</Text>
+          {groups.map((group) => {
+            const learning = categoryLearningStatus(
+              group.topics.map((topic) => ({ id: topic.id, lessonCount: topic.lessonCount })),
+              progressQuery.data ?? [],
+            );
+            return (
+              <PathStatusCard
+                key={group.slug}
+                title={GRAMMAR_CATEGORY_TITLES[group.slug]}
+                status={learning.status}
+                subtitle={formatCategorySubtitle(
+                  group.slug,
+                  learning.status,
+                  learning.completed,
+                  learning.total,
+                )}
+                progress={learning.ratio}
+                testID={`grammar-category-${group.slug}`}
+                onPress={() => navigation.navigate('GrammarCategory', { categorySlug: group.slug })}
               />
-            ))}
-          </View>
-        </>
+            );
+          })}
+        </View>
       ) : null}
     </LearningScreen>
   );
 }
 
 const styles = StyleSheet.create({
-  continueCard: {
-    borderRadius: themeTokens.radius.lg,
-    borderWidth: 1,
-    gap: themeTokens.spacing.xs,
-    paddingHorizontal: themeTokens.spacing['18'],
-    paddingVertical: themeTokens.spacing['14'],
-  },
-  continueEyebrow: {
-    fontSize: 12,
-    fontWeight: '600',
-    letterSpacing: 0.4,
-    lineHeight: 16,
-    textTransform: 'uppercase',
-  },
-  continueMeta: {
-    fontSize: 14,
-    lineHeight: 20,
-  },
-  continueTitle: {
-    fontSize: 17,
-    fontWeight: '600',
-    lineHeight: 23,
-  },
   list: {
     gap: themeTokens.spacing['14'],
   },
@@ -191,7 +165,7 @@ const styles = StyleSheet.create({
   },
   section: {
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
     lineHeight: 22,
   },
   stateBlock: {
@@ -200,9 +174,5 @@ const styles = StyleSheet.create({
   stateText: {
     fontSize: 14,
     lineHeight: 20,
-  },
-  subtitle: {
-    fontSize: 15,
-    lineHeight: 21,
   },
 });

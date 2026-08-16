@@ -57,6 +57,7 @@ describe('grammarLocalSeedCatalog hydration paths', () => {
     );
 
     const progress = await mod.listLocalProgress();
+    expect(storage.getItem).toHaveBeenCalledWith('@tanlabs/grammar_local_progress_v2');
     expect(progress).toHaveLength(1);
     expect(progress[0]?.lessonId).toBe(lesson.id);
   });

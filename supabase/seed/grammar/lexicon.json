@@ -18,7 +18,8 @@
     "Alert",
     "Deploy",
     "QA",
-    "Policy"
+    "Policy",
+    "Client"
   ],
   "tokens": [
     "standup",

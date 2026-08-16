@@ -1,12 +1,15 @@
 import { GrammarDomainError } from '@/features/grammar/services/errors';
 import {
   EXERCISE_CONTENT_SCHEMA_VERSION,
+  GRAMMAR_CATEGORY_SLUGS,
   GRAMMAR_COMPLETION_THRESHOLD,
-  GRAMMAR_LEVELS,
+  GRAMMAR_CURRICULUM_VERSION,
+  GRAMMAR_OPTIONAL_TOPIC_SLUGS,
   LESSON_CONTENT_SCHEMA_VERSION,
   type CompletedPracticeSession,
   type FillBlankAnswer,
   type FillBlankPayload,
+  type GrammarCategorySlug,
   type GrammarExercise,
   type GrammarExerciseType,
   type GrammarLevel,
@@ -31,6 +34,9 @@ export type PublishedTopic = {
   description: string;
   sortOrder: number;
   lessonCount: number;
+  categorySlug: GrammarCategorySlug;
+  curriculumVersion: number;
+  isOptional: boolean;
 };
 
 export type PublishedLesson = {
@@ -92,6 +98,19 @@ export function parsePublishedTopic(row: Record<string, unknown>): PublishedTopi
   if (row.published !== true) {
     throw new GrammarDomainError('invalid_content', 'Unpublished topic');
   }
+  const categorySlug = requireString(row.category_slug, 'topic.category_slug');
+  if (!(GRAMMAR_CATEGORY_SLUGS as readonly string[]).includes(categorySlug)) {
+    throw new GrammarDomainError('invalid_content', 'Unsupported category slug');
+  }
+  const curriculumVersion = requireInt(row.curriculum_version, 'topic.curriculum_version');
+  if (curriculumVersion !== GRAMMAR_CURRICULUM_VERSION) {
+    throw new GrammarDomainError('invalid_content', 'Unsupported curriculum version');
+  }
+  const isOptional = row.is_optional === true;
+  const optionalExpected = (GRAMMAR_OPTIONAL_TOPIC_SLUGS as readonly string[]).includes(slug);
+  if (isOptional !== optionalExpected) {
+    throw new GrammarDomainError('invalid_content', 'Optional flag mismatch');
+  }
   return {
     id: requireString(row.id, 'topic.id'),
     slug,
@@ -103,7 +122,10 @@ export function parsePublishedTopic(row: Record<string, unknown>): PublishedTopi
       Number.isInteger(row.lesson_count) &&
       row.lesson_count > 0
         ? row.lesson_count
-        : GRAMMAR_LEVELS.length,
+        : 3,
+    categorySlug: categorySlug as GrammarCategorySlug,
+    curriculumVersion,
+    isOptional,
   };
 }
 

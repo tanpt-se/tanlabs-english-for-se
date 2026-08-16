@@ -8,6 +8,7 @@ import { LearningScreen } from '@/components/ui/learning';
 import { BottomActionBar, TopAppHeader } from '@/components/ui/navigation';
 import { trackEvent } from '@/core/analytics/events';
 import { grammarErrorMessage, useGrammarLesson, useGrammarTopic } from '@/features/grammar/hooks';
+import { lessonGoalText } from '@/features/grammar/utils';
 import { themeTokens, useAppColors } from '@/theme';
 
 import type { RouteProp } from '@react-navigation/native';
@@ -22,10 +23,7 @@ export function GrammarLessonScreen() {
   const lessonQuery = useGrammarLesson(lessonId);
   const lesson = lessonQuery.data;
   const startedTracked = useRef(false);
-  const headerTitle =
-    topicQuery.data && lesson
-      ? `${topicQuery.data.title} · ${lesson.title}`
-      : topicQuery.data?.title ?? 'Lesson';
+  const headerTitle = lesson?.title ?? topicQuery.data?.title ?? 'Lesson';
 
   useEffect(() => {
     if (!lesson || !topicQuery.data || startedTracked.current) {
@@ -76,28 +74,27 @@ export function GrammarLessonScreen() {
 
       {lesson ? (
         <>
-          <Text style={[styles.section, { color: colors.text }]}>When</Text>
+          <Text style={[styles.section, { color: colors.text }]}>Goal</Text>
           <Text style={[styles.intro, { color: colors.textSecondary }]}>
-            {lesson.content.usage}
+            {lessonGoalText(lesson.content.usage)}
           </Text>
 
+          <Text style={[styles.section, { color: colors.text }]}>Formula</Text>
           <View style={[styles.formula, { backgroundColor: colors.primarySoft }]}>
-            <Text style={[styles.formulaText, { color: colors.text }]}>
-              {lesson.content.forms.affirmative}
-            </Text>
-            {lesson.content.forms.negative ? (
-              <Text style={[styles.formulaText, { color: colors.text }]}>
-                {lesson.content.forms.negative}
-              </Text>
-            ) : null}
-            {lesson.content.forms.question ? (
-              <Text style={[styles.formulaText, { color: colors.text }]}>
-                {lesson.content.forms.question}
-              </Text>
-            ) : null}
+            {[
+              lesson.content.forms.affirmative,
+              lesson.content.forms.negative,
+              lesson.content.forms.question,
+            ]
+              .filter(Boolean)
+              .map((line) => (
+                <Text key={line} style={[styles.formulaText, { color: colors.text }]}>
+                  {line}
+                </Text>
+              ))}
           </View>
 
-          <Text style={[styles.section, { color: colors.text }]}>Examples</Text>
+          <Text style={[styles.section, { color: colors.text }]}>Examples at work</Text>
           {lesson.content.examples.map((example) => (
             <View key={example.id} style={styles.exampleRow}>
               <View style={[styles.bullet, { backgroundColor: colors.primary }]} />
@@ -112,7 +109,7 @@ export function GrammarLessonScreen() {
                 { backgroundColor: colors.surface, borderColor: colors.borderSubtle },
               ]}
             >
-              <Text style={[styles.noteLabel, { color: colors.primary }]}>Don't</Text>
+              <Text style={[styles.noteLabel, { color: colors.primary }]}>Common mistake</Text>
               <Text style={[styles.noteBody, { color: colors.textSecondary }]}>
                 {lesson.content.tips[0]}
               </Text>

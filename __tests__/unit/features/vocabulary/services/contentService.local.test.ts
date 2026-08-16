@@ -105,6 +105,36 @@ jest.mock('@/features/vocabulary/data/localPackCatalog', () => ({
         ]
       : [],
   ),
+  getLocalCoreExpressions: jest.fn((slug: string) =>
+    slug === 'task-progress'
+      ? [
+          {
+            id: 'task-progress:blocker',
+            text: 'blocker',
+            tag: 'expression · A2',
+            level: 'A2',
+            pos: 'expr',
+          },
+        ]
+      : [],
+  ),
+  getLocalCoreItemIds: jest.fn((slug: string) =>
+    slug === 'task-progress' ? ['task-progress:blocker'] : [],
+  ),
+  searchLocalLibrary: jest.fn(() => ({
+    items: [
+      {
+        id: 'task-progress:blocker',
+        text: 'blocker',
+        tag: 'expression · A2',
+        level: 'A2',
+        pos: 'expr',
+        situationSlug: 'task-progress',
+        situationTitle: 'Task & Progress',
+      },
+    ],
+    total: 1,
+  })),
 }));
 
 jest.mock('@/features/vocabulary/data/localSeedLoader', () => ({
@@ -141,6 +171,7 @@ import {
   getSituations,
   getVocabularyTerm,
   getWeakProgress,
+  searchVocabularyLibrary,
 } from '@/features/vocabulary/services/contentService';
 
 describe('vocabulary contentService (local seed)', () => {
@@ -207,5 +238,11 @@ describe('vocabulary contentService (local seed)', () => {
     ]);
     expect(exercises).toHaveLength(1);
     expect(exercises[0]?.itemId).toBe('task-progress:blocker');
+  });
+
+  it('searches the local library', async () => {
+    const page = await searchVocabularyLibrary({ query: 'block' });
+    expect(page.total).toBe(1);
+    expect(page.items[0]?.text).toBe('blocker');
   });
 });

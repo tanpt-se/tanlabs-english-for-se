@@ -5,7 +5,13 @@ import ReactTestRenderer, { act } from 'react-test-renderer';
 import { AppIcon } from '@/components/ui/brand';
 import { ConfirmModal } from '@/components/ui/feedback';
 import { FieldTextInput } from '@/components/ui/input';
-import { Feedback, LearningScreen, ProgressBanner } from '@/components/ui/learning';
+import {
+  Feedback,
+  LearningScreen,
+  NumberedLearningRow,
+  PathStatusCard,
+  ProgressBanner,
+} from '@/components/ui/learning';
 import { AnswerOption, AppSwitch } from '@/components/ui/selection';
 import { HomeFeatureRow, StreakCard } from '@/features/home/components';
 import { ProfileSection, ProfileSummaryCard } from '@/features/profile/components';
@@ -192,6 +198,49 @@ describe('PH1/PH3 coverage boost', () => {
             description="Escalate early"
             progress="0 / 8"
             progressRatio={0}
+            onPress={() => undefined}
+          />
+          <SituationCard
+            title="Done"
+            description="All cores"
+            progress="10 / 10"
+            progressRatio={1}
+          />
+          <SituationCard
+            title="Mid"
+            description="Halfway"
+            progress="5 / 10"
+            progressRatio={0.5}
+            onPress={() => undefined}
+          />
+          <PathStatusCard title="Idle" status="not_started" subtitle="Ready" progress={0} />
+          <PathStatusCard
+            title="Active"
+            status="in_progress"
+            subtitle="Keep going"
+            progress={0.4}
+            onPress={() => undefined}
+          />
+          <PathStatusCard title="Done" status="completed" subtitle="Finished" progress={1} />
+          <NumberedLearningRow
+            index={1}
+            title="Known"
+            subtitle="Done"
+            tone="completed"
+            onPress={() => undefined}
+          />
+          <NumberedLearningRow
+            index={2}
+            title="Next"
+            subtitle="Continue"
+            tone="active"
+            onPress={() => undefined}
+          />
+          <NumberedLearningRow
+            index={3}
+            title="Later"
+            subtitle="Upcoming"
+            tone="upcoming"
             onPress={() => undefined}
           />
           <ProgressBanner title="Progress" subtitle="Dark banner" progress={0} />

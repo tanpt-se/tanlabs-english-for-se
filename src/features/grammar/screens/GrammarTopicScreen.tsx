@@ -4,7 +4,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { GrammarStackParamList } from '@/app/navigation/types';
 import { BrandLoading } from '@/components/ui/feedback';
-import { LearningScreen } from '@/components/ui/learning';
+import { LearningScreen, ProgressBanner } from '@/components/ui/learning';
 import { BottomActionBar, TopAppHeader } from '@/components/ui/navigation';
 import { trackEvent } from '@/core/analytics/events';
 import { GrammarLessonRow } from '@/features/grammar/components';
@@ -48,23 +48,26 @@ export function GrammarTopicScreen() {
   const hasStarted = topicProgress.some(
     (row) => row.status === 'in_progress' || row.status === 'completed',
   );
-  const allCompleted = lessons.length > 0 && completedCount === lessons.length;
   const progressRatio = hasStarted
     ? topicBestScoreProgressRatio(
         lessons.map((lesson) => lesson.id),
         topicProgress,
       )
     : 0;
-  const continueLesson =
-    pickContinueLessonForTopic(
-      lessons.map((lesson) => ({ id: lesson.id, sortOrder: lesson.sortOrder })),
-      topicProgress.map((row) => ({
-        lessonId: row.lessonId,
-        status: row.status,
-        lastActivityAt: row.lastActivityAt,
-      })),
-    ) ?? lessons[0];
-  const actionLabel = hasStarted && !allCompleted ? 'Continue' : 'Start';
+  const continueTarget = pickContinueLessonForTopic(
+    lessons.map((lesson) => ({ id: lesson.id, sortOrder: lesson.sortOrder })),
+    topicProgress.map((row) => ({
+      lessonId: row.lessonId,
+      status: row.status,
+      lastActivityAt: row.lastActivityAt,
+    })),
+  );
+  const continueLesson = continueTarget
+    ? lessons.find((lesson) => lesson.id === continueTarget.id)
+    : undefined;
+  const actionLabel = continueLesson
+    ? `${hasStarted ? 'Continue' : 'Start'}: ${continueLesson.title}`
+    : null;
 
   const onRetry = () => {
     topicQuery.refetch().catch(() => undefined);
@@ -87,7 +90,7 @@ export function GrammarTopicScreen() {
         />
       }
       footer={
-        continueLesson ? (
+        continueLesson && actionLabel ? (
           <BottomActionBar
             label={actionLabel}
             testID="grammar-topic-continue"
@@ -118,30 +121,26 @@ export function GrammarTopicScreen() {
       ) : null}
 
       {lessonsQuery.isSuccess && lessons.length > 0 ? (
-        <View style={[styles.progressCard, { backgroundColor: colors.primarySoft }]}>
-          <Text style={[styles.progressTitle, { color: colors.text }]}>
-            {`${Math.round(progressRatio * 100)}% complete`}
-          </Text>
-          <Text style={[styles.progressMeta, { color: colors.textSecondary }]}>
-            {hasStarted
-              ? `${completedCount} of ${lessons.length} lessons passed (≥70%)`
-              : `0% · Lesson 1 of ${lessons.length}`}
-          </Text>
-        </View>
+        <ProgressBanner
+          title={`${Math.round(progressRatio * 100)}% complete`}
+          subtitle={`${completedCount} of ${lessons.length} lessons completed`}
+          progress={progressRatio}
+        />
       ) : null}
 
       {lessonsQuery.isSuccess && lessons.length === 0 ? (
         <Text style={[styles.body, { color: colors.textMuted }]}>No published lessons yet.</Text>
       ) : null}
 
+      {lessonsQuery.isSuccess && lessons.length > 0 ? (
+        <Text style={[styles.section, { color: colors.text }]}>Lessons</Text>
+      ) : null}
+
       {lessons.map((lesson, index) => {
         const progress = progressQuery.data?.find((row) => row.lessonId === lesson.id);
         const completed = progress?.status === 'completed';
         const bestScorePercent = Math.round(lessonBestScoreRatio(progress) * 100);
-        const active =
-          !completed &&
-          (continueLesson?.id === lesson.id ||
-            (progress?.status === 'in_progress' && continueLesson?.id === lesson.id));
+        const active = !completed && continueLesson?.id === lesson.id;
 
         return (
           <GrammarLessonRow
@@ -164,25 +163,16 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
-  progressCard: {
-    borderRadius: themeTokens.radius.lg,
-    gap: themeTokens.spacing.sm,
-    padding: themeTokens.spacing['18'],
-  },
-  progressMeta: {
-    fontSize: 13,
-    lineHeight: 18,
-  },
-  progressTitle: {
-    fontSize: 17,
-    fontWeight: '600',
-    lineHeight: 23,
-  },
   retry: {
     fontSize: 15,
     fontWeight: '600',
     minHeight: 44,
     paddingVertical: 12,
+  },
+  section: {
+    fontSize: 16,
+    fontWeight: '700',
+    lineHeight: 22,
   },
   stateBlock: {
     gap: themeTokens.spacing.sm,

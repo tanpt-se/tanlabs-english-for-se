@@ -149,6 +149,8 @@ describe('Vocabulary PracticeScreen', () => {
         title: 'Task & Progress',
         description: 'x',
         total: 10,
+        coreItemIds: Array.from({ length: 8 }, (_, index) => `task-progress:extra-${index}`),
+        itemIds: Array.from({ length: 8 }, (_, index) => `task-progress:extra-${index}`),
       },
       error: null,
       refetch: jest.fn(async () => undefined),
@@ -263,6 +265,51 @@ describe('Vocabulary PracticeScreen', () => {
         .findAllByType(Text)
         .some((node) => String(node.props.children).includes('enough published')),
     ).toBe(true);
+
+    const { loadKnownItemIds } = jest.requireMock('@/features/vocabulary/data/knownItemsStore') as {
+      loadKnownItemIds: jest.Mock;
+    };
+    loadKnownItemIds.mockResolvedValue(new Set(['task-progress:blocker']));
+    hooks.useVocabularySituation.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      data: {
+        id: 'task-progress',
+        slug: 'task-progress',
+        title: 'Task & Progress',
+        description: 'x',
+        total: 10,
+        coreItemIds: ['task-progress:blocker'],
+      },
+      error: null,
+      refetch: jest.fn(async () => undefined),
+    });
+    hooks.useVocabularyExercises.mockReturnValue({
+      isLoading: false,
+      isError: false,
+      isSuccess: true,
+      data: FIXTURE_EXERCISES.concat(
+        Array.from({ length: 8 }, (_, index) => ({
+          ...FIXTURE_CHOOSE,
+          id: `core-fallback-${index}`,
+          itemId: `task-progress:extra-${index}`,
+        })),
+      ),
+      refetch: jest.fn(),
+    });
+    startSession.mockClear();
+    await act(async () => {
+      root.update(<PracticeScreen />);
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('enough published')),
+    ).toBe(true);
+    expect(startSession).not.toHaveBeenCalled();
   });
 
   it('handles primary check/continue, skip, header back, and leave modal', async () => {

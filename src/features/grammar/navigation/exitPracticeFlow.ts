@@ -32,16 +32,22 @@ export function exitGrammarPracticeFlow(navigation: NestedNavigation, target: Ex
     routes = [{ name: 'GrammarHome' }];
   } else if (target.name === 'GrammarTopic') {
     const home = kept.find((route) => route.name === 'GrammarHome') ?? { name: 'GrammarHome' };
-    routes = [home, { name: 'GrammarTopic', params: target.params }];
+    const category = kept.find((route) => route.name === 'GrammarCategory');
+    routes = category
+      ? [home, category, { name: 'GrammarTopic', params: target.params }]
+      : [home, { name: 'GrammarTopic', params: target.params }];
   } else {
     const home = kept.find((route) => route.name === 'GrammarHome') ?? { name: 'GrammarHome' };
+    const category = kept.find((route) => route.name === 'GrammarCategory');
     const topic =
       kept.find((route) => route.name === 'GrammarTopic') ??
       ({
         name: 'GrammarTopic',
         params: { topicId: target.params.topicId },
       } as const);
-    routes = [home, topic, { name: 'GrammarLesson', params: target.params }];
+    routes = category
+      ? [home, category, topic, { name: 'GrammarLesson', params: target.params }]
+      : [home, topic, { name: 'GrammarLesson', params: target.params }];
   }
 
   parent.dispatch(

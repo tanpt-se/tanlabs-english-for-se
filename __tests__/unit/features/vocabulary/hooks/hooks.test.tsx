@@ -6,6 +6,7 @@ import { useVocabularyProgress } from '@/features/vocabulary/hooks/useVocabulary
 import {
   useCompleteVocabularyAttempt,
   useVocabularyExercises,
+  useVocabularyLibrary,
   useVocabularyResultSession,
   useVocabularySituation,
   useVocabularySituations,
@@ -28,6 +29,15 @@ jest.mock('@/features/vocabulary/services', () => ({
       description: 'Status',
       total: 10,
       itemIds: ['task-progress:blocker'],
+      coreItemIds: ['task-progress:blocker', 'task-progress:ship'],
+    },
+    {
+      id: 'empty',
+      slug: 'empty',
+      title: 'Empty',
+      description: '',
+      total: 0,
+      itemIds: [],
     },
   ]),
   getSituation: jest.fn(async () => null),
@@ -36,6 +46,7 @@ jest.mock('@/features/vocabulary/services', () => ({
   getVocabularyTerm: jest.fn(async () => null),
   getExercisesForItemIds: jest.fn(async () => []),
   getWeakProgress: jest.fn(async () => []),
+  searchVocabularyLibrary: jest.fn(async () => ({ items: [], total: 0, offset: 0, limit: 40 })),
 }));
 
 jest.mock('@/features/vocabulary/data/knownItemsStore', () => ({
@@ -80,6 +91,7 @@ describe('vocabulary hooks', () => {
     let progress!: ReturnType<typeof useVocabularyProgress>;
     let items!: ReturnType<typeof useVocabularySituationItems>;
     let term!: ReturnType<typeof useVocabularyTerm>;
+    let library!: ReturnType<typeof useVocabularyLibrary>;
 
     function Probe() {
       situations = useVocabularySituations();
@@ -92,6 +104,24 @@ describe('vocabulary hooks', () => {
       progress = useVocabularyProgress();
       items = useVocabularySituationItems('task-progress');
       term = useVocabularyTerm('task-progress', 'task-progress:blocker');
+      library = useVocabularyLibrary({
+        query: '',
+        situationSlug: 'all',
+        level: 'all',
+        offset: 0,
+      });
+      useVocabularySituation(undefined);
+      useVocabularyExercises(undefined);
+      useVocabularySituationItems(undefined);
+      useVocabularyTerm(undefined, undefined);
+      useVocabularyLibrary({
+        query: 'block',
+        situationSlug: 'task-progress',
+        level: 'A2',
+        offset: 40,
+      });
+      useVocabularyResultSession(undefined);
+      useVocabularyWeakExercises([]);
       return null;
     }
 
@@ -109,7 +139,11 @@ describe('vocabulary hooks', () => {
     expect(result.session).toBeNull();
     expect(typeof complete.mutate).toBe('function');
     expect(progress.situations.length).toBeGreaterThan(0);
+    expect(progress.libraryKnown).toBe(1);
+    expect(progress.libraryTotal).toBe(1);
     expect(items).toBeTruthy();
     expect(term).toBeTruthy();
+    expect(library).toBeTruthy();
+    expect(progress.continueTarget?.id).toBe('task-progress:ship');
   });
 });

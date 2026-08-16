@@ -218,9 +218,12 @@ export type Database = {
       };
       grammar_topics: {
         Row: {
+          category_slug: string;
           created_at: string;
+          curriculum_version: number;
           description: string;
           id: string;
+          is_optional: boolean;
           published: boolean;
           slug: string;
           sort_order: number;
@@ -228,9 +231,12 @@ export type Database = {
           updated_at: string;
         };
         Insert: {
+          category_slug?: string;
           created_at?: string;
+          curriculum_version?: number;
           description: string;
           id?: string;
+          is_optional?: boolean;
           published?: boolean;
           slug: string;
           sort_order: number;
@@ -238,9 +244,12 @@ export type Database = {
           updated_at?: string;
         };
         Update: {
+          category_slug?: string;
           created_at?: string;
+          curriculum_version?: number;
           description?: string;
           id?: string;
+          is_optional?: boolean;
           published?: boolean;
           slug?: string;
           sort_order?: number;
@@ -417,12 +426,17 @@ export type Database = {
           content_revision: number;
           content_schema_version: number;
           context: string;
+          core_order: number | null;
+          countability: string | null;
           created_at: string;
           id: string;
+          is_core: boolean;
           item_key: string;
           level: string;
+          library_rank: number;
           meaning: string;
           pos: string | null;
+          pronunciation: string | null;
           published: boolean;
           situation_id: string;
           sort_order: number;
@@ -435,12 +449,17 @@ export type Database = {
           content_revision: number;
           content_schema_version: number;
           context: string;
+          core_order?: number | null;
+          countability?: string | null;
           created_at?: string;
           id?: string;
+          is_core?: boolean;
           item_key: string;
           level: string;
+          library_rank?: number;
           meaning: string;
           pos?: string | null;
+          pronunciation?: string | null;
           published?: boolean;
           situation_id: string;
           sort_order: number;
@@ -453,12 +472,17 @@ export type Database = {
           content_revision?: number;
           content_schema_version?: number;
           context?: string;
+          core_order?: number | null;
+          countability?: string | null;
           created_at?: string;
           id?: string;
+          is_core?: boolean;
           item_key?: string;
           level?: string;
+          library_rank?: number;
           meaning?: string;
           pos?: string | null;
+          pronunciation?: string | null;
           published?: boolean;
           situation_id?: string;
           sort_order?: number;

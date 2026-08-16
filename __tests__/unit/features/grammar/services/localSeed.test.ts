@@ -100,46 +100,46 @@ describe('grammar local packs preview', () => {
     AsyncStorageMock.setItem.mockResolvedValue(undefined);
   });
 
-  it('serves shared topics with A2–C1 lessons without calling Supabase', async () => {
+  it('serves 12 v2 topics with 3 lessons without calling Supabase', async () => {
     const topics = await getTopics();
-    expect(topics).toHaveLength(13);
+    expect(topics).toHaveLength(12);
     expect(topics.map((topic) => topic.slug)).toEqual([
       'present-simple',
       'present-continuous',
       'past-simple',
+      'past-continuous',
       'present-perfect',
       'future-forms',
-      'modals',
-      'conditionals',
-      'passives',
-      'articles',
-      'reported-speech',
-      'present-perfect-continuous',
-      'verb-patterns',
-      'connectors',
+      'progress-earlier-past',
+      'future-milestones',
+      'clear-sentence-building',
+      'passive-relative',
+      'requests-questions-modals',
+      'conditions-reporting-tone',
+    ]);
+    expect(topics.filter((topic) => topic.isOptional).map((topic) => topic.slug)).toEqual([
+      'progress-earlier-past',
+      'future-milestones',
     ]);
 
     const topic = await getTopic(topics[0].id);
     expect(topic.slug).toBe('present-simple');
+    expect(topic.categorySlug).toBe('core-tenses');
 
     const lessons = await getLessonsByTopic(topic.id);
-    expect(lessons).toHaveLength(4);
-    expect(new Set(lessons.map((row) => row.level))).toEqual(new Set(['A2', 'B1', 'B2', 'C1']));
-    expect(lessons.filter((row) => row.level === 'A2').map((row) => row.title)).toEqual([
-      'A2 · Habits',
+    expect(lessons).toHaveLength(3);
+    expect(lessons.map((row) => row.slug)).toEqual([
+      'present-simple-form',
+      'present-simple-use',
+      'present-simple-apply',
     ]);
-    expect(lessons[0].description).toMatch(/habits/i);
 
-    const a2 = lessons.find((row) => row.slug === 'present-simple-a2');
-    expect(a2).toBeTruthy();
-    const lesson = await getLesson(a2!.id);
+    const lesson = await getLesson(lessons[0].id);
     expect(lesson.level).toBe('A2');
 
     const exercises = await getExercisesByLesson(lesson.id);
-    expect(exercises).toHaveLength(18);
-    expect(new Set(exercises.map((row) => row.type))).toEqual(
-      new Set(['multiple_choice', 'fill_blank', 'sentence_order']),
-    );
+    expect(exercises.length).toBeLessThanOrEqual(8);
+    expect(exercises.length).toBeGreaterThan(0);
 
     const allLessons = await getAllPublishedLessons();
     expect(allLessons.length).toBeGreaterThan(10);

@@ -60,8 +60,27 @@ const SITUATION_ITEMS = {
     description: 'Status talk',
     total: 2,
     itemIds: ['task-progress:tp-2', 'task-progress:ship'],
+    coreItemIds: ['task-progress:tp-2', 'task-progress:ship'],
   },
   items: [
+    {
+      id: 'task-progress:tp-2',
+      text: 'blocker',
+      tag: 'A2',
+      level: 'A2',
+      pos: 'expr',
+      needsPractice: true,
+    },
+    {
+      id: 'task-progress:ship',
+      text: 'ship',
+      tag: 'B1',
+      level: 'B1',
+      pos: 'v',
+      needsPractice: false,
+    },
+  ],
+  coreItems: [
     {
       id: 'task-progress:tp-2',
       text: 'blocker',
@@ -101,6 +120,8 @@ const TERM_DETAIL = {
   ],
   alternatives: ['stuck'],
   notes: ['Use in standup'],
+  pronunciation: 'BLOK-er',
+  countability: 'na' as const,
 };
 
 jest.mock('@/features/vocabulary/hooks/useVocabularyQueries', () => {
@@ -153,6 +174,10 @@ jest.mock('@/features/vocabulary/hooks/useVocabularyProgress', () => ({
     ready: true,
     isError: false,
     refresh: jest.fn(async () => undefined),
+    continueTarget: null,
+    libraryTotal: 2500,
+    libraryKnown: 1,
+    libraryRatio: 0.0004,
   })),
 }));
 
@@ -197,7 +222,7 @@ describe('vocabulary detail/home branch coverage', () => {
     });
   });
 
-  it('filters, collapses levels, navigates, and toggles known', async () => {
+  it('lists numbered cores, browse-all, practice, and term navigation', async () => {
     let root!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
       root = ReactTestRenderer.create(<SituationDetailScreen />);
@@ -205,34 +230,16 @@ describe('vocabulary detail/home branch coverage', () => {
       await Promise.resolve();
     });
 
-    const filter = root.root.findByProps({ testID: 'vocabulary-filter' });
-    await act(() => {
-      filter.props.onChange('known');
-    });
-    await act(() => {
-      filter.props.onChange('learning');
-    });
-    await act(() => {
-      filter.props.onChange('all');
-    });
+    expect(root.root.findByProps({ testID: 'vocabulary-browse-all' })).toBeTruthy();
+    expect(root.root.findByProps({ testID: 'vocabulary-situation-continue' })).toBeTruthy();
 
-    await act(() => {
-      root.root.findByProps({ testID: 'level-section-A2' }).props.onPress();
-    });
-    await act(() => {
-      root.root.findByProps({ testID: 'level-section-A2' }).props.onPress();
-    });
-
-    const knownToggle = root.root.findAll(
-      (node) =>
-        typeof node.props?.testID === 'string' && node.props.testID.startsWith('known-toggle-'),
-    )[0];
-    expect(knownToggle).toBeTruthy();
-    toggleItemKnown.mockResolvedValueOnce(false);
-    await act(() => {
-      knownToggle!.props.onPress();
-    });
-    expect(toggleItemKnown).toHaveBeenCalled();
+    const browse = root.root.findByProps({ testID: 'vocabulary-browse-all' });
+    expect(browse.props.style({ pressed: true })).toEqual(
+      expect.arrayContaining([expect.objectContaining({ opacity: 0.85 })]),
+    );
+    expect(browse.props.style({ pressed: false })).toEqual(
+      expect.arrayContaining([expect.objectContaining({ opacity: 1 })]),
+    );
 
     await act(() => {
       const row = root.root.find(
@@ -257,12 +264,43 @@ describe('vocabulary detail/home branch coverage', () => {
     );
 
     await act(() => {
+      root.root.findByProps({ testID: 'vocabulary-situation-continue' }).props.onPress();
+    });
+    expect(mockNavigate).toHaveBeenCalledWith(
+      'VocabularyTerm',
+      expect.objectContaining({
+        situationId: 'task-progress',
+        itemId: expect.any(String),
+      }),
+    );
+
+    await act(() => {
       root.root.findByProps({ showBack: true }).props.onBackPress();
     });
     expect(mockGoBack).toHaveBeenCalled();
   });
 
-  it('shows empty known filter, capped meta, and situation fallbacks', async () => {
+  it('uses practice as the situation footer when every core is known', async () => {
+    loadKnownItemIds.mockResolvedValue(new Set(['task-progress:tp-2', 'task-progress:ship']));
+
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      root = ReactTestRenderer.create(<SituationDetailScreen />);
+      await Promise.resolve();
+      await Promise.resolve();
+    });
+
+    expect(root.root.findAllByProps({ testID: 'vocabulary-situation-continue' })).toHaveLength(0);
+    await act(() => {
+      root.root.findByProps({ testID: 'practice-cta' }).props.onPress();
+    });
+    expect(mockNavigate).toHaveBeenCalledWith(
+      'VocabularyPracticeFlow',
+      expect.objectContaining({ screen: 'VocabularyPractice' }),
+    );
+  });
+
+  it('shows situation fallbacks when catalog meta is missing', async () => {
     loadKnownItemIds.mockResolvedValue(new Set());
     useVocabularySituationItems.mockReturnValue({
       data: {
@@ -299,19 +337,7 @@ describe('vocabulary detail/home branch coverage', () => {
         .findAllByType(Text)
         .some((node) => String(node.props.children).includes('Situation')),
     ).toBe(true);
-
-    await act(() => {
-      root.root.findByProps({ testID: 'vocabulary-filter' }).props.onChange('known');
-    });
-    expect(
-      root.root
-        .findAllByType(Text)
-        .some((node) => String(node.props.children).includes('No known terms yet')),
-    ).toBe(true);
-
-    await act(() => {
-      root.root.findByProps({ testID: 'vocabulary-filter' }).props.onChange('learning');
-    });
+    expect(root.root.findByProps({ testID: 'vocabulary-browse-all' })).toBeTruthy();
   });
 
   it('toggles known on term detail and covers sparse/missing term branches', async () => {
@@ -322,8 +348,8 @@ describe('vocabulary detail/home branch coverage', () => {
       await Promise.resolve();
     });
     expect(root.root.findByProps({ testID: 'vocabulary-term' })).toBeTruthy();
-    await act(() => {
-      root.root.findByProps({ testID: 'term-known-cta' }).props.onPress();
+    await act(async () => {
+      await root.root.findByProps({ testID: 'term-known-cta' }).props.onPress();
     });
     expect(toggleItemKnown).toHaveBeenCalled();
     expect(root.root.findByProps({ testID: 'term-known-cta' }).props.label).toMatch(
@@ -344,6 +370,8 @@ describe('vocabulary detail/home branch coverage', () => {
         examples: [],
         alternatives: [],
         notes: [],
+        pronunciation: '/ree-kap/',
+        countability: 'countable',
       },
       isLoading: false,
       isError: false,
@@ -374,11 +402,47 @@ describe('vocabulary detail/home branch coverage', () => {
   });
 
   it('opens weak items from home and retries empty state', async () => {
+    useVocabularyProgress.mockReturnValue({
+      situations: [
+        {
+          id: 'task-progress',
+          slug: 'task-progress',
+          title: 'Task & Progress',
+          description: 'x',
+          learned: 1,
+          total: 10,
+          progressLabel: '1 / 10',
+          progressRatio: 0.1,
+        },
+      ],
+      totalKnown: 1,
+      totalTerms: 10,
+      overallLabel: '1 / 10',
+      overallRatio: 0.1,
+      ready: true,
+      isError: false,
+      refresh: jest.fn(async () => undefined),
+      continueTarget: {
+        id: 'task-progress:ship',
+        situationId: 'task-progress',
+        title: 'Task & Progress',
+        coreOrder: 2,
+        situationSortOrder: 1,
+      },
+      libraryTotal: 2500,
+      libraryKnown: 1,
+      libraryRatio: 0.0004,
+    });
     let root!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
       root = ReactTestRenderer.create(<VocabularyHomeScreen />);
       await Promise.resolve();
     });
+    const libraryCta = root.root.findByProps({ testID: 'vocabulary-open-library' });
+    await act(() => {
+      libraryCta.props.onPress();
+    });
+    expect(mockNavigate).toHaveBeenCalledWith('VocabularyLibrary', {});
     await act(() => {
       root.root.findByProps({ testID: 'vocabulary-open-weak' }).props.onPress();
     });
@@ -394,6 +458,8 @@ describe('vocabulary detail/home branch coverage', () => {
       ready: true,
       isError: false,
       refresh,
+      continueTarget: null,
+      libraryTotal: 0,
     });
     await act(() => {
       root.update(<VocabularyHomeScreen />);
@@ -500,5 +566,22 @@ describe('vocabulary detail/home branch coverage', () => {
     });
     expect(refresh).toHaveBeenCalled();
     expect(refetchWeak).toHaveBeenCalled();
+
+    useVocabularyProgress.mockReturnValue({
+      situations: [],
+      totalKnown: 0,
+      totalTerms: 0,
+      overallLabel: '0 / 0',
+      overallRatio: 0,
+      ready: false,
+      isError: false,
+      refresh,
+      continueTarget: null,
+      libraryTotal: 0,
+    });
+    await act(() => {
+      homeRoot.update(<VocabularyHomeScreen />);
+    });
+    expect(homeRoot.root.findByProps({ testID: 'vocabulary-home-loading' })).toBeTruthy();
   });
 });

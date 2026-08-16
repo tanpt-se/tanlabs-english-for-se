@@ -1,5 +1,9 @@
 import {
   EXERCISE_CONTENT_SCHEMA_VERSION,
+  GRAMMAR_CATEGORY_SLUGS,
+  GRAMMAR_CURRICULUM_VERSION,
+  GRAMMAR_OPTIONAL_TOPIC_SLUGS,
+  GRAMMAR_TOPIC_CATEGORY,
   GRAMMAR_TOPIC_SLUGS,
   LESSON_CONTENT_SCHEMA_VERSION,
   type FillBlankExercise,
@@ -193,6 +197,19 @@ export function validateTopicDefinition(topic: GrammarTopicDefinition): Validati
   }
   if (!Number.isInteger(topic.sortOrder) || topic.sortOrder < 1) {
     return { ok: false, error: 'Invalid topic sort order' };
+  }
+  if (!(GRAMMAR_CATEGORY_SLUGS as readonly string[]).includes(topic.categorySlug)) {
+    return { ok: false, error: 'Unknown category slug' };
+  }
+  if (GRAMMAR_TOPIC_CATEGORY[topic.slug] !== topic.categorySlug) {
+    return { ok: false, error: 'Topic category mismatch' };
+  }
+  if (topic.curriculumVersion !== GRAMMAR_CURRICULUM_VERSION) {
+    return { ok: false, error: 'Unsupported curriculum version' };
+  }
+  const optional = (GRAMMAR_OPTIONAL_TOPIC_SLUGS as readonly string[]).includes(topic.slug);
+  if (topic.isOptional !== optional) {
+    return { ok: false, error: 'Optional flag mismatch' };
   }
   return { ok: true };
 }

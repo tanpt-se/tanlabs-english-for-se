@@ -37,6 +37,11 @@ for f in \
   supabase/migrations/012_grammar_score_validation.sql \
   supabase/migrations/013_vocabulary_schema.sql \
   supabase/migrations/014_vocabulary_seed.sql \
+  supabase/migrations/015_grammar_curriculum_v2.sql \
+  supabase/migrations/016_grammar_v2_seed.sql \
+  supabase/migrations/017_vocabulary_core.sql \
+  supabase/migrations/018_vocabulary_core_seed.sql \
+  supabase/migrations/019_vocabulary_library_quality.sql \
   supabase/seed.sql
 do
   echo "→ $f"

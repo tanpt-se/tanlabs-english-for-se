@@ -26,9 +26,17 @@ export {
 export type { ContinueLearningTarget } from '@/features/grammar/utils/continueLearning';
 export {
   countCompletedGrammarTopics,
+  countCompletedLessonsForTopic,
+  categoryLearningStatus,
   GRAMMAR_LESSONS_PER_TOPIC,
   isTopicFullyCompleted,
   lessonBestScoreRatio,
+  pickFirstIncompleteTopic,
   progressStatusFromScore,
   topicBestScoreProgressRatio,
 } from '@/features/grammar/utils/topicProgress';
+export {
+  formatCategorySubtitle,
+  groupTopicsByCategory,
+} from '@/features/grammar/utils/groupTopics';
+export { lessonGoalText } from '@/features/grammar/utils/lessonGoal';

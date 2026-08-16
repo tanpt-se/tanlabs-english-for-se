@@ -15,6 +15,7 @@ import {
   getSituations,
   getVocabularyTerm,
   getWeakProgress,
+  searchVocabularyLibrary,
 } from '@/features/vocabulary/services';
 import { usePracticeSession } from '@/features/vocabulary/session';
 import { loadCompletedSession } from '@/features/vocabulary/session/completedSessionCache';
@@ -52,6 +53,26 @@ export function useVocabularySituationItems(situationId: string | undefined) {
     queryKey: vocabularyKeys.situationItems(situationId ?? ''),
     enabled: Boolean(situationId),
     queryFn: () => getSituationItems(situationId as string),
+    staleTime: CONTENT_STALE_MS,
+  });
+}
+
+export function useVocabularyLibrary(input: {
+  query: string;
+  situationSlug: string;
+  level: string;
+  offset: number;
+}) {
+  const queryKey = `${input.query}|${input.situationSlug}|${input.level}|${input.offset}`;
+  return useQuery({
+    queryKey: vocabularyKeys.library(queryKey),
+    queryFn: () =>
+      searchVocabularyLibrary({
+        query: input.query,
+        situationSlug: input.situationSlug === 'all' ? undefined : input.situationSlug,
+        level: input.level === 'all' ? undefined : (input.level as 'A2' | 'B1' | 'B2' | 'C1'),
+        offset: input.offset,
+      }),
     staleTime: CONTENT_STALE_MS,
   });
 }

@@ -9,8 +9,11 @@ type HomeFeatureRowProps = {
   accessibilityLabel?: string;
   icon: AppIconName;
   onPress?: () => void;
+  /** 0..1 fill for the path progress bar. */
+  progress?: number;
   statusLabel: string;
-  subtitle: string;
+  /** @deprecated Figma V2 path rows no longer show a subtitle. Kept for callers. */
+  subtitle?: string;
   testID?: string;
   title: string;
   tone?: HomeFeatureTone;
@@ -20,20 +23,16 @@ export function HomeFeatureRow({
   accessibilityLabel,
   icon,
   onPress,
+  progress = 0,
   statusLabel,
-  subtitle,
   testID,
   title,
   tone = 'available',
 }: HomeFeatureRowProps) {
   const colors = useAppColors();
-  const soft =
-    tone === 'progress'
-      ? colors.successSoft
-      : tone === 'comingSoon'
-      ? colors.surfaceSecondary
-      : colors.primarySoft;
   const disabled = !onPress;
+  const ratio = Number.isFinite(progress) ? Math.max(0, Math.min(1, progress)) : 0;
+  const fillWidth = ratio === 0 ? 0 : `${Math.max(ratio * 100, 4)}%`;
 
   return (
     <Pressable
@@ -46,27 +45,41 @@ export function HomeFeatureRow({
         styles.row,
         {
           backgroundColor: colors.surface,
-          borderColor: colors.border,
+          borderColor: colors.borderSubtle,
           opacity: pressed && onPress ? 0.85 : 1,
         },
       ]}
       testID={testID}
     >
-      <View style={[styles.iconWrap, { backgroundColor: soft }]}>
-        <AppIcon color={colors.text} name={icon} size={24} />
+      <View style={[styles.iconWrap, { backgroundColor: colors.successSoft }]}>
+        <AppIcon color={colors.success} name={icon} size={24} />
       </View>
       <View style={styles.copy}>
-        <Text style={[styles.title, { color: colors.text }]} numberOfLines={2}>
-          {title}
-        </Text>
-        <Text style={[styles.subtitle, { color: colors.textMuted }]} numberOfLines={2}>
-          {subtitle}
-        </Text>
-      </View>
-      <View style={[styles.status, { backgroundColor: soft }]}>
-        <Text numberOfLines={2} style={[styles.statusLabel, { color: colors.text }]}>
-          {statusLabel}
-        </Text>
+        <View style={styles.titleRow}>
+          <Text style={[styles.title, { color: colors.text }]} numberOfLines={2}>
+            {title}
+          </Text>
+          <Text
+            numberOfLines={2}
+            style={[
+              styles.statusLabel,
+              { color: tone === 'comingSoon' ? colors.textMuted : colors.textSecondary },
+            ]}
+          >
+            {statusLabel}
+          </Text>
+        </View>
+        <View style={[styles.track, { backgroundColor: colors.borderSubtle }]}>
+          <View
+            style={[
+              styles.fill,
+              {
+                backgroundColor: colors.success,
+                width: fillWidth as `${number}%` | 0,
+              },
+            ]}
+          />
+        </View>
       </View>
     </Pressable>
   );
@@ -78,14 +91,18 @@ const styles = StyleSheet.create({
     flexShrink: 1,
     gap: themeTokens.spacing.xs,
     justifyContent: 'center',
-    minHeight: 44,
+    minWidth: 0,
+  },
+  fill: {
+    borderRadius: 3,
+    height: '100%',
   },
   iconWrap: {
     alignItems: 'center',
     borderRadius: themeTokens.radius.sm,
-    height: 44,
+    height: 40,
     justifyContent: 'center',
-    width: 44,
+    width: 40,
   },
   row: {
     alignItems: 'center',
@@ -93,34 +110,33 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     flexDirection: 'row',
     gap: themeTokens.spacing['12'],
-    minHeight: 78,
-    paddingHorizontal: themeTokens.spacing['14'],
-    paddingVertical: themeTokens.spacing['12'],
+    padding: themeTokens.spacing['12'],
     width: '100%',
   },
-  status: {
-    alignItems: 'center',
-    borderRadius: 999,
-    flexShrink: 0,
-    justifyContent: 'center',
-    maxWidth: 104,
-    paddingHorizontal: themeTokens.spacing.sm,
-    paddingVertical: themeTokens.spacing.xs,
-  },
   statusLabel: {
-    fontSize: 12,
+    flexShrink: 0,
+    fontSize: themeTokens.typography.size.caption,
     fontWeight: '500',
-    lineHeight: 16,
-    textAlign: 'center',
-  },
-  subtitle: {
-    fontSize: 13,
-    fontWeight: '400',
-    lineHeight: 18,
+    lineHeight: themeTokens.typography.lineHeight.caption,
+    marginLeft: themeTokens.spacing.sm,
   },
   title: {
-    fontSize: 16,
+    flex: 1,
+    flexShrink: 1,
+    fontSize: themeTokens.typography.size.body,
     fontWeight: '600',
-    lineHeight: 22,
+    lineHeight: themeTokens.typography.lineHeight.body,
+  },
+  titleRow: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  track: {
+    borderRadius: 3,
+    height: 6,
+    overflow: 'hidden',
+    width: '100%',
   },
 });

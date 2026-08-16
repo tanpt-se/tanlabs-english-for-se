@@ -83,4 +83,35 @@ describe('exitGrammarPracticeFlow', () => {
       }),
     );
   });
+
+  it('keeps GrammarCategory in the reset stack when present', () => {
+    const dispatch = jest.fn();
+    exitGrammarPracticeFlow(
+      {
+        getParent: () => ({
+          getState: () => ({
+            routes: [
+              { name: 'GrammarHome' },
+              { name: 'GrammarCategory', params: { categorySlug: 'core-tenses' } },
+              { name: 'GrammarTopic', params: { topicId: 'topic-1' } },
+              { name: 'GrammarPracticeFlow' },
+            ],
+          }),
+          dispatch,
+        }),
+      },
+      { name: 'GrammarTopic', params: { topicId: 'topic-1' } },
+    );
+
+    expect(dispatch).toHaveBeenCalledWith(
+      CommonActions.reset({
+        index: 2,
+        routes: [
+          { name: 'GrammarHome' },
+          { name: 'GrammarCategory', params: { categorySlug: 'core-tenses' } },
+          { name: 'GrammarTopic', params: { topicId: 'topic-1' } },
+        ],
+      }),
+    );
+  });
 });

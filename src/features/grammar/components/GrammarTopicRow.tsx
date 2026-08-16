@@ -54,7 +54,7 @@ export function GrammarTopicRow({ topic, onPress }: GrammarTopicRowProps) {
         } passed`
       : lessonCount === 0
       ? 'Coming soon'
-      : '0% · A2–C1 · Ready to begin';
+      : '0% · 3 lessons · Ready to begin';
 
   return (
     <GrammarTopicCard

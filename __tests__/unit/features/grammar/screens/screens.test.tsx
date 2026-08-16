@@ -58,6 +58,7 @@ jest.mock('@react-navigation/native', () => {
         topicId: 'topic-1',
         lessonId: 'lesson-1',
         clientAttemptId: 'attempt-1',
+        categorySlug: 'core-tenses',
       },
     }),
   };
@@ -155,7 +156,7 @@ describe('grammar browse screens', () => {
     });
   });
 
-  it('lists topics on Grammar Home', async () => {
+  it('lists category cards on Grammar Home', async () => {
     hooks.useGrammarTopics.mockReturnValue({
       isLoading: false,
       isError: false,
@@ -167,8 +168,31 @@ describe('grammar browse screens', () => {
           title: 'Present Simple',
           description: 'Habits',
           sortOrder: 1,
-          lessonCount: 4,
+          lessonCount: 3,
+          categorySlug: 'core-tenses',
+          curriculumVersion: 2,
+          isOptional: false,
         },
+        {
+          id: 'topic-opt',
+          slug: 'progress-earlier-past',
+          title: 'Progress & Earlier Past',
+          description: 'Optional',
+          sortOrder: 7,
+          lessonCount: 3,
+          categorySlug: 'timeline-planning',
+          curriculumVersion: 2,
+          isOptional: true,
+        },
+      ],
+      refetch: jest.fn(),
+    });
+    hooks.useGrammarProgress.mockReturnValue({
+      data: [
+        { lessonId: 'l1', topicId: 'topic-1', status: 'completed' },
+        { lessonId: 'l2', topicId: 'topic-1', status: 'completed' },
+        { lessonId: 'l3', topicId: 'topic-1', status: 'completed' },
+        { lessonId: 'l4', topicId: 'topic-opt', status: 'completed' },
       ],
       refetch: jest.fn(),
     });
@@ -185,9 +209,23 @@ describe('grammar browse screens', () => {
       root = ReactTestRenderer.create(<GrammarHomeScreen />);
     });
     expect(
-      root.root.findAllByType(Text).some((node) => node.props.children === 'Present Simple'),
+      root.root.findAllByType(Text).some((node) => node.props.children === 'Core Tenses'),
     ).toBe(true);
-    expect(root.root.findByProps({ testID: 'grammar-home-continue' })).toBeTruthy();
+    expect(
+      root.root.findAllByType(Text).some((node) => node.props.children === 'Grammar categories'),
+    ).toBe(true);
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('1 topics · Completed')),
+    ).toBe(true);
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('0 of 1 topics · optional')),
+    ).toBe(true);
+    expect(root.root.findByProps({ testID: 'grammar-category-core-tenses' })).toBeTruthy();
+    expect(root.root.findByProps({ testID: 'grammar-category-timeline-planning' })).toBeTruthy();
   });
 
   it('shows home loading, empty, domain error, and retry', async () => {
@@ -332,7 +370,7 @@ describe('grammar browse screens', () => {
         .some((node) => String(node.props.children).includes('Habits at work')),
     ).toBe(true);
     expect(topic.root.findByProps({ testID: 'grammar-topic-continue' }).props.label).toBe(
-      'Continue',
+      'Continue: A2 · Form',
     );
 
     const row = topic.root.findByProps({ testID: 'grammar-lesson-row-present-simple-core' });
@@ -404,7 +442,7 @@ describe('grammar browse screens', () => {
         ),
     ).toBe(true);
     expect(topic.root.findByProps({ testID: 'grammar-topic-continue' }).props.label).toBe(
-      'Continue',
+      'Continue: A2 · Usage',
     );
     expect(topic.root.findByProps({ testID: 'grammar-lesson-row-practice' })).toBeTruthy();
     await act(() => {
@@ -482,10 +520,18 @@ describe('grammar browse screens', () => {
     await act(() => {
       topic.update(<GrammarTopicScreen />);
     });
-    expect(topic.root.findByProps({ testID: 'grammar-topic-continue' }).props.label).toBe('Start');
     expect(
       topic.root.findAllByType(Text).some((node) => String(node.props.children).includes('90%')),
     ).toBe(true);
+    expect(topic.root.findAllByProps({ testID: 'grammar-topic-continue' })).toHaveLength(0);
+
+    hooks.useGrammarProgress.mockReturnValue({ data: [], refetch });
+    await act(() => {
+      topic.update(<GrammarTopicScreen />);
+    });
+    expect(topic.root.findByProps({ testID: 'grammar-topic-continue' }).props.label).toBe(
+      'Start: A2 · Form',
+    );
 
     hooks.useGrammarLessons.mockReturnValue({
       isLoading: false,
@@ -542,13 +588,25 @@ describe('grammar browse screens', () => {
     expect(
       lesson.root
         .findAllByType(Text)
-        .some((node) => String(node.props.children).includes('Examples')),
+        .some((node) => String(node.props.children).includes('Examples at work')),
     ).toBe(true);
     expect(
-      lesson.root.findAllByType(Text).some((node) => String(node.props.children).includes("Don't")),
+      lesson.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('Common mistake')),
     ).toBe(true);
     expect(
-      lesson.root.findAllByType(Text).some((node) => String(node.props.children).includes('When')),
+      lesson.root.findAllByType(Text).some((node) => String(node.props.children).includes('Goal')),
+    ).toBe(true);
+    expect(
+      lesson.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('Formula')),
+    ).toBe(true);
+    expect(
+      lesson.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('S + do not + V')),
     ).toBe(true);
     const practiceCta = lesson.root.findByProps({ testID: 'grammar-practice-cta' });
     await act(() => {

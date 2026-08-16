@@ -100,6 +100,7 @@ describe('vocabulary coverage boost', () => {
             onPress={onPress}
           />
           <SituationCard title="T2" description="D2" progress="0 / 2" />
+          <SituationCard title="T3" description="D3" progress="2 / 2" progressRatio={1} />
         </>,
       );
     });

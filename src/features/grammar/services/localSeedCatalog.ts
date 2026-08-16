@@ -10,7 +10,11 @@ import type {
 import {
   EXERCISE_CONTENT_SCHEMA_VERSION,
   GRAMMAR_COMPLETION_THRESHOLD,
+  GRAMMAR_CURRICULUM_VERSION,
+  GRAMMAR_OPTIONAL_TOPIC_SLUGS,
+  GRAMMAR_TOPIC_CATEGORY,
   LESSON_CONTENT_SCHEMA_VERSION,
+  type GrammarCategorySlug,
   type GrammarLevel,
   type GrammarTopicSlug,
 } from '@/features/grammar/types/content';
@@ -20,7 +24,7 @@ import {
   validateLessonContent,
 } from '@/features/grammar/validation/content';
 
-import packsJson from '../../../../supabase/seed/grammar/packs.json';
+import packsJson from '../../../../supabase/seed/grammar/packs-v2.json';
 
 type PackLesson = {
   key: string;
@@ -48,6 +52,9 @@ type Pack = {
   title: string;
   description: string;
   sortOrder: number;
+  categorySlug?: GrammarCategorySlug;
+  curriculumVersion?: number;
+  isOptional?: boolean;
   lessons: PackLesson[];
   exercises: PackExercise[];
 };
@@ -59,7 +66,7 @@ type LocalCatalog = {
   exercisesByLessonId: Map<string, PublishedExercise[]>;
 };
 
-const LOCAL_PROGRESS_KEY = '@tanlabs/grammar_local_progress_v1';
+const LOCAL_PROGRESS_KEY = '@tanlabs/grammar_local_progress_v2';
 
 let cached: LocalCatalog | null = null;
 const localProgressByLessonId = new Map<string, LessonProgress>();
@@ -124,13 +131,18 @@ function buildCatalog(packs: Pack[]): LocalCatalog {
       exercisesByLessonId.set(lessonId, []);
     });
 
+    const slug = pack.slug as GrammarTopicSlug;
     const topic: PublishedTopic = {
       id: topicId,
-      slug: pack.slug as GrammarTopicSlug,
+      slug,
       title: pack.title,
       description: pack.description,
       sortOrder: pack.sortOrder,
       lessonCount: topicLessons.length,
+      categorySlug: pack.categorySlug ?? GRAMMAR_TOPIC_CATEGORY[slug],
+      curriculumVersion: pack.curriculumVersion ?? GRAMMAR_CURRICULUM_VERSION,
+      isOptional:
+        pack.isOptional ?? (GRAMMAR_OPTIONAL_TOPIC_SLUGS as readonly string[]).includes(slug),
     };
     topics.push(topic);
     lessonsByTopicId.set(topicId, topicLessons);

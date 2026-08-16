@@ -4,6 +4,7 @@ export const vocabularyKeys = {
   situation: (situationId: string) => [...vocabularyKeys.all, 'situation', situationId] as const,
   situationItems: (situationId: string) =>
     [...vocabularyKeys.all, 'situation-items', situationId] as const,
+  library: (queryKey: string) => [...vocabularyKeys.all, 'library', queryKey] as const,
   term: (situationId: string, itemId: string) =>
     [...vocabularyKeys.all, 'term', situationId, itemId] as const,
   exercises: (situationId: string) => [...vocabularyKeys.all, 'exercises', situationId] as const,

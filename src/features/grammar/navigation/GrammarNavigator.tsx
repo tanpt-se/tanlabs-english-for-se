@@ -7,6 +7,7 @@ import {
   setGrammarMonitoringContext,
 } from '@/core/monitoring/crashlytics';
 import { GrammarPracticeFlowNavigator } from '@/features/grammar/navigation/GrammarPracticeFlowNavigator';
+import { GrammarCategoryScreen } from '@/features/grammar/screens/GrammarCategoryScreen';
 import { GrammarHomeScreen } from '@/features/grammar/screens/GrammarHomeScreen';
 import { GrammarLessonScreen } from '@/features/grammar/screens/GrammarLessonScreen';
 import { GrammarTopicScreen } from '@/features/grammar/screens/GrammarTopicScreen';
@@ -34,6 +35,7 @@ export function GrammarNavigator() {
       }}
     >
       <GrammarStack.Screen name="GrammarHome" component={GrammarHomeScreen} />
+      <GrammarStack.Screen name="GrammarCategory" component={GrammarCategoryScreen} />
       <GrammarStack.Screen name="GrammarTopic" component={GrammarTopicScreen} />
       <GrammarStack.Screen name="GrammarLesson" component={GrammarLessonScreen} />
       <GrammarStack.Screen name="GrammarPracticeFlow" component={GrammarPracticeFlowNavigator} />

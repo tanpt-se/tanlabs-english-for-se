@@ -1,4 +1,5 @@
 import type {
+  VocabularyCountability,
   VocabularyExpression,
   VocabularyTermDetail,
 } from '@/features/vocabulary/types/catalog';
@@ -15,6 +16,10 @@ export type CatalogItemRow = {
   level: string;
   pos: string | null;
   content: unknown;
+  is_core?: boolean;
+  core_order?: number | null;
+  pronunciation?: string | null;
+  countability?: string | null;
 };
 
 function asStringList(value: unknown): string[] {
@@ -56,15 +61,23 @@ function contentRecord(content: unknown): Record<string, unknown> {
 export function mapCatalogExpression(row: CatalogItemRow): VocabularyExpression {
   const level = normalizeCefrLevel(row.level);
   const type = row.type === 'word' || row.type === 'phrase' ? row.type : 'expression';
+  const content = contentRecord(row.content);
+  const countability = parseCountability(row.countability ?? content.countability);
   return {
     id: row.id,
     text: row.term,
     tag: `${type} · ${level}`,
     intent: row.meaning,
-    needsPractice: type === 'expression',
+    needsPractice: type === 'expression' || row.is_core === true,
     level,
     pos: resolvePos(type, row.term, row.pos),
     context: row.context,
+    isCore: row.is_core === true,
+    coreOrder: typeof row.core_order === 'number' ? row.core_order : null,
+    pronunciation:
+      row.pronunciation ??
+      (typeof content.pronunciation === 'string' ? content.pronunciation : null),
+    countability,
   };
 }
 
@@ -88,5 +101,16 @@ export function mapCatalogTerm(situationSlug: string, row: CatalogItemRow): Voca
     examples: mapExamples(content.examples),
     alternatives: asStringList(content.alternatives),
     notes: asStringList(content.notes),
+    pronunciation:
+      row.pronunciation ??
+      (typeof content.pronunciation === 'string' ? content.pronunciation : null),
+    countability: parseCountability(row.countability ?? content.countability),
   };
+}
+
+function parseCountability(value: unknown): VocabularyCountability | null {
+  if (value === 'countable' || value === 'uncountable' || value === 'both' || value === 'na') {
+    return value;
+  }
+  return null;
 }

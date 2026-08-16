@@ -1,6 +1,10 @@
 import type { VocabularyExercise } from '@/features/vocabulary/types/content';
 import { aggregateItemResults } from '@/features/vocabulary/utils/aggregateItemResults';
-import { composeSituationSession, SESSION_MIX } from '@/features/vocabulary/utils/composeSession';
+import {
+  composeSituationSession,
+  SESSION_MIX,
+  sessionMixForTarget,
+} from '@/features/vocabulary/utils/composeSession';
 import { gradeExercise } from '@/features/vocabulary/utils/grade';
 import { normalizeFillBlank } from '@/features/vocabulary/utils/normalize';
 import { isWeakItem, sortWeakItems } from '@/features/vocabulary/utils/weakItems';
@@ -117,6 +121,36 @@ describe('vocabulary engine', () => {
     expect(counts.choose_expression).toBeGreaterThanOrEqual(SESSION_MIX.choose_expression - 1);
     expect(counts.fill_blank).toBeGreaterThanOrEqual(1);
     expect(counts.sentence_order).toBeGreaterThanOrEqual(1);
+  });
+
+  it('caps a core session at 5–8 questions', () => {
+    const pool: VocabularyExercise[] = [];
+    for (let i = 0; i < 10; i += 1) pool.push(choose(`c${i}`));
+    for (let i = 0; i < 6; i += 1) pool.push(fill(`f${i}`));
+    for (let i = 0; i < 4; i += 1) pool.push(order(`o${i}`));
+    const result = composeSituationSession(pool, {
+      minExercises: 5,
+      targetTotal: 8,
+      random: () => 0.1,
+    });
+    expect(result.ok).toBe(true);
+    if (!result.ok) return;
+    expect(result.exercises.length).toBeGreaterThanOrEqual(5);
+    expect(result.exercises.length).toBeLessThanOrEqual(8);
+  });
+
+  it('scales the mix for 5–8 question core sessions', () => {
+    expect(sessionMixForTarget(5)).toEqual({
+      choose_expression: 3,
+      fill_blank: 1,
+      sentence_order: 1,
+    });
+    expect(sessionMixForTarget(8)).toEqual({
+      choose_expression: 4,
+      fill_blank: 2,
+      sentence_order: 2,
+    });
+    expect(sessionMixForTarget(10)).toEqual(SESSION_MIX);
   });
 
   it('aggregates item results with any-incorrect rule', () => {

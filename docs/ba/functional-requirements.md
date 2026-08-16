@@ -47,23 +47,34 @@ Priority: **M** Must | **S** Should | **C** Could.
 
 ## Grammar learning (PH2)
 
-| ID       | Requirement                                                                                                                       | Pri | Status    |
-| -------- | --------------------------------------------------------------------------------------------------------------------------------- | --- | --------- |
-| FR-GR-01 | System shall expose the thirteen grammar topics listed in Vision (10 PH2 core + 3 PH2.1)                                          | M   | Delivered |
-| FR-GR-02 | Lessons, examples, and exercises shall be loaded from published backend content (not hard-coded per-tense screens)                | M   | Delivered |
-| FR-GR-03 | System shall support exercise types: multiple choice, fill blank, sentence order                                                  | M   | Delivered |
-| FR-GR-04 | Grading and feedback shall be deterministic; AI/fuzzy scoring shall not be used                                                   | M   | Delivered |
-| FR-GR-05 | Practice shall remain usable after questions are loaded even if connectivity drops                                                | M   | Delivered |
-| FR-GR-06 | Completing practice shall persist an attempt idempotently using a client attempt id                                               | M   | Delivered |
-| FR-GR-07 | Score ≥ 70% on first completion path shall mark lesson progress completed; lower scores mark in progress                          | M   | Delivered |
-| FR-GR-08 | Retry shall create a new attempt and shall not reduce best score                                                                  | M   | Delivered |
-| FR-GR-09 | System shall show Result with score and navigation to retry/continue                                                              | M   | Delivered |
-| FR-GR-10 | Continue Learning shall pick the most recently active incomplete published lesson, else first not-started (stable sort tie-break) | M   | Delivered |
-| FR-GR-11 | Users shall only read published content; clients shall not mutate content tables                                                  | M   | Delivered |
-| FR-GR-12 | Users shall only read/write their own progress and attempts                                                                       | M   | Delivered |
-| FR-GR-13 | Grammar screens shall call hooks/services only (no direct Supabase from screens)                                                  | M   | Delivered |
-| FR-GR-14 | One representative E2E Grammar flow shall exist for release                                                                       | M   | Delivered |
-| FR-GR-15 | Optional daily Grammar reminder                                                                                                   | C   | Stretch   |
+| ID       | Requirement                                                                                                                                                            | Pri | Status    |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --- | --------- |
+| FR-GR-01 | System shall expose twelve lean grammar topics in four categories (Core Tenses, Timeline & Planning, Sentence Structure, Workplace Communication)                      | M   | Delivered |
+| FR-GR-02 | Lessons, examples, and exercises shall be loaded from published backend content (not hard-coded per-tense screens)                                                     | M   | Delivered |
+| FR-GR-03 | System shall support exercise types: multiple choice, fill blank, sentence order                                                                                       | M   | Delivered |
+| FR-GR-04 | Grading and feedback shall be deterministic; AI/fuzzy scoring shall not be used                                                                                        | M   | Delivered |
+| FR-GR-05 | Practice shall remain usable after questions are loaded even if connectivity drops                                                                                     | M   | Delivered |
+| FR-GR-06 | Completing practice shall persist an attempt idempotently using a client attempt id                                                                                    | M   | Delivered |
+| FR-GR-07 | Score ≥ 70% on first completion path shall mark lesson progress completed; lower scores mark in progress                                                               | M   | Delivered |
+| FR-GR-08 | Retry shall create a new attempt and shall not reduce best score                                                                                                       | M   | Delivered |
+| FR-GR-09 | System shall show Result with score and navigation to retry/continue                                                                                                   | M   | Delivered |
+| FR-GR-10 | Continue Learning shall pick the most recently active incomplete required lesson, else first not-started; optional Timeline topics wait until required topics are done | M   | Delivered |
+| FR-GR-11 | Users shall only read published content; clients shall not mutate content tables                                                                                       | M   | Delivered |
+| FR-GR-12 | Users shall only read/write their own progress and attempts                                                                                                            | M   | Delivered |
+| FR-GR-13 | Grammar screens shall call hooks/services only (no direct Supabase from screens)                                                                                       | M   | Delivered |
+| FR-GR-14 | One representative E2E Grammar flow shall exist for release                                                                                                            | M   | Delivered |
+| FR-GR-15 | Optional daily Grammar reminder                                                                                                                                        | C   | Stretch   |
+
+## Vocabulary learning (PH3)
+
+| ID        | Requirement                                                                                                          | Pri | Status           |
+| --------- | -------------------------------------------------------------------------------------------------------------------- | --- | ---------------- |
+| FR-VOC-01 | System shall expose five workplace situations, each with ten core expressions                                        | M   | Delivered        |
+| FR-VOC-02 | Situation practice shall use 5–8 questions drawn from that situation’s core list only                                | M   | Delivered        |
+| FR-VOC-03 | Continue shall open the first unlearned core expression                                                              | M   | Delivered        |
+| FR-VOC-04 | Library shall search the full published catalog (~2000–3000 terms) with situation and CEFR filters; cores rank first | M   | Delivered        |
+| FR-VOC-05 | Term detail shall show POS, countability for words, and authored pronunciation without inventing IPA                 | M   | Delivered        |
+| FR-VOC-06 | Production Vocabulary entry shall remain closed until `feature_vocabulary` is intentionally enabled                  | M   | Delivered (gate) |
 
 ## Security and privacy (functional)
 
@@ -91,4 +102,4 @@ Priority: **M** Must | **S** Should | **C** Could.
 
 ## Coverage notes
 
-Delivered requirements map primarily to `src/features/{auth,home,profile,settings}` and `src/core/*`. Grammar requirements map to `src/features/grammar/**` and Supabase migrations `007`–`012`.
+Delivered requirements map primarily to `src/features/{auth,home,profile,settings}` and `src/core/*`. Grammar requirements map to `src/features/grammar/**` and Supabase migrations `007`–`012` plus lean v2 `015`–`016`. Vocabulary requirements map to `src/features/vocabulary/**` and `013`–`014` plus core/library `017`–`019`.

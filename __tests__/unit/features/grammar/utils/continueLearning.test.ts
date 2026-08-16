@@ -98,6 +98,44 @@ describe('continueLearning', () => {
     expect(pickGlobalContinueLearning([], new Map(), [])).toBeNull();
   });
 
+  it('skips optional topics until required topics are complete', () => {
+    const topics = [
+      { id: 'required', sortOrder: 1, isOptional: false },
+      { id: 'optional', sortOrder: 2, isOptional: true },
+    ];
+    const lessonsByTopic = new Map([
+      ['required', [{ id: 'r1', sortOrder: 1 }]],
+      ['optional', [{ id: 'o1', sortOrder: 1 }]],
+    ]);
+
+    expect(pickGlobalContinueLearning(topics, lessonsByTopic, [])).toEqual({
+      topicId: 'required',
+      lessonId: 'r1',
+    });
+
+    expect(
+      pickGlobalContinueLearning(topics, lessonsByTopic, [
+        {
+          topicId: 'optional',
+          lessonId: 'o1',
+          status: 'in_progress',
+          lastActivityAt: '2026-01-10T00:00:00.000Z',
+        },
+      ]),
+    ).toEqual({ topicId: 'required', lessonId: 'r1' });
+
+    expect(
+      pickGlobalContinueLearning(topics, lessonsByTopic, [
+        {
+          topicId: 'required',
+          lessonId: 'r1',
+          status: 'completed',
+          lastActivityAt: '2026-01-01T00:00:00.000Z',
+        },
+      ]),
+    ).toEqual({ topicId: 'optional', lessonId: 'o1' });
+  });
+
   it('handles invalid activity timestamps and tie-break ordering', () => {
     const topics = [
       { id: 't1', sortOrder: 1 },

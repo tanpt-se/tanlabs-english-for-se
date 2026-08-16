@@ -20,6 +20,9 @@ const topic = {
   description: 'Strong foundation',
   sortOrder: 1,
   lessonCount: 2,
+  categorySlug: 'core-tenses' as const,
+  curriculumVersion: 2,
+  isOptional: false,
 };
 
 describe('GrammarTopicRow', () => {
@@ -67,7 +70,7 @@ describe('GrammarTopicRow', () => {
       root.root.findAll(
         (node) =>
           typeof node.props.children === 'string' &&
-          node.props.children === '0% · A2–C1 · Ready to begin',
+          node.props.children === '0% · 3 lessons · Ready to begin',
       ).length,
     ).toBeGreaterThan(0);
 

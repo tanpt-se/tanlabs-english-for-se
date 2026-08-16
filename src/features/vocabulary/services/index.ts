@@ -8,7 +8,11 @@ export {
   getSituations,
   getVocabularyTerm,
   getWeakProgress,
+  searchVocabularyLibrary,
+  VOCABULARY_LIBRARY_PAGE_SIZE,
   type CompleteVocabularyAttemptInput,
+  type VocabularyLibraryPage,
+  type VocabularyLibraryQuery,
   type VocabularySituationItems,
   type VocabularySituationSummary,
 } from '@/features/vocabulary/services/contentService';

@@ -75,6 +75,8 @@ const TASK_TERM = {
   examples: [{ label: 'Example', sentence: "I'm blocked by the API dependency." }],
   alternatives: [],
   notes: [],
+  pronunciation: 'BLOK-er',
+  countability: 'both' as const,
 };
 
 const TASK_CATALOG = {
@@ -85,8 +87,10 @@ const TASK_CATALOG = {
     description: 'Status, ownership, next steps',
     total: 10,
     itemIds: ['task-progress:tp-2'],
+    coreItemIds: ['task-progress:tp-2'],
   },
   items: [TASK_EXPRESSION],
+  coreItems: [TASK_EXPRESSION],
   shown: 1,
   total: 10,
   capped: false,
@@ -114,6 +118,14 @@ jest.mock('@/features/vocabulary/hooks/useVocabularyProgress', () => ({
     ready: true,
     isError: false,
     refresh: jest.fn(async () => undefined),
+    continueTarget: {
+      id: 'task-progress:tp-2',
+      situationId: 'task-progress',
+      title: 'Task & Progress',
+    },
+    libraryTotal: 2500,
+    libraryKnown: 0,
+    libraryRatio: 0,
   })),
 }));
 
@@ -189,9 +201,9 @@ describe('vocabulary screen skeleton', () => {
       root = ReactTestRenderer.create(<VocabularyHomeScreen />);
       await Promise.resolve();
     });
-    expect(root.root.findAllByType(Text).some((node) => node.props.children === 'Situations')).toBe(
-      true,
-    );
+    expect(
+      root.root.findAllByType(Text).some((node) => node.props.children === 'Vocabulary situations'),
+    ).toBe(true);
 
     await act(() => {
       root.root.findByProps({ accessibilityLabel: 'Task & Progress, 0 / 10' }).props.onPress();
@@ -199,6 +211,18 @@ describe('vocabulary screen skeleton', () => {
     expect(mockNavigate).toHaveBeenCalledWith('VocabularySituation', {
       situationId: 'task-progress',
     });
+  });
+
+  it('opens the library from home', async () => {
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(async () => {
+      root = ReactTestRenderer.create(<VocabularyHomeScreen />);
+      await Promise.resolve();
+    });
+    await act(() => {
+      root.root.findByProps({ testID: 'vocabulary-open-library' }).props.onPress();
+    });
+    expect(mockNavigate).toHaveBeenCalledWith('VocabularyLibrary', {});
   });
 
   it('redirects home when vocabulary flag is off', async () => {
@@ -211,7 +235,7 @@ describe('vocabulary screen skeleton', () => {
     expect(mockNavigate).toHaveBeenCalledWith('Home');
   });
 
-  it('shows expressions grouped by CEFR and starts practice', async () => {
+  it('shows the core list, browse-all, and a 5–8 question practice CTA', async () => {
     let root!: ReactTestRenderer.ReactTestRenderer;
     await act(async () => {
       root = ReactTestRenderer.create(<SituationDetailScreen />);
@@ -222,12 +246,12 @@ describe('vocabulary screen skeleton', () => {
         .findAllByType(Text)
         .some((node) => node.props.children === "I'm blocked by the API dependency."),
     ).toBe(true);
-    expect(root.root.findByProps({ testID: 'level-section-A2' })).toBeTruthy();
+    expect(root.root.findByProps({ testID: 'vocabulary-browse-all' })).toBeTruthy();
 
     expect(
       root.root
         .findAllByType(Text)
-        .some((node) => String(node.props.children).includes('Practice 10 questions')),
+        .some((node) => String(node.props.children).includes('Practice 5 questions')),
     ).toBe(true);
 
     await act(() => {
@@ -236,6 +260,21 @@ describe('vocabulary screen skeleton', () => {
     expect(mockNavigate).toHaveBeenCalledWith('VocabularyPracticeFlow', {
       screen: 'VocabularyPractice',
       params: { situationId: 'task-progress', mode: 'situation' },
+    });
+
+    await act(() => {
+      root.root.findByProps({ testID: 'vocabulary-situation-continue' }).props.onPress();
+    });
+    expect(mockNavigate).toHaveBeenCalledWith('VocabularyTerm', {
+      situationId: 'task-progress',
+      itemId: 'task-progress:tp-2',
+    });
+
+    await act(() => {
+      root.root.findByProps({ testID: 'vocabulary-browse-all' }).props.onPress();
+    });
+    expect(mockNavigate).toHaveBeenCalledWith('VocabularyLibrary', {
+      situationId: 'task-progress',
     });
   });
 
@@ -275,6 +314,7 @@ describe('vocabulary screen skeleton', () => {
         'Definition',
         'Name a blocker that stops progress.',
         'Examples',
+        'WORKPLACE ENGLISH',
       ]),
     );
   });

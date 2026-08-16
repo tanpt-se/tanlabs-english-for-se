@@ -1,9 +1,26 @@
-import { GRAMMAR_COMPLETION_THRESHOLD, GRAMMAR_LEVELS } from '@/features/grammar/types/content';
+import { GRAMMAR_COMPLETION_THRESHOLD } from '@/features/grammar/types/content';
 
-export const GRAMMAR_LESSONS_PER_TOPIC = GRAMMAR_LEVELS.length;
+export const GRAMMAR_LESSONS_PER_TOPIC = 3;
 
 export function isTopicFullyCompleted(lessonCount: number, completedCount: number): boolean {
   return lessonCount > 0 && completedCount >= lessonCount;
+}
+
+export function countCompletedLessonsForTopic(
+  topicId: string,
+  progress: ReadonlyArray<{ topicId: string; status: string }>,
+): number {
+  return progress.filter((row) => row.topicId === topicId && row.status === 'completed').length;
+}
+
+export function pickFirstIncompleteTopic<T extends { id: string; lessonCount: number }>(
+  topics: readonly T[],
+  progress: ReadonlyArray<{ topicId: string; status: string }>,
+): T | undefined {
+  return topics.find(
+    (topic) =>
+      !isTopicFullyCompleted(topic.lessonCount, countCompletedLessonsForTopic(topic.id, progress)),
+  );
 }
 
 export function countCompletedGrammarTopics(
@@ -16,10 +33,7 @@ export function countCompletedGrammarTopics(
       typeof lessonsPerTopicById === 'number'
         ? lessonsPerTopicById
         : lessonsPerTopicById.get(topicId) ?? GRAMMAR_LESSONS_PER_TOPIC;
-    const completedCount = progress.filter(
-      (row) => row.topicId === topicId && row.status === 'completed',
-    ).length;
-    return isTopicFullyCompleted(required, completedCount);
+    return isTopicFullyCompleted(required, countCompletedLessonsForTopic(topicId, progress));
   }).length;
 }
 
@@ -59,4 +73,36 @@ export function topicBestScoreProgressRatio(
 
 export function progressStatusFromScore(score: number): 'in_progress' | 'completed' {
   return score >= GRAMMAR_COMPLETION_THRESHOLD ? 'completed' : 'in_progress';
+}
+
+export function categoryLearningStatus(
+  topics: ReadonlyArray<{ id: string; lessonCount: number }>,
+  progress: ReadonlyArray<{ topicId: string; status: string }>,
+): {
+  completed: number;
+  ratio: number;
+  status: 'not_started' | 'in_progress' | 'completed';
+  total: number;
+} {
+  const total = topics.length;
+  const lessonsPerTopicById = new Map(topics.map((topic) => [topic.id, topic.lessonCount]));
+  const completed = countCompletedGrammarTopics(
+    topics.map((topic) => topic.id),
+    progress,
+    lessonsPerTopicById,
+  );
+  const started = topics.some((topic) =>
+    progress.some(
+      (row) =>
+        row.topicId === topic.id && (row.status === 'completed' || row.status === 'in_progress'),
+    ),
+  );
+  const status: 'not_started' | 'in_progress' | 'completed' =
+    total > 0 && completed >= total ? 'completed' : started ? 'in_progress' : 'not_started';
+  return {
+    completed,
+    total,
+    ratio: total === 0 ? 0 : completed / total,
+    status,
+  };
 }

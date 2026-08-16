@@ -1,3 +1,5 @@
+import type { GrammarCategorySlug } from '@/features/grammar/types/content';
+
 import type { NavigatorScreenParams } from '@react-navigation/native';
 
 export type AuthStackParamList = {
@@ -16,6 +18,7 @@ export type GrammarPracticeStackParamList = {
 
 export type GrammarStackParamList = {
   GrammarHome: undefined;
+  GrammarCategory: { categorySlug: GrammarCategorySlug };
   GrammarTopic: { topicId: string };
   GrammarLesson: { topicId: string; lessonId: string };
   GrammarPracticeFlow: NavigatorScreenParams<GrammarPracticeStackParamList>;
@@ -31,6 +34,7 @@ export type VocabularyStackParamList = {
   VocabularyHome: undefined;
   VocabularySituation: { situationId: string };
   VocabularyTerm: { situationId: string; itemId: string };
+  VocabularyLibrary: { situationId?: string };
   VocabularyWeak: undefined;
   VocabularyPracticeFlow: NavigatorScreenParams<VocabularyPracticeStackParamList>;
 };

@@ -3,9 +3,8 @@ import { useEffect } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
 import type { MainTabParamList, VocabularyStackParamList } from '@/app/navigation/types';
-import { AppIcon } from '@/components/ui/brand';
 import { BrandLoading } from '@/components/ui/feedback';
-import { LearningScreen, ProgressBanner } from '@/components/ui/learning';
+import { LearningScreen, PathStatusCard, ProgressBanner } from '@/components/ui/learning';
 import { TopAppHeader } from '@/components/ui/navigation';
 import { trackEvent } from '@/core/analytics/events';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
@@ -28,16 +27,8 @@ export function VocabularyHomeScreen() {
   const flags = useFeatureFlags();
   const colors = useAppColors();
   const vocabularyEnabled = flags.data?.vocabulary === true;
-  const {
-    situations,
-    totalKnown,
-    totalTerms,
-    overallLabel,
-    overallRatio,
-    ready,
-    refresh,
-    isError,
-  } = useVocabularyProgress();
+  const { situations, ready, refresh, isError, libraryTotal, libraryKnown, libraryRatio } =
+    useVocabularyProgress();
   const weakQuery = useVocabularyWeakProgress();
   const weakCount = weakQuery.data?.length ?? 0;
 
@@ -59,6 +50,17 @@ export function VocabularyHomeScreen() {
 
   const showLoading = !ready;
   const showEmpty = ready && !isError && situations.length === 0;
+  const situationCount = situations.length;
+  const knownCount =
+    typeof libraryKnown === 'number' && Number.isFinite(libraryKnown) ? libraryKnown : 0;
+  const totalCount =
+    typeof libraryTotal === 'number' && Number.isFinite(libraryTotal) ? libraryTotal : 0;
+  const ratio =
+    typeof libraryRatio === 'number' && Number.isFinite(libraryRatio) ? libraryRatio : 0;
+  const libraryStatus = ratio <= 0 ? 'not_started' : ratio >= 1 ? 'completed' : 'in_progress';
+  const librarySubtitle =
+    totalCount > 0 ? `Browse ${totalCount} reference terms` : 'Browse the reference library';
+  const weakRatio = totalCount > 0 ? Math.min(1, weakCount / totalCount) : weakCount > 0 ? 1 : 0;
 
   const retryCatalog = () => {
     refresh().catch(() => undefined);
@@ -71,48 +73,20 @@ export function VocabularyHomeScreen() {
       contentGap={24}
       header={<TopAppHeader title="Vocabulary" />}
     >
-      <View style={styles.stack}>
-        <Text style={[styles.subtitle, { color: colors.textSecondary }]}>
-          Useful expressions for real engineering work.
-        </Text>
-        {showLoading ? <BrandLoading fill size="md" testID="vocabulary-home-loading" /> : null}
-        {!showLoading ? (
-          <ProgressBanner
-            title={`${overallLabel} known across ${situations.length} situations`}
-            subtitle={`${totalKnown} of ${totalTerms} terms marked known`}
-            progress={overallRatio}
-          />
-        ) : null}
-      </View>
-      <Pressable
-        accessibilityLabel={weakCount > 0 ? `Weak items, ${weakCount}` : 'Weak items, none yet'}
-        accessibilityRole="button"
-        testID="vocabulary-open-weak"
-        onPress={() => navigation.navigate('VocabularyWeak')}
-        style={({ pressed }) => [
-          styles.weakCard,
-          {
-            backgroundColor: colors.surfaceCard,
-            borderColor: colors.border,
-            opacity: pressed ? 0.85 : 1,
-          },
-        ]}
-      >
-        <View style={styles.weakCopy}>
-          <Text style={[styles.weakTitle, { color: colors.primary }]}>
-            Weak items{weakCount > 0 ? ` (${weakCount})` : ''}
-          </Text>
-          <Text style={[styles.weakHint, { color: colors.textSecondary }]}>
-            Retry expressions that need more practice
-          </Text>
-        </View>
-        <View accessible={false} importantForAccessibility="no">
-          <AppIcon color={colors.textMuted} name="arrowLeft" size={16} style={styles.weakChevron} />
-        </View>
-      </Pressable>
+      {showLoading ? <BrandLoading fill size="md" testID="vocabulary-home-loading" /> : null}
+      {!showLoading ? (
+        <ProgressBanner
+          title={`${knownCount} of ${totalCount} terms learned`}
+          subtitle={`${situationCount} workplace situation${
+            situationCount === 1 ? '' : 's'
+          } · Engineering English`}
+          progress={ratio}
+        />
+      ) : null}
+
       <View style={styles.stack}>
         <Text accessibilityRole="header" style={[styles.section, { color: colors.text }]}>
-          Situations
+          Vocabulary situations
         </Text>
         {isError || showEmpty ? (
           <View style={styles.state}>
@@ -145,6 +119,23 @@ export function VocabularyHomeScreen() {
           ))}
         </View>
       </View>
+
+      <PathStatusCard
+        title="Library"
+        status={libraryStatus}
+        subtitle={librarySubtitle}
+        progress={ratio}
+        testID="vocabulary-open-library"
+        onPress={() => navigation.navigate('VocabularyLibrary', {})}
+      />
+      <PathStatusCard
+        title={weakCount > 0 ? `Weak items (${weakCount})` : 'Weak items'}
+        status={weakCount > 0 ? 'in_progress' : 'not_started'}
+        subtitle="Retry expressions that need more practice"
+        progress={weakRatio}
+        testID="vocabulary-open-weak"
+        onPress={() => navigation.navigate('VocabularyWeak')}
+      />
     </LearningScreen>
   );
 }
@@ -157,10 +148,6 @@ const styles = StyleSheet.create({
   list: {
     gap: themeTokens.spacing['12'],
   },
-  stack: {
-    gap: themeTokens.spacing.md,
-    width: '100%',
-  },
   retry: {
     fontSize: 15,
     fontWeight: '600',
@@ -168,42 +155,15 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   section: {
-    fontSize: themeTokens.typography.size.h3,
-    fontWeight: '600',
-    lineHeight: themeTokens.typography.lineHeight.h3,
+    fontSize: themeTokens.typography.size.md,
+    fontWeight: '700',
+    lineHeight: 22,
+  },
+  stack: {
+    gap: themeTokens.spacing.md,
+    width: '100%',
   },
   state: {
     gap: themeTokens.spacing.sm,
-  },
-  subtitle: {
-    fontSize: themeTokens.typography.size.md,
-    lineHeight: 22,
-  },
-  weakCard: {
-    alignItems: 'center',
-    borderRadius: themeTokens.radius.lg,
-    borderWidth: 1,
-    flexDirection: 'row',
-    gap: themeTokens.spacing.md,
-    padding: themeTokens.spacing.md,
-    width: '100%',
-  },
-  weakChevron: {
-    transform: [{ scaleX: -1 }],
-  },
-  weakCopy: {
-    flex: 1,
-    gap: themeTokens.spacing.xs,
-    minWidth: 0,
-  },
-  weakHint: {
-    fontSize: themeTokens.typography.size.label,
-    fontWeight: '400',
-    lineHeight: themeTokens.typography.lineHeight.label,
-  },
-  weakTitle: {
-    fontSize: themeTokens.typography.size.label,
-    fontWeight: '500',
-    lineHeight: themeTokens.typography.lineHeight.label,
   },
 });

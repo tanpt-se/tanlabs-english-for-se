@@ -7,6 +7,9 @@ import { shuffleArray } from '@/features/vocabulary/utils/shuffle';
 export const SESSION_TARGET = 10;
 export const SESSION_MIN = 8;
 export const SESSION_MAX = 12;
+export const CORE_SESSION_MIN = 5;
+export const CORE_SESSION_MAX = 8;
+export const CORE_SESSION_TARGET = 8;
 export const SESSION_MIX: Record<VocabularyExerciseType, number> = {
   choose_expression: 5,
   fill_blank: 3,
@@ -18,7 +21,8 @@ export type ComposeSessionResult =
   | { ok: false; reason: 'insufficient_content'; available: number };
 
 /**
- * Compose 8–12 exercises for one situation, preferring 5/3/2 for a 10-question session.
+ * Compose a practice session. Default mix is 5/3/2 for 10 questions.
+ * Core situation practice passes `minExercises` 5 and `targetTotal` 8.
  * Weak practice may pass a lower `minExercises` when the weak pool is smaller.
  */
 export function composeSituationSession(
@@ -59,9 +63,10 @@ export function composeSituationSession(
 
   const selected: VocabularyExercise[] = [];
   const used = new Set<string>();
+  const mix = sessionMixForTarget(target);
 
-  for (const type of Object.keys(SESSION_MIX) as VocabularyExerciseType[]) {
-    const want = SESSION_MIX[type];
+  for (const type of Object.keys(mix) as VocabularyExerciseType[]) {
+    const want = mix[type];
     for (const exercise of pickFrom(byType[type], want)) {
       if (used.has(exercise.id)) continue;
       selected.push(exercise);
@@ -87,8 +92,21 @@ export function composeSituationSession(
 
   return {
     ok: true,
-    exercises: shuffleArray(selected.slice(0, Math.min(SESSION_MAX, selected.length)), random),
+    exercises: shuffleArray(
+      selected.slice(0, Math.min(SESSION_MAX, target, selected.length)),
+      random,
+    ),
   };
+}
+
+export function sessionMixForTarget(target: number): Record<VocabularyExerciseType, number> {
+  if (target <= 6) {
+    return { choose_expression: 3, fill_blank: 1, sentence_order: 1 };
+  }
+  if (target <= 8) {
+    return { choose_expression: 4, fill_blank: 2, sentence_order: 2 };
+  }
+  return SESSION_MIX;
 }
 
 export function composeWeakSession(

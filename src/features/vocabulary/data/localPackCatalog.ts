@@ -7,10 +7,13 @@ import type {
   VocabularyTermDetail,
 } from '@/features/vocabulary/types/catalog';
 import type { VocabularyExercise } from '@/features/vocabulary/types/content';
+import { buildCorePracticeExercises } from '@/features/vocabulary/utils/corePracticeExercises';
 import { normalizeCefrLevel, type CefrLevel } from '@/features/vocabulary/utils/levels';
+import { libraryRank } from '@/features/vocabulary/utils/libraryRank';
 import { mapPackExercise } from '@/features/vocabulary/utils/mapPackExercise';
 import { resolvePos } from '@/features/vocabulary/utils/pos';
 
+import coreJson from '../../../../supabase/seed/vocabulary/core-expressions.json';
 import packsJson from '../../../../supabase/seed/vocabulary/packs.json';
 
 export type { VocabularyExpression, VocabularyTermDetail };
@@ -64,6 +67,10 @@ type PackItem = {
   alternatives?: string[];
   notes?: string[];
   exercises?: PackExercise[];
+  isCore?: boolean;
+  coreOrder?: number | null;
+  pronunciation?: string | null;
+  countability?: 'countable' | 'uncountable' | 'both' | 'na' | null;
 };
 
 type PackSituation = {
@@ -79,7 +86,103 @@ type PacksRoot = {
   situations: PackSituation[];
 };
 
-const packs = packsJson as unknown as PacksRoot;
+const packs = applyCoreOverlay(packsJson as unknown as PacksRoot, coreJson);
+
+type CoreOverlay = {
+  situations: Array<{
+    slug: string;
+    items: Array<{
+      term: string;
+      type: 'word' | 'phrase' | 'expression';
+      meaning: string;
+      context: string;
+      level: string;
+      pos?: string;
+      coreOrder: number;
+      pronunciation?: string;
+      countability?: PackItem['countability'];
+      patterns?: string[];
+      examples?: [string, string][];
+    }>;
+  }>;
+};
+
+function applyCoreOverlay(root: PacksRoot, overlay: unknown): PacksRoot {
+  const core = overlay as CoreOverlay;
+  const situations = root.situations.map((situation) => {
+    const overlayItems =
+      core.situations.find((entry) => entry.slug === situation.slug)?.items ?? [];
+    const byTerm = new Map(situation.items.map((item) => [item.term.trim().toLowerCase(), item]));
+    const nextItems = [...situation.items];
+    for (const overlayItem of overlayItems) {
+      const existing = byTerm.get(overlayItem.term.trim().toLowerCase());
+      if (existing) {
+        existing.isCore = true;
+        existing.coreOrder = overlayItem.coreOrder;
+        existing.pronunciation = overlayItem.pronunciation ?? null;
+        existing.countability = overlayItem.countability ?? 'na';
+        existing.meaning = overlayItem.meaning;
+        existing.sortOrder = overlayItem.coreOrder;
+        if (overlayItem.patterns?.length) {
+          existing.patterns = overlayItem.patterns;
+        }
+        if (overlayItem.examples?.length) {
+          existing.examples = overlayItem.examples;
+        }
+        continue;
+      }
+      const key = `core-${overlayItem.term
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, '-')
+        .replace(/^-+|-+$/g, '')
+        .slice(0, 48)}`;
+      nextItems.push({
+        key,
+        type: overlayItem.type,
+        term: overlayItem.term,
+        meaning: overlayItem.meaning,
+        context: overlayItem.context,
+        level: overlayItem.level,
+        pos: overlayItem.pos,
+        sortOrder: overlayItem.coreOrder,
+        patterns: overlayItem.patterns ?? [],
+        examples: overlayItem.examples ?? [],
+        isCore: true,
+        coreOrder: overlayItem.coreOrder,
+        pronunciation: overlayItem.pronunciation ?? null,
+        countability: overlayItem.countability ?? 'na',
+        exercises: [],
+      });
+    }
+    const coreTerms = overlayItems.map((item) => item.term);
+    for (const item of nextItems) {
+      if (!item.isCore || (item.exercises?.length ?? 0) > 0) {
+        continue;
+      }
+      item.exercises = buildCorePracticeExercises(
+        {
+          key: item.key,
+          term: item.term,
+          meaning: item.meaning,
+          context: item.context,
+          examples: item.examples,
+        },
+        coreTerms,
+      );
+    }
+    nextItems.sort((a, b) => {
+      if (Boolean(a.isCore) !== Boolean(b.isCore)) {
+        return a.isCore ? -1 : 1;
+      }
+      if (a.isCore && b.isCore) {
+        return (a.coreOrder ?? 0) - (b.coreOrder ?? 0);
+      }
+      return libraryRank(a) - libraryRank(b);
+    });
+    return { ...situation, items: nextItems };
+  });
+  return { ...root, situations };
+}
 
 function shuffle<T>(items: T[]): T[] {
   const next = [...items];
@@ -100,10 +203,15 @@ function mapExpression(situationSlug: string, item: PackItem): VocabularyExpress
     text: item.term,
     tag: `${item.type} · ${level}`,
     intent: item.meaning,
-    needsPractice: item.type === 'expression',
+    needsPractice: item.type === 'expression' || item.isCore === true,
     level,
     pos,
     context: item.context,
+    isCore: item.isCore === true,
+    coreOrder: item.coreOrder ?? null,
+    situationSlug,
+    pronunciation: item.pronunciation ?? null,
+    countability: item.countability ?? null,
   };
 }
 
@@ -121,6 +229,8 @@ function mapTermDetail(situationSlug: string, item: PackItem): VocabularyTermDet
     examples: (item.examples ?? []).map(([label, sentence]) => ({ label, sentence })),
     alternatives: item.alternatives ?? [],
     notes: item.notes ?? [],
+    pronunciation: item.pronunciation ?? null,
+    countability: item.countability ?? null,
   };
 }
 
@@ -154,6 +264,64 @@ export function getLocalSituations(): VocabularySituation[] {
 
 export function getLocalSituation(situationId: string): VocabularySituation | undefined {
   return getLocalSituations().find((item) => item.id === situationId);
+}
+
+export function getLocalCoreExpressions(situationId: string): VocabularyExpression[] {
+  const situation = packs.situations.find((item) => item.slug === situationId);
+  if (!situation) {
+    return [];
+  }
+  return situation.items
+    .filter((item) => item.isCore)
+    .sort((a, b) => (a.coreOrder ?? 99) - (b.coreOrder ?? 99))
+    .map((item) => mapExpression(situation.slug, item));
+}
+
+export function getLocalCoreItemIds(situationId: string): string[] {
+  return getLocalCoreExpressions(situationId).map((item) => item.id);
+}
+
+export type LocalLibraryQuery = {
+  query?: string;
+  situationSlug?: string;
+  level?: string;
+  offset?: number;
+  limit?: number;
+};
+
+export function searchLocalLibrary(input: LocalLibraryQuery): {
+  items: VocabularyExpression[];
+  total: number;
+} {
+  const query = (input.query ?? '').trim().toLowerCase();
+  const offset = Math.max(0, input.offset ?? 0);
+  const limit = Math.max(1, Math.min(100, input.limit ?? 40));
+  const ranked: Array<{ row: VocabularyExpression; rank: number }> = [];
+  for (const situation of [...packs.situations].sort((a, b) => a.sortOrder - b.sortOrder)) {
+    if (input.situationSlug && situation.slug !== input.situationSlug) {
+      continue;
+    }
+    for (const item of situation.items) {
+      if (input.level && normalizeCefrLevel(item.level) !== input.level) {
+        continue;
+      }
+      if (
+        query &&
+        !item.term.toLowerCase().includes(query) &&
+        !item.meaning.toLowerCase().includes(query)
+      ) {
+        continue;
+      }
+      const mapped = mapExpression(situation.slug, item);
+      ranked.push({
+        rank: libraryRank(item),
+        row: { ...mapped, situationSlug: situation.slug, situationTitle: situation.title },
+      });
+    }
+  }
+  ranked.sort((a, b) => a.rank - b.rank);
+  const rows = ranked.map((entry) => entry.row);
+  return { items: rows.slice(offset, offset + limit), total: rows.length };
 }
 
 export function getLocalExpressions(

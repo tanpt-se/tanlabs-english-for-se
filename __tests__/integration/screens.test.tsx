@@ -74,6 +74,11 @@ jest.mock('@/features/grammar/hooks', () => ({
   useGrammarProgress: jest.fn(() => ({
     data: [],
   })),
+  useGrammarContinueLearning: jest.fn(() => ({
+    target: null,
+    isReady: true,
+    lessonPosition: null,
+  })),
 }));
 
 jest.mock('@/features/vocabulary/hooks/useVocabularyProgress', () => ({
@@ -84,7 +89,14 @@ jest.mock('@/features/vocabulary/hooks/useVocabularyProgress', () => ({
     situations: [],
     totalKnown: 0,
     totalTerms: 2500,
+    libraryKnown: 0,
+    libraryTotal: 2500,
+    libraryRatio: 0,
   })),
+}));
+
+jest.mock('@/features/vocabulary/hooks', () => ({
+  useVocabularyWeakProgress: jest.fn(() => ({ data: [] })),
 }));
 
 const { useAuth } = jest.requireMock('@/core/auth/AuthProvider') as {
@@ -385,13 +397,6 @@ describe('PH1 screens', () => {
     expect(
       root.root
         .findAllByType(Text)
-        .some((node) =>
-          String(node.props.children).includes('What would you like to learn today?'),
-        ),
-    ).toBe(true);
-    expect(
-      root.root
-        .findAllByType(Text)
         .some((node) => String(node.props.children).includes('Learning paths')),
     ).toBe(true);
     expect(
@@ -400,7 +405,13 @@ describe('PH1 screens', () => {
           node.props.accessibilityLabel === 'Grammar coming soon' && node.props.disabled === true,
       ).props.accessibilityState,
     ).toEqual({ disabled: true });
-    expect(root.root.findAllByProps({ accessibilityLabel: 'Open Vocabulary' })).toHaveLength(0);
+    expect(
+      root.root.find(
+        (node) =>
+          node.props.accessibilityLabel === 'Vocabulary coming soon' &&
+          node.props.disabled === true,
+      ),
+    ).toBeTruthy();
   });
 
   it('opens grammar from home when the flag is enabled', async () => {
@@ -411,7 +422,7 @@ describe('PH1 screens', () => {
       data: { grammar: true, vocabulary: false, interview: false, ai: false },
     });
     const root = await mount(<HomeScreen />);
-    await press(root, 'Grammar, 0 / 0');
+    await press(root, 'Grammar, 0 / 0 topics');
     expect(navigate).toHaveBeenCalledWith('Grammar', { screen: 'GrammarHome' });
   });
 
@@ -423,7 +434,7 @@ describe('PH1 screens', () => {
       data: { grammar: false, vocabulary: true, interview: false, ai: false },
     });
     const root = await mount(<HomeScreen />);
-    await press(root, 'Vocabulary, 0 / 2500');
+    await press(root, 'Vocabulary, 0 / 2500 terms');
     expect(navigate).toHaveBeenCalledWith('Vocabulary', { screen: 'VocabularyHome' });
   });
 

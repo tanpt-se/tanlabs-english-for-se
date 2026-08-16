@@ -3,6 +3,7 @@ export { vocabularyKeys } from '@/features/vocabulary/hooks/queryKeys';
 export {
   useCompleteVocabularyAttempt,
   useVocabularyExercises,
+  useVocabularyLibrary,
   useVocabularyResultSession,
   useVocabularySituation,
   useVocabularySituationItems,

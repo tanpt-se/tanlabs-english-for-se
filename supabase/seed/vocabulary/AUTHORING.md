@@ -2,7 +2,7 @@
 
 SoT for [`packs.json`](./packs.json). Audit: `pnpm run vocabulary:audit` (structure + dedupe). Ship count gate: `pnpm run vocabulary:audit:ship` (unique items in **[2000, 3000]**).
 
-Do **not** apply generated SQL to a live database unless asked. Never hand-edit seed SQL — regenerate via `pnpm run vocabulary:seed:sql`.
+Do **not** apply generated SQL to a live database unless asked. Never hand-edit `014_vocabulary_seed.sql`. Core overlay: [`core-expressions.json`](./core-expressions.json) → `pnpm run vocabulary:audit:core` then `pnpm run vocabulary:core:sql` (`018`).
 
 ## Volume (locked)
 
@@ -51,6 +51,16 @@ Additional situation packs may be added under change control if volume needs cle
 | `word`       | Single lemma (`blocker`, `rollback`)                               |
 | `phrase`     | Multi-word unit without full clause (`on track`, `root cause`)     |
 | `expression` | Ready-to-say workplace line (`I'm blocked by the API dependency.`) |
+
+### Core overlay (`core-expressions.json`)
+
+50 workplace cores (10 per P0 situation). After edits: `pnpm run vocabulary:audit:core` then `pnpm run vocabulary:core:sql`.
+
+| Field           | Rule                                                                                       |
+| --------------- | ------------------------------------------------------------------------------------------ |
+| `pronunciation` | English respelling (`on trak`). Do **not** wrap in IPA slashes or invent `ˈ` / `ə` symbols |
+| `countability`  | `word` → `countable` / `uncountable` / `both`. `phrase` and `expression` → `na` always     |
+| `type`          | Prefer `phrase` collocations over full-sentence `expression`                               |
 
 Do not duplicate the same meaning across types (e.g. both `blocker` and a near-identical expression only restating the word).
 

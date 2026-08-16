@@ -1,17 +1,31 @@
+import { useNavigation } from '@react-navigation/native';
 import { useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import type { MainTabParamList } from '@/app/navigation/types';
 import { useMainTabSelect } from '@/app/navigation/useMainTabSelect';
 import { ScreenScroll } from '@/components/ui/layout';
 import { TopAppHeader } from '@/components/ui/navigation';
 import { useAuth } from '@/core/auth/AuthProvider';
 import { useFeatureFlags } from '@/core/remote-config/useFeatureFlags';
-import { useGrammarProgress, useGrammarTopics } from '@/features/grammar/hooks';
+import {
+  useGrammarContinueLearning,
+  useGrammarProgress,
+  useGrammarTopics,
+} from '@/features/grammar/hooks';
 import { countCompletedGrammarTopics } from '@/features/grammar/utils';
-import { HomeFeatureRow, StreakCard } from '@/features/home/components';
+import {
+  ContinueLearningCard,
+  HomeFeatureRow,
+  ReviewNeededCard,
+  StreakCard,
+} from '@/features/home/components';
 import { useProfile } from '@/features/profile/hooks/useProfile';
+import { useVocabularyWeakProgress } from '@/features/vocabulary/hooks';
 import { useVocabularyProgress } from '@/features/vocabulary/hooks/useVocabularyProgress';
 import { themeTokens, useAppColors } from '@/theme';
+
+import type { BottomTabNavigationProp } from '@react-navigation/bottom-tabs';
 
 function daytimeGreeting(date = new Date()): string {
   const hour = date.getHours();
@@ -25,6 +39,7 @@ function daytimeGreeting(date = new Date()): string {
 }
 
 export function HomeScreen() {
+  const navigation = useNavigation<BottomTabNavigationProp<MainTabParamList>>();
   const onSelectTab = useMainTabSelect();
   const { profile: authProfile } = useAuth();
   const { data: profile } = useProfile();
@@ -38,16 +53,19 @@ export function HomeScreen() {
 
   const grammarTopicsQuery = useGrammarTopics();
   const grammarProgressQuery = useGrammarProgress();
+  const grammarContinue = useGrammarContinueLearning();
   const vocabularyProgress = useVocabularyProgress();
+  const weakQuery = useVocabularyWeakProgress();
+  const weakCount = weakQuery.data?.length ?? 0;
 
-  const grammarStatusLabel = useMemo(() => {
+  const grammarCompleted = useMemo(() => {
     const topics = grammarTopicsQuery.data ?? [];
     const progress = grammarProgressQuery.data ?? [];
     if (!grammarEnabled) {
-      return 'Coming soon';
+      return { label: 'Coming soon', ratio: 0 };
     }
     if (grammarTopicsQuery.isLoading || !grammarTopicsQuery.isSuccess) {
-      return '…';
+      return { label: '…', ratio: 0 };
     }
     const lessonsPerTopicById = new Map(topics.map((topic) => [topic.id, topic.lessonCount]));
     const completed = countCompletedGrammarTopics(
@@ -56,7 +74,10 @@ export function HomeScreen() {
       lessonsPerTopicById,
     );
     const total = topics.length;
-    return total === 0 ? '0 / 0' : `${completed} / ${total}`;
+    return {
+      label: `${completed} / ${total} topics`,
+      ratio: total === 0 ? 0 : completed / total,
+    };
   }, [
     grammarEnabled,
     grammarProgressQuery.data,
@@ -65,81 +86,125 @@ export function HomeScreen() {
     grammarTopicsQuery.isSuccess,
   ]);
 
-  const vocabularyStatusLabel = vocabularyEnabled
+  const vocabularyStatus = vocabularyEnabled
     ? vocabularyProgress.ready
-      ? vocabularyProgress.overallLabel
-      : '…'
-    : 'Coming soon';
+      ? {
+          label: `${vocabularyProgress.libraryKnown} / ${vocabularyProgress.libraryTotal} terms`,
+          ratio: vocabularyProgress.libraryRatio,
+        }
+      : { label: '…', ratio: 0 }
+    : { label: 'Coming soon', ratio: 0 };
+
+  const continueTarget = grammarEnabled && grammarContinue.isReady ? grammarContinue.target : null;
+  const continuePosition = grammarContinue.lessonPosition;
 
   return (
     <ScreenScroll header={<TopAppHeader title={`${greeting}, ${firstName}`} />}>
       <View style={styles.stack}>
-        <Text style={[styles.subtitle, { color: colors.textMuted }]}>
-          What would you like to learn today?
-        </Text>
+        {continueTarget ? (
+          <ContinueLearningCard
+            lessonTitle={grammarContinue.lessonTitle ?? 'Next lesson'}
+            progressLabel={
+              continuePosition
+                ? `${continuePosition.current} of ${continuePosition.total} lessons`
+                : 'Continue'
+            }
+            subtitle={`${grammarContinue.topicTitle ?? 'Grammar topic'} · Grammar`}
+            onPress={() =>
+              navigation.navigate('Grammar', {
+                screen: 'GrammarLesson',
+                params: {
+                  topicId: continueTarget.topicId,
+                  lessonId: continueTarget.lessonId,
+                },
+              })
+            }
+          />
+        ) : null}
 
         <StreakCard />
 
-        <Text style={[styles.sectionTitle, { color: colors.text }]}>Learning paths</Text>
-        {grammarEnabled ? (
+        <View style={styles.paths}>
+          <Text style={[styles.sectionTitle, { color: colors.text }]}>Learning paths</Text>
+          {grammarEnabled ? (
+            <HomeFeatureRow
+              accessibilityLabel={`Grammar, ${grammarCompleted.label}`}
+              icon="book"
+              progress={grammarCompleted.ratio}
+              statusLabel={grammarCompleted.label}
+              testID="home-open-grammar"
+              title="Grammar"
+              tone="progress"
+              onPress={() => onSelectTab('grammar')}
+            />
+          ) : (
+            <HomeFeatureRow
+              accessibilityLabel="Grammar coming soon"
+              icon="book"
+              progress={0}
+              statusLabel="Coming soon"
+              title="Grammar"
+              tone="comingSoon"
+            />
+          )}
+          {vocabularyEnabled ? (
+            <HomeFeatureRow
+              accessibilityLabel={`Vocabulary, ${vocabularyStatus.label}`}
+              icon="vocabulary"
+              progress={vocabularyStatus.ratio}
+              statusLabel={vocabularyStatus.label}
+              testID="home-open-vocabulary"
+              title="Vocabulary"
+              tone="progress"
+              onPress={() => onSelectTab('vocabulary')}
+            />
+          ) : (
+            <HomeFeatureRow
+              accessibilityLabel="Vocabulary coming soon"
+              icon="vocabulary"
+              progress={0}
+              statusLabel="Coming soon"
+              title="Vocabulary"
+              tone="comingSoon"
+            />
+          )}
           <HomeFeatureRow
-            accessibilityLabel={`Grammar, ${grammarStatusLabel}`}
-            icon="book"
-            statusLabel={grammarStatusLabel}
-            subtitle="Learn practical grammar for work"
-            testID="home-open-grammar"
-            title="Grammar"
-            tone="progress"
-            onPress={() => onSelectTab('grammar')}
-          />
-        ) : (
-          <HomeFeatureRow
-            accessibilityLabel="Grammar coming soon"
-            icon="book"
+            accessibilityLabel="Interview practice coming soon"
+            icon="interview"
+            progress={0}
             statusLabel="Coming soon"
-            subtitle="Learn practical grammar for work"
-            title="Grammar"
+            title="Interview practice"
             tone="comingSoon"
           />
-        )}
-        {vocabularyEnabled ? (
-          <HomeFeatureRow
-            accessibilityLabel={`Vocabulary, ${vocabularyStatusLabel}`}
-            icon="vocabulary"
-            statusLabel={vocabularyStatusLabel}
-            subtitle="Expressions for real work"
-            testID="home-open-vocabulary"
-            title="Vocabulary"
-            tone="progress"
-            onPress={() => onSelectTab('vocabulary')}
+        </View>
+
+        {vocabularyEnabled && weakCount > 0 ? (
+          <ReviewNeededCard
+            count={weakCount}
+            onPress={() =>
+              navigation.navigate('Vocabulary', {
+                screen: 'VocabularyWeak',
+              })
+            }
           />
         ) : null}
-        <HomeFeatureRow
-          accessibilityLabel="Interview practice coming soon"
-          icon="interview"
-          statusLabel="Coming soon"
-          subtitle="Practice structured answers"
-          title="Interview practice"
-          tone="comingSoon"
-        />
       </View>
     </ScreenScroll>
   );
 }
 
 const styles = StyleSheet.create({
+  paths: {
+    gap: themeTokens.spacing['12'],
+    width: '100%',
+  },
   sectionTitle: {
-    fontSize: 16,
-    fontWeight: '600',
+    fontSize: themeTokens.typography.size.md,
+    fontWeight: '700',
     lineHeight: 22,
   },
   stack: {
-    gap: themeTokens.spacing['14'],
+    gap: themeTokens.spacing.md,
     width: '100%',
-  },
-  subtitle: {
-    fontSize: 14,
-    fontWeight: '400',
-    lineHeight: 19,
   },
 });

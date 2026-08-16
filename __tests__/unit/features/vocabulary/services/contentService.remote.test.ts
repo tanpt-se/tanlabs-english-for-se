@@ -44,6 +44,7 @@ import {
   getSituations,
   getVocabularyTerm,
   getWeakProgress,
+  searchVocabularyLibrary,
 } from '@/features/vocabulary/services/contentService';
 
 const ITEM_ROW = {
@@ -63,6 +64,10 @@ const ITEM_ROW = {
     notes: ['n'],
   },
   sort_order: 1,
+  is_core: true,
+  core_order: 1,
+  pronunciation: '/ˈblɒkə/',
+  countability: 'na',
 };
 
 function thenableQuery(result: { data: unknown; error: unknown }) {
@@ -110,14 +115,14 @@ function mockVocabularyItems(selectImpl?: (cols?: string) => ReturnType<typeof t
       if (cols === 'level') {
         return thenableQuery({ data: [{ level: 'A2' }], error: null });
       }
-      if (cols === 'id, situation_id') {
+      if (cols === 'id, situation_id' || cols === 'id, situation_id, is_core') {
         return thenableQuery({
-          data: [{ id: 'item-uuid', situation_id: 'uuid-1' }],
+          data: [{ id: 'item-uuid', situation_id: 'uuid-1', is_core: true }],
           error: null,
         });
       }
-      if (cols === 'id') {
-        return thenableQuery({ data: [{ id: 'item-uuid' }], error: null });
+      if (cols === 'id' || cols === 'id, is_core') {
+        return thenableQuery({ data: [{ id: 'item-uuid', is_core: true }], error: null });
       }
       return thenableQuery({ data: [ITEM_ROW], error: null });
     },
@@ -716,7 +721,7 @@ describe('vocabulary contentService (remote)', () => {
       if (table === 'vocabulary_items') {
         return {
           select: (cols?: string) => {
-            if (cols === 'id') {
+            if (cols === 'id' || cols === 'id, is_core') {
               return thenableQuery({
                 data: [{ id: 'a' }, { id: 'b' }],
                 error: null,
@@ -817,5 +822,64 @@ describe('vocabulary contentService (remote)', () => {
         completedAt: 'y',
       }),
     ).rejects.toMatchObject({ code: 'unavailable' });
+  });
+
+  it('searches the remote library with situation and CEFR filters', async () => {
+    mockFrom.mockImplementation((table: string) => {
+      if (table === 'vocabulary_situations') {
+        return mockPublishedSituation();
+      }
+      if (table === 'vocabulary_items') {
+        return {
+          select: () => {
+            const query = thenableQuery({
+              data: [
+                {
+                  ...ITEM_ROW,
+                  vocabulary_situations: [{ slug: 'task-progress', title: 'Task & Progress' }],
+                },
+              ],
+              error: null,
+              count: 1,
+            });
+            return {
+              ...query,
+              eq: () => query,
+              or: () => query,
+              order: () => query,
+              range: () => query,
+            };
+          },
+        };
+      }
+      throw new Error(`unexpected table ${table}`);
+    });
+
+    const page = await searchVocabularyLibrary({
+      query: 'block',
+      level: 'A2',
+    });
+    expect(page.total).toBe(1);
+    expect(page.items[0]?.text).toBe('blocker');
+    expect(page.items[0]?.situationSlug).toBe('task-progress');
+  });
+
+  it('returns an empty library page when the situation filter is unknown', async () => {
+    mockFrom.mockImplementation((table: string) => {
+      if (table === 'vocabulary_situations') {
+        return {
+          select: () => thenableQuery({ data: null, error: null }),
+        };
+      }
+      throw new Error(`unexpected table ${table}`);
+    });
+    await expect(
+      searchVocabularyLibrary({ situationSlug: 'missing', query: '%%%' }),
+    ).resolves.toEqual({
+      items: [],
+      total: 0,
+      offset: 0,
+      limit: 40,
+    });
   });
 });

@@ -258,6 +258,7 @@ describe('grammar query hooks', () => {
     expect(continueApi?.target).toEqual({ topicId: 't1', lessonId: 'l1' });
     expect(continueApi?.topicTitle).toBe('Present Simple');
     expect(continueApi?.lessonTitle).toBe('A2 · Habits');
+    expect(continueApi?.lessonPosition).toEqual({ current: 1, total: 1 });
     expect(services.getAllPublishedLessons).toHaveBeenCalled();
 
     act(() => {
