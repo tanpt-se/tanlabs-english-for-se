@@ -22,6 +22,7 @@ const ALLOWED = new Set([
   'vocabulary_practice_completed',
   'vocabulary_practice_retry',
   'vocabulary_weak_opened',
+  'streak_day_unlocked',
 ]);
 
 const GRAMMAR_EVENTS = new Set([

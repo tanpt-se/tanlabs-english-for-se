@@ -18,6 +18,8 @@ import {
 import { grammarCompletionMutationKey } from '@/features/grammar/mutations';
 import { exitGrammarPracticeFlow } from '@/features/grammar/navigation/exitPracticeFlow';
 import { usePracticeSession } from '@/features/grammar/session';
+import { StreakReachedModal } from '@/features/home/components';
+import { useStreakCelebration } from '@/features/home/hooks/usePracticeStreak';
 import { themeTokens, useAppColors } from '@/theme';
 
 import type { RouteProp } from '@react-navigation/native';
@@ -38,6 +40,10 @@ export function GrammarResultScreen() {
   const lessonIndex = session ? lessons.findIndex((row) => row.id === session.lessonId) : -1;
   const nextLesson = lessonIndex >= 0 ? lessons[lessonIndex + 1] : undefined;
   const retryTracked = useRef(false);
+  const streakModal = useStreakCelebration({
+    completedAt: session?.completedAt,
+    userId: user?.id,
+  });
 
   const saveStates = useMutationState({
     filters: { mutationKey: grammarCompletionMutationKey },
@@ -162,78 +168,81 @@ export function GrammarResultScreen() {
     : '';
 
   return (
-    <LearningScreen
-      testID="grammar-result"
-      header={<TopAppHeader showBack title="Lesson result" onBackPress={goTopic} />}
-      footer={
-        session ? (
-          <BottomActionBar
-            label={saveError ? 'Retry save' : nextLesson ? 'Next level' : 'Back to topic'}
-            testID={
-              saveError
-                ? 'grammar-result-retry-save'
-                : nextLesson
-                ? 'grammar-result-next'
-                : 'grammar-result-home'
-            }
-            onPress={saveError ? retrySave : nextLesson ? goNext : goTopic}
-          />
-        ) : null
-      }
-    >
-      {isLoading ? <BrandLoading fill size="md" testID="grammar-result-loading" /> : null}
-      {session ? (
-        <>
-          <CompletionHero
-            situation={(topicQuery.data?.title ?? 'Grammar').toUpperCase()}
-            title={session.completed ? 'Lesson complete' : 'Keep practicing'}
-            message={
-              session.completed
-                ? `You passed with ${session.score}%.${
-                    needsPractice > 0
-                      ? ` Review ${needsPractice} answer${
-                          needsPractice === 1 ? '' : 's'
-                        } to strengthen this tense.`
-                      : ' Great accuracy on this set.'
-                  }`
-                : `You scored ${session.score}%. Reach 70% to mark this lesson complete.`
-            }
-          />
-          <Text style={[styles.section, { color: colors.text }]}>Your result</Text>
-          <View style={styles.metrics}>
-            <ResultMetric type="correct" value={String(session.correctCount)} />
-            <ResultMetric type="needsPractice" value={String(needsPractice)} />
-            <ResultMetric type="score" value={`${session.score}%`} />
-          </View>
-          <Feedback
-            type={
-              saveError
-                ? 'info'
-                : savePaused || savePending
-                ? 'info'
-                : session.completed
-                ? 'success'
-                : 'info'
-            }
-            title={syncTitle}
-            message={syncMessage}
-          />
-          <Text
-            accessibilityRole="button"
-            onPress={retry}
-            style={[styles.retry, { color: colors.primary }]}
-            testID="grammar-result-retry"
-          >
-            Retry
+    <>
+      <LearningScreen
+        testID="grammar-result"
+        header={<TopAppHeader showBack title="Lesson result" onBackPress={goTopic} />}
+        footer={
+          session ? (
+            <BottomActionBar
+              label={saveError ? 'Retry save' : nextLesson ? 'Next level' : 'Back to topic'}
+              testID={
+                saveError
+                  ? 'grammar-result-retry-save'
+                  : nextLesson
+                  ? 'grammar-result-next'
+                  : 'grammar-result-home'
+              }
+              onPress={saveError ? retrySave : nextLesson ? goNext : goTopic}
+            />
+          ) : null
+        }
+      >
+        {isLoading ? <BrandLoading fill size="md" testID="grammar-result-loading" /> : null}
+        {session ? (
+          <>
+            <CompletionHero
+              situation={(topicQuery.data?.title ?? 'Grammar').toUpperCase()}
+              title={session.completed ? 'Lesson complete' : 'Keep practicing'}
+              message={
+                session.completed
+                  ? `You passed with ${session.score}%.${
+                      needsPractice > 0
+                        ? ` Review ${needsPractice} answer${
+                            needsPractice === 1 ? '' : 's'
+                          } to strengthen this tense.`
+                        : ' Great accuracy on this set.'
+                    }`
+                  : `You scored ${session.score}%. Reach 70% to mark this lesson complete.`
+              }
+            />
+            <Text style={[styles.section, { color: colors.text }]}>Your result</Text>
+            <View style={styles.metrics}>
+              <ResultMetric type="correct" value={String(session.correctCount)} />
+              <ResultMetric type="needsPractice" value={String(needsPractice)} />
+              <ResultMetric type="score" value={`${session.score}%`} />
+            </View>
+            <Feedback
+              type={
+                saveError
+                  ? 'info'
+                  : savePaused || savePending
+                  ? 'info'
+                  : session.completed
+                  ? 'success'
+                  : 'info'
+              }
+              title={syncTitle}
+              message={syncMessage}
+            />
+            <Text
+              accessibilityRole="button"
+              onPress={retry}
+              style={[styles.retry, { color: colors.primary }]}
+              testID="grammar-result-retry"
+            >
+              Retry
+            </Text>
+          </>
+        ) : isLoading ? null : (
+          <Text style={[styles.missing, { color: colors.textMuted }]}>
+            This practice session isn’t available anymore (app was restarted or the link expired).
+            Return to Grammar to continue.
           </Text>
-        </>
-      ) : isLoading ? null : (
-        <Text style={[styles.missing, { color: colors.textMuted }]}>
-          This practice session isn’t available anymore (app was restarted or the link expired).
-          Return to Grammar to continue.
-        </Text>
-      )}
-    </LearningScreen>
+        )}
+      </LearningScreen>
+      <StreakReachedModal onContinue={streakModal.dismiss} visible={streakModal.visible} />
+    </>
   );
 }
 

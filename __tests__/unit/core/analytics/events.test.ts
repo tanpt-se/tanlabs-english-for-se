@@ -67,6 +67,11 @@ describe('analytics event whitelist', () => {
     });
   });
 
+  it('accepts streak_day_unlocked with a count', async () => {
+    await trackEvent('streak_day_unlocked', { count: 3, text: 'ignored' });
+    expect(logEvent).toHaveBeenCalledWith(getAnalytics(), 'streak_day_unlocked', { count: 3 });
+  });
+
   it('logs in __DEV__ when Firebase analytics fails', async () => {
     const log = jest.spyOn(console, 'log').mockImplementation(() => undefined);
     mockedLogEvent.mockRejectedValueOnce(new Error('analytics down'));

@@ -64,6 +64,10 @@ jest.mock('@/features/vocabulary/hooks', () => ({
   })),
 }));
 
+jest.mock('@/features/home/hooks/usePracticeStreak', () => ({
+  useStreakCelebration: jest.fn(() => ({ visible: false, dismiss: jest.fn() })),
+}));
+
 const hooks = jest.requireMock('@/features/vocabulary/hooks') as {
   useVocabularyResultSession: jest.Mock;
   useVocabularySituation: jest.Mock;

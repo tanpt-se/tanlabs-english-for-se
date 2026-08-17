@@ -41,8 +41,10 @@ for f in \
   supabase/migrations/016_grammar_v2_seed.sql \
   supabase/migrations/017_vocabulary_core.sql \
   supabase/migrations/018_vocabulary_core_seed.sql \
-  supabase/migrations/019_vocabulary_library_quality.sql \
-  supabase/seed.sql
+    supabase/migrations/019_vocabulary_library_quality.sql \
+    supabase/migrations/020_practice_streak.sql \
+    supabase/migrations/021_enable_learning_flags.sql \
+    supabase/seed.sql
 do
   echo "→ $f"
   psql "$DB_URL" -v ON_ERROR_STOP=1 -f "$f"

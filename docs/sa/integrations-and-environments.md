@@ -37,7 +37,7 @@ Supabase URL + anon key are supplied via env (`.env` / `env.ts`). Separate Supab
 | ---------------------- | -------------------------- | ---------------------------------------------- |
 | `APP_ENV`              | Build pipeline / local env | Selects Firebase folder + runtime expectations |
 | Supabase public keys   | Env files                  | Public; rotate via project settings            |
-| Feature flags          | `app_config` rows          | Runtime; Grammar gated by `feature_grammar`    |
+| Feature flags          | `app_config` rows          | Runtime; Grammar + Vocabulary on via `021`     |
 | Signing / Match / Play | Fastlane / CI secrets      | Never commit                                   |
 
 ## Integration sequences (representative)

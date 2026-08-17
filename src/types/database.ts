@@ -276,6 +276,27 @@ export type Database = {
         };
         Relationships: [];
       };
+      practice_streaks: {
+        Row: {
+          celebrated_dates: string[];
+          practice_dates: string[];
+          updated_at: string;
+          user_id: string;
+        };
+        Insert: {
+          celebrated_dates?: string[];
+          practice_dates?: string[];
+          updated_at?: string;
+          user_id: string;
+        };
+        Update: {
+          celebrated_dates?: string[];
+          practice_dates?: string[];
+          updated_at?: string;
+          user_id?: string;
+        };
+        Relationships: [];
+      };
       profiles: {
         Row: {
           created_at: string;
@@ -743,6 +764,39 @@ export type Database = {
         SetofOptions: {
           from: '*';
           to: 'vocabulary_attempts';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      get_practice_streak: {
+        Args: Record<PropertyKey, never>;
+        Returns: {
+          celebrated_dates: string[];
+          practice_dates: string[];
+          updated_at: string;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'practice_streaks';
+          isOneToOne: true;
+          isSetofReturn: false;
+        };
+      };
+      merge_practice_streak: {
+        Args: {
+          p_celebrated_dates: string[];
+          p_practice_dates: string[];
+        };
+        Returns: {
+          celebrated_dates: string[];
+          practice_dates: string[];
+          updated_at: string;
+          user_id: string;
+        };
+        SetofOptions: {
+          from: '*';
+          to: 'practice_streaks';
           isOneToOne: true;
           isSetofReturn: false;
         };

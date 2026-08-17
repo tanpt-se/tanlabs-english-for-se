@@ -3,7 +3,6 @@ import {
   useCallback,
   useContext,
   useMemo,
-  useReducer,
   useRef,
   useState,
   type ReactNode,
@@ -46,17 +45,16 @@ function sessionKey(input: StartSessionInput): string {
 }
 
 export function PracticeSessionProvider({ children }: { children: ReactNode }) {
-  const [state, dispatchBase] = useReducer(practiceReducer, undefined, createInitialPracticeState);
+  const [state, setState] = useState(createInitialPracticeState);
   const [, setCompletedEpoch] = useState(0);
   const completedRef = useRef<Record<string, CompletedPracticeSession>>({});
   const startedKeyRef = useRef<string | null>(null);
   const stateRef = useRef(state);
-  stateRef.current = state;
 
   const applyAction = useCallback((action: PracticeAction): PracticeState => {
     const next = practiceReducer(stateRef.current, action);
     stateRef.current = next;
-    dispatchBase(action);
+    setState(next);
     return next;
   }, []);
 
@@ -85,14 +83,16 @@ export function PracticeSessionProvider({ children }: { children: ReactNode }) {
       contentRevision: input.contentRevision,
       startedAt: new Date().toISOString(),
     };
-    stateRef.current = practiceReducer(stateRef.current, action);
-    dispatchBase(action);
+    const next = practiceReducer(stateRef.current, action);
+    stateRef.current = next;
+    setState(next);
   }, []);
 
   const clearActiveSession = useCallback(() => {
     startedKeyRef.current = null;
-    dispatchBase({ type: 'reset' });
-    stateRef.current = createInitialPracticeState();
+    const next = createInitialPracticeState();
+    stateRef.current = next;
+    setState(next);
   }, []);
 
   const commitCompletedSession = useCallback(

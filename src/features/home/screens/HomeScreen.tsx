@@ -20,6 +20,7 @@ import {
   ReviewNeededCard,
   StreakCard,
 } from '@/features/home/components';
+import { usePracticeStreak } from '@/features/home/hooks/usePracticeStreak';
 import { useProfile } from '@/features/profile/hooks/useProfile';
 import { useVocabularyWeakProgress } from '@/features/vocabulary/hooks';
 import { useVocabularyProgress } from '@/features/vocabulary/hooks/useVocabularyProgress';
@@ -57,6 +58,7 @@ export function HomeScreen() {
   const vocabularyProgress = useVocabularyProgress();
   const weakQuery = useVocabularyWeakProgress();
   const weakCount = weakQuery.data?.length ?? 0;
+  const streak = usePracticeStreak();
 
   const grammarCompleted = useMemo(() => {
     const topics = grammarTopicsQuery.data ?? [];
@@ -122,7 +124,7 @@ export function HomeScreen() {
           />
         ) : null}
 
-        <StreakCard />
+        <StreakCard days={streak.week} title={streak.title} />
 
         <View style={styles.paths}>
           <Text style={[styles.sectionTitle, { color: colors.text }]}>Learning paths</Text>

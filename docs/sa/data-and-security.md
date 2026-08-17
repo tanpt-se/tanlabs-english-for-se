@@ -28,7 +28,7 @@ app_config (key → jsonb)   # feature flags / remote config
 
 Notable RPC: `claim_device_token` (security definer) for account-switch token ownership.
 
-Migration head at documentation time: `012_grammar_score_validation.sql` (includes `007`–`012` Grammar).
+Migration head at documentation time: `021_enable_learning_flags.sql` (streak `020`, learning flags `021`).
 
 ## Logical data model — Grammar (delivered)
 
@@ -39,9 +39,10 @@ grammar_topics
 
 user_grammar_progress  (per user + lesson)
 grammar_attempts       (immutable completes; unique (user_id, client_attempt_id))
+practice_streaks       (per user; local calendar dates; union via merge_practice_streak)
 ```
 
-Write path: security-definer `complete_grammar_attempt` derives `user_id` from `auth.uid()`, inserts attempt idempotently, upserts progress in one transaction. Migration `012` validates score matches correct/total counts.
+Write path: security-definer `complete_grammar_attempt` derives `user_id` from `auth.uid()`, inserts attempt idempotently, upserts progress in one transaction. Migration `012` validates score matches correct/total counts. Streak writes go through `merge_practice_streak` (no direct client inserts).
 
 Column contracts: migrations `007`–`011`; generated types in `src/types/database.ts`.
 
@@ -55,6 +56,7 @@ Column contracts: migrations `007`–`011`; generated types in `src/types/databa
 | `notification_settings`     | deny            | own                         | deny                | n/a                   |
 | Grammar content (published) | deny\*          | select published            | select published    | **deny**              |
 | Grammar progress/attempts   | deny            | own only                    | deny                | insert via RPC rules  |
+| `practice_streaks`          | deny            | select own; write via RPC   | deny                | **deny** (RPC only)   |
 
 \*Anonymous content access is not required for PH2 learning loop (user is signed in).
 

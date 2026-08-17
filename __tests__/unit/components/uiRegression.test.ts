@@ -68,6 +68,7 @@ describe('WP-04 UI regression guards', () => {
       'src/features/auth/components/AuthHeader.tsx',
       'src/features/home/components/HomeFeatureRow.tsx',
       'src/features/home/components/StreakCard.tsx',
+      'src/features/home/components/StreakReachedModal.tsx',
       'src/features/home/components/ContinueLearningCard.tsx',
       'src/features/home/components/ReviewNeededCard.tsx',
       'src/features/profile/components/ProfileSection.tsx',

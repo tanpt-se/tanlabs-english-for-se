@@ -84,6 +84,29 @@ describe('PH1/PH3 coverage boost', () => {
     expect(root.root.findByProps({ testID: 'confirm-modal-confirm' }).props.label).toContain('…');
   }, 15000);
 
+  it('hides the cancel action for single-button dialogs', async () => {
+    const onContinue = jest.fn();
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(
+        <ConfirmModal
+          visible
+          showCancel={false}
+          title="Today's streak"
+          message="You've hit today's streak. Keep going."
+          confirmLabel="Continue"
+          onCancel={onContinue}
+          onConfirm={onContinue}
+        />,
+      );
+    });
+    expect(root.root.findAllByProps({ testID: 'confirm-modal-cancel' })).toHaveLength(0);
+    await act(() => {
+      root.root.findByProps({ testID: 'confirm-modal-confirm' }).props.onPress();
+    });
+    expect(onContinue).toHaveBeenCalled();
+  });
+
   it('covers FieldTextInput focus, error, helper, and disabled branches', async () => {
     const onBlur = jest.fn();
     const onFocus = jest.fn();

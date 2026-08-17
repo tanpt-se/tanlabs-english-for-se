@@ -20,12 +20,12 @@ Engineers often know technical English passively but struggle to use tense and s
 
 ## Current delivery posture
 
-| Phase   | Business intent                                                                         | System status                                                                                                |
-| ------- | --------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| PH1     | Accounts, profile, secure backend, remote flags, notifications lifecycle, quality gates | **Delivered** (foundation baseline)                                                                          |
-| PH2     | Grammar learn → practise → save progress loop (12 lean topics in 4 categories)          | **Delivered (code + v2 seed)** — production exposure gated by `feature_grammar`                              |
-| PH3     | Vocabulary / Expressions (situation-first; **2000–3000** unique IT terms)               | **VERIFIED** (2026-08-13) — SHA `ef80ae0`; CI + Maestro iOS/Android green; `feature_vocabulary` prod **OFF** |
-| PH4–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                                                                   |
+| Phase   | Business intent                                                                         | System status                                                         |
+| ------- | --------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
+| PH1     | Accounts, profile, secure backend, remote flags, notifications lifecycle, quality gates | **Delivered** (foundation baseline)                                   |
+| PH2     | Grammar learn → practise → save progress loop (12 lean topics in 4 categories)          | **Delivered** — `feature_grammar` on (`021`)                          |
+| PH3     | Vocabulary / Expressions (situation-first; **2000–3000** unique IT terms)               | **Delivered** — `feature_vocabulary` on (`021`); streak sync in `020` |
+| PH4–PH5 | Broader content and coaching capabilities                                               | **Out of near-term scope**                                            |
 
 ## In scope (system today + locked next)
 

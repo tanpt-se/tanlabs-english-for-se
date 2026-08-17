@@ -9,6 +9,8 @@ import { CompletionHero, Feedback, LearningScreen, ResultMetric } from '@/compon
 import { BottomActionBar, TopAppHeader } from '@/components/ui/navigation';
 import { trackEvent } from '@/core/analytics/events';
 import { useAuth } from '@/core/auth/AuthProvider';
+import { StreakReachedModal } from '@/features/home/components';
+import { useStreakCelebration } from '@/features/home/hooks/usePracticeStreak';
 import {
   useCompleteVocabularyAttempt,
   useVocabularyResultSession,
@@ -35,6 +37,10 @@ export function PracticeResultScreen() {
   );
   const needsPractice = session ? Math.max(session.totalCount - session.correctCount, 0) : 0;
   const retryTracked = useRef(false);
+  const streakModal = useStreakCelebration({
+    completedAt: session?.completedAt,
+    userId: user?.id,
+  });
 
   const saveStates = useMutationState({
     filters: { mutationKey: vocabularyCompletionMutationKey },
@@ -146,85 +152,92 @@ export function PracticeResultScreen() {
     : '';
 
   return (
-    <LearningScreen
-      testID="vocabulary-result"
-      contentGap={16}
-      header={<TopAppHeader showBack title="Practice result" onBackPress={goHome} />}
-      footer={
-        session ? (
-          <BottomActionBar
-            label={
-              saveError ? 'Retry save' : needsPractice > 0 ? 'Practice weak items' : 'Back to home'
-            }
-            testID={
-              saveError
-                ? 'vocabulary-result-retry-save'
-                : needsPractice > 0
-                ? 'vocabulary-result-weak'
-                : 'vocabulary-result-home'
-            }
-            onPress={saveError ? retrySave : needsPractice > 0 ? goWeak : goHome}
-          />
-        ) : null
-      }
-    >
-      {isLoading ? <BrandLoading fill size="md" testID="vocabulary-result-loading" /> : null}
-      {session ? (
-        <>
-          <CompletionHero
-            situation={
-              session.situationSlug === 'weak'
-                ? 'WEAK ITEMS'
-                : (situationQuery.data?.title ?? 'Vocabulary').toUpperCase()
-            }
-            title={session.completed ? 'Practice complete' : 'Keep practicing'}
-            message={
-              session.completed
-                ? `You passed with ${session.score}%.${
-                    needsPractice > 0
-                      ? ` Review ${needsPractice} answer${
-                          needsPractice === 1 ? '' : 's'
-                        } to strengthen your vocabulary.`
-                      : ' Excellent work on this set.'
-                  }`
-                : `You scored ${session.score}%. Reach 70% to mark this situation complete.`
-            }
-          />
-          <Text style={[styles.section, { color: colors.text }]}>Your result</Text>
-          <View style={styles.metrics}>
-            <ResultMetric type="correct" value={String(session.correctCount)} />
-            <ResultMetric type="needsPractice" value={String(needsPractice)} />
-            <ResultMetric type="score" value={`${session.score}%`} />
-          </View>
-          <Feedback
-            type={
-              saveError
-                ? 'info'
-                : savePaused || savePending
-                ? 'info'
-                : session.completed
-                ? 'success'
-                : 'info'
-            }
-            title={syncTitle}
-            message={syncMessage}
-          />
-          <Text
-            accessibilityRole="button"
-            onPress={retry}
-            style={[styles.retry, { color: colors.primary }]}
-            testID="vocabulary-result-retry"
-          >
-            Retry
+    <>
+      <LearningScreen
+        testID="vocabulary-result"
+        contentGap={16}
+        header={<TopAppHeader showBack title="Practice result" onBackPress={goHome} />}
+        footer={
+          session ? (
+            <BottomActionBar
+              label={
+                saveError
+                  ? 'Retry save'
+                  : needsPractice > 0
+                  ? 'Practice weak items'
+                  : 'Back to home'
+              }
+              testID={
+                saveError
+                  ? 'vocabulary-result-retry-save'
+                  : needsPractice > 0
+                  ? 'vocabulary-result-weak'
+                  : 'vocabulary-result-home'
+              }
+              onPress={saveError ? retrySave : needsPractice > 0 ? goWeak : goHome}
+            />
+          ) : null
+        }
+      >
+        {isLoading ? <BrandLoading fill size="md" testID="vocabulary-result-loading" /> : null}
+        {session ? (
+          <>
+            <CompletionHero
+              situation={
+                session.situationSlug === 'weak'
+                  ? 'WEAK ITEMS'
+                  : (situationQuery.data?.title ?? 'Vocabulary').toUpperCase()
+              }
+              title={session.completed ? 'Practice complete' : 'Keep practicing'}
+              message={
+                session.completed
+                  ? `You passed with ${session.score}%.${
+                      needsPractice > 0
+                        ? ` Review ${needsPractice} answer${
+                            needsPractice === 1 ? '' : 's'
+                          } to strengthen your vocabulary.`
+                        : ' Excellent work on this set.'
+                    }`
+                  : `You scored ${session.score}%. Reach 70% to mark this situation complete.`
+              }
+            />
+            <Text style={[styles.section, { color: colors.text }]}>Your result</Text>
+            <View style={styles.metrics}>
+              <ResultMetric type="correct" value={String(session.correctCount)} />
+              <ResultMetric type="needsPractice" value={String(needsPractice)} />
+              <ResultMetric type="score" value={`${session.score}%`} />
+            </View>
+            <Feedback
+              type={
+                saveError
+                  ? 'info'
+                  : savePaused || savePending
+                  ? 'info'
+                  : session.completed
+                  ? 'success'
+                  : 'info'
+              }
+              title={syncTitle}
+              message={syncMessage}
+            />
+            <Text
+              accessibilityRole="button"
+              onPress={retry}
+              style={[styles.retry, { color: colors.primary }]}
+              testID="vocabulary-result-retry"
+            >
+              Retry
+            </Text>
+          </>
+        ) : isLoading ? null : (
+          <Text style={[styles.missing, { color: colors.textMuted }]}>
+            This practice session isn’t available anymore (app was restarted or the link expired).
+            Return to Vocabulary to continue.
           </Text>
-        </>
-      ) : isLoading ? null : (
-        <Text style={[styles.missing, { color: colors.textMuted }]}>
-          This practice session isn’t available anymore (app was restarted or the link expired).
-          Return to Vocabulary to continue.
-        </Text>
-      )}
-    </LearningScreen>
+        )}
+      </LearningScreen>
+      <StreakReachedModal onContinue={streakModal.dismiss} visible={streakModal.visible} />
+    </>
   );
 }
 

@@ -12,6 +12,7 @@ type ConfirmModalProps = {
   note?: string;
   onCancel: () => void;
   onConfirm: () => void;
+  showCancel?: boolean;
   title: string;
   visible: boolean;
 };
@@ -29,6 +30,7 @@ export function ConfirmModal({
   note,
   onCancel,
   onConfirm,
+  showCancel = true,
   title,
   visible,
 }: ConfirmModalProps) {
@@ -67,16 +69,18 @@ export function ConfirmModal({
               <Text style={[styles.noteText, { color: colors.textMuted }]}>{note}</Text>
             </View>
           ) : null}
-          <AppButton
-            accessibilityLabel={cancelLabel}
-            accessibilityRole="button"
-            disabled={busy}
-            fullWidth
-            label={cancelLabel}
-            testID="confirm-modal-cancel"
-            variant="secondary"
-            onPress={onCancel}
-          />
+          {showCancel ? (
+            <AppButton
+              accessibilityLabel={cancelLabel}
+              accessibilityRole="button"
+              disabled={busy}
+              fullWidth
+              label={cancelLabel}
+              testID="confirm-modal-cancel"
+              variant="secondary"
+              onPress={onCancel}
+            />
+          ) : null}
           <AppButton
             accessibilityLabel={confirmLabel}
             accessibilityRole="button"

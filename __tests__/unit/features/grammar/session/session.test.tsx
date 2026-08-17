@@ -121,6 +121,46 @@ describe('grammar practice session', () => {
     });
   });
 
+  it('submits after skipping every question without rewinding', async () => {
+    const first = FIXTURE_MC;
+    const second = { ...FIXTURE_MC, id: 'fixture-mc-2' };
+    let api!: ReturnType<typeof usePracticeSession>;
+    function Probe() {
+      api = usePracticeSession();
+      return null;
+    }
+
+    await act(() => {
+      ReactTestRenderer.create(
+        <PracticeSessionProvider>
+          <Probe />
+        </PracticeSessionProvider>,
+      );
+    });
+
+    await act(() => {
+      api.startSession({
+        exercises: [first, second],
+        topicId: 't1',
+        lessonId: 'l1',
+        contentRevision: 1,
+      });
+    });
+
+    await act(() => {
+      expect(api.applyAction({ type: 'skip' }).phase).toBe('answering');
+      expect(api.applyAction({ type: 'skip' }).phase).toBe('reviewing');
+    });
+    expect(api.state.phase).toBe('reviewing');
+
+    await act(() => {
+      const completed = api.applyAction({ type: 'submit' });
+      expect(completed.phase).toBe('completed');
+      expect(api.commitCompletedSession(completed)?.totalCount).toBe(2);
+    });
+    expect(api.state.phase).toBe('completed');
+  });
+
   it('starts once per lesson set and freezes duplicate commits', async () => {
     const mc = FIXTURE_MC;
     let api!: ReturnType<typeof usePracticeSession>;

@@ -66,7 +66,7 @@ Route resolution centralised in `core/auth/routeResolver` to avoid Complete Prof
 
 ## Feature flags
 
-Remote keys on `app_config` drive Home and learning tabs. Grammar remains off in production until `feature_grammar` is intentionally enabled after release sign-off.
+Remote keys on `app_config` drive Home and learning tabs. Grammar and Vocabulary are on in production (`021_enable_learning_flags`); Interview and AI stay off. Client defaults remain fail-closed if `app_config` cannot be fetched.
 
 ## PH2 Grammar module (delivered)
 

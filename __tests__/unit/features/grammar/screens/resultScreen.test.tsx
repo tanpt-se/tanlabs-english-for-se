@@ -65,12 +65,19 @@ jest.mock('@/features/grammar/hooks', () => ({
   })),
 }));
 
+jest.mock('@/features/home/hooks/usePracticeStreak', () => ({
+  useStreakCelebration: jest.fn(() => ({ visible: false, dismiss: jest.fn() })),
+}));
+
 const hooks = jest.requireMock('@/features/grammar/hooks') as {
   useGrammarResultSession: jest.Mock;
   useGrammarTopic: jest.Mock;
   useGrammarLessons: jest.Mock;
 };
 const rq = jest.requireMock('@tanstack/react-query') as { useMutationState: jest.Mock };
+const { useStreakCelebration } = jest.requireMock('@/features/home/hooks/usePracticeStreak') as {
+  useStreakCelebration: jest.Mock;
+};
 
 describe('GrammarResultScreen', () => {
   beforeEach(() => {
@@ -80,6 +87,7 @@ describe('GrammarResultScreen', () => {
       data: { title: 'Present Simple', slug: 'present-simple' },
     });
     hooks.useGrammarLessons.mockReturnValue({ data: [] });
+    useStreakCelebration.mockReturnValue({ visible: false, dismiss: jest.fn() });
   });
 
   it('shows loading then missing session copy', async () => {
@@ -312,5 +320,44 @@ describe('GrammarResultScreen', () => {
         .findAllByType(Text)
         .some((node) => String(node.props.children).includes('Keep practicing')),
     ).toBe(true);
+  });
+
+  it('shows the streak modal after a completed lesson', async () => {
+    const dismiss = jest.fn();
+    useStreakCelebration.mockReturnValue({ visible: true, dismiss });
+    hooks.useGrammarResultSession.mockReturnValue({
+      session: {
+        clientAttemptId: 'attempt-1',
+        topicId: 'topic-1',
+        lessonId: 'lesson-1',
+        contentRevision: 1,
+        correctCount: 8,
+        totalCount: 10,
+        score: 80,
+        completed: true,
+        answers: [],
+        startedAt: 'x',
+        completedAt: 'y',
+      },
+      isLoading: false,
+    });
+
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<GrammarResultScreen />);
+    });
+    expect(useStreakCelebration).toHaveBeenCalledWith({
+      completedAt: 'y',
+      userId: 'user-1',
+    });
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes("Today's streak")),
+    ).toBe(true);
+    await act(() => {
+      root.root.findByProps({ testID: 'confirm-modal-confirm' }).props.onPress();
+    });
+    expect(dismiss).toHaveBeenCalled();
   });
 });

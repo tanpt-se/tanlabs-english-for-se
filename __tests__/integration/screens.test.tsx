@@ -99,6 +99,14 @@ jest.mock('@/features/vocabulary/hooks', () => ({
   useVocabularyWeakProgress: jest.fn(() => ({ data: [] })),
 }));
 
+jest.mock('@/features/home/hooks/usePracticeStreak', () => ({
+  usePracticeStreak: jest.fn(() => ({
+    title: '0 day streak',
+    week: ['today', 'upcoming', 'upcoming', 'upcoming', 'upcoming', 'upcoming', 'upcoming'],
+    refresh: jest.fn(async () => undefined),
+  })),
+}));
+
 const { useAuth } = jest.requireMock('@/core/auth/AuthProvider') as {
   useAuth: jest.Mock;
 };

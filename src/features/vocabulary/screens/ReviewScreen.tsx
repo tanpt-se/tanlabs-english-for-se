@@ -58,6 +58,7 @@ export function ReviewScreen() {
     }
     const next = applyAction({ type: 'submit' });
     if (next.phase !== 'completed') {
+      setSubmitError('Couldn’t submit yet. Finish or skip every question, then try again.');
       return;
     }
     const session = buildCompletedSession(next);

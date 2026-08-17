@@ -17,6 +17,8 @@ Code Connect API maps require a Figma Org/Enterprise Dev seat; until available, 
 | `Navigation/BottomNavigation` | `11:195`   | `src/components/ui/navigation/BottomNavigation.tsx`               |
 | `Feedback/BrandLoading`       | `162:86`   | `src/components/ui/feedback/BrandLoading.tsx`                     |
 | `Feedback/ConfirmModal`       | `93:534`   | `src/components/ui/feedback/ConfirmModal.tsx`                     |
+| `Pattern/StreakCard`          | Home card  | `src/features/home/components/StreakCard.tsx`                     |
+| Streak unlocked (Result)      | `364:684`  | `src/features/home/components/StreakReachedModal.tsx`             |
 | `Feedback/ResultMetric`       | `104:71`   | `src/components/ui/learning/ResultMetric.tsx`                     |
 | `Pattern/LessonCard`          | `11:105`   | `src/features/grammar/components/GrammarTopicCard.tsx`            |
 | `Pattern/LevelSectionHeader`  | `250:332`  | `src/features/vocabulary/components/LevelSectionHeader.tsx`       |

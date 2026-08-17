@@ -19,6 +19,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 
 - Lean Grammar v2: 4 categories / 12 topics / 36 lessons (3 per topic, max 8 exercises); optional Timeline topics; migrations `015`–`016`
 - Vocabulary core + Library: 10 core expressions per situation, 50-phrase overlay, search/filter Library screen; migrations `017`–`019`
+- Practice streak: first Grammar or Vocabulary practice finish of a local day (any score) shows a Continue modal and ticks Home’s week card; signed-in progress syncs through `practice_streaks` / `merge_practice_streak` (`020`)
 
 ### Changed
 
@@ -29,6 +30,7 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 - Grammar catalog is category-first (4 path cards → topic list → 3 numbered lessons) per Figma Screen & Flow; upcoming rows stay tappable and there is no topic checkpoint
 - Vocabulary Home uses situation status cards plus a Library CTA; Situation Detail lists numbered cores with Continue; Term Detail follows Figma 03 (countability, pronunciation, Mark as known). Lean inventory is unchanged
 - Core vocabulary pronunciations are English respelling (not fake IPA slashes); countability is `na` on phrases; Grammar Home/Vocab banners derive path counts from catalog; Library card uses real known/total
+- Production `feature_grammar` and `feature_vocabulary` are on (`021`); Interview and AI stay off
 
 ### Fixed
 
@@ -36,6 +38,8 @@ When cutting a release: move items from `[Unreleased]` into a dated version sect
 - Vocabulary Weak items card uses known/library ratio instead of a fake empty bar
 - Home Continue Learning waits for grammar progress before picking a lesson
 - Situation practice stays on the core list and does not fall back to the full library
+- Grammar/Vocabulary Review Submit after skipping still finishes the attempt (session state no longer rewinds)
+- Practice streak only celebrates when the attempt’s local day is today, stores per signed-in user, and never copies the unscoped device key onto another account
 
 ### Added
 

@@ -27,11 +27,11 @@ Priority: **M** Must | **S** Should | **C** Could.
 
 ## Home and feature exposure
 
-| ID         | Requirement                                                                                                                          | Pri | Status           |
-| ---------- | ------------------------------------------------------------------------------------------------------------------------------------ | --- | ---------------- |
-| FR-HOME-01 | Home shall present feature entries driven by remote flags `feature_grammar`, `feature_vocabulary`, `feature_interview`, `feature_ai` | M   | Delivered        |
-| FR-HOME-02 | When a flag is off, Home shall show a non-interactive coming-soon state for that feature                                             | M   | Delivered        |
-| FR-HOME-03 | Production Grammar entry shall remain closed until PH2 is accepted and `feature_grammar` is intentionally enabled                    | M   | Delivered (gate) |
+| ID         | Requirement                                                                                                                          | Pri | Status    |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------ | --- | --------- |
+| FR-HOME-01 | Home shall present feature entries driven by remote flags `feature_grammar`, `feature_vocabulary`, `feature_interview`, `feature_ai` | M   | Delivered |
+| FR-HOME-02 | When a flag is off, Home shall show a non-interactive coming-soon state for that feature                                             | M   | Delivered |
+| FR-HOME-03 | Production Grammar entry is enabled via `feature_grammar` after PH2 lean sign-off                                                    | M   | Delivered |
 
 ## Notifications
 
@@ -67,14 +67,14 @@ Priority: **M** Must | **S** Should | **C** Could.
 
 ## Vocabulary learning (PH3)
 
-| ID        | Requirement                                                                                                          | Pri | Status           |
-| --------- | -------------------------------------------------------------------------------------------------------------------- | --- | ---------------- |
-| FR-VOC-01 | System shall expose five workplace situations, each with ten core expressions                                        | M   | Delivered        |
-| FR-VOC-02 | Situation practice shall use 5–8 questions drawn from that situation’s core list only                                | M   | Delivered        |
-| FR-VOC-03 | Continue shall open the first unlearned core expression                                                              | M   | Delivered        |
-| FR-VOC-04 | Library shall search the full published catalog (~2000–3000 terms) with situation and CEFR filters; cores rank first | M   | Delivered        |
-| FR-VOC-05 | Term detail shall show POS, countability for words, and authored pronunciation without inventing IPA                 | M   | Delivered        |
-| FR-VOC-06 | Production Vocabulary entry shall remain closed until `feature_vocabulary` is intentionally enabled                  | M   | Delivered (gate) |
+| ID        | Requirement                                                                                                          | Pri | Status    |
+| --------- | -------------------------------------------------------------------------------------------------------------------- | --- | --------- |
+| FR-VOC-01 | System shall expose five workplace situations, each with ten core expressions                                        | M   | Delivered |
+| FR-VOC-02 | Situation practice shall use 5–8 questions drawn from that situation’s core list only                                | M   | Delivered |
+| FR-VOC-03 | Continue shall open the first unlearned core expression                                                              | M   | Delivered |
+| FR-VOC-04 | Library shall search the full published catalog (~2000–3000 terms) with situation and CEFR filters; cores rank first | M   | Delivered |
+| FR-VOC-05 | Term detail shall show POS, countability for words, and authored pronunciation without inventing IPA                 | M   | Delivered |
+| FR-VOC-06 | Production Vocabulary entry is enabled via `feature_vocabulary` after PH3 lean sign-off                              | M   | Delivered |
 
 ## Security and privacy (functional)
 

@@ -569,6 +569,51 @@ async function main() {
       );
     }
 
+    // Practice streak: select own, no direct writes, RPC merge is per-user
+    {
+      const insertStreak = await rest(userA.token, '/practice_streaks', {
+        method: 'POST',
+        body: JSON.stringify({
+          user_id: userA.id,
+          practice_dates: ['2026-08-16'],
+          celebrated_dates: [],
+        }),
+      });
+      assert(!insertStreak.res.ok, 'A must not directly insert practice_streaks');
+
+      const rpcOk = await rest(userA.token, '/rpc/merge_practice_streak', {
+        method: 'POST',
+        body: JSON.stringify({
+          p_practice_dates: ['2026-08-16'],
+          p_celebrated_dates: ['2026-08-16'],
+        }),
+      });
+      assert(rpcOk.res.ok, `merge_practice_streak failed: ${JSON.stringify(rpcOk.body)}`);
+
+      const ownStreak = await rest(userA.token, '/practice_streaks?select=practice_dates');
+      assert(
+        ownStreak.res.ok && Array.isArray(ownStreak.body) && ownStreak.body.length === 1,
+        'A cannot read own practice streak',
+      );
+
+      const crossStreak = await rest(
+        userB.token,
+        `/practice_streaks?user_id=eq.${userA.id}&select=user_id`,
+      );
+      assert(
+        crossStreak.res.ok && Array.isArray(crossStreak.body) && crossStreak.body.length === 0,
+        'B must not read A practice streak',
+      );
+
+      const getB = await rest(userB.token, '/rpc/get_practice_streak', {
+        method: 'POST',
+        body: '{}',
+      });
+      assert(getB.res.ok, `get_practice_streak failed: ${JSON.stringify(getB.body)}`);
+      const bDates = getB.body?.practice_dates ?? getB.body?.[0]?.practice_dates ?? [];
+      assert(Array.isArray(bDates) && bDates.length === 0, 'B RPC must not return A streak dates');
+    }
+
     console.log('RLS verification PASSED');
   } finally {
     const cleanup = await Promise.allSettled([deleteUser(userA), deleteUser(userB)]);

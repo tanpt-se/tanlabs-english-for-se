@@ -230,6 +230,23 @@ describe('GrammarReviewScreen', () => {
     expect(mockNavigate).not.toHaveBeenCalled();
   });
 
+  it('surfaces an error when submit does not complete the attempt', async () => {
+    applyAction.mockReturnValue({ phase: 'reviewing' });
+    let root!: ReactTestRenderer.ReactTestRenderer;
+    await act(() => {
+      root = ReactTestRenderer.create(<GrammarReviewScreen />);
+    });
+    await act(() => {
+      root.root.findByProps({ testID: 'grammar-review-submit' }).props.onPress();
+    });
+    expect(
+      root.root
+        .findAllByType(Text)
+        .some((node) => String(node.props.children).includes('Couldn’t submit yet')),
+    ).toBe(true);
+    expect(commitCompletedSession).not.toHaveBeenCalled();
+  });
+
   it('commits locally, enqueues mutation, and opens Result without waiting for ack', async () => {
     let root!: ReactTestRenderer.ReactTestRenderer;
     await act(() => {
